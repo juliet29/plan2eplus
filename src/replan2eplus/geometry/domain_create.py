@@ -10,9 +10,6 @@ from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.coords import Coord
 
 
-
-
-
 # TODO the below is strictly subsurface related ----------
 
 
@@ -32,6 +29,10 @@ def create_domain_for_nonant(domain: Domain, loc: NonantEntries):
 class Dimension(NamedTuple):
     width: float
     height: float
+
+    @property
+    def as_tuple(self):
+        return (self.width, self.height)
 
 
 ContactEntries = Union[CornerEntries, CardinalEntries, Literal["centroid"]]

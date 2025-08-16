@@ -10,7 +10,6 @@ class EZCase:
     path_to_idd: Path
     path_to_initial_idf: Path
 
-
     # TODO: do these need to be initialized here?
     # path_to_weather: Path
     # path_to_analysis_period: AnalysisPeriod
@@ -20,9 +19,9 @@ class EZCase:
         return self.idf
 
     def add_zones(self, rooms: list[Room]):
-        # TODO - check that idf exists! 
-        self.zones, self.surfaces, self.room_map = create_zones(self.idf, rooms)
-        # when do constructuins, these surfaces will be updated.. 
+        # TODO - check that idf exists!
+        self.zones, self.surfaces = create_zones(self.idf, rooms)
+        # when do constructuins, these surfaces will be updated..
 
 
 if __name__ == "__main__":

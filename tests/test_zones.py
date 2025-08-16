@@ -44,12 +44,12 @@ def test_add_zones(get_pytest_minimal_idf):
 
 def test_add_surfaces_with_zones(get_pytest_minimal_idf):
     idf = get_pytest_minimal_idf
-    _, surfaces, _ = create_zones(idf, test_rooms)
+    _, surfaces = create_zones(idf, test_rooms)
     assert len(surfaces) == len(test_rooms) * N_SURFACES_PER_CUBE
 
 
 if __name__ == "__main__":
     idf = get_minimal_idf()
-    zones, surfaces, _ = create_zones(idf, test_rooms)
+    zones, surfaces = create_zones(idf, test_rooms)
     print(surfaces)
     # EZObject2D(epbunch=)

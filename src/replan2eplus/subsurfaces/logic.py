@@ -1,8 +1,7 @@
 from replan2eplus.errors import BadlyFormatedIDFError, IDFMisunderstandingError
 from replan2eplus.ezobjects.surface import Surface
 from replan2eplus.ezobjects.zone import Zone
-from replan2eplus.subsurfaces.interfaces import Edge
-from replan2eplus.zones.interfaces import RoomMap
+from replan2eplus.subsurfaces.interfaces import ZoneEdge, ZoneDirectionEdge
 
 
 def get_zones_by_plan_name(room_name: str, zones: list[Zone]):
@@ -14,9 +13,9 @@ def get_zones_by_plan_name(room_name: str, zones: list[Zone]):
     return candidates[0]
 
 
-def get_surface_between_zones(edge: Edge, zones: list[Zone]):
-    zone_a = get_zones_by_plan_name(edge.u.name, zones)
-    zone_b = get_zones_by_plan_name(edge.v.name, zones)
+def get_surface_between_zones(edge: ZoneEdge, zones: list[Zone]):
+    zone_a = get_zones_by_plan_name(edge.u, zones)
+    zone_b = get_zones_by_plan_name(edge.v, zones)
 
     candidates: list[Surface] = []
 
@@ -33,11 +32,13 @@ def get_surface_between_zones(edge: Edge, zones: list[Zone]):
         raise BadlyFormatedIDFError(
             f"Should not have more than one shared wall between zones. Between {zone_a.zone_name} and {zone_b.zone_name}, have {len(candidates)} walls: `{candidates}` "
         )
-    return candidates[0]
+    surf = candidates[0]
+    assert surf.neighbor
+    return surf, surf.neighbor
 
 
-def get_surface_between_zone_and_direction(edge: Edge, zones: list[Zone]):
-    zone_a = get_zones_by_plan_name(edge.u.name, zones)
+def get_surface_between_zone_and_direction(edge: ZoneDirectionEdge, zones: list[Zone]):
+    zone_a = get_zones_by_plan_name(edge.u, zones)
     direction = edge.v.name
 
     candidates = zone_a.directed_surfaces[direction]
@@ -50,8 +51,10 @@ def get_surface_between_zone_and_direction(edge: Edge, zones: list[Zone]):
         raise NotImplementedError(
             f"For now, assuming that edges between a zone and a direction are for placing external subsurfaces. There should only be one external subsurface on each facade. Instead found {len(candidates)} surfaces on the {direction} facade of {zone_a.zone_name} "
         )
-    return candidates[0] #TODO in line with above assumption, should make sure all candidates do not have neigboriing surfaces
+    surf = candidates[0]
+    assert not surf.neighbor
+    return surf  # TODO in line with above assumption, should make sure all candidates do not have neigboriing surfaces
 
 
-def get_surfaces_for_all_edges(edges: Edge, room_map: RoomMap):
-    pass # TODO: turn this into an edgelist.. 
+# def get_surfaces_for_all_edges(edges: Edge, room_map: RoomMap):
+#     pass # TODO: turn this into an edgelist..
