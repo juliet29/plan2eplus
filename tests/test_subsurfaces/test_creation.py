@@ -1,15 +1,18 @@
-# TODO should all examples live in one directory or with their creators?
 from geomeppy.idf import new_idf
 
-from replan2eplus.examples.minimal import get_minimal_case_with_rooms, test_rooms
-from replan2eplus.ezobjects.idf import SubsurfaceObject
+from replan2eplus.examples.subsurfaces import (
+    zone_edge,
+    zone_drn_edge,
+    window_details,
+    door_details,
+    room1,
+    room2, 
+    subsurface_object
+)
 from replan2eplus.geometry.directions import WallNormal
-from replan2eplus.geometry.domain_create import Dimension
 from replan2eplus.subsurfaces.interfaces import (
-    Location,
-    ZoneDirectionEdge,
-    ZoneEdge,
-    Details,
+    Edge,
+    flatten_dict_map,
 )
 from replan2eplus.subsurfaces.logic import (
     get_surface_between_zone_and_direction,
@@ -19,25 +22,7 @@ from replan2eplus.subsurfaces.presentation import (
     create_subsurface_for_exterior_edge,
     create_subsurface_for_interior_edge,
 )
-import pytest
 
-room1, room2 = test_rooms
-zone_edge = ZoneEdge(room1.name, room2.name)
-zone_drn_edge = ZoneDirectionEdge(
-    room1.name, WallNormal.EAST
-)  # TODO: WEST should be outer, geometry is messed up
-
-location = Location("mm", "SOUTH_WEST", "SOUTH_WEST")
-factor = 4
-dimension = Dimension(
-    room1.domain.horz_range.size / factor, room1.domain.vert_range.size / factor
-)
-door_details = Details(dimension, location, "Door")
-window_details = Details(dimension, location, "Window")
-
-
-val = 0.5
-ss_obj = SubsurfaceObject("Test", "FakeSurface", val, val, val, val)
 
 # TODO test fail on bad edge..
 # @pytest.mark.skip("Not implemented")
@@ -45,6 +30,17 @@ ss_obj = SubsurfaceObject("Test", "FakeSurface", val, val, val, val)
 #     node_a = Node("fake_room", "Zone")
 #     with pytest.raises:
 #         ...
+
+def test_adding_surface_to_random_idf():
+    idf = new_idf("test")
+    o = idf.newidfobject("WINDOW", **subsurface_object._asdict())
+    assert o.Name == subsurface_object.Name
+
+
+def test_adding_subsurface_to_ez_idf(get_pytest_minimal_case_with_rooms):
+    case = get_pytest_minimal_case_with_rooms
+    result = case.idf.add_subsurface("Window", subsurface_object)
+    assert result.Name == subsurface_object.Name
 
 
 def test_find_correct_surface_between_zones(get_pytest_minimal_case_with_rooms):
@@ -65,6 +61,9 @@ def test_find_correct_surface_between_zone_and_direction(
     assert not surf.neighbor
 
 
+    # Geomeppy IDF doesnt check for valididty, but this method should.. -> ie that the surface matches a zone..
+
+
 def test_create_subsurface_interior(get_pytest_minimal_case_with_rooms):
     case = get_pytest_minimal_case_with_rooms
     subsurface, partner_suburface = create_subsurface_for_interior_edge(
@@ -74,29 +73,33 @@ def test_create_subsurface_interior(get_pytest_minimal_case_with_rooms):
     assert room2.name in partner_suburface.name
 
 
-@pytest.mark.skip()
 def test_create_subsurface_exterior(get_pytest_minimal_case_with_rooms):
     case = get_pytest_minimal_case_with_rooms
-    surface = create_suburface(zone_drn_edge, dimension, location, "Window")
+    subsurface = create_subsurface_for_exterior_edge(
+        zone_drn_edge, window_details, case.zones, case.idf
+    )
+    assert room1.name in subsurface.name
 
 
-def test_adding_surface_to_random_idf():
-    idf = new_idf("test")
-    o = idf.newidfobject("WINDOW", **ss_obj._asdict())
-    assert o.Name == ss_obj.Name
+def test_sorting_directed_edges():
+    edge = Edge("EAST", room1.name)
+    expected_edge = (room1.name, WallNormal.EAST)
+    assert expected_edge == edge.sorted_directed_edge
 
 
-def test_adding_subsurface_to_ez_idf(get_pytest_minimal_case_with_rooms):
-    case = get_pytest_minimal_case_with_rooms
-    result = case.idf.add_subsurface("Window", ss_obj)
-    assert result.Name == ss_obj.Name
-
-    # Geomeppy IDF doesnt check for valididty, but this method should..
+# TODO move to utils4plans!
+def test_flatten_map_dummy_inputs():
+    details_map = {1: [1, 2], 2: [3, 4], 3: [5, 6]}
+    expected = [(1, 1), (1, 2), (2, 3), (2, 4), (3, 5), (3, 6)]
+    result = flatten_dict_map(details_map)
+    assert expected == result
 
 
 if __name__ == "__main__":
-    case = get_minimal_case_with_rooms()
-    obj = SubsurfaceObject("Test", "FakeSurface", 0.5, 0.5, 0.5, 0.5)
-    o = case.idf.idf.newidfobject("WINDOW", **obj._asdict())
-    o.update(obj._asdict())
     pass
+    # case = get_minimal_case_with_rooms()
+    # subsurfaces = create_subsurfaces(edges, details, details_map, case.zones, case.idf)
+    # int_flat = chain_flatten(interior_subsurfaces)
+    # res = int_flat + exterior_subsurfaces
+
+    # pass

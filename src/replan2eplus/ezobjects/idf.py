@@ -52,9 +52,6 @@ class IDF:
     def intersect_match(self):
         self.idf.intersect_match()
 
-    def add_subsurface(self, key: SubsurfaceKey, subsurface_object: SubsurfaceObject):
-        obj0 = self.idf.newidfobject(key.upper(), **subsurface_object._asdict())
-        return obj0
 
     # My functions : )
     # TODO this is a property, unless adding filters later..
@@ -65,3 +62,11 @@ class IDF:
 
     def get_surfaces(self) -> list[EpBunch]:
         return [i for i in self.idf.idfobjects[epkeys.SURFACE]]
+
+
+    def add_subsurface(self, key: SubsurfaceKey, subsurface_object: SubsurfaceObject):
+        surface_names = [i.Name for i in self.get_surfaces()]
+        assert subsurface_object.Building_Surface_Name in surface_names
+        obj0 = self.idf.newidfobject(key.upper(), **subsurface_object._asdict())
+        
+        return obj0

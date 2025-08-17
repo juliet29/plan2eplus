@@ -26,12 +26,6 @@ Domain2 = Domain(RangeX2, RangeY1)
 Height = 3.05  # m
 
 
-# ROOM1_NAME = "room1"
-# ROOM2_NAME = "room2"
-
-# room1 = Room(ROOM1_NAME, Domain1, Height)
-# room2 = Room(ROOM2_NAME, Domain2, Height)
-
 test_rooms = [Room("room1", Domain1, Height), Room("room2", Domain2, Height)]
 
 
@@ -39,3 +33,5 @@ def get_minimal_case_with_rooms():
     case = get_minimal_case()
     case.add_zones(test_rooms)
     return case
+
+
