@@ -7,6 +7,8 @@ from replan2eplus.geometry.domain_calcs import (
     calculate_cardinal_points,
     calculate_corner_points,
 )
+from replan2eplus.geometry.range import compute_multirange, expand_range
+
 
 AXIS = Literal["X", "Y", "Z"]
 
@@ -47,6 +49,18 @@ class Domain(BaseDomain):
     @property
     def nonant(self):
         return Nonant(self.horz_range.trirange, self.vert_range.trirange)  # TODO
+
+
+def expand_domain(domain: Domain, factor: float):
+    horz_range = expand_range(domain.horz_range, factor)
+    vert_range = expand_range(domain.vert_range, factor)
+    return Domain(horz_range, vert_range)
+
+
+def compute_multidomain(domains: list[Domain]):
+    horz_range = compute_multirange([i.horz_range for i in domains])
+    vert_range = compute_multirange([i.vert_range for i in domains])
+    return Domain(horz_range, vert_range)
 
 
 # @dataclass

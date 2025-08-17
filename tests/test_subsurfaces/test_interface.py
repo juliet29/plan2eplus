@@ -17,3 +17,5 @@ if __name__ == "__main__":
     case = get_minimal_case_with_rooms()
     subsurfaces = create_subsurfaces(test_three_details.inputs, case.zones, case.idf)
     assert len(subsurfaces) == 3
+
+# TODO! stronger checks on tehse? rn just checking that get the right number of subsurfaces.. are they on the right faces?

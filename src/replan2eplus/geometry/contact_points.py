@@ -19,6 +19,23 @@ class CardinalPoints:
     def __getitem__(self, item: CardinalEntries) -> Coord:
         return getattr(self, item)
 
+    @property
+    def dict_(self):
+        return {
+            "NORTH": self.NORTH,
+            "EAST": self.EAST,
+            "SOUTH": self.SOUTH,
+            "WEST": self.WEST,
+        }
+
+    # @property
+    # def coord_list(self):
+    #     return [self.NORTH, self.EAST, self.SOUTH, self.WEST]
+
+    # @property
+    # def tuple_list(self):
+    #     return [i.as_tuple for i in self.coord_list]
+
 
 CornerEntries = Literal["NORTH_EAST", "SOUTH_EAST", "SOUTH_WEST", "NORTH_WEST"]
 

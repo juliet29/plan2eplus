@@ -1,5 +1,6 @@
 from eppy.bunch_subclass import EpBunch
 from dataclasses import dataclass, field
+from replan2eplus.errors import BadlyFormatedIDFError
 from replan2eplus.ezobjects.base import EZObject
 
 import replan2eplus.epnames.keys as epkeys
@@ -12,7 +13,7 @@ from replan2eplus.geometry.directions import WallNormal
 T = TypeVar("T")
 
 
-# TOOD move to utils 4 plans..
+# TODO move to utils4plans..
 def sort_and_group_objects_dict(
     lst: Iterable[T], fx: Callable[[T], Any]
 ) -> dict[Any, list[T]]:
@@ -31,10 +32,6 @@ class DirectedSurfaces:
     WEST: list[Surface]
     UP: list[Surface]
     DOWN: list[Surface]
-
-    # @property
-    # def only(self):
-    #     assert
 
 
 @dataclass
@@ -63,5 +60,10 @@ class Zone(EZObject):
         d_names = {k.name: v for k, v in d.items()}
         return d_names  # DirectedSurfaces(**d_names)
 
-
-# TODO create a parent class, but figure out visuals first..
+    @property
+    def domain(self):
+        floors = self.directed_surfaces[WallNormal.DOWN.name]
+        assert len(floors) == 1, BadlyFormatedIDFError(
+            f"Zone {self.zone_name} has 0 or more than 2 floors!: {floors}"
+        )
+        return floors[0].domain #TODO check the plane.. 

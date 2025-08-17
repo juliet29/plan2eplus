@@ -57,22 +57,29 @@ class Range:
 
     @property
     def size(self):
-        return self.max - self.min
+        return abs(self.max - self.min)
 
     @property
     def trirange(self):
         result = np.linspace(self.min, self.max, num=4)
         return TriRange(*[i.item() for i in result])
-    
-
-    def buffered_min(self, val):
-        return self.min + val * self.size
-
-    def buffered_max(self, val):
-        return self.max - val * self.size
 
 
-        # return [self.north.pair, self.south.pair, self.west.pair, self.east.pair]
+def expand_range(base: Range, factor: float):
+    assert factor >= 1, NotImplementedError(
+        "Have not handled shrinking!"
+    )  # TODO not sure about this..
+    new_size = base.size * factor
+    delta = (new_size - base.size) / 2
+    return Range(base.min - delta, base.max + delta)
+
+
+def compute_multirange(ranges: list[Range]):
+    smallest_min = min([i.min for i in ranges])
+    largest_max = max([i.max for i in ranges])
+    return Range(smallest_min, largest_max)
+
+    # return [self.north.pair, self.south.pair, self.west.pair, self.east.pair]
 
     # @classmethod
     # def from_list_of_coords(cls, coords:list[Coord]):

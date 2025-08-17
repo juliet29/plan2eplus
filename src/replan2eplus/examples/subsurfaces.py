@@ -20,6 +20,8 @@ val = 0.5
 random_surface_name = "Block `room1` Storey 0 Wall 0003"
 subsurface_object = SubsurfaceObject("Test", random_surface_name, val, val, val, val)
 
+
+# TODO probably a good idea to put these in classes..?
 zone_edge = ZoneEdge(room1.name, room2.name)
 zone_drn_edge = ZoneDirectionEdge(room1.name, WallNormal.EAST)
 
