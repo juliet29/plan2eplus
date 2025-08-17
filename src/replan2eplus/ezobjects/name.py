@@ -9,8 +9,8 @@ class IDFName(NamedTuple):
     plan_name: str
     # storey_name: str
     # surface_type: SurfaceTypes | str
-    # n_direction: str
-    # n_position: str
+    n_direction: str
+    n_position: str
     # object_type: str
 
     # @property
@@ -18,17 +18,24 @@ class IDFName(NamedTuple):
     #     assert self.zone_name
     #     return int(self.zone_name.split(" ")[1])
 
-    # @property
-    # def direction_number(self):
-    #     assert self.n_direction
-    #     return int(self.n_direction)
+    @property
+    def direction_number(self):
+        assert self.n_direction
+        return int(self.n_direction)
 
-    # @property
-    # def position_number(self):
-    #     if self.n_position:
-    #         return int(self.n_position.split("_")[1])
-    #     else:
-    #         return 0
+    @property
+    def position_number(self):
+        if self.n_position:
+            return int(self.n_position.split("_")[1])
+        else:
+            return ""
+
+    @property
+    def full_number(self):
+        if self.position_number:
+            return f"{self.direction_number}_{self.position_number}"
+        else:
+            return str(self.direction_number)
 
     # @property
     # def recreate_zone_name(self):
@@ -57,14 +64,19 @@ def decompose_idf_name(name: str):
     n_position = re.compile(r"_\d{1,2}\b")
     object_type = re.compile(r"(Window|Door)")
 
+    # s = IDFName(
+    #     # zone_name=match(block),
+    #     plan_name=match(plan_name).replace("`", ""),
+    #     # storey_name=match(storey),
+    #     # surface_type=match(surface_type),
+    #     match(n_direction),
+    #     match(n_position),
+    #     # match(object_type),
+    # )
     s = IDFName(
-        # zone_name=match(block),
-        plan_name=match(plan_name).replace("`", ""),
-        # storey_name=match(storey),
-        # surface_type=match(surface_type),
-        # match(n_direction),
-        # match(n_position),
-        # match(object_type),
+        match(plan_name).replace("`", ""),
+        match(n_direction),
+        match(n_position),
     )
 
     return s

@@ -34,7 +34,9 @@ def get_surface_between_zones(edge: ZoneEdge, zones: list[Zone]):
         )
     surf = candidates[0]
     assert surf.neighbor
-    return surf, surf.neighbor
+    neigbor = [i for i in zone_b.surfaces if i.surface_name == surf.neighbor]
+    assert len(neigbor) == 1
+    return surf, neigbor[0]
 
 
 def get_surface_between_zone_and_direction(edge: ZoneDirectionEdge, zones: list[Zone]):

@@ -1,13 +1,14 @@
 from geomeppy.idf import new_idf
 
+from replan2eplus.examples.minimal import get_minimal_case_with_rooms
 from replan2eplus.examples.subsurfaces import (
     zone_edge,
     zone_drn_edge,
     window_details,
     door_details,
     room1,
-    room2, 
-    subsurface_object
+    room2,
+    subsurface_object,
 )
 from replan2eplus.geometry.directions import WallNormal
 from replan2eplus.subsurfaces.interfaces import (
@@ -31,6 +32,7 @@ from replan2eplus.subsurfaces.presentation import (
 #     with pytest.raises:
 #         ...
 
+
 def test_adding_surface_to_random_idf():
     idf = new_idf("test")
     o = idf.newidfobject("WINDOW", **subsurface_object._asdict())
@@ -47,7 +49,7 @@ def test_find_correct_surface_between_zones(get_pytest_minimal_case_with_rooms):
     case = get_pytest_minimal_case_with_rooms
     surf, nb = get_surface_between_zones(zone_edge, case.zones)
     assert surf.surface_name == "Block `room1` Storey 0 Wall 0001_1"
-    assert nb == "Block `room2` Storey 0 Wall 0003_1"
+    assert nb.surface_name == "Block `room2` Storey 0 Wall 0003_1"
 
 
 def test_find_correct_surface_between_zone_and_direction(
@@ -60,7 +62,6 @@ def test_find_correct_surface_between_zone_and_direction(
     )  # TODO just guessing might be wrong
     assert not surf.neighbor
 
-
     # Geomeppy IDF doesnt check for valididty, but this method should.. -> ie that the surface matches a zone..
 
 
@@ -69,8 +70,8 @@ def test_create_subsurface_interior(get_pytest_minimal_case_with_rooms):
     subsurface, partner_suburface = create_subsurface_for_interior_edge(
         zone_edge, door_details, case.zones, case.idf
     )
-    assert room1.name in subsurface.name
-    assert room2.name in partner_suburface.name
+    assert room1.name in subsurface.subsurface_name
+    assert room2.name in partner_suburface.subsurface_name
 
 
 def test_create_subsurface_exterior(get_pytest_minimal_case_with_rooms):
@@ -78,7 +79,7 @@ def test_create_subsurface_exterior(get_pytest_minimal_case_with_rooms):
     subsurface = create_subsurface_for_exterior_edge(
         zone_drn_edge, window_details, case.zones, case.idf
     )
-    assert room1.name in subsurface.name
+    assert room1.name in subsurface.subsurface_name
 
 
 def test_sorting_directed_edges():
@@ -96,8 +97,13 @@ def test_flatten_map_dummy_inputs():
 
 
 if __name__ == "__main__":
+    case = get_minimal_case_with_rooms()
+    subsurface = create_subsurface_for_exterior_edge(
+        zone_drn_edge, window_details, case.zones, case.idf
+    )
+    dom = subsurface
+    print(dom)
     pass
-    # case = get_minimal_case_with_rooms()
     # subsurfaces = create_subsurfaces(edges, details, details_map, case.zones, case.idf)
     # int_flat = chain_flatten(interior_subsurfaces)
     # res = int_flat + exterior_subsurfaces

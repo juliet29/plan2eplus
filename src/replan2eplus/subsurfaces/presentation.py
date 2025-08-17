@@ -41,9 +41,11 @@ def create_subsurface_for_interior_edge(
     main_obj = idf.add_subsurface(
         key, prepare_object(main_surface.surface_name, subsurf_domain, detail)
     )
-    nb_obj = idf.add_subsurface(key, prepare_object(nb_surface, subsurf_domain, detail))
+    nb_obj = idf.add_subsurface(
+        key, prepare_object(nb_surface.surface_name, subsurf_domain, detail)
+    )
 
-    return Subsurface(main_obj, key), Subsurface(nb_obj, key)
+    return Subsurface(main_obj, key, main_surface), Subsurface(nb_obj, key, nb_surface)
 
 
 def create_subsurface_for_exterior_edge(
@@ -56,7 +58,7 @@ def create_subsurface_for_exterior_edge(
     obj = idf.add_subsurface(
         key, prepare_object(surface.surface_name, subsurf_domain, detail)
     )
-    return Subsurface(obj, key)
+    return Subsurface(obj, key, surface)
 
 
 # TODO this should be dealing w/ different APIs..

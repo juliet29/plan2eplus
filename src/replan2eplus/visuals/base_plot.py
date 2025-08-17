@@ -6,13 +6,16 @@ from replan2eplus.ezobjects.subsurface import Subsurface
 from replan2eplus.ezobjects.surface import Surface
 from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.geometry.domain import compute_multidomain, expand_domain
-from replan2eplus.visuals.calcs import domain_to_mpl_patch
+from replan2eplus.visuals.calcs import domain_to_line, domain_to_mpl_patch
 
 
 expansion_factor = 1.3
+# line
 edge_color = "black"
 alpha = 0.2
 
+# annotations
+annotation_font_size = "x-small"
 alignment = {
     "horizontalalignment": "center",
     "verticalalignment": "center",
@@ -22,7 +25,7 @@ alignment = {
 @dataclass
 class BasePlot:
     zones: list[Zone]
-    sufaces: list[Surface]
+    # sufaces: list[Surface]
     # subsurface: list[Subsurface]
     axes: Axes = plt.subplot()
 
@@ -30,6 +33,7 @@ class BasePlot:
         if not self.axes:
             self.axes = plt.subplot()
         self.total_domain = compute_multidomain([i.domain for i in self.zones])
+        # TODO defaults for these things?
         # self.extents = expand_domain(self.total_domain, expansion_factor)
         # self.cardinal_domain = expand_domain(self.total_domain, expansion_factor)
 
@@ -42,7 +46,7 @@ class BasePlot:
 
     def plot_zone_names(
         self,
-        fontsize="x-small",
+        fontsize=annotation_font_size,
     ):
         for zone in self.zones:
             self.axes.text(
@@ -55,18 +59,37 @@ class BasePlot:
 
     def plot_cardinal(
         self,
-        fontsize="x-small",
-        expansion_factor=expansion_factor
+        fontsize=annotation_font_size,
+        cardinal_expansion_factor=expansion_factor,
+        extents_expansion_factor=expansion_factor,
     ):
-        
-        # graph gets wider to show the cardinal stuff..
-        self.extents = expand_domain(self.cardinal_domain, expansion_factor)
+        self.cardinal_domain = expand_domain(
+            self.total_domain, cardinal_expansion_factor
+        )
+        self.extents = expand_domain(self.cardinal_domain, extents_expansion_factor)
 
         for key, value in self.cardinal_domain.cardinal.dict_.items():
             self.axes.text(*value, s=key, fontsize=fontsize, **alignment)
         return self
 
+    def plot_surfaces(self, surfaces: list[Surface], fontsize=annotation_font_size):
+        for surface in surfaces:
+            line = domain_to_line(surface.domain)
+            self.axes.add_artist(line.to_line2D)
+            self.axes.text(
+                *line.centroid,
+                s=surface.display_name,
+                fontsize=fontsize,
+                # TODO the alignment actually depends on the direction rip.. 
+                # horizontalalignment="center",
+                # verticalalignment="top",
+            )  # type: ignore
+        return self
+
     def show(self):
+        assert self.extents, (
+            "Extents has not been initialized!"
+        )  # TODO: handle this better..
         self.axes.set_xlim(self.extents.horz_range.as_tuple)
         self.axes.set_ylim(self.extents.vert_range.as_tuple)
         plt.show()

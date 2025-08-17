@@ -1,4 +1,4 @@
-from replan2eplus.ezobjects.object2D import EZObject2D
+from replan2eplus.ezobjects.base import EZObject
 from dataclasses import dataclass
 import replan2eplus.epnames.keys as epkeys
 from enum import StrEnum, Enum
@@ -6,7 +6,9 @@ from typing import Literal
 from replan2eplus.errors import IDFMisunderstandingError, BadlyFormatedIDFError
 from eppy.bunch_subclass import EpBunch
 
+from replan2eplus.geometry.coords import Coordinate3D
 from replan2eplus.geometry.directions import WallNormal
+from replan2eplus.geometry.plane import compute_unit_normal, create_domain_from_coords
 
 
 # NOTE: this code showcases what could be a recurring pattern for wrapping geomeppy/eppy outputs -> has to be returned in an enum, but then can access using string literals and get hints
@@ -25,10 +27,11 @@ SurfaceTypeNames = Literal["floor", "roof", "wall"]
 
 
 @dataclass
-class Surface(EZObject2D):
+class Surface(EZObject):
     # TODO turn to class (instead of) if have to init later..?  / read python docs..
     _epbunch: EpBunch
     expected_key: str = epkeys.SURFACE
+
     def __post_init__(self):
         assert self.expected_key == epkeys.SURFACE
 
@@ -39,6 +42,10 @@ class Surface(EZObject2D):
     @property
     def zone_name(self):
         return self._epbunch.Zone_Name
+
+    @property
+    def domain(self):
+        return get_surface_domain(self._epbunch)
 
     @property
     def type_(self) -> SurfaceTypeNames:
@@ -61,6 +68,11 @@ class Surface(EZObject2D):
                 raise BadlyFormatedIDFError("Invalid surface type!")
 
     @property
+    def display_name(self):
+        num = f"-{self._dname.position_number}" if self._dname.position_number else ""
+        return f"{self._dname.plan_name}\n{self.direction.name}" + num
+
+    @property
     def boundary_condition(self) -> SurfaceBoundaryConditionNames:
         return SurfaceBoundaryCondition(self._epbunch.Outside_Boundary_Condition).name
 
@@ -70,7 +82,19 @@ class Surface(EZObject2D):
             return str(self._epbunch.Outside_Boundary_Condition_Object)  #
         else:
             return None
-            # raise IDFMisunderstandingError(
-            #     "This surface has no neighbor!"
-            # )  # maybe better to return the direction? ->
-            # # TODO could have a neighbor in a multistory situation though..
+
+
+def get_surface_coords(surface: EpBunch):
+    surf_coords = surface.coords
+    assert surf_coords
+    return [Coordinate3D(*i) for i in surf_coords]
+
+
+def get_surface_domain(surface: EpBunch):
+    coords = get_surface_coords(surface)
+    unit_normal_drn = compute_unit_normal([coord.as_three_tuple for coord in coords])
+    return create_domain_from_coords(unit_normal_drn, coords)
+    # raise IDFMisunderstandingError(
+    #     "This surface has no neighbor!"
+    # )  # maybe better to return the direction? ->
+    # # TODO could have a neighbor in a multistory situation though..
