@@ -28,14 +28,6 @@ class CardinalPoints:
             "WEST": self.WEST,
         }
 
-    # @property
-    # def coord_list(self):
-    #     return [self.NORTH, self.EAST, self.SOUTH, self.WEST]
-
-    # @property
-    # def tuple_list(self):
-    #     return [i.as_tuple for i in self.coord_list]
-
 
 CornerEntries = Literal["NORTH_EAST", "SOUTH_EAST", "SOUTH_WEST", "NORTH_WEST"]
 
@@ -52,7 +44,9 @@ class CornerPoints:
 
     @property
     def coord_list(self):
-        return [self.NORTH_EAST, self.SOUTH_EAST, self.SOUTH_WEST, self.NORTH_WEST]
+        # this is clock wise not counter clockwise
+        # return [self.NORTH_EAST, self.SOUTH_EAST, self.SOUTH_WEST, self.NORTH_WEST]
+        return [self.NORTH_EAST, self.NORTH_WEST, self.SOUTH_WEST, self.SOUTH_EAST]
 
     @property
     def tuple_list(self):

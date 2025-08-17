@@ -48,8 +48,8 @@ def test_adding_subsurface_to_ez_idf(get_pytest_minimal_case_with_rooms):
 def test_find_correct_surface_between_zones(get_pytest_minimal_case_with_rooms):
     case = get_pytest_minimal_case_with_rooms
     surf, nb = get_surface_between_zones(zone_edge, case.zones)
-    assert surf.surface_name == "Block `room1` Storey 0 Wall 0001_1"
-    assert nb.surface_name == "Block `room2` Storey 0 Wall 0003_1"
+    assert surf.direction == WallNormal.EAST
+    assert nb.direction == WallNormal.WEST
 
 
 def test_find_correct_surface_between_zone_and_direction(
@@ -58,7 +58,7 @@ def test_find_correct_surface_between_zone_and_direction(
     case = get_pytest_minimal_case_with_rooms
     surf = get_surface_between_zone_and_direction(zone_drn_edge, case.zones)
     assert (
-        surf.surface_name == "Block `room1` Storey 0 Wall 0003"
+        surf.direction == WallNormal.WEST
     )  # TODO just guessing might be wrong
     assert not surf.neighbor
 

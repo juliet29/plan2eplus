@@ -69,7 +69,8 @@ class Surface(EZObject):
 
     @property
     def display_name(self):
-        num = f"-{self._dname.position_number}" if self._dname.position_number else ""
+        # num = f"-{self._dname.position_number}" if self._dname.position_number else ""
+        num = self._dname.full_number
         return f"{self._dname.plan_name}\n{self.direction.name}" + num
 
     @property

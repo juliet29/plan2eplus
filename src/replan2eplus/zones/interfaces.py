@@ -14,7 +14,7 @@ class Room:
 
     @property
     def coords(self):
-        return self.domain.bounds
+        return self.domain.corner.tuple_list
 
     @property
     def room_name(self):
@@ -49,4 +49,4 @@ class RoomMap:
         except AssertionError:
             raise IDFMisunderstandingError(f"Invalid room name: `{name}` is not in []")
 
-    # TODO also handle directions -> NORTH EAST etc..  -> should be validate name, not validate room? 
+    # TODO also handle directions -> NORTH EAST etc..  -> should be validate name, not validate room?

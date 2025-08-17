@@ -23,5 +23,5 @@ class WallNormal(IntEnum):
         return list(cls.__members__.keys())
 
 
-WallNormalLiteral = Literal["NORTH", "EAST", "SOUT", "WEST", "UP", "DOWN"]
-WallNormalNamesList = ["NORTH", "EAST", "SOUT", "WEST", "UP", "DOWN"]
+WallNormalLiteral = Literal["NORTH", "EAST", "SOUTH", "WEST", "UP", "DOWN"]
+WallNormalNamesList = ["NORTH", "EAST", "SOUTH", "WEST", "UP", "DOWN"]

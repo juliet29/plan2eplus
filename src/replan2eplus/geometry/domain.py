@@ -42,9 +42,9 @@ class Domain(BaseDomain):
     def corner(self):  # TODO should these be anscestors?
         return calculate_corner_points(self)  # TODO
 
-    @property
-    def bounds(self):
-        return self.corner.tuple_list
+    # @property
+    # def bounds(self):
+    #     return self.corner.tuple_list
 
     @property
     def nonant(self):
