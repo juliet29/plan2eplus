@@ -1,3 +1,4 @@
+from re import L
 from replan2eplus.ezobjects.base import EZObject
 from dataclasses import dataclass
 import replan2eplus.epnames.keys as epkeys
@@ -50,6 +51,7 @@ class Surface(EZObject):
 
     def __post_init__(self):
         assert self.expected_key == epkeys.SURFACE
+
 
     @property
     def surface_name(self):

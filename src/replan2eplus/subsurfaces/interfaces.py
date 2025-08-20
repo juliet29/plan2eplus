@@ -23,6 +23,10 @@ class Edge(NamedTuple):
         return self.u in WallNormalNamesList or self.v in WallNormalNamesList
 
     @property
+    def as_tuple(self):
+        return (self.u, self.v)
+
+    @property
     def sorted_directed_edge(self):
         if self.is_directed_edge:
             zone, drn = sorted(

@@ -9,7 +9,7 @@ from typing import Callable, Iterable, TypeVar, Any
 from itertools import groupby
 
 from replan2eplus.geometry.directions import WallNormal
-from replan2eplus.subsurfaces.presentation import chain_flatten
+from utils4plans.lists import chain_flatten
 
 T = TypeVar("T")
 

@@ -44,6 +44,9 @@ class IDF:
 
     def get_surfaces(self) -> list[EpBunch]:
         return [i for i in self.idf.idfobjects[epkeys.SURFACE]]
+    
+    def get_subsurfaces(self) -> list[EpBunch]:
+        return self.idf.getsubsurfaces()
 
     def get_materials(self) -> list[EpBunch]:
         materials = []
@@ -54,6 +57,8 @@ class IDF:
 
     def get_constructions(self) -> list[EpBunch]:
         return self.idf.idfobjects[epkeys.CONSTRUCTION]
+    
+
 
     # @property
     # def subsurfaces(self):

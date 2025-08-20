@@ -6,6 +6,7 @@ from replan2eplus.ezobjects.zone import Zone
 import pytest
 import replan2eplus.epnames.keys as keys
 from replan2eplus.examples.subsurfaces import get_minimal_case_with_subsurfaces
+from replan2eplus.idfobjects.idf import IDF
 
 
 N_SURFACES_PER_CUBE = 6
