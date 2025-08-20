@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from pathlib import Path
-from replan2eplus.ezobjects.idf import IDF
+from replan2eplus.idfobjects.idf import IDF
 from replan2eplus.subsurfaces.interfaces import SubsurfaceInputs
 from replan2eplus.subsurfaces.presentation import create_subsurfaces
 from replan2eplus.zones.interfaces import Room

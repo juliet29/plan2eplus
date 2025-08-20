@@ -6,7 +6,12 @@ from replan2eplus.ezobjects.subsurface import Subsurface
 from replan2eplus.ezobjects.surface import Surface
 from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.geometry.domain import compute_multidomain, expand_domain
-from replan2eplus.visuals.calcs import domain_to_line, domain_to_mpl_patch
+from replan2eplus.subsurfaces.utils import filter_subsurfaces
+from replan2eplus.visuals.calcs import (
+    domain_to_line,
+    domain_to_mpl_patch,
+    subsurface_connection,
+)
 
 
 expansion_factor = 1.3
@@ -21,21 +26,28 @@ alignment = {
     "verticalalignment": "center",
 }
 
+# sufaces: list[Surface]
+# subsurface: list[Subsurface]
+
 
 @dataclass
 class BasePlot:
     zones: list[Zone]
-    # sufaces: list[Surface]
-    # subsurface: list[Subsurface]
     axes: Axes = plt.subplot()
+    cardinal_expansion_factor: float = expansion_factor
+    extents_expansion_factor: float = expansion_factor
 
     def __post_init__(self):
         if not self.axes:
             self.axes = plt.subplot()
         self.total_domain = compute_multidomain([i.domain for i in self.zones])
-        # TODO defaults for these things?
-        # self.extents = expand_domain(self.total_domain, expansion_factor)
-        # self.cardinal_domain = expand_domain(self.total_domain, expansion_factor)
+
+        self.cardinal_domain = expand_domain(
+            self.total_domain, self.cardinal_expansion_factor
+        )
+        self.extents = expand_domain(
+            self.cardinal_domain, self.extents_expansion_factor
+        )
 
     def plot_zones(self, edge_color=edge_color, alpha=alpha):
         patches = [domain_to_mpl_patch(i.domain) for i in self.zones]
@@ -60,14 +72,7 @@ class BasePlot:
     def plot_cardinal(
         self,
         fontsize=annotation_font_size,
-        cardinal_expansion_factor=expansion_factor,
-        extents_expansion_factor=expansion_factor,
     ):
-        self.cardinal_domain = expand_domain(
-            self.total_domain, cardinal_expansion_factor
-        )
-        self.extents = expand_domain(self.cardinal_domain, extents_expansion_factor)
-
         for key, value in self.cardinal_domain.cardinal.dict_.items():
             self.axes.text(*value, s=key, fontsize=fontsize, **alignment)
         return self
@@ -80,10 +85,30 @@ class BasePlot:
                 *line.centroid,
                 s=surface.display_name,
                 fontsize=fontsize,
-                # TODO the alignment actually depends on the direction rip.. 
-                # horizontalalignment="center",
-                # verticalalignment="top",
             )  # type: ignore
+        return self
+
+    def plot_subsurfaces(
+        self, subsurfaces: list[Subsurface], fontsize=annotation_font_size
+    ):
+        ss = filter_subsurfaces(subsurfaces)
+        for subsurf in ss:
+            line = domain_to_line(subsurf.domain)
+            self.axes.add_artist(line.to_line2D)
+            self.axes.text(
+                *line.centroid,
+                s=subsurf.display_name,
+                **line.alignment,
+                fontsize=fontsize,
+            )  # type: ignore
+            # TODO add legend
+        return self
+
+    def plot_connections(self, subsurfaces: list[Subsurface]):
+        for ss in subsurfaces:
+            line = subsurface_connection(ss, self.zones, self.cardinal_domain.cardinal)
+            self.axes.add_artist(line)
+
         return self
 
     def show(self):
@@ -92,4 +117,5 @@ class BasePlot:
         )  # TODO: handle this better..
         self.axes.set_xlim(self.extents.horz_range.as_tuple)
         self.axes.set_ylim(self.extents.vert_range.as_tuple)
+
         plt.show()

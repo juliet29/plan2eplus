@@ -1,10 +1,11 @@
 from utils4plans.lists import chain_flatten
 
-from replan2eplus.ezobjects.idf import IDF, SubsurfaceKey, SubsurfaceObject
-from replan2eplus.ezobjects.subsurface import Subsurface
+from replan2eplus.idfobjects.idf import IDF
+from replan2eplus.ezobjects.subsurface import GenericEdge, Subsurface
 from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.domain_create import place_domain
+from replan2eplus.idfobjects.subsurface import SubsurfaceKey, SubsurfaceObject
 from replan2eplus.subsurfaces.interfaces import (
     Details,
     SubsurfaceInputs,
@@ -45,7 +46,9 @@ def create_subsurface_for_interior_edge(
         key, prepare_object(nb_surface.surface_name, subsurf_domain, detail)
     )
 
-    return Subsurface(main_obj, key, main_surface), Subsurface(nb_obj, key, nb_surface)
+    return Subsurface(main_obj, key, main_surface, GenericEdge(*edge)), Subsurface(
+        nb_obj, key, nb_surface, GenericEdge(*edge)
+    )
 
 
 def create_subsurface_for_exterior_edge(
@@ -58,7 +61,7 @@ def create_subsurface_for_exterior_edge(
     obj = idf.add_subsurface(
         key, prepare_object(surface.surface_name, subsurf_domain, detail)
     )
-    return Subsurface(obj, key, surface)
+    return Subsurface(obj, key, surface, GenericEdge(*edge))
 
 
 # TODO this should be dealing w/ different APIs..
@@ -67,7 +70,8 @@ def create_subsurfaces(
     zones: list[Zone],
     idf: IDF,
 ):
-    interior_subsurfaces = chain_flatten(
+    # TODO fix chain_flatten in utils4plans to use typevar
+    interior_subsurfaces: list[Subsurface] = chain_flatten(
         [
             create_subsurface_for_interior_edge(edge, detail, zones, idf)
             for edge, detail in inputs.zone_pairs

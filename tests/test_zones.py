@@ -5,6 +5,7 @@ from replan2eplus.errors import InvalidEpBunchError
 from replan2eplus.ezobjects.zone import Zone
 import pytest
 import replan2eplus.epnames.keys as keys
+from replan2eplus.examples.subsurfaces import get_minimal_case_with_subsurfaces
 
 
 N_SURFACES_PER_CUBE = 6
@@ -32,7 +33,6 @@ def test_zone_names(get_pytest_example_idf):  # TODO more thorough test of names
     zone = Zone(zones[0])
     assert zone._dname.plan_name == "a"
 
-
 ## NOTE: This is more zone specific
 
 
@@ -48,8 +48,17 @@ def test_add_surfaces_with_zones(get_pytest_minimal_idf):
     assert len(surfaces) == len(test_rooms) * N_SURFACES_PER_CUBE
 
 
+def test_get_zone_subsurfaces(get_pytest_minimal_case_with_subsurfaces):
+    case = get_pytest_minimal_case_with_subsurfaces
+    zone = case.zones[0]
+    assert len(zone.subsurface_names) == 2
+
 if __name__ == "__main__":
-    idf = get_minimal_idf()
-    zones, surfaces = create_zones(idf, test_rooms)
-    print(surfaces)
-    # EZObject2D(epbunch=)
+    case = get_minimal_case_with_subsurfaces()
+    z = case.zones[0]
+    ss = z.subsurface_names
+    print(ss)
+    # idf = get_minimal_idf()
+    # zones, surfaces = create_zones(idf, test_rooms)
+    # print(surfaces)
+    # # EZObject2D(epbunch=)

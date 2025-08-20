@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 from replan2eplus.errors import IDFMisunderstandingError
 from replan2eplus.geometry.domain import Domain
-from replan2eplus.ezobjects.idf import GeomeppyBlock
+from replan2eplus.idfobjects.zone import GeomeppyBlock
 from typing import NamedTuple
 
 
@@ -14,7 +14,7 @@ class Room:
 
     @property
     def coords(self):
-        return self.domain.corner.tuple_list
+        return self.domain.corner.tuple_list # NOTE: this translation ensures that the domain is in the correct order, but should I have another check? 
 
     @property
     def room_name(self):

@@ -1,3 +1,4 @@
+from replan2eplus.examples.subsurfaces import get_minimal_case_with_subsurfaces
 from replan2eplus.ezobjects.surface import Surface
 import replan2eplus.epnames.keys as keys
 from replan2eplus.examples.existing import get_example_idf
@@ -23,9 +24,12 @@ def test_get_surface_neighbor(get_pytest_example_idf):
 
     assert indoor_surfaces[0].neighbor
 
+    
+
 
 if __name__ == "__main__":
-    idf = get_example_idf()
-    surfaces = idf.get_surfaces()
-    s = Surface(surfaces[0])
-    print(surfaces[0])
+    case = get_minimal_case_with_subsurfaces()
+    surfaces = case.surfaces
+    sf = surfaces[0]
+    subsurfaces = [i.subsurface_names for i in surfaces]
+    print(subsurfaces)

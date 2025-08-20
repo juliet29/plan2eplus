@@ -1,11 +1,17 @@
 from dataclasses import dataclass
 from typing import NamedTuple, Literal, TypeVar
+from replan2eplus.ezobjects.subsurface import Subsurface
+from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.geometry.contact_points import CornerEntries
 from replan2eplus.geometry.directions import WallNormal, WallNormalNamesList
 from replan2eplus.geometry.domain_create import Dimension
 from replan2eplus.geometry.nonant import NonantEntries
-
-
+from replan2eplus.idfobjects.afn import (
+    AFNSimpleOpening,
+    AFNSimulationControl,
+    AFNSurface,
+    AFNZone,
+)
 
 
 class Edge(NamedTuple):
@@ -36,12 +42,11 @@ class ZoneEdge(NamedTuple):
     u: str
     v: str
 
+
 class Location(NamedTuple):
     nonant_loc: NonantEntries
     nonant_contact_loc: CornerEntries
     subsurface_contact_loc: CornerEntries
-
-
 
 
 class Details(NamedTuple):
@@ -65,7 +70,6 @@ def flatten_dict_map(dict_map: dict[int, list[int]]) -> list[tuple[int, int]]:
 class IndexPair(NamedTuple):
     detail_ix: int
     edge_ix: int
-
 
 
 @dataclass
@@ -107,3 +111,32 @@ class SubsurfaceInputs:
     @property
     def zone_drn_pairs(self):
         return self._replace_indices(self._zone_drn_edges)
+
+
+@dataclass
+class AFNInputs:
+    zones_: list[Zone]
+    surfaces: list[Subsurface]  # or airboundaries!
+
+    @property
+    def sim_control(self):
+        return AFNSimulationControl()
+
+    @property
+    def zones(self):
+        # TODO if there was a parameter map would apply here..
+        return [AFNZone(i.zone_name) for i in self.zones_]
+
+    @property
+    def surfaces_and_openings(self):
+        # Air boundary is allowed by venting is constant, on..
+        openings: dict[str, AFNSimpleOpening] = {
+            i.subsurface_name: AFNSimpleOpening(f"SimpleOpening__{i.subsurface_name}")
+            for i in self.surfaces
+        }
+        openings_list = list(openings.values())
+        surfaces = [
+            AFNSurface(surface_name, opening.Name)
+            for surface_name, opening in openings.items()
+        ]
+        return surfaces, openings_list

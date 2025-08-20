@@ -1,6 +1,6 @@
 from replan2eplus.ezobjects.surface import Surface
 from replan2eplus.zones.interfaces import Room
-from replan2eplus.ezobjects.idf import IDF
+from replan2eplus.idfobjects.idf import IDF
 from replan2eplus.ezobjects.zone import Zone
 # from replan2eplus.ezcase.examples import get_minimal_idf
 
@@ -31,11 +31,9 @@ def create_zones(idf: IDF, rooms: list[Room]):
     idf.intersect_match()
     # now get the zones from the idf..
     zones = [Zone(_epbunch=i) for i in idf.get_zones()]
-    surfaces = [
-        Surface(i) for i in idf.get_surfaces()
-    ]
+    surfaces = [Surface(i) for i in idf.get_surfaces()]
     updates_zones = assign_zone_surfaces(zones, surfaces)
 
     # figure out zone surfaces..
     # room_map = RoomMap([RoomZonePair(i.room_name, i.zone_name) for i in zones])
-    return updates_zones, surfaces # oom_map
+    return updates_zones, surfaces  # oom_map

@@ -1,4 +1,4 @@
-from replan2eplus.ezobjects.idf import SubsurfaceObject
+from replan2eplus.idfobjects.subsurface import SubsurfaceObject
 from replan2eplus.subsurfaces.interfaces import (
     ZoneEdge,
     ZoneDirectionEdge,
@@ -7,10 +7,11 @@ from replan2eplus.subsurfaces.interfaces import (
     Location,
     SubsurfaceInputs,
 )
-from replan2eplus.examples.minimal import test_rooms
+from replan2eplus.examples.minimal import get_minimal_case_with_rooms, test_rooms
 from replan2eplus.geometry.directions import WallNormal
 from replan2eplus.geometry.domain_create import Dimension
 from dataclasses import dataclass
+
 
 FACTOR = 4
 
@@ -70,3 +71,9 @@ test_three_details = TestInputs(
     [door_details, window_details, window_details_bl],
     {0: [0], 1: [1, 2], 2: [3]},
 )
+
+
+def get_minimal_case_with_subsurfaces():
+    case = get_minimal_case_with_rooms()
+    case.add_subsurfaces(test_simple.inputs)
+    return case

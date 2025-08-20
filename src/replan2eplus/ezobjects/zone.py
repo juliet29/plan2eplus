@@ -9,6 +9,7 @@ from typing import Callable, Iterable, TypeVar, Any
 from itertools import groupby
 
 from replan2eplus.geometry.directions import WallNormal
+from replan2eplus.subsurfaces.presentation import chain_flatten
 
 T = TypeVar("T")
 
@@ -53,6 +54,12 @@ class Zone(EZObject):
         return [i.surface_name for i in self.surfaces]
 
     @property
+    def subsurface_names(self) -> list[str]:
+        return chain_flatten(
+            [i.subsurface_names for i in self.surfaces if i.subsurface_names]
+        )
+
+    @property
     def directed_surfaces(self):
         d: dict[WallNormal, list[Surface]] = sort_and_group_objects_dict(
             self.surfaces, lambda x: x.direction
@@ -66,4 +73,4 @@ class Zone(EZObject):
         assert len(floors) == 1, BadlyFormatedIDFError(
             f"Zone {self.zone_name} has 0 or more than 2 floors!: {floors}"
         )
-        return floors[0].domain #TODO check the plane.. 
+        return floors[0].domain  # TODO check the plane..

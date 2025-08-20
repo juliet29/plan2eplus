@@ -11,6 +11,22 @@ from replan2eplus.geometry.directions import WallNormal
 from replan2eplus.geometry.plane import compute_unit_normal, create_domain_from_coords
 
 
+def get_surface_coords(surface: EpBunch):
+    surf_coords = surface.coords
+    assert surf_coords
+    return [Coordinate3D(*i) for i in surf_coords]
+
+
+def get_surface_domain(surface: EpBunch):
+    coords = get_surface_coords(surface)
+    unit_normal_drn = compute_unit_normal([coord.as_three_tuple for coord in coords])
+    return create_domain_from_coords(unit_normal_drn, coords)
+    # raise IDFMisunderstandingError(
+    #     "This surface has no neighbor!"
+    # )  # maybe better to return the direction? ->
+    # # TODO could have a neighbor in a multistory situation though..
+
+
 # NOTE: this code showcases what could be a recurring pattern for wrapping geomeppy/eppy outputs -> has to be returned in an enum, but then can access using string literals and get hints
 # This is safe if a type checker is being used and makes coding easier, but then literals are floating everywhere, pros + cons..
 
@@ -84,18 +100,6 @@ class Surface(EZObject):
         else:
             return None
 
-
-def get_surface_coords(surface: EpBunch):
-    surf_coords = surface.coords
-    assert surf_coords
-    return [Coordinate3D(*i) for i in surf_coords]
-
-
-def get_surface_domain(surface: EpBunch):
-    coords = get_surface_coords(surface)
-    unit_normal_drn = compute_unit_normal([coord.as_three_tuple for coord in coords])
-    return create_domain_from_coords(unit_normal_drn, coords)
-    # raise IDFMisunderstandingError(
-    #     "This surface has no neighbor!"
-    # )  # maybe better to return the direction? ->
-    # # TODO could have a neighbor in a multistory situation though..
+    @property
+    def subsurface_names(self):
+        return [i.Name for i in self._epbunch.subsurfaces]  # type: ignore
