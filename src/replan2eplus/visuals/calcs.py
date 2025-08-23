@@ -86,7 +86,8 @@ def domain_to_line(domain: Domain):
 
 # this is a pretty generic fx -> utils4plans -> filter, get1 throw error
 def get_zones(name, zones: list[Zone]):
-    possible_zones = [i for i in zones if i.room_name == name]
+    # NOTE: changing this for studies! 
+    possible_zones = [i for i in zones if i.zone_name == name]
     assert len(possible_zones) == 1, f"Name: {name}, poss_zones: {possible_zones}"
     return possible_zones[0]
 

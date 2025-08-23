@@ -14,7 +14,7 @@ from replan2eplus.idfobjects.afn import (
     AFNSurface,
     AFNSimpleOpening,
 )
-from replan2eplus.idfobjects.materials import MaterialKey, material_keys
+from replan2eplus.idfobjects.materials import MaterialKey, MaterialObject, material_keys
 
 
 @dataclass
@@ -93,15 +93,16 @@ class IDF:
         return obj0
 
     def add_afn_surface(self, object: AFNSurface):
-        obj0 = self.idf.newidfobject(AFNKeys.SURFACE, **object._asdict())
+        obj0 = self.idf.newidfobject(AFNKeys.SURFACE, **object._asdict()) # TODO some repetition here, could pull out 
         return obj0
     
-    # def add_material(self, key:MaterialKey, object: MaterialObject):
-    #     pass
+    def add_material(self, key:MaterialKey, object: MaterialObject):
+        obj0 = self.idf.newidfobject(key, **object._asdict())
+        return obj0
 
     # def add_construction(self, object: ConstructionObject):
     #     pass
 
-    def update_object_construction(self, name: str, key: str, construction_name: str):
-        # TODO key is a literal -> surface or subsurface.. 
-        pass
+    # def update_object_construction(self, name: str, key: str, construction_name: str):
+    #     # TODO key is a literal -> surface or subsurface.. 
+    #     pass

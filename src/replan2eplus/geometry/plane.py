@@ -61,4 +61,17 @@ def compute_unit_normal(coords: list[tuple[float, float, float]]) -> AXIS:
     normal_vector = polygon.normal_vector
     nv = tuple([abs(int(i)) for i in normal_vector])
     assert len(nv) == 3
-    return vector_map[nv]
+
+    try:
+        return vector_map[nv]
+    except:
+        assert polygon.vertices
+        flipped_vertices = reversed(polygon.vertices)
+
+        print(f"There is something wrong with these vertices! switching them around. Original: {polygon.vertices}. New: {flipped_vertices}")
+        normal_vector = polygon.normal_vector
+        nv = tuple([abs(round(i)) for i in normal_vector])
+        assert len(nv) == 3
+        return vector_map[nv]
+
+

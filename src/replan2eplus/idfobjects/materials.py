@@ -1,24 +1,9 @@
 # Material Keys?
-from typing import Literal, NamedTuple
+from typing import Literal, NamedTuple, get_args
 
-material_keys = [
-    "MATERIAL",
-    "MATERIAL:AIRGAP",
-    # "MATERIAL:INFRAREDTRANSPARENT",
-    "MATERIAL:NOMASS",
-    # "MATERIAL:ROOFVEGETATION",
-    # "WINDOWMATERIAL:BLIND",
-    "WINDOWMATERIAL:GLAZING",
-    # "WINDOWMATERIAL:GLAZING:REFRACTIONEXTINCTIONMETHOD",
-    # "WINDOWMATERIAL:GAP",
-    # "WINDOWMATERIAL:GAS",
-    # "WINDOWMATERIAL:GASMIXTURE",
-    # "WINDOWMATERIAL:GLAZINGGROUP:THERMOCHROMIC",
-    # "WINDOWMATERIAL:SCREEN",
-    # "WINDOWMATERIAL:SHADE",
-    # "WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM",
-]
 
+
+#TODO this may not be the best home for this 
 MaterialKey = Literal[
     "MATERIAL",
     "MATERIAL:AIRGAP",
@@ -37,17 +22,19 @@ MaterialKey = Literal[
     # "WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM",
 ]
 
+material_keys = get_args(MaterialKey)
+
 
 class MaterialObject(NamedTuple):
     Name: str
-    Roughness: str
-    Thickness: str
-    Conductivity: str
-    Density: str
-    Specific_Heat: str
-    Thermal_Absorptance: str
-    Solar_Absorptance: str
-    Visible_Absorptance: str
+    Roughness: float
+    Thickness: float
+    Conductivity: float
+    Density: float
+    Specific_Heat: float
+    Thermal_Absorptance: float
+    Solar_Absorptance: float
+    Visible_Absorptance: float
 
     # no:mass -> no density or thickness?
 

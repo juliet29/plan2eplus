@@ -20,7 +20,10 @@ def get_surface_coords(surface: EpBunch):
 
 def get_surface_domain(surface: EpBunch):
     coords = get_surface_coords(surface)
-    unit_normal_drn = compute_unit_normal([coord.as_three_tuple for coord in coords])
+    try:
+        unit_normal_drn = compute_unit_normal([coord.as_three_tuple for coord in coords])
+    except KeyError:
+        raise BadlyFormatedIDFError(f"Invalid unit normal -> are the coords alright for {surface.Name}?: {coords}")
     return create_domain_from_coords(unit_normal_drn, coords)
     # raise IDFMisunderstandingError(
     #     "This surface has no neighbor!"

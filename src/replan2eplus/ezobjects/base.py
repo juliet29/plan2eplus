@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Any, Literal
 from eppy.bunch_subclass import EpBunch
 from replan2eplus.ezobjects.epbunch_utils import get_epbunch_key
 from replan2eplus.errors import InvalidEpBunchError
@@ -8,7 +9,7 @@ from replan2eplus.ezobjects.name import decompose_idf_name
 @dataclass
 class EZObject:
     _epbunch: EpBunch
-    expected_key: str
+    expected_key: Any # str  # TODO does this mess things up? -> want it to be parent of typed and any literal.. 
     # TODO idf name stuff
 
     def __post_init__(self):

@@ -2,7 +2,16 @@ from pathlib import Path
 from replan2eplus.ezobjects.construction import Construction
 from replan2eplus.ezobjects.epbunch_utils import get_epbunch_key
 from replan2eplus.ezobjects.material import Material
-from replan2eplus.idfobjects.idf import IDF
+from replan2eplus.idfobjects.idf import IDF, EpBunch
+from replan2eplus.idfobjects.materials import MaterialKey, material_keys, MaterialObject
+from typing import NamedTuple
+
+# TODO could also call logic?
+
+
+class MaterialAndKey(NamedTuple):
+    epbunch: EpBunch
+    key: str
 
 
 def create_materials_from_other_idf(
@@ -12,14 +21,18 @@ def create_materials_from_other_idf(
     default of not specifying any material names means return all
     """
     other_idf = IDF(path_to_idd, path_to_idf)
-    material_epbunches = other_idf.get_materials()
+    material_epbunches = [
+        MaterialAndKey(i, get_epbunch_key(i)) for i in other_idf.get_materials()
+    ]
+    
+    # TODO: instead of materials, just get the properties needed to create an epobject. 
     if not material_names:
-        return [Material(i, get_epbunch_key(i)) for i in material_epbunches]
+        return [
+            Material(_epbunch=i.epbunch, expected_key=i.key) for i in material_epbunches # type: ignore -> will be correct type -> idf.get_materials() filters 
+        ]
 
     return [
-        Material(i, get_epbunch_key(i))
-        for i in material_epbunches
-        if i.Name in material_names
+        Material(_epbunch=i.epbunch, expected_key=i.key) for i in material_epbunches # type: ignore
     ]
 
 

@@ -50,11 +50,11 @@ class Subsurface(EZObject):
         surface = [i for i in surfaces if i.surface_name == surface_name][0]
         zone = [i for i in zones if i.zone_name == surface.zone_name][0]
         if surface.boundary_condition == "outdoors":
-            edge = GenericEdge(zone.room_name, surface.direction)
+            edge = GenericEdge(zone.zone_name, surface.direction)
         else:
             nb_surface = [i for i in surfaces if i.surface_name == surface.neighbor][0]
             nb_zone = [i for i in zones if i.zone_name == nb_surface.zone_name][0]
-            edge = GenericEdge(zone.room_name, nb_zone.room_name)
+            edge = GenericEdge(zone.zone_name, nb_zone.zone_name)
 
         return cls(_epbunch, expected_key, surface, edge)
 
