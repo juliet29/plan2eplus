@@ -1,4 +1,4 @@
-from replan2eplus.ezcase.defaults import PATH_TO_IDD, PATH_TO_MINIMAL_IDF
+from replan2eplus.examples.defaults import PATH_TO_IDD, PATH_TO_MINIMAL_IDF
 from replan2eplus.ezcase.main import EZCase
 from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.range import Range

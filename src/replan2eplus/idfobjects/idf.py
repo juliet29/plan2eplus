@@ -15,6 +15,7 @@ from replan2eplus.idfobjects.afn import (
     AFNSimpleOpening,
 )
 from replan2eplus.idfobjects.materials import MaterialKey, MaterialObject, material_keys
+from utils4plans.lists import chain_flatten
 
 
 @dataclass
@@ -53,7 +54,7 @@ class IDF:
         for key in material_keys:
             materials.extend([self.idf.idfobjects[key]])
 
-        return materials
+        return chain_flatten(materials)
 
     def get_constructions(self) -> list[EpBunch]:
         return self.idf.idfobjects[epkeys.CONSTRUCTION]
@@ -80,25 +81,25 @@ class IDF:
 
         return obj0
 
-    def add_afn_simulation_control(self, object: AFNSimulationControl):
-        obj0 = self.idf.newidfobject(AFNKeys.SIM_CONTROL, **object._asdict())
+    def add_afn_simulation_control(self, object_: AFNSimulationControl):
+        obj0 = self.idf.newidfobject(AFNKeys.SIM_CONTROL, **object_._asdict())
         return obj0
 
-    def add_afn_zone(self, object: AFNZone):
-        obj0 = self.idf.newidfobject(AFNKeys.ZONE, **object._asdict())
+    def add_afn_zone(self, object_: AFNZone):
+        obj0 = self.idf.newidfobject(AFNKeys.ZONE, **object_._asdict())
         return obj0
 
-    def add_afn_opening(self, object: AFNSimpleOpening):
-        obj0 = self.idf.newidfobject(AFNKeys.OPENING, **object._asdict())
+    def add_afn_opening(self, object_: AFNSimpleOpening):
+        obj0 = self.idf.newidfobject(AFNKeys.OPENING, **object_._asdict())
         return obj0
 
-    def add_afn_surface(self, object: AFNSurface):
-        obj0 = self.idf.newidfobject(AFNKeys.SURFACE, **object._asdict()) # TODO some repetition here, could pull out 
+    def add_afn_surface(self, object_: AFNSurface):
+        obj0 = self.idf.newidfobject(AFNKeys.SURFACE, **object_._asdict()) # TODO some repetition here, could pull out 
         return obj0
     
-    def add_material(self, key:MaterialKey, object: MaterialObject):
-        obj0 = self.idf.newidfobject(key, **object._asdict())
-        return obj0
+    def add_material(self, key:MaterialKey, object_: MaterialObject):
+        obj0 = self.idf.newidfobject(key, **object_.__dict__)
+        return (obj0, object_)
 
     # def add_construction(self, object: ConstructionObject):
     #     pass
