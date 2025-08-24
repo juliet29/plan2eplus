@@ -79,16 +79,6 @@ class Subsurface(EZObject):
         return self._epbunch.Name
 
     @property
-    def surface_name(self):
-        return self._epbunch.Building_Surface_Name
-
-    def get_surface(
-        self,
-        surfaces: list[Surface],
-    ):
-        return [i for i in surfaces if i.surface_name == self.surface_name][0]
-
-    @property
     def display_name(self):
         type_ = display_map[self.expected_key]
         return f"{type_}_{self.surface.display_name}"

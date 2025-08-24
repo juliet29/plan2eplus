@@ -1,5 +1,7 @@
 from utils4plans.lists import chain_flatten
 
+from replan2eplus.errors import IDFMisunderstandingError
+from replan2eplus.ezobjects import surface
 from replan2eplus.idfobjects.idf import IDF
 from replan2eplus.ezobjects.subsurface import GenericEdge, SubsurfaceOptions, Subsurface
 from replan2eplus.ezobjects.zone import Zone
@@ -35,6 +37,15 @@ def create_subsurface_for_interior_edge(
     key: SubsurfaceKey = (f"{detail.type_}:Interzone").upper()  # type: ignore #TODO verify!
 
     main_surface, nb_surface = get_surface_between_zones(edge, zones)
+    if main_surface.is_airboundary or nb_surface.is_airboundary:
+        main_name = f"Main: {main_surface.surface_name}"
+        nb_name = f"Nb: {nb_surface.surface_name}"
+        assert main_surface.is_airboundary and nb_surface.is_airboundary, (
+            f"Matching surfaces should be airboundaries!!! \n {main_name}' constr: {main_surface.construction_name}\n {nb_name}' constr: {nb_surface.construction_name}"
+        )
+        raise IDFMisunderstandingError(
+            f"{main_name} and {nb_name} are airboundaries! They cannot have surfaces placed on them! "
+        )
     subsurf_domain = place_domain(
         main_surface.domain, *detail.location, detail.dimension
     )

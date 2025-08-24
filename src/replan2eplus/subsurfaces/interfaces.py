@@ -37,10 +37,10 @@ class Edge(NamedTuple):
             raise Exception("This is not a directed edge!")
 
 
+# NOTE: these are given in room names!
 class ZoneDirectionEdge(NamedTuple):
     u: str
     v: WallNormal
-
 
 class ZoneEdge(NamedTuple):
     u: str
@@ -117,30 +117,31 @@ class SubsurfaceInputs:
         return self._replace_indices(self._zone_drn_edges)
 
 
-@dataclass
-class AFNInputs:
-    zones_: list[Zone]
-    surfaces: list[Subsurface]  # or airboundaries!
+# # TODO why is this here???? 
+# @dataclass
+# class AFNInputs:
+#     zones_: list[Zone]
+#     surfaces: list[Subsurface]  # or airboundaries!
 
-    @property
-    def sim_control(self):
-        return AFNSimulationControl()
+#     @property
+#     def sim_control(self):
+#         return AFNSimulationControl()
 
-    @property
-    def zones(self):
-        # TODO if there was a parameter map would apply here..
-        return [AFNZone(i.zone_name) for i in self.zones_]
+#     @property
+#     def zones(self):
+#         # TODO if there was a parameter map would apply here..
+#         return [AFNZone(i.zone_name) for i in self.zones_]
 
-    @property
-    def surfaces_and_openings(self):
-        # Air boundary is allowed by venting is constant, on..
-        openings: dict[str, AFNSimpleOpening] = {
-            i.subsurface_name: AFNSimpleOpening(f"SimpleOpening__{i.subsurface_name}")
-            for i in self.surfaces
-        }
-        openings_list = list(openings.values())
-        surfaces = [
-            AFNSurface(surface_name, opening.Name)
-            for surface_name, opening in openings.items()
-        ]
-        return surfaces, openings_list
+#     @property
+#     def surfaces_and_openings(self):
+#         # Air boundary is allowed by venting is constant, on..
+#         openings: dict[str, AFNSimpleOpening] = {
+#             i.subsurface_name: AFNSimpleOpening(f"SimpleOpening__{i.subsurface_name}")
+#             for i in self.surfaces
+#         }
+#         openings_list = list(openings.values())
+#         surfaces = [
+#             AFNSurface(surface_name, opening.Name)
+#             for surface_name, opening in openings.items()
+#         ]
+#         return surfaces, openings_list

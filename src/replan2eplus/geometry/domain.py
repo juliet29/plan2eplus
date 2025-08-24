@@ -22,6 +22,9 @@ class Plane(NamedTuple):
 class Domain(BaseDomain):
     plane: Plane | None = None
 
+    # def __eq__(self, value: object) -> bool:
+    #     return super().__eq__(value)
+
     @property
     def area(self):
         return self.horz_range.size * self.vert_range.size

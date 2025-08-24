@@ -25,6 +25,7 @@ subsurface_object = SubsurfaceObject("Test", random_surface_name, val, val, val,
 # TODO probably a good idea to put these in classes..?
 zone_edge = ZoneEdge(room1.name, room2.name)
 zone_drn_edge = ZoneDirectionEdge(room1.name, WallNormal.WEST)
+zone_drn_edge_room2 = ZoneDirectionEdge(room2.name, WallNormal.EAST)
 
 location = Location("mm", "SOUTH_WEST", "SOUTH_WEST")
 location_bl = Location("bl", "SOUTH_WEST", "SOUTH_WEST")

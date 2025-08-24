@@ -6,7 +6,7 @@ from replan2eplus.ezobjects.subsurface import Subsurface
 from replan2eplus.ezobjects.surface import Surface
 from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.geometry.domain import compute_multidomain, expand_domain
-from replan2eplus.subsurfaces.utils import filter_subsurfaces
+from replan2eplus.subsurfaces.utils import get_unique_subsurfaces
 from replan2eplus.visuals.calcs import (
     domain_to_line,
     domain_to_mpl_patch,
@@ -91,7 +91,7 @@ class BasePlot:
     def plot_subsurfaces(
         self, subsurfaces: list[Subsurface], fontsize=annotation_font_size
     ):
-        ss = filter_subsurfaces(subsurfaces)
+        ss = get_unique_subsurfaces(subsurfaces)
         for subsurf in ss:
             line = domain_to_line(subsurf.domain)
             self.axes.add_artist(line.to_line2D)

@@ -54,6 +54,7 @@ def get_material_epbunch_key(epbunch: EpBunch) -> MaterialKey:
     return val  # type: ignore --- checked above
 
 
+# TODO expose as a function that can be called.. 
 def create_materials_from_other_idf(
     path_to_idf: Path, path_to_idd: Path, material_names: list[str] = []
 ):

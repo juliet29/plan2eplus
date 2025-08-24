@@ -15,6 +15,7 @@ from replan2eplus.materials.presentation import (
     create_materials_from_other_idf,
     add_materials,
 )
+from replan2eplus.constructions.logic import update_surfaces_with_construction_set 
 
 
 def create_constructions_from_other_idf(

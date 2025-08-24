@@ -7,5 +7,5 @@
 from replan2eplus.ezobjects.subsurface import Subsurface
 
 
-def filter_subsurfaces(subsurfaces: list[Subsurface]):
+def get_unique_subsurfaces(subsurfaces: list[Subsurface]):
     return [i for i in subsurfaces if i.edge.space_a in i.surface.zone_name]

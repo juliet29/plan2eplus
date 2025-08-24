@@ -1,14 +1,14 @@
 from replan2eplus.examples.minimal import get_minimal_case_with_rooms
 from replan2eplus.visuals.base_plot import BasePlot
 from replan2eplus.examples.subsurfaces import test_simple, test_three_details
-from replan2eplus.subsurfaces.utils import filter_subsurfaces
+from replan2eplus.subsurfaces.utils import get_unique_subsurfaces
 
 
 if __name__ == "__main__":
     case = get_minimal_case_with_rooms()
     case.add_subsurfaces(test_simple.inputs)
 
-    filter_subsurfaces(case.subsurfaces)
+    get_unique_subsurfaces(case.subsurfaces)
 
     # case.idf.print_idf()
     # case.idf.idf.view_model()

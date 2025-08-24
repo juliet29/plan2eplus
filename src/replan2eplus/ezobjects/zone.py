@@ -49,6 +49,15 @@ class Zone(EZObject):
         )
 
     @property
+    def afn_surfaces(self):
+        return [i for i in self.surfaces if i.is_airboundary]
+
+    @property
+    def potential_afn_surface_or_subsurface_names(self):
+        surface_names = [i.surface_name for i in self.afn_surfaces]
+        return surface_names + self.subsurface_names
+
+    @property
     def directed_surfaces(self):
         d: dict[WallNormal, list[Surface]] = sort_and_group_objects_dict(
             self.surfaces, lambda x: x.direction
