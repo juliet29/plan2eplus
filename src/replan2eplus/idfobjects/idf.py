@@ -14,8 +14,9 @@ from replan2eplus.idfobjects.afn import (
     AFNSurface,
     AFNSimpleOpening,
 )
-from replan2eplus.idfobjects.materials import MaterialKey, MaterialObject, material_keys
 from utils4plans.lists import chain_flatten
+
+from replan2eplus.materials.interfaces import MaterialKey, material_keys, MaterialObjectBase
 
 
 @dataclass
@@ -45,7 +46,7 @@ class IDF:
 
     def get_surfaces(self) -> list[EpBunch]:
         return [i for i in self.idf.idfobjects[epkeys.SURFACE]]
-    
+
     def get_subsurfaces(self) -> list[EpBunch]:
         return self.idf.getsubsurfaces()
 
@@ -58,12 +59,10 @@ class IDF:
 
     def get_constructions(self) -> list[EpBunch]:
         return self.idf.idfobjects[epkeys.CONSTRUCTION]
-    
 
-
-    # @property
-    # def subsurfaces(self):
-    #     return
+    ##################################################
+    ########## ------ ADDING TO IDF ------ ##########
+    ##################################################
 
     def add_geomeppy_block(self, block: GeomeppyBlock):
         self.idf.add_block(
@@ -94,16 +93,11 @@ class IDF:
         return obj0
 
     def add_afn_surface(self, object_: AFNSurface):
-        obj0 = self.idf.newidfobject(AFNKeys.SURFACE, **object_._asdict()) # TODO some repetition here, could pull out 
+        obj0 = self.idf.newidfobject(
+            AFNKeys.SURFACE, **object_._asdict()
+        )  # TODO some repetition here, could pull out
         return obj0
-    
-    def add_material(self, key:MaterialKey, object_: MaterialObject):
+
+    def add_material(self, key: MaterialKey, object_: MaterialObjectBase):
         obj0 = self.idf.newidfobject(key, **object_.__dict__)
         return (obj0, object_)
-
-    # def add_construction(self, object: ConstructionObject):
-    #     pass
-
-    # def update_object_construction(self, name: str, key: str, construction_name: str):
-    #     # TODO key is a literal -> surface or subsurface.. 
-    #     pass
