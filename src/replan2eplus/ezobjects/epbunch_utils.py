@@ -1,6 +1,10 @@
 # EPBunch helpers -> not worth it to have a class..
 from dataclasses import fields
 from eppy.bunch_subclass import EpBunch
+from typing import Any, Callable, Dict, Iterable, List, TypeVar, Union
+from itertools import groupby
+
+T = TypeVar("T")
 
 
 def get_epbunch_key(epbunch: EpBunch):
@@ -17,3 +21,19 @@ def classFromArgs(className, argDict):
     fieldSet = {f.name for f in fields(className) if f.init}
     filteredArgDict = {k: v for k, v in argDict.items() if k in fieldSet}
     return className(**filteredArgDict)
+
+
+def sort_and_group_objects(lst: Iterable[T], fx: Callable[[T], Any]) -> list[list[T]]:
+    sorted_objs = sorted(lst, key=fx)
+    return [list(g) for _, g in groupby(sorted_objs, fx)]
+
+
+# TODO move to utils4plans..
+def sort_and_group_objects_dict(
+    lst: Iterable[T], fx: Callable[[T], Any]
+) -> dict[Any, list[T]]:
+    sorted_objs = sorted(lst, key=fx)
+    d = {}
+    for k, g in groupby(sorted_objs, fx):
+        d[k] = [i for i in list(g)]
+    return d

@@ -4,25 +4,14 @@ from replan2eplus.errors import BadlyFormatedIDFError
 from replan2eplus.ezobjects.base import EZObject
 
 import replan2eplus.epnames.keys as epkeys
+from replan2eplus.ezobjects.epbunch_utils import sort_and_group_objects_dict
 from replan2eplus.ezobjects.surface import Surface
-from typing import Callable, Iterable, TypeVar, Any
-from itertools import groupby
+from typing import TypeVar
 
 from replan2eplus.geometry.directions import WallNormal
 from utils4plans.lists import chain_flatten
 
 T = TypeVar("T")
-
-
-# TODO move to utils4plans..
-def sort_and_group_objects_dict(
-    lst: Iterable[T], fx: Callable[[T], Any]
-) -> dict[Any, list[T]]:
-    sorted_objs = sorted(lst, key=fx)
-    d = {}
-    for k, g in groupby(sorted_objs, fx):
-        d[k] = [i for i in list(g)]
-    return d
 
 
 @dataclass

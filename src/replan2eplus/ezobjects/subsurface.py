@@ -5,13 +5,14 @@ import replan2eplus.epnames.keys as epkeys
 from replan2eplus.ezobjects.epbunch_utils import get_epbunch_key
 from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.geometry.directions import WallNormal
-from replan2eplus.geometry.domain import Domain, Literal
+from replan2eplus.geometry.domain import Domain
 from eppy.bunch_subclass import EpBunch
+from typing import Literal
 
 from replan2eplus.geometry.range import Range
 from replan2eplus.ezobjects.surface import Surface
 
-subsurface_options = ["DOOR", "WINDOW", "DOOR:INTERZONE"]
+subsurface_options = ["DOOR", "WINDOW", "DOOR:INTERZONE"] # TODO arg thing since now have literal.. 
 
 display_map = {"DOOR": "Door", "WINDOW": "Window", "DOOR:INTERZONE": "Door"}
 
@@ -25,13 +26,15 @@ class GenericEdge(NamedTuple):
         if isinstance(self.space_b, WallNormal):
             return (self.space_a, self.space_b.name)
         return (self.space_a, self.space_b)
-        
+
+
+SubsurfaceOptions = Literal["DOOR", "WINDOW", "DOOR:INTERZONE"]
 
 
 @dataclass
 class Subsurface(EZObject):
     _epbunch: EpBunch
-    expected_key: str
+    expected_key: SubsurfaceOptions
     surface: Surface
     edge: GenericEdge
 
@@ -45,7 +48,7 @@ class Subsurface(EZObject):
         # TODO clean up!
         expected_key = get_epbunch_key(_epbunch)
 
-        surface_name = _epbunch.Building_Surface_Name
+        surface_name = _epbunch.Building_Surface_Name  # TODO should be a property!
 
         surface = [i for i in surfaces if i.surface_name == surface_name][0]
         zone = [i for i in zones if i.zone_name == surface.zone_name][0]
@@ -56,7 +59,7 @@ class Subsurface(EZObject):
             nb_zone = [i for i in zones if i.zone_name == nb_surface.zone_name][0]
             edge = GenericEdge(zone.zone_name, nb_zone.zone_name)
 
-        return cls(_epbunch, expected_key, surface, edge)
+        return cls(_epbunch, expected_key, surface, edge)  # type: ignore #TODO => get epbunch for subsurface..
 
     def __post_init__(self):
         assert self.expected_key in subsurface_options
@@ -74,6 +77,16 @@ class Subsurface(EZObject):
     @property
     def subsurface_name(self):
         return self._epbunch.Name
+
+    @property
+    def surface_name(self):
+        return self._epbunch.Building_Surface_Name
+
+    def get_surface(
+        self,
+        surfaces: list[Surface],
+    ):
+        return [i for i in surfaces if i.surface_name == self.surface_name][0]
 
     @property
     def display_name(self):

@@ -8,18 +8,24 @@ from typing import Protocol
 class Construction(EZObject):
     expected_key: str = epkeys.CONSTRUCTION
 
+    @property
+    def construction_name(self):
+        return self._epbunch.Name
+
 
 @dataclass
 class BaseConstructionSet:
-    default: Construction
-    interior: Construction | None = None
-    exterior: Construction | None = None
+    # default: Construction
+    interior: str 
+    exterior: str 
 
-    def __post_init__(self):
-        if not self.interior:
-            self.interior = self.default
-        if not self.exterior:
-            self.exterior = self.default
+ 
+
+    # def __post_init__(self):
+    #     if not self.interior:
+    #         self.interior = self.default
+    #     if not self.exterior:
+    #         self.exterior = self.default
 
 
 @dataclass
@@ -30,6 +36,4 @@ class EPConstructionSet:
     window: BaseConstructionSet
     door: BaseConstructionSet
 
-
-class SupportsUpdateConstruction:
-    def update_construction(self, construction_name: str) -> None: ...
+    # TODO validate?
