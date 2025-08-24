@@ -6,6 +6,9 @@ from geomeppy import IDF as geomeppyIDF
 from pathlib import Path
 from eppy.modeleditor import IDDAlreadySetError
 
+from replan2eplus.errors import IDFMisunderstandingError
+from replan2eplus.ezobjects.subsurface import Subsurface
+from replan2eplus.ezobjects.surface import Surface
 from replan2eplus.idfobjects.subsurface import SubsurfaceKey, SubsurfaceObject
 from replan2eplus.idfobjects.zone import GeomeppyBlock
 from replan2eplus.idfobjects.afn import (
@@ -105,8 +108,24 @@ class IDF:
 
     def add_material(self, key: MaterialKey, object_: MaterialObjectBase):
         obj0 = self.idf.newidfobject(key, **object_.__dict__)
-        return (obj0, key, object_, )  # NOTE: this is special!
+        return (
+            obj0,
+            key,
+            object_,
+        )  # NOTE: this is special!
 
     def add_construction(self, object_: ConstructionsObject):
         obj0 = self.idf.newidfobject(epkeys.CONSTRUCTION, **object_.__dict__)
         return obj0
+
+    def update_construction(
+        self, surface_or_subsurface: Surface | Subsurface, construction_name: str
+    ):
+        const_names = [i.Name for i in self.get_constructions()]
+        try:
+            assert construction_name in const_names
+        except AssertionError:
+            raise IDFMisunderstandingError(
+                f"`{construction_name}` has not been added to this IDF. The constructions exosting are: {const_names}"
+            )
+        surface_or_subsurface._epbunch.Construction_Name = construction_name

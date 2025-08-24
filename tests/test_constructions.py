@@ -14,6 +14,7 @@ import pytest
 
 
 TEST_CONSTRUCTIONS = ["Light Exterior Wall", "Light Roof/Ceiling"]
+CONST_IN_EXAMPLE = "Medium Exterior Wall"
 
 
 @pytest.fixture()
@@ -43,7 +44,7 @@ def test_add_constructions_without_mats(
 def test_find_and_add_materials(get_pytest_minimal_idf, get_constructions_from_idf):
     idf = get_pytest_minimal_idf
     constructions_to_add = get_constructions_from_idf
-    idf, new_materials = find_and_add_materials(
+    new_materials = find_and_add_materials(
         idf,
         constructions_to_add,
         idf_paths_to_try=[PATH_TO_MAT_AND_CONST_IDF, PATH_TO_WINDOW_GLASS_IDF],
@@ -58,13 +59,22 @@ def test_add_constructions_after_materials(
 ):
     idf = get_pytest_minimal_idf
     constructions_to_add = get_constructions_from_idf
-    updated_idf, new_materials = find_and_add_materials(
+    new_materials = find_and_add_materials(
         idf,
         constructions_to_add,
         idf_paths_to_try=[PATH_TO_MAT_AND_CONST_IDF],
         path_to_idd=PATH_TO_IDD,
     )
-    add_constructions(updated_idf, constructions_to_add)
+    add_constructions(idf, constructions_to_add)
+
+
+def test_update_surface_construction(get_pytest_example_case):
+    case = get_pytest_example_case
+    surf = case.surfaces[0]
+    case.idf.update_construction(surf, CONST_IN_EXAMPLE)
+    assert surf.construction_name == CONST_IN_EXAMPLE
+    idf_surf = [i for i in case.idf.get_surfaces() if i.Name == surf._idf_name][0]
+    assert idf_surf.Construction_Name == CONST_IN_EXAMPLE
 
 
 if __name__ == "__main__":

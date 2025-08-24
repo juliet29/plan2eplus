@@ -92,9 +92,9 @@ def create_materials_from_other_idf(
     return results
 
 
-# TODO! add materials to the IDF, create the material EZobject, add materials from mateialobjectbase
+# TODO add materials directly (without copying? -> think the below already solves for that.. )
 
-
+# TODO can avoid need for material pair by adding key to the object itself.. 
 def add_materials(idf: IDF, material_pairs: list[MaterialPair]):
     new_materials: list[Material] = []
     for mat_pair in material_pairs:
@@ -104,4 +104,4 @@ def add_materials(idf: IDF, material_pairs: list[MaterialPair]):
             mat_obj,
         ) = idf.add_material(mat_pair.key, mat_pair.object_)
         new_materials.append(Material(epbunch, key, mat_obj))
-    return  idf, new_materials
+    return new_materials

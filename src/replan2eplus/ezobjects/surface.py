@@ -21,9 +21,13 @@ def get_surface_coords(surface: EpBunch):
 def get_surface_domain(surface: EpBunch):
     coords = get_surface_coords(surface)
     try:
-        unit_normal_drn = compute_unit_normal([coord.as_three_tuple for coord in coords])
+        unit_normal_drn = compute_unit_normal(
+            [coord.as_three_tuple for coord in coords]
+        )
     except KeyError:
-        raise BadlyFormatedIDFError(f"Invalid unit normal -> are the coords alright for {surface.Name}?: {coords}")
+        raise BadlyFormatedIDFError(
+            f"Invalid unit normal -> are the coords alright for {surface.Name}?: {coords}"
+        )
     return create_domain_from_coords(unit_normal_drn, coords)
     # raise IDFMisunderstandingError(
     #     "This surface has no neighbor!"
@@ -54,7 +58,6 @@ class Surface(EZObject):
 
     def __post_init__(self):
         assert self.expected_key == epkeys.SURFACE
-
 
     @property
     def surface_name(self):
@@ -108,3 +111,10 @@ class Surface(EZObject):
     @property
     def subsurface_names(self):
         return [i.Name for i in self._epbunch.subsurfaces]  # type: ignore
+
+    @property
+    def construction_name(self):
+        return self._epbunch.Construction_Name
+
+    # def update_construction(self, construction_name: str):
+    #     pass

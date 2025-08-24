@@ -76,8 +76,8 @@ def find_and_add_materials(
         except IDFMisunderstandingError:
             pass  # possible that IDF will have NONE of the materials to be foynd
 
-    updated_idf, new_materials = add_materials(idf, all_mat_pairs)
-    return updated_idf, new_materials
+    new_materials = add_materials(idf, all_mat_pairs)
+    return new_materials
 
 
 # TODO: when adding constructions to idf, fail if the constituent materials are not in the new idf..
@@ -89,3 +89,6 @@ def add_constructions(idf: IDF, construction_objects: list[ConstructionsObject])
         results.append(Construction(new_obj))
 
     return results
+
+
+# TODO: possibly one last function where pass in const names, names where consts are, and place to look for materials -> 
