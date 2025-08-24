@@ -1,9 +1,12 @@
 from pathlib import Path
+from re import L
 from typing import Any, NamedTuple
+import warnings
 
 from utils4plans.sets import set_difference
 
 from replan2eplus.ezobjects.epbunch_utils import classFromArgs
+from replan2eplus.ezobjects.material import Material
 import replan2eplus.materials.interfaces as mat_interfaces
 from replan2eplus.errors import IDFMisunderstandingError
 from replan2eplus.ezobjects.epbunch_utils import (
@@ -22,7 +25,6 @@ from replan2eplus.materials.interfaces import (
 class MaterialPair(NamedTuple):
     key: MaterialKey
     object_: MaterialObjectBase
-
 
 
 def map_materials(key: MaterialKey, values: dict[str, Any]):
@@ -61,9 +63,16 @@ def create_materials_from_other_idf(
 
     def check_material_names():
         differing_names = set_difference(material_names, [i.Name for i in epbunches])
-        if differing_names:
+        if (
+            set(differing_names) == set(material_names)
+        ):  # essentially none of the materials exist in the set -> otherwise we will take what we can
             raise IDFMisunderstandingError(
                 f"No materials with names in {differing_names} exist in this IDF!"
+            )
+        if differing_names:
+            warnings.warn(
+                f"{differing_names} cannot be found in this IDF `{path_to_idf.parent}`",
+                UserWarning,
             )
 
     other_idf = IDF(path_to_idd, path_to_idf)
@@ -84,3 +93,15 @@ def create_materials_from_other_idf(
 
 
 # TODO! add materials to the IDF, create the material EZobject, add materials from mateialobjectbase
+
+
+def add_materials(idf: IDF, material_pairs: list[MaterialPair]):
+    new_materials: list[Material] = []
+    for mat_pair in material_pairs:
+        (
+            epbunch,
+            key,
+            mat_obj,
+        ) = idf.add_material(mat_pair.key, mat_pair.object_)
+        new_materials.append(Material(epbunch, key, mat_obj))
+    return  idf, new_materials

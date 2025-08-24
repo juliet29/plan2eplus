@@ -3,19 +3,13 @@ from dataclasses import dataclass
 import replan2eplus.epnames.keys as epkeys
 from replan2eplus.materials.interfaces import (
     MaterialKey,
+    MaterialObjectBase,
 )  # TODO potential circular import
 
 
 @dataclass
 class Material(EZObject):
     expected_key: MaterialKey
-    pass
+    material_object: MaterialObjectBase
 
 
-@dataclass
-class Construction(EZObject):
-    expected_key = epkeys.CONSTRUCTION
-
-    @property
-    def materials(self):
-        pass  # TODO read materials from the layers of the epbunch..

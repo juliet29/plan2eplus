@@ -8,7 +8,7 @@ from replan2eplus.examples.mat_and_const import (
 )
 from replan2eplus.examples.existing import get_example_idf
 from replan2eplus.examples.defaults import PATH_TO_IDD
-from replan2eplus.materials.presentation import create_materials_from_other_idf
+from replan2eplus.materials.presentation import add_materials, create_materials_from_other_idf
 from utils4plans.sets import set_intersection, set_difference
 
 
@@ -38,8 +38,22 @@ def test_raise_error_for_bad_material():
         create_materials_from_other_idf(
             PATH_TO_MAT_AND_CONST_IDF,
             PATH_TO_IDD,
-            ["F12 Asphalt shingles", "My bad material hehe"],
+            ["My bad material hehe"],
         )
+
+
+def test_succeeds_if_at_least_one_good_mat():
+    with pytest.warns(UserWarning):
+        material_pairs = create_materials_from_other_idf(
+            PATH_TO_MAT_AND_CONST_IDF,
+            PATH_TO_IDD,
+            [
+                "My bad material hehe",
+                "F12 Asphalt shingles",
+                "F04 Wall air space resistance",
+            ],
+        )
+        assert len(material_pairs) == 2
 
 
 def test_different_material_types_copy_and_convert():
@@ -53,18 +67,18 @@ def test_different_material_types_copy_and_convert():
 
 def test_adding_material_to_idf(get_pytest_minimal_idf):
     material_names = ["F12 Asphalt shingles", "F04 Wall air space resistance"]
-    material_pair = create_materials_from_other_idf(
+    material_pairs = create_materials_from_other_idf(
         PATH_TO_MAT_AND_CONST_IDF,
         PATH_TO_IDD,
         material_names,
     )
     idf = get_pytest_minimal_idf
 
-    for mat_pair in material_pair:
-        idf.add_material(mat_pair.key, mat_pair.object_)
+    add_materials(idf, material_pairs)
 
     idf_materials = idf.get_materials()
     assert set([i.Name for i in idf_materials]) == set(material_names)
+
 
 
 def test_set_diff():

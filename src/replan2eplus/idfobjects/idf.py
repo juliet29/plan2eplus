@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from eppy.bunch_subclass import EpBunch
+from replan2eplus.constructions.interfaces import ConstructionsObject
 import replan2eplus.epnames.keys as epkeys
 from geomeppy import IDF as geomeppyIDF
 from pathlib import Path
@@ -16,7 +17,11 @@ from replan2eplus.idfobjects.afn import (
 )
 from utils4plans.lists import chain_flatten
 
-from replan2eplus.materials.interfaces import MaterialKey, material_keys, MaterialObjectBase
+from replan2eplus.materials.interfaces import (
+    MaterialKey,
+    material_keys,
+    MaterialObjectBase,
+)
 
 
 @dataclass
@@ -100,4 +105,8 @@ class IDF:
 
     def add_material(self, key: MaterialKey, object_: MaterialObjectBase):
         obj0 = self.idf.newidfobject(key, **object_.__dict__)
-        return (obj0, object_)
+        return (obj0, key, object_, )  # NOTE: this is special!
+
+    def add_construction(self, object_: ConstructionsObject):
+        obj0 = self.idf.newidfobject(epkeys.CONSTRUCTION, **object_.__dict__)
+        return obj0
