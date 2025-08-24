@@ -80,7 +80,7 @@ class IndexPair(NamedTuple):
 class SubsurfaceInputs:
     edges: dict[int, Edge]
     details: dict[int, Details]
-    map_: dict[int, list[int]]
+    map_: dict[int, list[int]] # TODO -> is there a better way to do this? 
 
     @property
     def _index_pairs(self):

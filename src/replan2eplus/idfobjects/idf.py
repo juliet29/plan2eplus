@@ -28,7 +28,8 @@ from replan2eplus.materials.interfaces import (
 )
 
 
-# TODO --> move stuff in idfobjects into the interfaces files of their folder! 
+# TODO --> move stuff in idfobjects into the interfaces files of their folder!
+
 
 @dataclass
 class IDF:
@@ -75,6 +76,11 @@ class IDF:
         ]
         return chain_flatten([true_const, airboundary_const])
 
+    def get_afn_objects(self) -> list[EpBunch]:
+        objects_ = []
+        for key in AFNKeys:
+            objects_.extend([self.idf.idfobjects[key]])
+        return chain_flatten(objects_)
 
     ##################################################
     ########## ------ ADDING TO IDF ------ ##########

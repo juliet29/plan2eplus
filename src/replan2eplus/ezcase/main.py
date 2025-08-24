@@ -65,6 +65,12 @@ class EZCase:
     
 
     def add_subsurfaces(self, inputs: SubsurfaceInputs):
+        """
+        edges: dict[int, Edge] -> u: name in the room plan, v: name in the room plan OR capitalized cardnal direction 
+        details: dict[int, Details]
+        map_: dict[int, list[int]]
+        
+        """
         # TODO: check that zones exist
         self.subsurfaces = create_subsurfaces(
             inputs, self.zones, self.idf

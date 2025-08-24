@@ -1,13 +1,14 @@
 from typing import Literal, NamedTuple
 from enum import StrEnum
 
-VentilationControlMode = Literal["Constant", "NoVent"] 
+VentilationControlMode = Literal["Constant", "NoVent"]
+
 
 class AFNKeys(StrEnum):
     SIM_CONTROL = "AIRFLOWNETWORK:SIMULATIONCONTROL"
     ZONE = "AIRFLOWNETWORK:MULTIZONE:ZONE"
     OPENING = "AIRFLOWNETWORK:MULTIZONE:COMPONENT:SIMPLEOPENING"
-    SURFACE =  "AIRFLOWNETWORK:MULTIZONE:SURFACE"
+    SURFACE = "AIRFLOWNETWORK:MULTIZONE:SURFACE"
 
 
 DEFAULT_DISCHARGE_COEFF = 1
@@ -17,17 +18,25 @@ DEFAULT_MIN_DENSITY_DIFFERENCE = 0.0001  # 10E^-3 kg/m3
 
 class AFNSimulationControl(NamedTuple):
     Name: str = "Default"
-    AirflowNetworkControl: Literal["MultizoneWithoutDistribution"] = "MultizoneWithoutDistribution"
-    BuildingType : Literal["LowRise", "HighRise"] = "LowRise"
+    AirflowNetwork_Control: Literal["MultizoneWithoutDistribution"] = (
+        "MultizoneWithoutDistribution"
+    )
+    Building_Type: Literal["LowRise", "HighRise"] = "LowRise"
     Azimuth_Angle_of_Long_Axis_of_Building: float = 0
-    Ratio_of_Building_Width_Along_Short_Axis_to_Width_Along_Long_Axis: float = 1 #1 => square aspect ratio
-    #TODO this should be calculated! -> but do experiment to see how much it matters... 
+    Ratio_of_Building_Width_Along_Short_Axis_to_Width_Along_Long_Axis: float = (
+        1  # 1 => square aspect ratio
+    )
+    # TODO this should be calculated! -> but do experiment to see how much it matters...
 
 
 class AFNZone(NamedTuple):
-    Name: str
-    VentilationControlMode: Literal["Constant", "NoVent"] = "Constant" # Constant -> depends on venting availability schedule
-    Venting_Availability_Schedule_Name: str | None = None #TODO dont add if its none..  #TODO add venting availability schedules.. 
+    Zone_Name: str
+    Ventilation_Control_Mode: Literal["Constant", "NoVent"] = (
+        "Constant"  # Constant -> depends on venting availability schedule
+    )
+    Venting_Availability_Schedule_Name: str | None = (
+        None  # TODO dont add if its none..  #TODO add venting availability schedules..
+    )
 
 
 class AFNSimpleOpening(NamedTuple):
@@ -40,5 +49,5 @@ class AFNSimpleOpening(NamedTuple):
 class AFNSurface(NamedTuple):
     Surface_Name: str  # subsurface name
     Leakage_Component_Name: str  # has to been in AFN simple opening!
-    VentilationControlMode : Literal["ZoneLevel", "NoVent", "Constant"] = "ZoneLevel"
-    # NOTE -> can do temperature / enthalpy based controls.. 
+    Ventilation_Control_Mode: Literal["ZoneLevel", "NoVent", "Constant"] = "ZoneLevel"
+    # NOTE -> can do temperature / enthalpy based controls..
