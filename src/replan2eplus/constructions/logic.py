@@ -2,7 +2,7 @@ from replan2eplus.ezobjects.construction import EPConstructionSet
 from replan2eplus.ezobjects.surface import Surface
 from replan2eplus.idfobjects.idf import IDF, Subsurface
 
-# TODO can clean up by adding index method to the objects.. also should have the otherwise for all of these!
+# TODO can clean up by adding index method to the objects.. also should have the otherwise for all of these! -> can also have six cases instead of nine! 
 
 
 def update_surfaces_with_construction_set(
@@ -61,6 +61,7 @@ def update_surfaces_with_construction_set(
                             subsurface, construction_set.door.interior
                         )
 
+    # filter surfaces to ensure they dont yet have an airboundary construction.. 
     for surface in surfaces:
         handle_surface(surface)
 

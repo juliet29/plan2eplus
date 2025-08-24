@@ -1,7 +1,7 @@
 from utils4plans.lists import chain_flatten
 
 from replan2eplus.idfobjects.idf import IDF
-from replan2eplus.ezobjects.subsurface import GenericEdge, Subsurface
+from replan2eplus.ezobjects.subsurface import GenericEdge, SubsurfaceOptions, Subsurface
 from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.domain_create import place_domain
@@ -54,7 +54,7 @@ def create_subsurface_for_interior_edge(
 def create_subsurface_for_exterior_edge(
     edge: ZoneDirectionEdge, detail: Details, zones: list[Zone], idf: IDF
 ):
-    key: SubsurfaceKey = detail.type_.upper()  # type: ignore #TODO verify!
+    key: SubsurfaceOptions = detail.type_.upper()  # type: ignore #TODO verify!
 
     surface = get_surface_between_zone_and_direction(edge, zones)
     subsurf_domain = place_domain(surface.domain, *detail.location, detail.dimension)

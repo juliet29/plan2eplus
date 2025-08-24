@@ -1,6 +1,7 @@
 from typing import Literal, NamedTuple
 
 
+
 class SubsurfaceObject(NamedTuple):
     Name: str
     Building_Surface_Name: str

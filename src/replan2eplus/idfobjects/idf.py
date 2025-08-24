@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from eppy.bunch_subclass import EpBunch
+from replan2eplus.airboundary.interfaces import AirboundaryConstructionObject
 from replan2eplus.constructions.interfaces import ConstructionsObject
 import replan2eplus.epnames.keys as epkeys
 from geomeppy import IDF as geomeppyIDF
@@ -66,7 +67,14 @@ class IDF:
         return chain_flatten(materials)
 
     def get_constructions(self) -> list[EpBunch]:
-        return self.idf.idfobjects[epkeys.CONSTRUCTION]
+        true_const: list[EpBunch] = self.idf.idfobjects[epkeys.CONSTRUCTION]
+        airboundary_const: list[EpBunch] = self.idf.idfobjects[
+            epkeys.AIRBOUNDARY_CONSTRUCTION
+        ]
+        return chain_flatten([true_const, airboundary_const])
+
+    # def get_airboundary_constructions(self) -> list[EpBunch]:
+    #     return self.idf.idfobjects[epkeys.AIRBOUNDARY_CONSTRUCTION]
 
     ##################################################
     ########## ------ ADDING TO IDF ------ ##########
@@ -116,6 +124,12 @@ class IDF:
 
     def add_construction(self, object_: ConstructionsObject):
         obj0 = self.idf.newidfobject(epkeys.CONSTRUCTION, **object_.__dict__)
+        return obj0
+
+    def add_airboundary_construction(self, object_: AirboundaryConstructionObject):
+        obj0 = self.idf.newidfobject(
+            epkeys.AIRBOUNDARY_CONSTRUCTION, **object_.__dict__
+        )
         return obj0
 
     def update_construction(
