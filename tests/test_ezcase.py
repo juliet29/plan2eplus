@@ -18,7 +18,9 @@ def test_ezcase():
     case.initialize_idf()
     case.add_zones(test_rooms)
 
-    case.add_airboundaries([zone_edge])
+    # TODO should be able to initialize with basic objects, they get transofmed 
+    case.add_airboundaries([zone_edge]) # TODO: refuse to add airboundaries to surface with subsurfaces
+    # TODO -> bring the creation up to this test, so can see complexity assoc. w/ creating it.. 
     case.add_subsurfaces(test_for_airboundary.inputs)
 
     case.add_constructions_from_other_idf(
@@ -28,6 +30,7 @@ def test_ezcase():
     )
     case.add_airflownetwork()
     # this should run without error -> will error if there are any "None" values
+    # TODO check for None values in IDF.. or at least test inputs.. 
     # case.idf.print_idf()
     assert 1
     # return case

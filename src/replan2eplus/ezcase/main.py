@@ -1,7 +1,13 @@
 from dataclasses import dataclass
 from pathlib import Path
+
 from replan2eplus.afn.presentation import create_afn_objects
 from replan2eplus.airboundary.presentation import update_airboundary_constructions
+
+# from replan2eplus.constructions import update_surfaces_with_construction_set
+from replan2eplus.constructions.presentation import (
+    add_constructions_from_other_idf,
+) 
 from replan2eplus.ezobjects.airboundary import Airboundary
 from replan2eplus.ezobjects.construction import Construction, EPConstructionSet
 from replan2eplus.ezobjects.material import Material
@@ -9,16 +15,6 @@ from replan2eplus.ezobjects.subsurface import Subsurface
 from replan2eplus.ezobjects.surface import Surface
 from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.idfobjects.idf import IDF
-
-# from replan2eplus.constructions import update_surfaces_with_construction_set
-from replan2eplus.constructions.presentation import (
-    add_constructions_from_other_idf,
-)  # TODO really should pull up to init!
-from replan2eplus.materials.presentation import (
-    MaterialPair,
-    add_materials,
-    create_materials_from_other_idfs,
-)
 from replan2eplus.subsurfaces.interfaces import SubsurfaceInputs
 from replan2eplus.subsurfaces.logic import ZoneEdge
 from replan2eplus.subsurfaces.presentation import create_subsurfaces
@@ -117,7 +113,3 @@ class EZCase:
 
     def save_and_run_case(self):
         return self  # compare to see if idf has changed or not -> interactive -> do you want to overwrite existing reults..
-
-
-if __name__ == "__main__":
-    pass

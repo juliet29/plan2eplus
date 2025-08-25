@@ -10,7 +10,6 @@ from replan2eplus.ezobjects.construction import Construction
 from replan2eplus.ezobjects.epbunch_utils import chain_flatten, create_dict_from_fields
 from replan2eplus.idfobjects.idf import IDF
 from replan2eplus.materials.presentation import (
-    MaterialPair,
     add_materials,
     create_materials_from_other_idfs,
 )

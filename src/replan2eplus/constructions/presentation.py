@@ -1,13 +1,14 @@
 from pathlib import Path
-from replan2eplus.ezobjects.construction import Construction, EPConstructionSet
-from replan2eplus.constructions.logic.utils import (
-    create_constructions_from_other_idfs,
-    find_and_add_materials,
-    add_constructions,
-)
+
 from replan2eplus.constructions.logic.update import (
     update_surfaces_with_construction_set,
 )
+from replan2eplus.constructions.logic.utils import (
+    add_constructions,
+    create_constructions_from_other_idfs,
+    find_and_add_materials,
+)
+from replan2eplus.ezobjects.construction import EPConstructionSet
 from replan2eplus.ezobjects.surface import Surface
 from replan2eplus.idfobjects.idf import IDF, Subsurface
 
