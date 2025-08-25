@@ -1,79 +1,40 @@
 from pathlib import Path
-
-from replan2eplus.constructions.interfaces import ConstructionsObject
-from replan2eplus.errors import IDFMisunderstandingError
-from replan2eplus.ezobjects.constr_and_mat_utils import (
-    get_possible_epbunches,
-    warn_about_idf_comparison,
+from replan2eplus.ezobjects.construction import Construction, EPConstructionSet
+from replan2eplus.constructions.logic.utils import (
+    create_constructions_from_other_idfs,
+    find_and_add_materials,
+    add_constructions,
 )
-from replan2eplus.ezobjects.construction import Construction
-from replan2eplus.ezobjects.epbunch_utils import chain_flatten, create_dict_from_fields
-from replan2eplus.idfobjects.idf import IDF
-from replan2eplus.materials.presentation import (
-    MaterialPair,
-    add_materials,
-    create_materials_from_other_idfs,
+from replan2eplus.constructions.logic.update import (
+    update_surfaces_with_construction_set,
 )
-
-from replan2eplus.constructions.logic import update_surfaces_with_construction_set
-
-
-def create_constructions_from_other_idfs(
-    path_to_idfs: list[Path], path_to_idd: Path, construction_names: list[str] = []
-):
-    flat_epbunches = get_possible_epbunches(path_to_idfs, path_to_idd)
-    warn_about_idf_comparison(path_to_idfs, flat_epbunches, construction_names)
-
-    if construction_names:
-        flat_epbunches = [i for i in flat_epbunches if i.Name in construction_names]
-
-    constructions = [
-        ConstructionsObject(**create_dict_from_fields(i)) for i in flat_epbunches
-    ]
-
-    return constructions
+from replan2eplus.ezobjects.surface import Surface
+from replan2eplus.idfobjects.idf import IDF, Subsurface
 
 
-def check_materials_are_in_idf(const_object: ConstructionsObject, idf: IDF):
-    idf_mats = idf.get_materials()
-    idf_mat_names = [i.Name for i in idf_mats]
-    for mat in const_object.materials:
-        try:
-            assert (
-                mat in idf_mat_names
-            )  # TODO: need try-except for assertion! have made this mistake elsewhere -> look for it and fix it!
-        except AssertionError:
-            raise IDFMisunderstandingError(
-                f"`{mat}` needed for this construction is not in IDF materials: {sorted(idf_mat_names)}"
-            )
-
-
-def find_and_add_materials(
+def add_constructions_from_other_idf(
     idf: IDF,
-    construction_objects: list[ConstructionsObject],
-    path_to_material_idfs: list[Path],
+    paths_to_construction_idfs: list[Path],
+    paths_to_material_idfs: list[Path],
     path_to_idd: Path,
+    construction_set: EPConstructionSet,
+    surfaces: list[Surface],
+    subsurfaces: list[Subsurface],
 ):
-    materials_to_find: list[str] = chain_flatten(
-        [i.materials for i in construction_objects]
-    )
-    mat_pairs = create_materials_from_other_idfs(
-        path_to_material_idfs, path_to_idd, materials_to_find
+    construction_objects = create_constructions_from_other_idfs(
+        paths_to_construction_idfs, path_to_idd, construction_set.names
     )
 
-    new_materials = add_materials(idf, mat_pairs)
-    return new_materials
+    new_materials = []
+    if paths_to_material_idfs:
+        new_materials = find_and_add_materials(
+            idf,
+            construction_objects,
+            paths_to_material_idfs,
+            path_to_idd,
+        )
 
+    new_constructions = add_constructions(idf, construction_objects)
 
-# TODO: when adding constructions to idf, fail if the constituent materials are not in the new idf..
-def add_constructions(idf: IDF, construction_objects: list[ConstructionsObject]):
-    results = []
-    for const_object in construction_objects:
-        check_materials_are_in_idf(const_object, idf)
-        new_obj = idf.add_construction(const_object)
-        results.append(Construction(new_obj))
-
-    return results
-
-
-# TODO: possibly one last function where pass in const names, names where consts are, and place to look for materials ->
+    update_surfaces_with_construction_set(idf, construction_set, surfaces, subsurfaces)
+    return new_materials, new_constructions

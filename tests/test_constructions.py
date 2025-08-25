@@ -1,6 +1,6 @@
 from unittest.mock import Base
 from replan2eplus.constructions.interfaces import ConstructionsObject
-from replan2eplus.constructions.logic import update_surfaces_with_construction_set
+from replan2eplus.constructions.logic.update import update_surfaces_with_construction_set
 from replan2eplus.errors import IDFMisunderstandingError
 from replan2eplus.examples.mat_and_const import (
     PATH_TO_MAT_AND_CONST_IDF,

@@ -9,13 +9,10 @@ from replan2eplus.ezobjects.subsurface import Subsurface
 from replan2eplus.ezobjects.surface import Surface
 from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.idfobjects.idf import IDF
+
 # from replan2eplus.constructions import update_surfaces_with_construction_set
 from replan2eplus.constructions.presentation import (
-    create_constructions_from_other_idfs,
-    check_materials_are_in_idf,
-    find_and_add_materials,
-    add_constructions,
-    update_surfaces_with_construction_set
+    add_constructions_from_other_idf,
 )  # TODO really should pull up to init!
 from replan2eplus.materials.presentation import (
     MaterialPair,
@@ -84,23 +81,6 @@ class EZCase:
         )  # TODO change so IDF comes first!
         return self
 
-    def add_materials(self, material_pairs: list[MaterialPair]):
-        add_materials(self.idf, material_pairs)
-        return self
-
-    def add_materials_from_other_idf(
-        self, path_to_other_idf: Path, material_names: list[str] = []
-    ):
-        # NOTE: IDDs need to be the same -> geomeppy should throw an errow if they are not.. # TODO catch it!
-        material_pairs = create_materials_from_other_idfs(
-            [path_to_other_idf], self.path_to_idd, material_names=material_names
-        )
-        new_materials = add_materials(self.idf, material_pairs)
-        self.materials.extend(new_materials)
-        # TODO something to handle duplicates?
-
-        return self
-
     # TODO: option to add constructions manually!
 
     def add_constructions_from_other_idf(
@@ -111,28 +91,19 @@ class EZCase:
     ):
         self.construction_set = construction_set
 
-        construction_objects = create_constructions_from_other_idfs(
-            paths_to_construction_idfs, self.path_to_idd, self.construction_set.names
+        new_materials, new_constructions = add_constructions_from_other_idf(
+            self.idf,
+            paths_to_construction_idfs,
+            paths_to_material_idfs,
+            self.path_to_idd,
+            self.construction_set,
+            self.surfaces,
+            self.subsurfaces,
         )
-
-        if paths_to_material_idfs:
-            new_materials = find_and_add_materials(
-                self.idf,
-                construction_objects,
-                paths_to_material_idfs,
-                self.path_to_idd,
-            )
-            self.materials.extend(new_materials)
-
-        new_constructions = add_constructions(self.idf, construction_objects)
         self.constructions.extend(new_constructions)
-
-        update_surfaces_with_construction_set(
-            self.idf, self.construction_set, self.surfaces, self.subsurfaces
-        )
+        self.materials.extend(new_materials)
         return self
 
-    # TODO add construction set!
 
     def add_airflownetwork(self):
         # TODO -> make an EZObject for AFN? Will be helpful for graphing..
