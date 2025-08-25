@@ -58,6 +58,7 @@ def get_material_epbunch_key(epbunch: EpBunch) -> MaterialKey:
 def create_materials_from_other_idf(
     path_to_idf: Path, path_to_idd: Path, material_names: list[str] = []
 ):
+    # TODO -> update so can take many idfs, like constructions! 
     """
     default of not specifying any material_names means return all
     """
@@ -72,7 +73,7 @@ def create_materials_from_other_idf(
             )
         if differing_names:
             warnings.warn(
-                f"{differing_names} cannot be found in this IDF `{path_to_idf.parent}`",
+                f"{differing_names} cannot be found in this IDF `{path_to_idf.name}`",
                 UserWarning,
             )
 

@@ -27,8 +27,38 @@ from replan2eplus.materials.interfaces import (
     MaterialObjectBase,
 )
 
+from ladybug.analysisperiod import AnalysisPeriod
+from ladybug.epw import EPW
+from replan2eplus.paths import WEATHER_FILE
 
 # TODO --> move stuff in idfobjects into the interfaces files of their folder!
+
+SAMPLE_EPW = EPW(WEATHER_FILE)
+
+
+def update_idf_location(idf: geomeppyIDF, epw: EPW = SAMPLE_EPW):
+    loc = idf.newidfobject("SITE:LOCATION")
+    loc.Name = epw.location.city
+    loc.Latitude = epw.location.latitude
+    loc.Longitude = epw.location.longitude
+    loc.Time_Zone = epw.location.time_zone
+    loc.Elevation = epw.location.elevation
+    return idf
+
+
+def update_idf_run_period(
+    idf: geomeppyIDF,
+    ap: AnalysisPeriod = AnalysisPeriod(
+        st_month=7, st_day=1, end_month=7, end_day=1, timestep=4
+    ),
+):
+    rp = idf.newidfobject("RUNPERIOD")
+    rp.Name = "Summer"
+    rp.Begin_Month = ap.st_month
+    rp.End_Month = ap.end_month
+    rp.Begin_Day_of_Month = ap.st_day
+    rp.End_Day_of_Month = ap.end_day
+    return idf
 
 
 @dataclass
@@ -43,6 +73,9 @@ class IDF:
             pass  # TODO log IDD already set, especially if the one they try to set is different..
 
         self.idf = geomeppyIDF(idfname=self.path_to_idf)
+        self.idf = update_idf_location(self.idf)
+        self.idf = update_idf_run_period(self.idf)
+        self.idf.epw = WEATHER_FILE
 
     def print_idf(self):
         self.idf.printidf()  # TOOD make sure works?
@@ -129,7 +162,7 @@ class IDF:
         )  # NOTE: this is special!
 
     def add_construction(self, object_: ConstructionsObject):
-        obj0 = self.idf.newidfobject(epkeys.CONSTRUCTION, **object_.__dict__)
+        obj0 = self.idf.newidfobject(epkeys.CONSTRUCTION, **object_.valid_dict)
         return obj0
 
     def add_airboundary_construction(self, object_: AirboundaryConstructionObject):

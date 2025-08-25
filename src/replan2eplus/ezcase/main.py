@@ -1,10 +1,13 @@
 from dataclasses import dataclass
 from pathlib import Path
+from replan2eplus.afn.presentation import create_afn_objects
 from replan2eplus.airboundary.presentation import update_airboundary_constructions
 from replan2eplus.ezobjects.airboundary import Airboundary
-from replan2eplus.ezobjects.construction import Construction
+from replan2eplus.ezobjects.construction import Construction, EPConstructionSet
 from replan2eplus.ezobjects.material import Material
 from replan2eplus.ezobjects.subsurface import Subsurface
+from replan2eplus.ezobjects.surface import Surface
+from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.idfobjects.idf import IDF
 from replan2eplus.constructions.presentation import (
     create_constructions_from_other_idf,
@@ -37,14 +40,18 @@ class EZCase:
     # path_to_analysis_period: AnalysisPeriod
     def __post_init__(self):
         # TODO -> read the case first? here, assuming starting from scratcj..
-        
+
+        self.idf: IDF
+        self.construction_set: EPConstructionSet
+
+        self.zones: list[Zone] = []
+        self.surfaces: list[Surface] = []
         self.airboundaries: list[Airboundary] = []
         self.subsurfaces: list[Subsurface] = []
 
         # -> may call add materials / constructions several times..
         self.materials: list[Material] = []
         self.constructions: list[Construction] = []
-    
 
     def initialize_idf(self):
         self.idf = IDF(self.path_to_idd, self.path_to_initial_idf)
@@ -62,21 +69,19 @@ class EZCase:
             self.idf, edges, self.zones
         )
         return self
-    
 
     def add_subsurfaces(self, inputs: SubsurfaceInputs):
         """
-        edges: dict[int, Edge] -> u: name in the room plan, v: name in the room plan OR capitalized cardnal direction 
+        edges: dict[int, Edge] -> u: name in the room plan, v: name in the room plan OR capitalized cardnal direction
         details: dict[int, Details]
         map_: dict[int, list[int]]
-        
+
         """
         # TODO: check that zones exist
         self.subsurfaces = create_subsurfaces(
             inputs, self.zones, self.idf
         )  # TODO change so IDF comes first!
         return self
-
 
     def add_materials(self, material_pairs: list[MaterialPair]):
         add_materials(self.idf, material_pairs)
@@ -94,34 +99,44 @@ class EZCase:
         # TODO something to handle duplicates?
 
         return self
-    
-    # TODO: option to add constructions manually! 
+
+    # TODO: option to add constructions manually!
 
     def add_constructions_from_other_idf(
         self,
-        path_to_other_idf: Path,
-        construction_names: list[str] = [],
-        path_to_idfs_for_materials: list[Path] = [],
+        paths_to_construction_idfs: list[Path],
+        paths_to_material_idfs: list[Path],
+        construction_set: EPConstructionSet,
     ):
+        self.construction_set = construction_set
+
         construction_objects = create_constructions_from_other_idf(
-            path_to_other_idf, self.path_to_idd, construction_names
+            paths_to_construction_idfs, self.path_to_idd, self.construction_set.names
         )
 
-        if path_to_idfs_for_materials:
+        if paths_to_material_idfs:
             new_materials = find_and_add_materials(
                 self.idf,
                 construction_objects,
-                path_to_idfs_for_materials,
+                paths_to_material_idfs,
                 self.path_to_idd,
             )
             self.materials.extend(new_materials)
 
         new_constructions = add_constructions(self.idf, construction_objects)
         self.constructions.extend(new_constructions)
+
+        update_surfaces_with_construction_set(
+            self.idf, self.construction_set, self.surfaces, self.subsurfaces
+        )
         return self
 
+    # TODO add construction set!
+
     def add_airflownetwork(self):
-        return self  # TODO: include airboundaries!
+        # TODO -> make an EZObject for AFN? Will be helpful for graphing..
+        create_afn_objects(self.idf, self.zones, self.subsurfaces, self.airboundaries)
+        return self
 
     def add_output_variables(self):
         return self  # use Munch!

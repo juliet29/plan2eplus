@@ -5,6 +5,8 @@ from replan2eplus.errors import IDFMisunderstandingError
 from replan2eplus.examples.mat_and_const import (
     PATH_TO_MAT_AND_CONST_IDF,
     PATH_TO_WINDOW_GLASS_IDF,
+    PATH_TO_WINDOW_CONST_IDF,
+    TEST_CONSTRUCTIONS_WITH_WINDOW,
 )
 from replan2eplus.examples.defaults import PATH_TO_IDD
 from replan2eplus.constructions.presentation import (
@@ -13,36 +15,34 @@ from replan2eplus.constructions.presentation import (
     find_and_add_materials,
 )
 import pytest
-from replan2eplus.ezobjects.construction import EPConstructionSet, BaseConstructionSet
-
-
-TEST_CONSTRUCTIONS = ["Light Exterior Wall", "Light Roof/Ceiling"]
-CONST_IN_EXAMPLE = "Medium Exterior Wall"
-
-TEST_CONSTRUCTION_SET = EPConstructionSet(
-    wall=BaseConstructionSet("Medium Roof/Ceiling", "Medium Roof/Ceiling"),
-    floor=BaseConstructionSet("Medium Partitions", "Medium Furnishings"),
-    roof=BaseConstructionSet("Medium Furnishings", "Medium Furnishings"),
-    window=BaseConstructionSet(
-        "Medium Window Sgl Clr 6mm", "Medium Window Sgl Clr 6mm"
-    ),
-    door=BaseConstructionSet("Medium Partitions", "Medium Partitions"),
-)
+from replan2eplus.examples.mat_and_const import BAD_CONSTRUCTION_SET
+from replan2eplus.examples.mat_and_const import CONST_IN_EXAMPLE
+from replan2eplus.examples.mat_and_const import TEST_CONSTRUCTIONS
 
 
 @pytest.fixture()
 def get_constructions_from_idf() -> list[ConstructionsObject]:
     return create_constructions_from_other_idf(
-        PATH_TO_MAT_AND_CONST_IDF, PATH_TO_IDD, TEST_CONSTRUCTIONS
+        [PATH_TO_MAT_AND_CONST_IDF], PATH_TO_IDD, TEST_CONSTRUCTIONS
     )
 
 
 def test_get_constructions():
     constructions = create_constructions_from_other_idf(
-        PATH_TO_MAT_AND_CONST_IDF, PATH_TO_IDD, TEST_CONSTRUCTIONS
+        [PATH_TO_MAT_AND_CONST_IDF], PATH_TO_IDD, TEST_CONSTRUCTIONS
     )
     const_names = [i.Name for i in constructions]
     assert set(const_names) == set(TEST_CONSTRUCTIONS)
+
+
+def test_get_constructions_from_many_idf():
+    constructions = create_constructions_from_other_idf(
+        [PATH_TO_MAT_AND_CONST_IDF, PATH_TO_WINDOW_CONST_IDF],
+        PATH_TO_IDD,
+        TEST_CONSTRUCTIONS_WITH_WINDOW,
+    )
+    const_names = [i.Name for i in constructions]
+    assert set(const_names) == set(TEST_CONSTRUCTIONS_WITH_WINDOW)
 
 
 def test_add_constructions_without_mats(
@@ -93,7 +93,7 @@ def test_update_surface_construction(get_pytest_example_case):
 def test_update_with_construction_set(get_pytest_example_case):
     case = get_pytest_example_case
     update_surfaces_with_construction_set(
-        case.idf, TEST_CONSTRUCTION_SET, case.surfaces, case.subsurfaces
+        case.idf, BAD_CONSTRUCTION_SET, case.surfaces, case.subsurfaces
     )
     outdoor_walls = [
         i

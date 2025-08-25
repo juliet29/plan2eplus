@@ -1,7 +1,7 @@
 from replan2eplus.ezobjects.base import EZObject
 from dataclasses import dataclass
 import replan2eplus.epnames.keys as epkeys
-from typing import Protocol
+from utils4plans.lists import chain_flatten
 
 
 @dataclass
@@ -16,10 +16,8 @@ class Construction(EZObject):
 @dataclass
 class BaseConstructionSet:
     # default: Construction
-    interior: str 
-    exterior: str 
-
- 
+    interior: str
+    exterior: str
 
     # def __post_init__(self):
     #     if not self.interior:
@@ -37,3 +35,11 @@ class EPConstructionSet:
     door: BaseConstructionSet
 
     # TODO validate?
+
+    @property
+    def sets(self):
+        return [self.wall, self.roof, self.floor, self.window, self.door]
+
+    @property
+    def names(self):
+        return chain_flatten([[i.interior, i.exterior] for i in self.sets])

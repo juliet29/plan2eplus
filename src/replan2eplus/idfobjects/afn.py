@@ -34,8 +34,8 @@ class AFNZone(NamedTuple):
     Ventilation_Control_Mode: Literal["Constant", "NoVent"] = (
         "Constant"  # Constant -> depends on venting availability schedule
     )
-    Venting_Availability_Schedule_Name: str | None = (
-        None  # TODO dont add if its none..  #TODO add venting availability schedules..
+    Venting_Availability_Schedule_Name: str = (
+        ""  # TODO dont add if its none..  #TODO add venting availability schedules..
     )
 
 

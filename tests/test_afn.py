@@ -24,10 +24,9 @@ def test_selecting_afn_objects(get_pytest_minimal_case_with_subsurfaces):
     assert len(afn_inputs.subsurfaces) == 2
 
 
-
 def test_adding_afn_objects(get_pytest_minimal_case_with_subsurfaces):
     """
-    # expect 1 sim control object, 1 zone, (2 subsurfaces -> 1 surface, 1 opening each -> 2x2 = 4)
+    # expect 1 sim control object, 1 zone, (2 subsurfaces witj 1 surface and 1 opening each -> 2x2 = 4)
     # expect 6 objects in total
     """
     case = get_pytest_minimal_case_with_subsurfaces
@@ -74,8 +73,6 @@ def test_selecting_afn_objects_from_case_with_airboundary_one_door(
     assert room1.name == afn_inputs.zones_[0].room_name
     assert len(afn_inputs.subsurfaces) == 1
     assert len(afn_inputs.surfaces) == 1
-
-
 
 
 if __name__ == "__main__":

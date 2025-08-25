@@ -15,31 +15,42 @@ from replan2eplus.materials.presentation import (
     create_materials_from_other_idf,
     add_materials,
 )
-from replan2eplus.constructions.logic import update_surfaces_with_construction_set 
+from replan2eplus.constructions.logic import update_surfaces_with_construction_set
+import warnings
 
 
 def create_constructions_from_other_idf(
-    path_to_idf: Path, path_to_idd: Path, construction_names: list[str] = []
+    path_to_idfs: list[Path], path_to_idd: Path, construction_names: list[str] = []
 ):
     def check_construction_names():
         differing_names = set_difference(
-            construction_names, [i.Name for i in epbunches]
+            construction_names, [i.Name for i in flat_epbunches]
         )
+        idf_names = [i.name for i in path_to_idfs]
         if differing_names:
-            raise IDFMisunderstandingError(
-                f"No materials with names in {differing_names} exist in this IDF!"
+            warnings.warn(
+                f"{differing_names} cannot be found in these IDFs `{idf_names}`",
+                UserWarning,
             )
 
-    other_idf = IDF(path_to_idd, path_to_idf)
-    epbunches = other_idf.get_constructions()
+    possible_epbunches = []
+    for path in path_to_idfs:
+        other_idf = IDF(path_to_idd, path)
+        epbunches = other_idf.get_constructions()
+        possible_epbunches.append(epbunches)
+
+    flat_epbunches = chain_flatten(possible_epbunches)
     check_construction_names()
 
     if construction_names:
-        epbunches = [i for i in epbunches if i.Name in construction_names]
+        flat_epbunches = [i for i in flat_epbunches if i.Name in construction_names]
+        # TODO warning if no constructions remain? 
 
     constructions = [
-        ConstructionsObject(**create_dict_from_fields(i)) for i in epbunches
+        ConstructionsObject(**create_dict_from_fields(i)) for i in flat_epbunches
     ]
+
+    
 
     return constructions
 

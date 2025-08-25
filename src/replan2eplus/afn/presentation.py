@@ -37,12 +37,27 @@ def select_afn_objects(
     afn_zones = [
         i for i in zones if len(i.potential_afn_surface_or_subsurface_names) >= 2
     ]
+    anti_zones = [i for i in zones if i not in afn_zones]
 
-    afn_subsurfaces = get_afn_subsurfaces(afn_zones, subsurfaces)
+    anti_surfaces_l1: list[Surface] = chain_flatten([i.surfaces for i in anti_zones])
+    anti_surfaces_l2: list[str] = [i.neighbor for i in anti_surfaces_l1 if i.neighbor]
+    anti_surfaces = [i.surface_name for i in anti_surfaces_l1] + anti_surfaces_l2
 
-    afn_ariboundaries = get_afn_airboundaries(afn_zones, airboundaries)
+    anti_subsurfaces = chain_flatten([i.subsurface_names for i in anti_zones])
 
-    return AFNInputs(afn_zones, afn_subsurfaces, afn_ariboundaries)
+    afn_subsurfaces = [
+        i
+        for i in get_afn_subsurfaces(afn_zones, subsurfaces)
+        if i.subsurface_name not in anti_subsurfaces
+    ]
+
+    afn_airboundaries = [
+        i
+        for i in get_afn_airboundaries(afn_zones, airboundaries)
+        if i.surface_name not in anti_surfaces
+    ]
+
+    return AFNInputs(afn_zones, afn_subsurfaces, afn_airboundaries)
 
 
 # TODO -> think this part of the code is untested..
@@ -57,10 +72,12 @@ def create_afn_objects(
 
     for zone in inputs.zones:
         idf.add_afn_zone(zone)
+        idf.print_idf()
 
     for pair in zip(*inputs.surfaces_and_openings):
         afn_surface, afn_opening = pair
         idf.add_afn_surface(afn_surface)
         idf.add_afn_opening(afn_opening)
+    idf.print_idf()
 
     return idf
