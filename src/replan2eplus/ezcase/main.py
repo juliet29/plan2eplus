@@ -135,7 +135,7 @@ class EZCase:
 
     def add_airflownetwork(self):
         # TODO -> make an EZObject for AFN? Will be helpful for graphing..
-        create_afn_objects(self.idf, self.zones, self.subsurfaces, self.airboundaries)
+        create_afn_objects(self.idf, self.zones, self.subsurfaces, self.airboundaries, self.surfaces)
         return self
 
     def add_output_variables(self):

@@ -3,6 +3,7 @@ from dataclasses import fields
 from eppy.bunch_subclass import EpBunch
 from typing import Any, Callable, Dict, Iterable, List, TypeVar, Union
 from itertools import groupby
+from itertools import chain
 
 T = TypeVar("T")
 
@@ -37,3 +38,8 @@ def sort_and_group_objects_dict(
     for k, g in groupby(sorted_objs, fx):
         d[k] = [i for i in list(g)]
     return d
+
+
+def chain_flatten(lst: Iterable[Iterable[T]]) -> list[T]:
+    return list(chain.from_iterable(lst))
+

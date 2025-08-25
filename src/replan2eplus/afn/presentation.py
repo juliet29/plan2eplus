@@ -7,14 +7,12 @@ from replan2eplus.idfobjects.afn import (
     AFNKeys,
 )
 from replan2eplus.idfobjects.idf import IDF
-from replan2eplus.subsurfaces.presentation import chain_flatten
+from replan2eplus.ezobjects.epbunch_utils import chain_flatten
 from replan2eplus.subsurfaces.utils import get_unique_subsurfaces
 
 
 def get_afn_subsurfaces(afn_zones: list[Zone], subsurfaces: list[Subsurface]):
-    potential_subsurface_names: list[str] = chain_flatten(
-        [i.subsurface_names for i in afn_zones]
-    )
+    potential_subsurface_names = chain_flatten([i.subsurface_names for i in afn_zones])
     potential_subsurfaces = [
         i for i in subsurfaces if i.subsurface_name in potential_subsurface_names
     ]  # TODO filter function would help clean this up..
@@ -32,18 +30,25 @@ def get_afn_airboundaries(afn_zones: list[Zone], airboundaries: list[Airboundary
 
 
 def select_afn_objects(
-    zones: list[Zone], subsurfaces: list[Subsurface], airboundaries: list[Airboundary]
+    zones: list[Zone],
+    subsurfaces: list[Subsurface],
+    airboundaries: list[Airboundary],
+    surfaces: list[Surface],
 ):
     afn_zones = [
         i for i in zones if len(i.potential_afn_surface_or_subsurface_names) >= 2
     ]
     anti_zones = [i for i in zones if i not in afn_zones]
 
-    anti_surfaces_l1: list[Surface] = chain_flatten([i.surfaces for i in anti_zones])
+    anti_surfaces_l1 = chain_flatten([i.surfaces for i in anti_zones])
     anti_surfaces_l2: list[str] = [i.neighbor for i in anti_surfaces_l1 if i.neighbor]
     anti_surfaces = [i.surface_name for i in anti_surfaces_l1] + anti_surfaces_l2
 
-    anti_subsurfaces = chain_flatten([i.subsurface_names for i in anti_zones])
+    anti_subsurfaces_l1 = chain_flatten([i.subsurface_names for i in anti_zones])
+    # need to get the surfaces in neighbors..
+    nb_surfs = [i for i in surfaces if i.surface_name in anti_surfaces_l2]
+    anti_subsurfaces_l2 = chain_flatten([i.subsurface_names for i in nb_surfs])
+    anti_subsurfaces = anti_subsurfaces_l1 + anti_subsurfaces_l2
 
     afn_subsurfaces = [
         i
@@ -66,8 +71,9 @@ def create_afn_objects(
     zones: list[Zone],
     subsurfaces: list[Subsurface],
     airboundaries: list[Airboundary],
+    surfaces: list[Surface],
 ):
-    inputs = select_afn_objects(zones, subsurfaces, airboundaries)
+    inputs = select_afn_objects(zones, subsurfaces, airboundaries, surfaces)
     idf.add_afn_simulation_control(inputs.sim_control)
 
     for zone in inputs.zones:

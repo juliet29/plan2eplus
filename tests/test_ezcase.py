@@ -13,8 +13,6 @@ from replan2eplus.paths import THROWAWAY_PATH
 import pytest
 
 
-
-
 def test_ezcase():
     case = EZCase(PATH_TO_IDD, PATH_TO_MINIMAL_IDF)
     case.initialize_idf()
@@ -32,9 +30,9 @@ def test_ezcase():
     # this should run without error -> will error if there are any "None" values
     # case.idf.print_idf()
     assert 1
-    return case
+    # return case
 
 
 if __name__ == "__main__":
     case = test_ezcase()
-    case.idf.idf.run(output_directory=THROWAWAY_PATH)
+    # case.idf.idf.run(output_directory=THROWAWAY_PATH)
