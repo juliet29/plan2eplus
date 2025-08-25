@@ -1,56 +1,35 @@
 from pathlib import Path
-from utils4plans.sets import set_difference
-from replan2eplus.ezobjects import surface
-from replan2eplus.ezobjects.epbunch_utils import create_dict_from_fields
-from replan2eplus.idfobjects.idf import IDF
+
 from replan2eplus.constructions.interfaces import ConstructionsObject
-import replan2eplus.epnames.keys as epkeys
-from replan2eplus.ezobjects.construction import Construction
-
 from replan2eplus.errors import IDFMisunderstandingError
-from utils4plans.lists import chain_flatten
-
+from replan2eplus.ezobjects.constr_and_mat_utils import (
+    get_possible_epbunches,
+    warn_about_idf_comparison,
+)
+from replan2eplus.ezobjects.construction import Construction
+from replan2eplus.ezobjects.epbunch_utils import chain_flatten, create_dict_from_fields
+from replan2eplus.idfobjects.idf import IDF
 from replan2eplus.materials.presentation import (
     MaterialPair,
-    create_materials_from_other_idf,
     add_materials,
+    create_materials_from_other_idfs,
 )
+
 from replan2eplus.constructions.logic import update_surfaces_with_construction_set
-import warnings
 
 
-def create_constructions_from_other_idf(
+def create_constructions_from_other_idfs(
     path_to_idfs: list[Path], path_to_idd: Path, construction_names: list[str] = []
 ):
-    def check_construction_names():
-        differing_names = set_difference(
-            construction_names, [i.Name for i in flat_epbunches]
-        )
-        idf_names = [i.name for i in path_to_idfs]
-        if differing_names:
-            warnings.warn(
-                f"{differing_names} cannot be found in these IDFs `{idf_names}`",
-                UserWarning,
-            )
-
-    possible_epbunches = []
-    for path in path_to_idfs:
-        other_idf = IDF(path_to_idd, path)
-        epbunches = other_idf.get_constructions()
-        possible_epbunches.append(epbunches)
-
-    flat_epbunches = chain_flatten(possible_epbunches)
-    check_construction_names()
+    flat_epbunches = get_possible_epbunches(path_to_idfs, path_to_idd)
+    warn_about_idf_comparison(path_to_idfs, flat_epbunches, construction_names)
 
     if construction_names:
         flat_epbunches = [i for i in flat_epbunches if i.Name in construction_names]
-        # TODO warning if no constructions remain? 
 
     constructions = [
         ConstructionsObject(**create_dict_from_fields(i)) for i in flat_epbunches
     ]
-
-    
 
     return constructions
 
@@ -72,24 +51,17 @@ def check_materials_are_in_idf(const_object: ConstructionsObject, idf: IDF):
 def find_and_add_materials(
     idf: IDF,
     construction_objects: list[ConstructionsObject],
-    idf_paths_to_try: list[Path],
+    path_to_material_idfs: list[Path],
     path_to_idd: Path,
 ):
     materials_to_find: list[str] = chain_flatten(
         [i.materials for i in construction_objects]
     )
-    all_mat_pairs: list[MaterialPair] = []
-    for path in idf_paths_to_try:
-        try:
-            mat_pairs = create_materials_from_other_idf(
-                path, path_to_idd, materials_to_find
-            )
-            if mat_pairs:
-                all_mat_pairs.extend(mat_pairs)
-        except IDFMisunderstandingError:
-            pass  # possible that IDF will have NONE of the materials to be foynd
+    mat_pairs = create_materials_from_other_idfs(
+        path_to_material_idfs, path_to_idd, materials_to_find
+    )
 
-    new_materials = add_materials(idf, all_mat_pairs)
+    new_materials = add_materials(idf, mat_pairs)
     return new_materials
 
 

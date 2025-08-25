@@ -18,6 +18,10 @@ from replan2eplus.materials.interfaces import (
     MaterialObjectBase,
     material_keys,
 )
+from replan2eplus.ezobjects.constr_and_mat_utils import (
+    get_possible_epbunches,
+    warn_about_idf_comparison,
+)
 
 # TODO could also call logic?
 
@@ -54,37 +58,18 @@ def get_material_epbunch_key(epbunch: EpBunch) -> MaterialKey:
     return val  # type: ignore --- checked above
 
 
-# TODO expose as a function that can be called.. 
-def create_materials_from_other_idf(
-    path_to_idf: Path, path_to_idd: Path, material_names: list[str] = []
+# TODO expose as a function that can be called..
+def create_materials_from_other_idfs(
+    path_to_idfs: list[Path], path_to_idd: Path, material_names: list[str] = []
 ):
-    # TODO -> update so can take many idfs, like constructions! 
-    """
-    default of not specifying any material_names means return all
-    """
-
-    def check_material_names():
-        differing_names = set_difference(material_names, [i.Name for i in epbunches])
-        if (
-            set(differing_names) == set(material_names)
-        ):  # essentially none of the materials exist in the set -> otherwise we will take what we can
-            raise IDFMisunderstandingError(
-                f"No materials with names in {differing_names} exist in this IDF!"
-            )
-        if differing_names:
-            warnings.warn(
-                f"{differing_names} cannot be found in this IDF `{path_to_idf.name}`",
-                UserWarning,
-            )
-
-    other_idf = IDF(path_to_idd, path_to_idf)
-    epbunches = other_idf.get_materials()
-    check_material_names()
+    epbunches = get_possible_epbunches(
+        path_to_idfs, path_to_idd, object_type="MATERIAL"
+    )
+    warn_about_idf_comparison(path_to_idfs, epbunches, material_names)
 
     if material_names:
         epbunches = [i for i in epbunches if i.Name in material_names]
 
-    # TODO could clean this up, but easier to test this way..
     results: list[MaterialPair] = []
     for bunch in epbunches:
         bunch_dict = create_dict_from_fields(bunch)
@@ -94,9 +79,7 @@ def create_materials_from_other_idf(
     return results
 
 
-# TODO add materials directly (without copying? -> think the below already solves for that.. )
-
-# TODO can avoid need for material pair by adding key to the object itself.. 
+# TODO can avoid need for material pair by adding key to the object itself..
 def add_materials(idf: IDF, material_pairs: list[MaterialPair]):
     new_materials: list[Material] = []
     for mat_pair in material_pairs:
