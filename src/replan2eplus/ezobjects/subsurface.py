@@ -44,6 +44,7 @@ class Edge(NamedTuple):
             raise Exception("This is not a directed edge!")
         # need the surface its on..
 
+
     # TODO properties to add: surface, partner obj, connecting zones, "driving zones" (for the purpose of the AFN )
 
 

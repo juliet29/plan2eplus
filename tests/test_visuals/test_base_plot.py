@@ -11,21 +11,18 @@ if __name__ == "__main__":
     case = get_minimal_case_with_rooms()
     case.add_subsurfaces(simple_subsurface_inputs.inputs)
 
-    get_unique_subsurfaces(case.subsurfaces)
+    # get_unique_subsurfaces(case.subsurfaces)
 
-    # case.idf.print_idf()
-    # case.idf.idf.view_model()
-    north_surfaces = [
-        i
-        for i in case.surfaces
-        if i.direction.name == "NORTH" or i.direction.name == "EAST"
-    ]
     bp = (
         BasePlot(case.zones, cardinal_expansion_factor=1.8)
         .plot_zones()
         .plot_zone_names()
         .plot_cardinal()
         .plot_subsurfaces(case.subsurfaces)
-        .plot_connections(case.subsurfaces)
-        .show()
+        .plot_connections(case.subsurfaces)  # would be good to specify the color here.
     )
+
+    # afn plot..
+    case.add_airflownetwork()
+    bp.plot_connections(case.airflownetwork.surfacelike_objects, color="blue", opacity=1, linewidth=2)
+    bp.show()

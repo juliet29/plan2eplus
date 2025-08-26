@@ -57,7 +57,7 @@ def test_selecting_afn_objects_from_case_with_airboundary_two_doors(
     assert len(afn_inputs.zones) == 2
     assert room1.name == afn_inputs.zones_[0].room_name
     assert len(afn_inputs.subsurfaces) == 2
-    assert len(afn_inputs.surfaces) == 1
+    assert len(afn_inputs.airboundaires) == 1
 
 
 def test_selecting_afn_objects_from_case_with_airboundary_one_door(
@@ -77,7 +77,7 @@ def test_selecting_afn_objects_from_case_with_airboundary_one_door(
     assert len(afn_inputs.zones) == 1
     assert room1.name == afn_inputs.zones_[0].room_name
     assert len(afn_inputs.subsurfaces) == 1
-    assert len(afn_inputs.surfaces) == 0
+    assert len(afn_inputs.airboundaires) == 0
 
 
 # TODO test the case when AFN subsurfaces shuld be excluded..

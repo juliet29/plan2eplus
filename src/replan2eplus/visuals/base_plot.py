@@ -2,6 +2,7 @@ from dataclasses import dataclass
 import matplotlib.pyplot as plt
 from matplotlib.axes import Axes
 
+from replan2eplus.ezobjects.airboundary import Airboundary
 from replan2eplus.ezobjects.subsurface import Subsurface
 from replan2eplus.ezobjects.surface import Surface
 from replan2eplus.ezobjects.zone import Zone
@@ -10,11 +11,11 @@ from replan2eplus.subsurfaces.utils import get_unique_subsurfaces
 from replan2eplus.visuals.transformations import (
     domain_to_line,
     domain_to_rectangle,
+    expansion_factor,
     subsurface_to_connection_line,
 )
+from typing import Protocol
 
-
-expansion_factor = 1.3
 # line
 edge_color = "black"
 alpha = 0.2
@@ -25,6 +26,12 @@ alignment = {
     "horizontalalignment": "center",
     "verticalalignment": "center",
 }
+
+
+class HasEdge(Protocol):
+    @property
+    def edge(self): ...
+
 
 # sufaces: list[Surface]
 # subsurface: list[Subsurface]
@@ -91,7 +98,9 @@ class BasePlot:
     def plot_subsurfaces(
         self, subsurfaces: list[Subsurface], fontsize=annotation_font_size
     ):
-        ss = get_unique_subsurfaces(subsurfaces)
+        ss = get_unique_subsurfaces(
+            subsurfaces
+        )  # also TODO: get unique asurfaces.. -> so can plot airboundaries!
         for subsurf in ss:
             line = domain_to_line(subsurf.domain)
             self.axes.add_artist(line.to_line2D)
@@ -104,11 +113,20 @@ class BasePlot:
             # TODO add legend
         return self
 
-    def plot_connections(self, subsurfaces: list[Subsurface]):
+    def plot_connections(
+        self,
+        subsurfaces: list[Subsurface | Airboundary],
+        color="grey",
+        linewidth=6,
+        opacity=0.1,
+    ):
         for ss in subsurfaces:
             line = subsurface_to_connection_line(
                 ss, self.zones, self.cardinal_domain.cardinal
             )
+            line.set_color(color)
+            line.set_linewidth(linewidth)
+            line.set_alpha(opacity)
             self.axes.add_artist(line)
 
         return self

@@ -1,4 +1,5 @@
 from replan2eplus.errors import IDFMisunderstandingError
+from replan2eplus.ezobjects.airboundary import Airboundary
 from replan2eplus.ezobjects.subsurface import Subsurface
 from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.geometry.contact_points import CardinalPoints
@@ -9,6 +10,10 @@ from matplotlib.patches import Rectangle
 from matplotlib.lines import Line2D
 
 from replan2eplus.visuals.interfaces import Line, split_coords
+from replan2eplus.geometry.domain import compute_multidomain, expand_domain
+
+
+expansion_factor = 1.3
 
 
 def domain_to_rectangle(domain: Domain):
@@ -47,21 +52,40 @@ def get_zones(name, zones: list[Zone]):
     return possible_zones[0]
 
 
+# TODO: think about sharing with the base plot..
+def calculate_cardinal_domain(
+    zones: list[Zone], cardinal_expansion_factor=expansion_factor
+):
+    total_domain = compute_multidomain([i.domain for i in zones])
+
+    cardinal_domain = expand_domain(total_domain, cardinal_expansion_factor)
+
+    return cardinal_domain
+
+
 def subsurface_to_connection_line(
-    subsurface: Subsurface, zones: list[Zone], cardinal_coords: CardinalPoints
+    subsurface: Subsurface | Airboundary,
+    zones: list[Zone],
+    cardinal_coords: CardinalPoints,
 ):
     space_a, space_b = subsurface.edge
-    middle_coord = Coord(*domain_to_line(subsurface.domain).centroid)
+
+    if isinstance(subsurface, Subsurface):
+        middle_coord = Coord(*domain_to_line(subsurface.domain).centroid)
+    else:
+        middle_coord = Coord(*domain_to_line(subsurface.surface.domain).centroid)
+
     zone_a = get_zones(space_a, zones)
     coord_a = zone_a.domain.centroid
-    if space_b in WallNormal:
-        assert isinstance(space_b, WallNormal)
-        coord_b = cardinal_coords.dict_[space_b.name]
+    if space_b in WallNormalNamesList:
+        coord_b = cardinal_coords.dict_[space_b]
     else:
         zone_b = get_zones(space_b, zones)
         coord_b = zone_b.domain.centroid
 
     points = [coord_a, middle_coord, coord_b]
     return Line2D(*split_coords(points))
+
+
 # TODO do a similar thing for AFN -> let this be the basis of how structure the ezobject -> ie need it to have an edge
 # required properties ~ protocol -> edge, domain -> basically a superset of surface + subsurface

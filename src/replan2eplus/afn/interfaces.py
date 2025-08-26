@@ -7,6 +7,7 @@ from replan2eplus.idfobjects.afn import (
     AFNSurface,
     AFNZone,
 )
+from replan2eplus.ezobjects.airboundary import Airboundary
 
 
 from dataclasses import dataclass
@@ -16,7 +17,7 @@ from dataclasses import dataclass
 class AFNInputs:
     zones_: list[Zone]
     subsurfaces: list[Subsurface]
-    surfaces: list[Surface]
+    airboundaires: list[Airboundary]
 
     @property
     def sim_control(self):
@@ -35,8 +36,10 @@ class AFNInputs:
             for i in self.subsurfaces
         }
         surface_openings: dict[str, AFNSimpleOpening] = {
-            i.surface_name: AFNSimpleOpening(f"SimpleOpening__{i.surface_name}")
-            for i in self.surfaces
+            i.surface.surface_name: AFNSimpleOpening(
+                f"SimpleOpening__{i.surface.surface_name}"
+            )
+            for i in self.airboundaires
         }
 
         openings = subsurface_openings | surface_openings
