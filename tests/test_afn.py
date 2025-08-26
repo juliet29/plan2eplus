@@ -6,6 +6,7 @@ from replan2eplus.examples.subsurfaces import (
     zone_drn_edge,
     zone_edge,
     zone_drn_edge_room2,
+    e0,
 )
 from replan2eplus.subsurfaces.presentation import (
     create_subsurface_for_exterior_edge,
@@ -39,7 +40,7 @@ def test_selecting_afn_objects_from_case_with_airboundary_two_doors(
     get_pytest_minimal_case_with_rooms,
 ):
     case = get_pytest_minimal_case_with_rooms
-    case.add_airboundaries([zone_edge])
+    case.add_airboundaries([e0])
 
     # TODO replace using API!
     surf_1 = create_subsurface_for_exterior_edge(
@@ -63,7 +64,7 @@ def test_selecting_afn_objects_from_case_with_airboundary_one_door(
     get_pytest_minimal_case_with_rooms,
 ):
     case = get_pytest_minimal_case_with_rooms
-    case.add_airboundaries([zone_edge])
+    case.add_airboundaries([e0])
 
     surf_1 = create_subsurface_for_exterior_edge(
         zone_drn_edge, door_details, case.zones, case.idf

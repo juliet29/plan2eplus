@@ -10,9 +10,9 @@ from replan2eplus.examples.subsurfaces import (
     room2,
     subsurface_object,
 )
+from replan2eplus.ezobjects.subsurface import Edge
 from replan2eplus.geometry.directions import WallNormal
 from replan2eplus.subsurfaces.interfaces import (
-    Edge,
     flatten_dict_map,
 )
 from replan2eplus.subsurfaces.logic import (
@@ -57,9 +57,7 @@ def test_find_correct_surface_between_zone_and_direction(
 ):
     case = get_pytest_minimal_case_with_rooms
     surf = get_surface_between_zone_and_direction(zone_drn_edge, case.zones)
-    assert (
-        surf.direction == WallNormal.WEST
-    )  # TODO just guessing might be wrong
+    assert surf.direction == WallNormal.WEST  # TODO just guessing might be wrong
     assert not surf.neighbor
 
     # Geomeppy IDF doesnt check for valididty, but this method should.. -> ie that the surface matches a zone..

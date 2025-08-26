@@ -1,50 +1,24 @@
 from dataclasses import dataclass
 from typing import NamedTuple, Literal, TypeVar
 from replan2eplus.ezobjects.subsurface import Subsurface
+from replan2eplus.ezobjects.subsurface import Edge
 from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.geometry.contact_points import CornerEntries
-from replan2eplus.geometry.directions import WallNormal, WallNormalNamesList
+from replan2eplus.geometry.directions import WallNormal
 from replan2eplus.geometry.domain_create import Dimension
 from replan2eplus.geometry.nonant import NonantEntries
-from replan2eplus.idfobjects.afn import (
-    AFNSimpleOpening,
-    AFNSimulationControl,
-    AFNSurface,
-    AFNZone,
-)
 
-
-class Edge(NamedTuple):
-    u: str
-    v: str
-
-    @property
-    def is_directed_edge(self):
-        return self.u in WallNormalNamesList or self.v in WallNormalNamesList
-
-    @property
-    def as_tuple(self):
-        return (self.u, self.v)
-
-    @property
-    def sorted_directed_edge(self):
-        if self.is_directed_edge:
-            zone, drn = sorted(
-                [self.u, self.v], key=lambda x: x in WallNormalNamesList
-            )  # NOTE: order is (false=0, true=1)
-            return (zone, WallNormal[drn])
-        else:
-            raise Exception("This is not a directed edge!")
 
 
 # NOTE: these are given in room names!
 class ZoneDirectionEdge(NamedTuple):
-    u: str
-    v: WallNormal
+    space_a: str
+    space_b: WallNormal
+
 
 class ZoneEdge(NamedTuple):
-    u: str
-    v: str
+    space_a: str
+    space_b: str
 
 
 class Location(NamedTuple):
@@ -80,7 +54,7 @@ class IndexPair(NamedTuple):
 class SubsurfaceInputs:
     edges: dict[int, Edge]
     details: dict[int, Details]
-    map_: dict[int, list[int]] # TODO -> is there a better way to do this? 
+    map_: dict[int, list[int]]  # TODO -> is there a better way to do this?
 
     @property
     def _index_pairs(self):
@@ -115,33 +89,3 @@ class SubsurfaceInputs:
     @property
     def zone_drn_pairs(self):
         return self._replace_indices(self._zone_drn_edges)
-
-
-# # TODO why is this here???? 
-# @dataclass
-# class AFNInputs:
-#     zones_: list[Zone]
-#     surfaces: list[Subsurface]  # or airboundaries!
-
-#     @property
-#     def sim_control(self):
-#         return AFNSimulationControl()
-
-#     @property
-#     def zones(self):
-#         # TODO if there was a parameter map would apply here..
-#         return [AFNZone(i.zone_name) for i in self.zones_]
-
-#     @property
-#     def surfaces_and_openings(self):
-#         # Air boundary is allowed by venting is constant, on..
-#         openings: dict[str, AFNSimpleOpening] = {
-#             i.subsurface_name: AFNSimpleOpening(f"SimpleOpening__{i.subsurface_name}")
-#             for i in self.surfaces
-#         }
-#         openings_list = list(openings.values())
-#         surfaces = [
-#             AFNSurface(surface_name, opening.Name)
-#             for surface_name, opening in openings.items()
-#         ]
-#         return surfaces, openings_list

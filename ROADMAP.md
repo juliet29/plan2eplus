@@ -17,20 +17,24 @@ Testing
 - [ ] 
 
 
-**Subsurface logic**
+**Subsurfaces**
 - [ ] creating domain from centroid
 - [ ] creating domain from cardinal points
 - [ ] buffer
 - [ ] checking subsurface and surface areas are valid, throwing image on error
 - [ ] clean up domains!
 2.0
-- [ ] > 1 subsurface on a surface
+- [ ] > 1 subsurface on a surfac
+Tests
+- [ ] Adding subsurface with bad entries
 
 
 ## Future Issues
 **Geometry rules**
 - Need to either conform to geometry rules from the idf, or assert that they are a particular way 
 - Need to find the boundaries and act accordingly. 
+
+
 
 
 ## Maintenance

@@ -1,9 +1,8 @@
-from utils4plans.lists import chain_flatten
+from replan2eplus.ezobjects.epbunch_utils import chain_flatten
 
 from replan2eplus.errors import IDFMisunderstandingError
-from replan2eplus.ezobjects import surface
 from replan2eplus.idfobjects.idf import IDF
-from replan2eplus.ezobjects.subsurface import GenericEdge, SubsurfaceOptions, Subsurface
+from replan2eplus.ezobjects.subsurface import SubsurfaceOptions, Subsurface, Edge
 from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.domain_create import place_domain
@@ -57,8 +56,8 @@ def create_subsurface_for_interior_edge(
         key, prepare_object(nb_surface.surface_name, subsurf_domain, detail)
     )
 
-    return Subsurface(main_obj, key, main_surface, GenericEdge(*edge)), Subsurface(
-        nb_obj, key, nb_surface, GenericEdge(*edge)
+    return Subsurface(main_obj, key, main_surface, Edge(*edge)), Subsurface(
+        nb_obj, key, nb_surface, Edge(*edge)
     )
 
 
@@ -72,7 +71,7 @@ def create_subsurface_for_exterior_edge(
     obj = idf.add_subsurface(
         key, prepare_object(surface.surface_name, subsurf_domain, detail)
     )
-    return Subsurface(obj, key, surface, GenericEdge(*edge))
+    return Subsurface(obj, key, surface, Edge(edge.space_a, edge.space_b.name))
 
 
 # TODO this should be dealing w/ different APIs..

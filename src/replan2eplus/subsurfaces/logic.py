@@ -14,8 +14,8 @@ def get_zones_by_plan_name(room_name: str, zones: list[Zone]):
 
 
 def get_surface_between_zones(edge: ZoneEdge, zones: list[Zone]):
-    zone_a = get_zones_by_plan_name(edge.u, zones)
-    zone_b = get_zones_by_plan_name(edge.v, zones)
+    zone_a = get_zones_by_plan_name(edge.space_a, zones)
+    zone_b = get_zones_by_plan_name(edge.space_b, zones)
 
     candidates: list[Surface] = []
 
@@ -40,8 +40,8 @@ def get_surface_between_zones(edge: ZoneEdge, zones: list[Zone]):
 
 
 def get_surface_between_zone_and_direction(edge: ZoneDirectionEdge, zones: list[Zone]):
-    zone_a = get_zones_by_plan_name(edge.u, zones)
-    direction = edge.v.name
+    zone_a = get_zones_by_plan_name(edge.space_a, zones)
+    direction = edge.space_b.name
 
     candidates = zone_a.directed_surfaces[direction]
 

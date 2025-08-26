@@ -7,16 +7,15 @@ from replan2eplus.airboundary.presentation import update_airboundary_constructio
 # from replan2eplus.constructions import update_surfaces_with_construction_set
 from replan2eplus.constructions.presentation import (
     add_constructions_from_other_idf,
-) 
+)
 from replan2eplus.ezobjects.airboundary import Airboundary
 from replan2eplus.ezobjects.construction import Construction, EPConstructionSet
 from replan2eplus.ezobjects.material import Material
-from replan2eplus.ezobjects.subsurface import Subsurface
+from replan2eplus.ezobjects.subsurface import Subsurface, Edge
 from replan2eplus.ezobjects.surface import Surface
 from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.idfobjects.idf import IDF
 from replan2eplus.subsurfaces.interfaces import SubsurfaceInputs
-from replan2eplus.subsurfaces.logic import ZoneEdge
 from replan2eplus.subsurfaces.presentation import create_subsurfaces
 from replan2eplus.zones.interfaces import Room
 from replan2eplus.zones.presentation import create_zones
@@ -57,7 +56,7 @@ class EZCase:
         # when do constructuins, these surfaces will be updated..
         return self
 
-    def add_airboundaries(self, edges: list[ZoneEdge]):
+    def add_airboundaries(self, edges: list[Edge]):
         # check that surfaces exist..
         self.airboundaries = update_airboundary_constructions(
             self.idf, edges, self.zones
@@ -99,7 +98,6 @@ class EZCase:
         self.constructions.extend(new_constructions)
         self.materials.extend(new_materials)
         return self
-
 
     def add_airflownetwork(self):
         # TODO -> make an EZObject for AFN? Will be helpful for graphing..
