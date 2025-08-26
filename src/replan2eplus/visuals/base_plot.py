@@ -7,10 +7,10 @@ from replan2eplus.ezobjects.surface import Surface
 from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.geometry.domain import compute_multidomain, expand_domain
 from replan2eplus.subsurfaces.utils import get_unique_subsurfaces
-from replan2eplus.visuals.calcs import (
+from replan2eplus.visuals.transformations import (
     domain_to_line,
-    domain_to_mpl_patch,
-    subsurface_connection,
+    domain_to_rectangle,
+    subsurface_to_connection_line,
 )
 
 
@@ -50,7 +50,7 @@ class BasePlot:
         )
 
     def plot_zones(self, edge_color=edge_color, alpha=alpha):
-        patches = [domain_to_mpl_patch(i.domain) for i in self.zones]
+        patches = [domain_to_rectangle(i.domain) for i in self.zones]
         for p in patches:
             p.set(color=edge_color, alpha=alpha)
             self.axes.add_artist(p)
@@ -106,7 +106,9 @@ class BasePlot:
 
     def plot_connections(self, subsurfaces: list[Subsurface]):
         for ss in subsurfaces:
-            line = subsurface_connection(ss, self.zones, self.cardinal_domain.cardinal)
+            line = subsurface_to_connection_line(
+                ss, self.zones, self.cardinal_domain.cardinal
+            )
             self.axes.add_artist(line)
 
         return self
