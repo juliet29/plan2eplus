@@ -20,19 +20,23 @@ def split_coords(coords: list[Coord]):
     return MPlData([i.x for i in coords], [i.y for i in coords])
 
 
+    # @property
+    # def alignment(self):
+    #     # also depends on if exterior or interiro -> i exterior, always want outside.. but do we even really want labels or just legend? just for testing?
+    #     if self.plane.axis == "X":
+    #         return Alignment("right", "center", "vertical")._asdict()
+    #     else:
+    #         return Alignment("center", "top")._asdict()
+
+
+
 @dataclass
 class Line:
+    # TODO feels like this logic should be in geometry folder 
     start: Coord
     end: Coord
     plane: Plane
 
-    @property
-    def alignment(self):
-        # also depends on if exterior or interiro -> i exterior, always want outside.. but do we even really want labels or just legend? just for testing?
-        if self.plane.axis == "X":
-            return Alignment("right", "center", "vertical")._asdict()
-        else:
-            return Alignment("center", "top")._asdict()
 
     @property
     def to_line2D(self):

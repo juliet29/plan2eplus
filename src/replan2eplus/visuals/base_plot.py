@@ -14,7 +14,7 @@ from replan2eplus.visuals.transformations import (
     expansion_factor,
     subsurface_to_connection_line,
 )
-from typing import Protocol
+from typing import Sequence
 
 # line
 edge_color = "black"
@@ -26,11 +26,6 @@ alignment = {
     "horizontalalignment": "center",
     "verticalalignment": "center",
 }
-
-
-class HasEdge(Protocol):
-    @property
-    def edge(self): ...
 
 
 # sufaces: list[Surface]
@@ -115,7 +110,7 @@ class BasePlot:
 
     def plot_connections(
         self,
-        subsurfaces: list[Subsurface | Airboundary],
+        subsurfaces: Sequence[Subsurface | Airboundary],
         color="grey",
         linewidth=6,
         opacity=0.1,

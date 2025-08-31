@@ -9,6 +9,10 @@ class Airboundary:
     surface: Surface
     edge: Edge
 
+    @property
+    def domain(self):
+        return self.surface.domain
+
 
 def get_unique_airboundaries(airboundaries: list[Airboundary]):
     return [i for i in airboundaries if i.edge.space_a in i.surface.zone_name]

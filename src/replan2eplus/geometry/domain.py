@@ -52,6 +52,7 @@ class Domain(BaseDomain):
     @property
     def nonant(self):
         return Nonant(self.horz_range.trirange, self.vert_range.trirange)  # TODO
+    
 
 
 def expand_domain(domain: Domain, factor: float):

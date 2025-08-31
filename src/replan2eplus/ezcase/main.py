@@ -9,7 +9,7 @@ from replan2eplus.constructions.presentation import (
     add_constructions_from_other_idf,
 )
 from replan2eplus.ezobjects.afn import AirflowNetwork
-from replan2eplus.ezobjects.airboundary import Airboundary
+from replan2eplus.ezobjects.airboundary import Airboundary, get_unique_airboundaries
 from replan2eplus.ezobjects.construction import Construction, EPConstructionSet
 from replan2eplus.ezobjects.material import Material
 from replan2eplus.ezobjects.subsurface import Subsurface, Edge
@@ -20,6 +20,7 @@ from replan2eplus.subsurfaces.interfaces import SubsurfaceInputs
 from replan2eplus.subsurfaces.presentation import create_subsurfaces
 from replan2eplus.zones.interfaces import Room
 from replan2eplus.zones.presentation import create_zones
+from replan2eplus.subsurfaces.utils import get_unique_subsurfaces
 
 # TODO: need to be aware that these might be called out of order, so do rigorous checks!  -> can use decorators for this maybe?
 
@@ -30,11 +31,9 @@ class EZCase:
     path_to_initial_idf: Path
 
     # TODO: do these need to be initialized here?
-    # path_to_weather: Path
+    # path_to_weather: Path p
     # path_to_analysis_period: AnalysisPeriod
     def __post_init__(self):
-        # TODO -> read the case first? here, assuming starting from scratcj..
-
         self.idf: IDF
         self.construction_set: EPConstructionSet
 
@@ -46,7 +45,16 @@ class EZCase:
         # -> may call add materials / constructions several times..
         self.materials: list[Material] = []
         self.constructions: list[Construction] = []
-        self.airflownetwork: AirflowNetwork
+
+        self.airflownetwork = AirflowNetwork([], [], [])
+
+    @property
+    def unique_subsurfaces(self):
+        return get_unique_subsurfaces(self.subsurfaces)
+
+    @property
+    def unique_airboundaries(self):
+        return get_unique_airboundaries(self.airboundaries)
 
     def initialize_idf(self):
         self.idf = IDF(self.path_to_idd, self.path_to_initial_idf)

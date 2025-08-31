@@ -1,4 +1,4 @@
-from typing import NamedTuple
+from typing import NamedTuple, get_args
 from replan2eplus.ezobjects.base import EZObject
 from dataclasses import dataclass
 import replan2eplus.epnames.keys as epkeys
@@ -27,7 +27,9 @@ class Edge(NamedTuple):
 
     @property
     def is_directed_edge(self):
-        return self.space_a in WallNormalNamesList or self.space_b in WallNormalNamesList
+        return (
+            self.space_a in WallNormalNamesList or self.space_b in WallNormalNamesList
+        )
 
     @property
     def as_tuple(self):
@@ -43,7 +45,6 @@ class Edge(NamedTuple):
         else:
             raise Exception("This is not a directed edge!")
         # need the surface its on..
-
 
     # TODO properties to add: surface, partner obj, connecting zones, "driving zones" (for the purpose of the AFN )
 
@@ -83,7 +84,7 @@ class Subsurface(EZObject):
         return cls(_epbunch, expected_key, surface, edge)  # type: ignore #TODO => get epbunch for subsurface..
 
     def __post_init__(self):
-        assert self.expected_key in subsurface_options
+        assert self.expected_key in get_args(SubsurfaceOptions)
 
     # def set_edge(self, edge: tuple[str, str]):
     #     self.edge = edge
@@ -103,6 +104,14 @@ class Subsurface(EZObject):
     def display_name(self):
         type_ = display_map[self.expected_key]
         return f"{type_}_{self.surface.display_name}"
+
+    @property
+    def is_door(self):
+        return "DOOR" in self.expected_key
+
+    @property
+    def is_window(self):
+        return "WINDOW" in self.expected_key
 
     @property
     def domain(self):

@@ -43,3 +43,10 @@ def sort_and_group_objects_dict(
 def chain_flatten(lst: Iterable[Iterable[T]]) -> list[T]:
     return list(chain.from_iterable(lst))
 
+
+def set_difference(a: Iterable[T], b: Iterable[T]) -> list[T]:
+    return list(set(a).difference(set(b)))
+
+
+def filter_list(function: Callable[[T], Any], iterable: Iterable[T]):
+    return filter(function, iterable)
