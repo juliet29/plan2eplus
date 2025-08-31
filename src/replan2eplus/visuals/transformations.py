@@ -1,24 +1,55 @@
-from typing import Protocol
+from dataclasses import dataclass
+
+from matplotlib.lines import Line2D
+from matplotlib.patches import Rectangle
+
 from replan2eplus.errors import IDFMisunderstandingError
-from replan2eplus.ezobjects import airboundary
-from replan2eplus.ezobjects.afn import AirflowNetwork
-from replan2eplus.ezobjects.airboundary import Airboundary
-from replan2eplus.ezobjects.subsurface import Edge, NamedTuple, Subsurface
-from replan2eplus.ezobjects.surface import Surface
+
+from replan2eplus.ezobjects.subsurface import Edge
+
 from replan2eplus.ezobjects.zone import Zone
+from replan2eplus.ezobjects.zone import get_zones
 from replan2eplus.geometry.contact_points import CardinalPoints
 from replan2eplus.geometry.coords import Coord
-from replan2eplus.geometry.directions import WallNormal, WallNormalNamesList
-from replan2eplus.geometry.domain import Domain
-from matplotlib.patches import Rectangle
-from matplotlib.lines import Line2D
+from replan2eplus.geometry.directions import WallNormalNamesList
+from replan2eplus.geometry.domain import (
+    Domain,
+    Plane,
+)
+from replan2eplus.geometry.range import Range
+from typing import NamedTuple
 
-from replan2eplus.visuals.interfaces import Line, split_coords
-from replan2eplus.geometry.domain import compute_multidomain, expand_domain
-from replan2eplus.ezobjects.epbunch_utils import set_difference
+EXPANSION_FACTOR = 1.3
 
 
-expansion_factor = 1.3
+class MPlData(NamedTuple):
+    xdata: list[float]
+    ydata: list[float]
+
+
+def split_coords(coords: list[Coord]):
+    return MPlData([i.x for i in coords], [i.y for i in coords])
+
+
+@dataclass
+class Line:
+    # TODO feels like this logic should be in geometry folder
+    start: Coord
+    end: Coord
+    plane: Plane
+
+    @property
+    def to_line2D(self):
+        return Line2D(
+            *split_coords([self.start, self.end])
+        ) 
+
+    @property
+    def centroid(self):
+        return (
+            Range(self.start.x, self.end.x).midpoint,
+            Range(self.start.y, self.end.y).midpoint,
+        )
 
 
 def domain_to_rectangle(domain: Domain):
@@ -50,24 +81,6 @@ def domain_to_line(domain: Domain):
 
 
 # this is a pretty generic fx -> utils4plans -> filter, get1 throw error
-def get_zones(name, zones: list[Zone]):
-    # NOTE: changing this for studies!
-    possible_zones = [i for i in zones if name in i.zone_name]
-    assert len(possible_zones) == 1, f"Name: {name}, poss_zones: {possible_zones}"
-    return possible_zones[0]
-
-
-# TODO: think about sharing with the base plot..
-def calculate_cardinal_domain(
-    zones: list[Zone], cardinal_expansion_factor=expansion_factor
-):
-    total_domain = compute_multidomain([i.domain for i in zones])
-
-    cardinal_domain = expand_domain(total_domain, cardinal_expansion_factor)
-
-    return cardinal_domain
-
-
 def subsurface_to_connection_line(
     domain: Domain,
     edge: Edge,
@@ -91,45 +104,3 @@ def subsurface_to_connection_line(
 
 
 # TODO this is kind of its own thing!
-class SurfaceOrg(NamedTuple):
-    non_afn_surfaces: list[Surface | Subsurface]
-    windows: list[Subsurface]
-    doors: list[Subsurface]
-    airboundaries: list[Airboundary]
-
-
-def organize_subsurfaces_and_surfaces(
-    afn: AirflowNetwork, airboundaries: list[Airboundary], subsurfaces: list[Subsurface]
-):
-    non_afn_surfaces = [i.surface for i in afn.non_afn_airboundaries(airboundaries)]
-    not_in_afn = non_afn_surfaces + afn.non_afn_subsurfaces(subsurfaces)
-    windows = filter(lambda x: x.is_window, afn.subsurfaces)
-    doors = filter(lambda x: x.is_door, afn.subsurfaces)
-
-    return SurfaceOrg(
-        not_in_afn,
-        list(windows),
-        list(doors),
-        afn.airboundaries,
-    )
-
-
-# TODO this is an experiment -> will keep w/ list comprehensions for now..
-
-
-# TODO do a similar thing for AFN -> let this be the basis of how structure the ezobject -> ie need it to have an edge
-# required properties ~ protocol -> edge, domain -> basically a superset of surface + subsurface
-
-
-class ConnectionOrg(NamedTuple):
-    baseline: list[Airboundary | Subsurface]
-    afn: list[Subsurface | Airboundary]
-
-
-def organize_connections(
-    afn: AirflowNetwork, airboundaries: list[Airboundary], subsurfaces: list[Subsurface]
-):
-    # non_afn = afn.non_afn_airboundaries(airboundaries) + afn.non_afn_subsurfaces(
-    #     subsurfaces
-    # )
-    return ConnectionOrg(airboundaries + subsurfaces, afn.surfacelike_objects)

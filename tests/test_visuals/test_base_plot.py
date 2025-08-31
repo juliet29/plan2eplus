@@ -1,5 +1,5 @@
 from replan2eplus.examples.minimal import get_minimal_case_with_rooms
-from replan2eplus.visuals2.plot import BasePlot
+from replan2eplus.visuals.base_plot import BasePlot
 from replan2eplus.examples.subsurfaces import (
     simple_subsurface_inputs,
     three_details_subsurface_inputs,

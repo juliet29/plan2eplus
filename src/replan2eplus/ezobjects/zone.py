@@ -72,3 +72,10 @@ class Zone(EZObject):
             f"Zone {self.zone_name} has 0 or more than 2 floors!: {floors}"
         )
         return floors[0].domain  # TODO check the plane..
+
+
+def get_zones(name, zones: list[Zone]):
+    # NOTE: changing this for studies!
+    possible_zones = [i for i in zones if name in i.zone_name]
+    assert len(possible_zones) == 1, f"Name: {name}, poss_zones: {possible_zones}"
+    return possible_zones[0]

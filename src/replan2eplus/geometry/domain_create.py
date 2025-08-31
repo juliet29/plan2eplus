@@ -10,7 +10,7 @@ from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.coords import Coord
 
 
-# TODO the below is strictly subsurface related ----------
+# TODO the below is strictly subsurface related ---------- so should move to logic?? 
 
 
 # TODO should this be a class method yay or nay? -> actuall
@@ -25,7 +25,7 @@ def create_domain_for_nonant(domain: Domain, loc: NonantEntries):
     # TODO return buffer of self..
 
 
-# all this goes elsewhere..
+# TODO: this goes to interfaces
 class Dimension(NamedTuple):
     width: float
     height: float

@@ -2,46 +2,46 @@ from dataclasses import dataclass
 import matplotlib.pyplot as plt
 from matplotlib.axes import Axes
 
+
+from replan2eplus.ezobjects.afn import AirflowNetwork
 from replan2eplus.ezobjects.airboundary import Airboundary
-from replan2eplus.ezobjects.subsurface import Subsurface
+from replan2eplus.ezobjects.subsurface import Domain, Subsurface
 from replan2eplus.ezobjects.surface import Surface
 from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.geometry.domain import compute_multidomain, expand_domain
 from replan2eplus.subsurfaces.utils import get_unique_subsurfaces
 from replan2eplus.visuals.transformations import (
-    domain_to_line,
-    domain_to_rectangle,
-    expansion_factor,
-    subsurface_to_connection_line,
+    EXPANSION_FACTOR,
+)
+from replan2eplus.visuals.organization import (
+    organize_connections,
+    organize_subsurfaces_and_surfaces,
 )
 from typing import Sequence
 
-# line
-edge_color = "black"
-alpha = 0.2
-
-# annotations
-annotation_font_size = "x-small"
-alignment = {
-    "horizontalalignment": "center",
-    "verticalalignment": "center",
-}
-
-
-# sufaces: list[Surface]
-# subsurface: list[Subsurface]
+from replan2eplus.visuals.styles.artists import (
+    RectangleStyles,
+    AnnotationStyles,
+    SurfaceStyles,
+    ConnectionStyles,
+)
+from replan2eplus.visuals.axis_modifications import (
+    AnnotationPair,
+    add_annotations,
+    add_connection_lines,
+    add_rectangles,
+    add_surface_lines,
+)
 
 
 @dataclass
 class BasePlot:
     zones: list[Zone]
-    axes: Axes = plt.subplot()
-    cardinal_expansion_factor: float = expansion_factor
-    extents_expansion_factor: float = expansion_factor
+    cardinal_expansion_factor: float = EXPANSION_FACTOR
+    extents_expansion_factor: float = EXPANSION_FACTOR
 
     def __post_init__(self):
-        if not self.axes:
-            self.axes = plt.subplot()
+        self.fig, self.axes = plt.subplots(figsize=(12, 7))
         self.total_domain = compute_multidomain([i.domain for i in self.zones])
 
         self.cardinal_domain = expand_domain(
@@ -51,86 +51,84 @@ class BasePlot:
             self.cardinal_domain, self.extents_expansion_factor
         )
 
-    def plot_zones(self, edge_color=edge_color, alpha=alpha):
-        patches = [domain_to_rectangle(i.domain) for i in self.zones]
-        for p in patches:
-            p.set(color=edge_color, alpha=alpha)
-            self.axes.add_artist(p)
+    def plot_zones(self, style=RectangleStyles()):
+        add_rectangles(
+            [i.domain for i in self.zones], style, self.axes
+        )  # TODO if pass a list of styles, then apply each differently -> when are doing values .. or just have different function for if have values..
         return self
 
-    def plot_zone_names(
+    def plot_zone_names(self, style=AnnotationStyles()):
+        add_annotations(
+            [AnnotationPair(i.domain.centroid, i.zone_name) for i in self.zones],
+            style,
+            self.axes,
+        )
+        return self
+
+    def plot_cardinal_names(self, style=AnnotationStyles()):
+        add_annotations(
+            [
+                AnnotationPair(value, key)
+                for key, value in self.cardinal_domain.cardinal.dict_.items()
+            ],
+            style,
+            self.axes,
+        )
+        return self
+
+    def plot_subsurfaces_and_surfaces(
         self,
-        fontsize=annotation_font_size,
+        afn: AirflowNetwork,
+        airboundaries: list[Airboundary],
+        subsurfaces: list[Subsurface],
+        style=SurfaceStyles(),
     ):
-        for zone in self.zones:
-            self.axes.text(
-                *zone.domain.centroid,
-                s=f"{zone.room_name}",
-                fontsize=fontsize,
-                **alignment,
-            )
-        return self
-
-    def plot_cardinal(
-        self,
-        fontsize=annotation_font_size,
-    ):
-        for key, value in self.cardinal_domain.cardinal.dict_.items():
-            self.axes.text(*value, s=key, fontsize=fontsize, **alignment)
-        return self
-
-    def plot_surfaces(self, surfaces: list[Surface], fontsize=annotation_font_size):
-        for surface in surfaces:
-            line = domain_to_line(surface.domain)
-            self.axes.add_artist(line.to_line2D)
-            self.axes.text(
-                *line.centroid,
-                s=surface.display_name,
-                fontsize=fontsize,
-            )  # type: ignore
-        return self
-
-    def plot_subsurfaces(
-        self, subsurfaces: list[Subsurface], fontsize=annotation_font_size
-    ):
-        ss = get_unique_subsurfaces(
-            subsurfaces
-        )  # also TODO: get unique asurfaces.. -> so can plot airboundaries!
-        for subsurf in ss:
-            line = domain_to_line(subsurf.domain)
-            self.axes.add_artist(line.to_line2D)
-            self.axes.text(
-                *line.centroid,
-                s=subsurf.display_name,
-                **line.alignment,
-                fontsize=fontsize,
-            )  # type: ignore
-            # TODO add legend
+        surface_org = organize_subsurfaces_and_surfaces(afn, airboundaries, subsurfaces)
+        add_surface_lines(
+            [i.domain for i in surface_org.non_afn_surfaces],
+            style.non_afn_surfaces,
+            self.axes,
+        )
+        add_surface_lines(
+            [i.domain for i in surface_org.windows], style.windows, self.axes
+        )
+        add_surface_lines([i.domain for i in surface_org.doors], style.doors, self.axes)
+        add_surface_lines(
+            [i.surface.domain for i in surface_org.airboundaries],
+            style.airboundaries,
+            self.axes,
+        )
         return self
 
     def plot_connections(
         self,
-        subsurfaces: Sequence[Subsurface | Airboundary],
-        color="grey",
-        linewidth=6,
-        opacity=0.1,
+        afn: AirflowNetwork,
+        airboundaries: list[Airboundary],
+        subsurfaces: list[Subsurface],
+        style=ConnectionStyles(),
     ):
-        for ss in subsurfaces:
-            line = subsurface_to_connection_line(
-                ss, self.zones, self.cardinal_domain.cardinal
-            )
-            line.set_color(color)
-            line.set_linewidth(linewidth)
-            line.set_alpha(opacity)
-            self.axes.add_artist(line)
-
+        connections_org = organize_connections(afn, airboundaries, subsurfaces)
+        add_connection_lines(
+            [i.domain for i in connections_org.baseline],
+            [i.edge for i in connections_org.baseline],
+            self.zones,
+            self.cardinal_domain.cardinal,
+            style.baseline,
+            self.axes,
+        )
+        add_connection_lines(
+            [i.domain for i in connections_org.afn],
+            [i.edge for i in connections_org.afn],
+            self.zones,
+            self.cardinal_domain.cardinal,
+            style.afn,
+            self.axes,
+        )
         return self
 
     def show(self):
-        assert self.extents, (
-            "Extents has not been initialized!"
-        )  # TODO: handle this better..
         self.axes.set_xlim(self.extents.horz_range.as_tuple)
         self.axes.set_ylim(self.extents.vert_range.as_tuple)
+        self.axes.legend()
 
         plt.show()
