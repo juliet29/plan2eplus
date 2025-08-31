@@ -18,11 +18,12 @@ from replan2eplus.visuals.transformations import (
 from typing import Sequence
 
 from replan2eplus.visuals2.helpers import (
+    AnnotationPair,
+    AnnotationStyles,
     ConnectionStyles,
-    LineStyles,
-    PlotStyles,
     RectangleStyles,
     SurfaceStyles,
+    add_annotations,
     add_connection_lines,
     add_rectangles,
     add_surface_lines,
@@ -50,6 +51,25 @@ class BasePlot:
         add_rectangles(
             [i.domain for i in self.zones], style, self.axes
         )  # TODO if pass a list of styles, then apply each differently -> when are doing values .. or just have different function..
+        return self
+
+    def plot_zone_names(self, style=AnnotationStyles()):
+        add_annotations(
+            [AnnotationPair(i.domain.centroid, i.zone_name) for i in self.zones],
+            style,
+            self.axes,
+        )  # TODO if pass a list of styles, then apply each differently -> when are doing values .. or just have different function..
+        return self
+
+    def plot_cardinal_names(self, style=AnnotationStyles()):
+        add_annotations(
+            [
+                AnnotationPair(value, key)
+                for key, value in self.cardinal_domain.cardinal.dict_.items()
+            ],
+            style,
+            self.axes,
+        )
         return self
 
     def plot_subsurfaces_and_surfaces(
@@ -115,19 +135,8 @@ class BasePlot:
         return self
 
     def show(self):
-        assert self.extents, (
-            "Extents has not been initialized!"
-        )  # TODO: handle this better..
         self.axes.set_xlim(self.extents.horz_range.as_tuple)
         self.axes.set_ylim(self.extents.vert_range.as_tuple)
+        self.axes.legend()
 
         plt.show()
-
-    # add_connection_lines(
-    #     [i.domain for i in connections_org.baseline],
-    #     [i.edge for i in connections_org.baseline],
-    #     self.zones,
-    #     self.cardinal_domain.cardinal_coords,
-    #     style.baseline,
-    #     self.axes,
-    # )

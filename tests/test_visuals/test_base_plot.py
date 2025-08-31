@@ -17,6 +17,8 @@ if __name__ == "__main__":
     bp = (
         BasePlot(case.zones, cardinal_expansion_factor=1.8)
         .plot_zones()
+        .plot_zone_names()
+        .plot_cardinal_names()
         .plot_subsurfaces_and_surfaces(
             case.airflownetwork, case.unique_airboundaries, case.unique_subsurfaces
         )
@@ -25,7 +27,4 @@ if __name__ == "__main__":
         )  # would be good to specify the color here.
     )
 
-    # afn plot..
-
-    # bp.plot_connections(case.airflownetwork.surfacelike_objects, color="blue", opacity=1, linewidth=2)
     bp.show()
