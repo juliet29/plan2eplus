@@ -102,20 +102,49 @@ def test_get_contact_point_of_nonant_domain(base_domain):
     assert new_domain.cardinal.NORTH == Coord(0.5, 1)
 
 
-coord_contact_point_groups: list[tuple[Coord, ContactEntries]] = [
-    # (Coord(1, 1), "centroid"),# TODO!
-    (Coord(0, 0), "SOUTH_WEST"),
-    # (Coord(2, 1), "EAST"),
+# coord_contact_point_groups: list[tuple[Coord, ContactEntries]] = [
+#     # (Coord(1, 1), "centroid"),# TODO!
+#     (Coord(0, 0), "SOUTH_WEST"),
+#     # (Coord(2, 1), "EAST"),
+# ]
+
+
+# @pytest.mark.parametrize("coord, contact_point", coord_contact_point_groups)
+# def test_create_domain_from_contact_point_and_dim(coord, contact_point):
+#     expected_domain = Domain(Range(0, 2), Range(0, 2))
+#     dimensions = Dimension(width=2, height=2)
+#     domain = create_domain_from_contact_point_and_dimensions(
+#         coord, contact_point, dimensions
+#     )
+#     assert expected_domain == domain
+# TODO write test for other entries! 
+cardinal_contact_groups: list[tuple[CardinalEntries, Domain]] = [
+    ("NORTH", Domain(Range(8, 12), Range(6, 10))),
+    ("SOUTH", Domain(Range(8, 12), Range(10, 14))),
+    ("EAST", Domain(Range(6, 10), Range(8, 12))),
+    ("WEST", Domain(Range(10, 14), Range(8, 12))),
 ]
 
 
-@pytest.mark.parametrize("coord, contact_point", coord_contact_point_groups)
-def test_create_domain_from_contact_point_and_dim(coord, contact_point):
-    expected_domain = Domain(Range(0, 2), Range(0, 2))
-    dimensions = Dimension(width=2, height=2)
+@pytest.mark.parametrize("contact_point, expected_domain", cardinal_contact_groups)
+def test_create_domain_from_contact_point_and_dim_cardinal(
+    contact_point, expected_domain
+):
+    dimensions = Dimension(width=4, height=4)
+    coord = Coord(10, 10)
     domain = create_domain_from_contact_point_and_dimensions(
         coord, contact_point, dimensions
     )
+    assert expected_domain == domain
+
+
+def test_create_domain_from_contact_point_and_dim_centroid():
+    dimensions = Dimension(width=4, height=4)
+    coord = Coord(10, 10)
+    domain = create_domain_from_contact_point_and_dimensions(
+        coord, "CENTROID", dimensions
+    )
+    expected_domain = Domain(Range(8, 12), Range(8, 12))
     assert expected_domain == domain
 
 
@@ -124,10 +153,8 @@ domain_mm_groups: list[tuple[CornerEntries, CornerEntries, Domain]] = [
     ("NORTH_WEST", "NORTH_WEST", Domain(Range(1, 2), Range(1, 2))),
     ("NORTH_EAST", "NORTH_EAST", Domain(Range(1, 2), Range(1, 2))),
     ("NORTH_EAST", "NORTH_WEST", Domain(Range(2, 3), Range(1, 2))),
-    ("SOUTH_WEST", "SOUTH_WEST", Domain(Range(1,2), Range(1, 2))),
+    ("SOUTH_WEST", "SOUTH_WEST", Domain(Range(1, 2), Range(1, 2))),
 ]
-
-
 @pytest.mark.parametrize(
     "nonant_contact_loc, subsurface_contact_loc, expected_domain", domain_mm_groups
 )

@@ -9,7 +9,7 @@ from replan2eplus.subsurfaces.utils import get_unique_subsurfaces
 
 if __name__ == "__main__":
     case = get_minimal_case_with_rooms()
-    case.add_subsurfaces(simple_subsurface_inputs.inputs)
+    case.add_subsurfaces(three_details_subsurface_inputs.inputs)
     case.add_airflownetwork()
 
     # get_unique_subsurfaces(case.subsurfaces)

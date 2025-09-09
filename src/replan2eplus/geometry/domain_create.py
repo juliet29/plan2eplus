@@ -10,7 +10,7 @@ from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.coords import Coord
 
 
-# TODO the below is strictly subsurface related ---------- so should move to logic?? 
+# TODO the below is strictly subsurface related ---------- so should move to logic??
 
 
 # TODO should this be a class method yay or nay? -> actuall
@@ -35,12 +35,14 @@ class Dimension(NamedTuple):
         return (self.width, self.height)
 
 
-ContactEntries = Union[CornerEntries, CardinalEntries, Literal["centroid"]]
+ContactEntries = Union[CornerEntries, CardinalEntries, Literal["CENTROID"]]
 
 
 def create_domain_from_corner_point(
     coord: Coord, point_name: CornerEntries, dimensions: Dimension
 ):
+    # dx = dimensions.width
+    # dy = dimensions.height
     match point_name:
         case "NORTH_EAST":
             horz_range = Range(coord.x - dimensions.width, coord.x)
@@ -60,6 +62,42 @@ def create_domain_from_corner_point(
     return Domain(horz_range, vert_range)
 
 
+def create_domain_from_cardinal_loc(
+    coord: Coord, point_name: CardinalEntries, dimensions: Dimension
+):
+    dx = dimensions.width
+    dy = dimensions.height
+    half_dx = dx / 2
+    half_dy = dy / 2
+    match point_name:
+        case "NORTH":
+            horz_range = Range(coord.x - half_dx, coord.x + half_dx)
+            vert_range = Range(coord.y - dy, coord.y)
+        case "SOUTH":
+            horz_range = Range(coord.x - half_dx, coord.x + half_dx)
+            vert_range = Range(coord.y, coord.y + dy)
+        case "EAST":
+            horz_range = Range(coord.x - dx, coord.x)
+            vert_range = Range(coord.y - half_dy, coord.y + half_dy)
+        case "WEST":
+            horz_range = Range(coord.x, coord.x + dx)
+            vert_range = Range(coord.y - half_dy, coord.y + half_dy)
+        case _:
+            raise Exception("Invalid corner point!")
+
+    return Domain(horz_range, vert_range)
+
+
+def create_domain_from_centroid_and_dimensions(coord: Coord, dimensions: Dimension):
+    dx = dimensions.width
+    dy = dimensions.height
+    half_dx = dx / 2
+    half_dy = dy / 2
+    horz_range = Range(coord.x - half_dx, coord.x + half_dx)
+    vert_range = Range(coord.y - half_dy, coord.y + half_dy)
+    return Domain(horz_range, vert_range)
+
+
 def create_domain_from_contact_point_and_dimensions(
     coord: Coord, point_name: ContactEntries, dimensions: Dimension
 ):  # TODO rename to contact_loc and make it explicit that coord => nonant coord..+ add to conventions.md
@@ -70,7 +108,11 @@ def create_domain_from_contact_point_and_dimensions(
     match point_name:
         case "NORTH_EAST" | "SOUTH_EAST" | "SOUTH_WEST" | "NORTH_WEST":
             return create_domain_from_corner_point(coord, point_name, dimensions)
+        case "NORTH" | "SOUTH" | "EAST" | "WEST":
+            return create_domain_from_cardinal_loc(coord, point_name, dimensions)
         # TODO case centroid
+        case "CENTROID":
+            return create_domain_from_centroid_and_dimensions(coord, dimensions)
         case _:
             raise Exception("Invalid point")
 
