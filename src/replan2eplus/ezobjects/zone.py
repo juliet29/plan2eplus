@@ -76,6 +76,6 @@ class Zone(EZObject):
 
 def get_zones(name, zones: list[Zone]):
     # NOTE: changing this for studies!
-    possible_zones = [i for i in zones if name in i.zone_name]
-    assert len(possible_zones) == 1, f"Name: {name}, poss_zones: {possible_zones}"
+    possible_zones = [i for i in zones if name == i.room_name]
+    assert len(possible_zones) == 1, f"Name: {name}, poss_zones: {possible_zones}. Zones to choose from: {[i.room_name for i in zones]}"
     return possible_zones[0]

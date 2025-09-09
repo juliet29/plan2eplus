@@ -2,6 +2,7 @@ from typing import Literal
 from utils4plans.sets import set_difference
 from replan2eplus.ezobjects.epbunch_utils import EpBunch, chain_flatten
 from replan2eplus.idfobjects.idf import IDF
+from pathlib import Path
 
 import warnings
 from pathlib import Path
@@ -11,7 +12,7 @@ from pathlib import Path
 def get_possible_epbunches(path_to_idfs: list[Path], path_to_idd: Path, object_type: Literal["MATERIAL","CONSTRUCTION"] = "CONSTRUCTION"):
     possible_epbunches = []
     for path in path_to_idfs:
-        other_idf = IDF(path_to_idd, path)
+        other_idf = IDF(path_to_idd, path, Path(""))
         if object_type == "MATERIAL":
             epbunches = other_idf.get_materials()
         else:

@@ -86,12 +86,12 @@ def create_afn_objects(
 
     for zone in inputs.zones:
         idf.add_afn_zone(zone)
-        idf.print_idf()
+        # idf.print_idf()
 
     for pair in zip(*inputs.surfaces_and_openings):
         afn_surface, afn_opening = pair
         idf.add_afn_surface(afn_surface)
         idf.add_afn_opening(afn_opening)
-    idf.print_idf()
+    # idf.print_idf()
 
     return AirflowNetwork(inputs.zones_, inputs.subsurfaces, inputs.airboundaires)

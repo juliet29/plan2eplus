@@ -1,3 +1,4 @@
+import warnings
 from replan2eplus.ezobjects.surface import Surface
 from replan2eplus.zones.interfaces import Room
 from replan2eplus.idfobjects.idf import IDF
@@ -28,7 +29,13 @@ def create_zones(idf: IDF, rooms: list[Room]):
     for room in rooms:
         idf.add_geomeppy_block(room.geomeppy_block())
 
-    idf.intersect_match()
+    try:
+        idf.intersect_match()
+    except IndexError:
+        raise Exception("Invalid geometry!")
+        # TODO: use custom exceptions, + use shapely to check what the issues are.. 
+        # warnings.warn("Issue with intersect match!")
+        # pass
     # now get the zones from the idf..
     zones = [Zone(_epbunch=i) for i in idf.get_zones()]
     surfaces = [Surface(i) for i in idf.get_surfaces()]

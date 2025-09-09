@@ -5,7 +5,7 @@ from replan2eplus.subsurfaces.interfaces import ZoneEdge, ZoneDirectionEdge
 
 
 def get_zones_by_plan_name(room_name: str, zones: list[Zone]):
-    candidates = [i for i in zones if i.room_name in room_name]
+    candidates = [i for i in zones if i.room_name == room_name]
     assert len(candidates) == 1, BadlyFormatedIDFError(
         f"More than one zone with the room name: `{room_name}`: {candidates}"
     )

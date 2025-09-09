@@ -25,9 +25,10 @@ class ExistCase:
     path_to_idd: Path
     path_to_initial_idf: Path
     idf: IDF | None = None
+    path_to_weather: Path = Path("")
 
     def initialize_idf(self):
-        self.idf = IDF(self.path_to_idd, self.path_to_initial_idf)
+        self.idf = IDF(self.path_to_idd, self.path_to_initial_idf, self.path_to_weather)
         return self.idf
 
     def get_objects(self):

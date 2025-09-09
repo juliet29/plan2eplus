@@ -26,6 +26,8 @@ class Location(NamedTuple):
     nonant_contact_loc: CornerEntries
     subsurface_contact_loc: CornerEntries
 
+    # TODO make some defaults!
+
 
 class Details(NamedTuple):
     # edge: Edge
@@ -54,12 +56,15 @@ class IndexPair(NamedTuple):
 class SubsurfaceInputs:
     edges: dict[int, Edge]
     details: dict[int, Details]
-    map_: dict[int, list[int]]  # TODO -> is there a better way to do this?
+    map_: dict[int, list[int]] | list[IndexPair]  # TODO -> is there a better way to do this?
+    # they key here is the detail, and the values are the edge indices.. 
 
     @property
     def _index_pairs(self):
-        flattened_map = flatten_dict_map(self.map_)
-        return (IndexPair(*i) for i in flattened_map)
+        if not isinstance(self.map_, list):
+            flattened_map = flatten_dict_map(self.map_)
+            return (IndexPair(*i) for i in flattened_map)
+        return self.map_
 
     @property
     def _zone_edges(self):

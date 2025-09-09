@@ -2,8 +2,12 @@ from geomeppy.geom.polygons import Polygon3D
 from replan2eplus.geometry.coords import Coord, Coordinate3D
 from replan2eplus.geometry.domain import Domain, Plane, AXIS
 from replan2eplus.geometry.range import Range
+from loguru import logger
+from pathlib import Path
+import sys
 
 # TODO: move?
+logger.add(sys.stdout, level="WARNING")
 
 
 def get_location_of_fixed_plane(plane: AXIS, coords: list[Coordinate3D]):
@@ -41,7 +45,7 @@ def create_domain_from_coords(normal_axis: AXIS, coords: list[Coordinate3D]):
     domain = create_domain_from_coords_list(coords_2D)
 
     location_of_fixed_plane = get_location_of_fixed_plane(normal_axis, coords)
-    # TODO set plane function.. 
+    # TODO set plane function..
     # domain.plane = Plane(normal_axis, location_of_fixed_plane)
 
     return Domain(
@@ -68,10 +72,10 @@ def compute_unit_normal(coords: list[tuple[float, float, float]]) -> AXIS:
         assert polygon.vertices
         flipped_vertices = reversed(polygon.vertices)
 
-        print(f"There is something wrong with these vertices! switching them around. Original: {polygon.vertices}. New: {flipped_vertices}")
+        logger.trace(
+            f"These vertices are (counter)clockwise, but should be the other way around. Reorienting. \nOriginal: {polygon.vertices}. \nNew: {list(flipped_vertices)}"
+        )  # TODO provide more context!
         normal_vector = polygon.normal_vector
         nv = tuple([abs(round(i)) for i in normal_vector])
         assert len(nv) == 3
         return vector_map[nv]
-
-

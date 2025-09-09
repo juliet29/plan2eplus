@@ -29,14 +29,21 @@ from replan2eplus.materials.interfaces import (
 
 from ladybug.analysisperiod import AnalysisPeriod
 from ladybug.epw import EPW
-from replan2eplus.paths import WEATHER_FILE
+from loguru import logger
+import sys
+
+logger.add(sys.stdout, level="WARNING")
 
 # TODO --> move stuff in idfobjects into the interfaces files of their folder!
 
-SAMPLE_EPW = EPW(WEATHER_FILE)
 
-
-def update_idf_location(idf: geomeppyIDF, epw: EPW = SAMPLE_EPW):
+def update_idf_location(idf: geomeppyIDF, path_to_weather_file: Path):
+    if path_to_weather_file == Path(""):
+        logger.trace(
+            f"Passed an empty path as the weather file, not updating the idf epw: {path_to_weather_file}"
+        )
+        return idf
+    epw = EPW(path_to_weather_file)
     loc = idf.newidfobject("SITE:LOCATION")
     loc.Name = epw.location.city
     loc.Latitude = epw.location.latitude
@@ -65,6 +72,7 @@ def update_idf_run_period(
 class IDF:
     path_to_idd: Path
     path_to_idf: Path
+    path_to_weather_file: Path
 
     def __post_init__(self):
         try:
@@ -73,9 +81,9 @@ class IDF:
             pass  # TODO log IDD already set, especially if the one they try to set is different..
 
         self.idf = geomeppyIDF(idfname=self.path_to_idf)
-        self.idf = update_idf_location(self.idf)
+        self.idf.epw = self.path_to_weather_file
+        self.idf = update_idf_location(self.idf, self.path_to_weather_file)
         self.idf = update_idf_run_period(self.idf)
-        self.idf.epw = WEATHER_FILE
 
     def print_idf(self):
         self.idf.printidf()  # TOOD make sure works?

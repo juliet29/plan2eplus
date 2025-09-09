@@ -22,13 +22,15 @@ from replan2eplus.zones.interfaces import Room
 from replan2eplus.zones.presentation import create_zones
 from replan2eplus.subsurfaces.utils import get_unique_subsurfaces
 
+
 # TODO: need to be aware that these might be called out of order, so do rigorous checks!  -> can use decorators for this maybe?
 
 
 @dataclass
 class EZCase:
-    path_to_idd: Path
+    path_to_idd: Path  # TODO Sshould check that is v22.2 or at least that both match..
     path_to_initial_idf: Path
+    path_to_weather_file: Path
 
     # TODO: do these need to be initialized here?
     # path_to_weather: Path p
@@ -57,7 +59,9 @@ class EZCase:
         return get_unique_airboundaries(self.airboundaries)
 
     def initialize_idf(self):
-        self.idf = IDF(self.path_to_idd, self.path_to_initial_idf)
+        self.idf = IDF(
+            self.path_to_idd, self.path_to_initial_idf, self.path_to_weather_file
+        )
         return self.idf
 
     def add_zones(self, rooms: list[Room]):

@@ -39,20 +39,15 @@ class Domain(BaseDomain):
 
     @property
     def cardinal(self):
-        return calculate_cardinal_points(self)  # TODO
+        return calculate_cardinal_points(self) 
 
     @property
-    def corner(self):  # TODO should these be anscestors?
-        return calculate_corner_points(self)  # TODO
-
-    # @property
-    # def bounds(self):
-    #     return self.corner.tuple_list
+    def corner(self):  
+        return calculate_corner_points(self) 
 
     @property
     def nonant(self):
-        return Nonant(self.horz_range.trirange, self.vert_range.trirange)  # TODO
-
+        return Nonant(self.horz_range.trirange, self.vert_range.trirange)
 
 def expand_domain(domain: Domain, factor: float):
     horz_range = expand_range(domain.horz_range, factor)
@@ -75,16 +70,3 @@ def calculate_cardinal_domain(
     cardinal_domain = expand_domain(total_domain, cardinal_expansion_factor)
 
     return cardinal_domain
-
-
-# @dataclass
-# class MultiDomain:
-#     domains: list[Domain]
-
-#     @property
-#     def total_domain(self):
-#         min_x = min([i.horz_range.min for i in self.domains])
-#         max_x = max([i.horz_range.max for i in self.domains])
-#         min_y = min([i.vert_range.min for i in self.domains])
-#         max_y = max([i.vert_range.max for i in self.domains])
-#         return Domain(Range(min_x, max_x), Range(min_y, max_y))

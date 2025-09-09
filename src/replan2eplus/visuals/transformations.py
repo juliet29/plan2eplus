@@ -19,7 +19,7 @@ from replan2eplus.geometry.domain import (
 from replan2eplus.geometry.range import Range
 from typing import NamedTuple
 
-EXPANSION_FACTOR = 1.3
+EXPANSION_FACTOR = 1.1
 
 
 class MPlData(NamedTuple):

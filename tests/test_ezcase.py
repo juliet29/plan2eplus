@@ -9,12 +9,13 @@ from replan2eplus.examples.mat_and_const import (
     SAMPLE_CONSTRUCTION_SET,
 )
 from replan2eplus.paths import THROWAWAY_PATH
+from replan2eplus.paths import PATH_TO_WEATHER_FILE
 
 import pytest
 
 
 def test_ezcase():
-    case = EZCase(PATH_TO_IDD, PATH_TO_MINIMAL_IDF)
+    case = EZCase(PATH_TO_IDD, PATH_TO_MINIMAL_IDF, PATH_TO_WEATHER_FILE)
     case.initialize_idf()
     case.add_zones(test_rooms)
 

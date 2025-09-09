@@ -1,36 +1,31 @@
 from dataclasses import dataclass
-import matplotlib.pyplot as plt
-from matplotlib.axes import Axes
 
+import matplotlib.pyplot as plt
 
 from replan2eplus.ezobjects.afn import AirflowNetwork
 from replan2eplus.ezobjects.airboundary import Airboundary
-from replan2eplus.ezobjects.subsurface import Domain, Subsurface
-from replan2eplus.ezobjects.surface import Surface
+from replan2eplus.ezobjects.subsurface import Subsurface
 from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.geometry.domain import compute_multidomain, expand_domain
-from replan2eplus.subsurfaces.utils import get_unique_subsurfaces
-from replan2eplus.visuals.transformations import (
-    EXPANSION_FACTOR,
-)
-from replan2eplus.visuals.organization import (
-    organize_connections,
-    organize_subsurfaces_and_surfaces,
-)
-from typing import Sequence
-
-from replan2eplus.visuals.styles.artists import (
-    RectangleStyles,
-    AnnotationStyles,
-    SurfaceStyles,
-    ConnectionStyles,
-)
 from replan2eplus.visuals.axis_modifications import (
     AnnotationPair,
     add_annotations,
     add_connection_lines,
     add_rectangles,
     add_surface_lines,
+)
+from replan2eplus.visuals.organization import (
+    organize_connections,
+    organize_subsurfaces_and_surfaces,
+)
+from replan2eplus.visuals.styles.artists import (
+    AnnotationStyles,
+    ConnectionStyles,
+    RectangleStyles,
+    SurfaceStyles,
+)
+from replan2eplus.visuals.transformations import (
+    EXPANSION_FACTOR,
 )
 
 
@@ -41,7 +36,7 @@ class BasePlot:
     extents_expansion_factor: float = EXPANSION_FACTOR
 
     def __post_init__(self):
-        self.fig, self.axes = plt.subplots(figsize=(12, 7))
+        self.fig, self.axes = plt.subplots(figsize=(12, 8))
         self.total_domain = compute_multidomain([i.domain for i in self.zones])
 
         self.cardinal_domain = expand_domain(
@@ -59,7 +54,7 @@ class BasePlot:
 
     def plot_zone_names(self, style=AnnotationStyles()):
         add_annotations(
-            [AnnotationPair(i.domain.centroid, i.zone_name) for i in self.zones],
+            [AnnotationPair(i.domain.centroid, i.room_name) for i in self.zones],
             style,
             self.axes,
         )
