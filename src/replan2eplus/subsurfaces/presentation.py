@@ -20,11 +20,21 @@ from replan2eplus.subsurfaces.logic import (
 
 
 # TODO this goes to logic! TODO number files in logic _04_indiv_subsurf
-def prepare_object(surface_name: str, domain: Domain, detail: Details):
+def prepare_object(
+    surface_name: str,
+    subsurf_domain: Domain,
+    main_surface_domain: Domain,
+    detail: Details,
+):
     def create_ss_name(surface_name: str):
         return f"{detail.type_}__{surface_name}"
 
-    coords = domain.corner.SOUTH_WEST.as_tuple
+    subsurf_coord = subsurf_domain.corner.SOUTH_WEST
+    surf_coord = main_surface_domain.corner.SOUTH_WEST
+    coords = (
+        subsurf_coord.x - surf_coord.x,
+        subsurf_coord.y - surf_coord.y,
+    )  # need to subtract the surface corner..
     dims = detail.dimension.as_tuple
 
     return SubsurfaceObject(create_ss_name(surface_name), surface_name, *coords, *dims)
@@ -45,15 +55,24 @@ def create_subsurface_for_interior_edge(
         raise IDFMisunderstandingError(
             f"{main_name} and {nb_name} are airboundaries! They cannot have surfaces placed on them! "
         )
+    assert main_surface.domain == nb_surface.domain, (
+        "Neigboring surfaces should have matching domains!"
+    )
     subsurf_domain = place_domain(
         main_surface.domain, *detail.location, detail.dimension
     )
 
     main_obj = idf.add_subsurface(
-        key, prepare_object(main_surface.surface_name, subsurf_domain, detail)
+        key,
+        prepare_object(
+            main_surface.surface_name, subsurf_domain, main_surface.domain, detail
+        ),
     )
     nb_obj = idf.add_subsurface(
-        key, prepare_object(nb_surface.surface_name, subsurf_domain, detail)
+        key,
+        prepare_object(
+            nb_surface.surface_name, subsurf_domain, main_surface.domain, detail
+        ),
     )
 
     return Subsurface(main_obj, key, main_surface, Edge(*edge)), Subsurface(
@@ -69,7 +88,8 @@ def create_subsurface_for_exterior_edge(
     surface = get_surface_between_zone_and_direction(edge, zones)
     subsurf_domain = place_domain(surface.domain, *detail.location, detail.dimension)
     obj = idf.add_subsurface(
-        key, prepare_object(surface.surface_name, subsurf_domain, detail)
+        key,
+        prepare_object(surface.surface_name, subsurf_domain, surface.domain, detail),
     )
     return Subsurface(obj, key, surface, Edge(edge.space_a, edge.space_b.name))
 

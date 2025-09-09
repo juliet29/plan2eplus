@@ -6,7 +6,13 @@ from replan2eplus.geometry.contact_points import (
     CornerEntries,
     CardinalEntries,
 )
-from replan2eplus.geometry.domain_create import create_domain_for_nonant, ContactEntries, Dimension, create_domain_from_contact_point_and_dimensions, place_domain
+from replan2eplus.geometry.domain_create import (
+    create_domain_for_nonant,
+    ContactEntries,
+    Dimension,
+    create_domain_from_contact_point_and_dimensions,
+    place_domain,
+)
 
 from replan2eplus.geometry.coords import Coord
 
@@ -113,19 +119,31 @@ def test_create_domain_from_contact_point_and_dim(coord, contact_point):
     assert expected_domain == domain
 
 
-def test_place_with_domain(base_domain):
+
+domain_mm_groups: list[tuple[CornerEntries, CornerEntries, Domain]] = [
+    ("NORTH_WEST", "NORTH_WEST", Domain(Range(1, 2), Range(1, 2))),
+    ("NORTH_EAST", "NORTH_EAST", Domain(Range(1, 2), Range(1, 2))),
+    ("NORTH_EAST", "NORTH_WEST", Domain(Range(2, 3), Range(1, 2))),
+    ("SOUTH_WEST", "SOUTH_WEST", Domain(Range(1,2), Range(1, 2))),
+]
+
+
+@pytest.mark.parametrize(
+    "nonant_contact_loc, subsurface_contact_loc, expected_domain", domain_mm_groups
+)
+def test_place_with_domain_mm(
+    base_domain, nonant_contact_loc, subsurface_contact_loc, expected_domain
+):
     nonant = "mm"
-    nonant_contact_loc = "NORTH_WEST"
-    subsurface_contact_loc = "NORTH_WEST"
     subsurface_dimensions = Dimension(width=1, height=1)
-    new_domain: Domain = place_domain(
+    new_domain = place_domain(
         base_domain,
         nonant,
         nonant_contact_loc,
         subsurface_contact_loc,
         subsurface_dimensions,
     )
-    assert new_domain.corner.SOUTH_WEST == Coord(1, 1)
+    assert new_domain == expected_domain
 
 
 # if __name__ == "__main__":

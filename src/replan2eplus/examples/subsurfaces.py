@@ -40,7 +40,7 @@ window_details_bl = Details(dimension, location_bl, "Window")
 
 
 @dataclass
-class TestInputs:
+class SubsurfaceInputExample:
     edges: list[Edge]
     details: list[Details]
     map_: dict[int, list[int]]
@@ -60,17 +60,17 @@ e1 = Edge(room1.name, "WEST")
 e2 = Edge(room1.name, "NORTH")
 e3 = Edge(room2.name, "SOUTH")
 
-simple_subsurface_inputs = TestInputs(
+simple_subsurface_inputs = SubsurfaceInputExample(
     [e0, e1],
     [door_details, window_details],
     {0: [0], 1: [1]},
 )
 
-airboundary_subsurface_inputs = TestInputs(
+airboundary_subsurface_inputs = SubsurfaceInputExample(
     [e1, e2], [door_details, window_details], {0: [0], 1: [1]}
 )
 
-three_details_subsurface_inputs = TestInputs(
+three_details_subsurface_inputs = SubsurfaceInputExample(
     [e0, e1, e2, e3],
     [door_details, window_details, window_details_bl],
     {0: [0], 1: [1, 2], 2: [3]},

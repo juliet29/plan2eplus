@@ -24,7 +24,7 @@ RangeY1 = Range(0, 1)
 Domain1 = Domain(RangeX1, RangeY1)
 Domain2 = Domain(RangeX2, RangeY1)
 
-Height = 3.05  # m
+Height = 3.00  # m
 
 
 test_rooms = [Room(0,"room1", Domain1, Height), Room(1,"room2", Domain2, Height)]

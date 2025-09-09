@@ -27,3 +27,14 @@
   - Start Vertex: UpperLeftCorner
   - Vertex Entry Direction: CounterClockWise
   - Ex: N-E-S-W
+
+**Placeing subsurfaces**
+![Subsurface location](conventions/subsurface_location.png)
+
+
+## Examples
+
+Built up example case with two rooms is 
+![example_case](conventions/MinimalCase.png)
+
+
