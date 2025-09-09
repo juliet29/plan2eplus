@@ -117,17 +117,27 @@ def create_domain_from_contact_point_and_dimensions(
             raise Exception("Invalid point")
 
 
+def get_nonant_coord(domain: Domain, point_name: ContactEntries):
+    match point_name:
+        case "NORTH_EAST" | "SOUTH_EAST" | "SOUTH_WEST" | "NORTH_WEST":
+            return domain.corner[point_name]
+        case "NORTH" | "SOUTH" | "EAST" | "WEST":
+            return domain.cardinal[point_name]
+        case "CENTROID":
+            return domain.centroid
+        case _:
+            raise Exception("Invalid point")
+
+
 def place_domain(
     base_domain: Domain,
     nonant_loc: NonantEntries,
-    nonant_contact_loc: CornerEntries,
-    subsurface_contact_loc: CornerEntries,
+    nonant_contact_loc: ContactEntries,
+    subsurface_contact_loc: ContactEntries,
     dimension: Dimension,
 ):
     nonant_domain = create_domain_for_nonant(base_domain, nonant_loc)
-    nonant_coord = nonant_domain.corner[
-        nonant_contact_loc
-    ]  # TODO note this is a restriction and will need a match case here eventually..
+    nonant_coord = get_nonant_coord(nonant_domain, nonant_contact_loc)
     subsurf_domain = create_domain_from_contact_point_and_dimensions(
         nonant_coord, subsurface_contact_loc, dimension
     )

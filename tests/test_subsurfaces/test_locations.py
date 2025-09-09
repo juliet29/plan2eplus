@@ -149,18 +149,21 @@ def test_create_domain_from_contact_point_and_dim_centroid():
 
 
 
-domain_mm_groups: list[tuple[CornerEntries, CornerEntries, Domain]] = [
+domain_mm_groups: list[tuple[ContactEntries, ContactEntries, Domain]] = [
     ("NORTH_WEST", "NORTH_WEST", Domain(Range(1, 2), Range(1, 2))),
     ("NORTH_EAST", "NORTH_EAST", Domain(Range(1, 2), Range(1, 2))),
     ("NORTH_EAST", "NORTH_WEST", Domain(Range(2, 3), Range(1, 2))),
     ("SOUTH_WEST", "SOUTH_WEST", Domain(Range(1, 2), Range(1, 2))),
+    ("NORTH", "NORTH", Domain(Range(1, 2), Range(1, 2))),
+    ("CENTROID", "CENTROID", Domain(Range(1,2), Range(1,2)))
 ]
 @pytest.mark.parametrize(
     "nonant_contact_loc, subsurface_contact_loc, expected_domain", domain_mm_groups
 )
 def test_place_with_domain_mm(
-    base_domain, nonant_contact_loc, subsurface_contact_loc, expected_domain
+    nonant_contact_loc, subsurface_contact_loc, expected_domain
 ):
+    base_domain = Domain(Range(0, 3), Range(0, 3))
     nonant = "mm"
     subsurface_dimensions = Dimension(width=1, height=1)
     new_domain = place_domain(
