@@ -27,7 +27,7 @@ zone_drn_edge = ZoneDirectionEdge(room1.name, WallNormal.WEST)
 zone_drn_edge_room2 = ZoneDirectionEdge(room2.name, WallNormal.EAST)
 
 location = Location("mm", "SOUTH_WEST", "SOUTH_WEST")
-location_bl = Location("bl", "SOUTH_WEST", "SOUTH_WEST")
+location_bl = Location("bm", "WEST", "WEST")
 dimension = Dimension(
     room1.domain.horz_range.size / FACTOR, room1.domain.vert_range.size / FACTOR
 )
@@ -59,6 +59,12 @@ e0 = Edge(room1.name, room2.name)
 e1 = Edge(room1.name, "WEST")
 e2 = Edge(room1.name, "NORTH")
 e3 = Edge(room2.name, "SOUTH")
+
+interior_subsurface_inputs = SubsurfaceInputExample(
+    [e0],
+    [door_details],
+    {0: [0]},
+)
 
 simple_subsurface_inputs = SubsurfaceInputExample(
     [e0, e1],

@@ -1,7 +1,7 @@
 from replan2eplus.examples.defaults import PATH_TO_IDD, PATH_TO_MINIMAL_IDF
 from replan2eplus.examples.minimal import test_rooms
 from replan2eplus.ezcase.main import EZCase
-from replan2eplus.examples.subsurfaces import e0, airboundary_subsurface_inputs
+from replan2eplus.examples.subsurfaces import e0, airboundary_subsurface_inputs, simple_subsurface_inputs
 from replan2eplus.examples.mat_and_const import (
     PATH_TO_MAT_AND_CONST_IDF,
     PATH_TO_WINDOW_CONST_IDF,
@@ -14,7 +14,7 @@ from replan2eplus.paths import PATH_TO_WEATHER_FILE
 import pytest
 
 
-def test_ezcase():
+def test_ezcase(tmp_path):
     case = EZCase(PATH_TO_IDD, PATH_TO_MINIMAL_IDF, PATH_TO_WEATHER_FILE)
     case.initialize_idf()
     case.add_zones(test_rooms)
@@ -32,13 +32,30 @@ def test_ezcase():
         SAMPLE_CONSTRUCTION_SET,
     )
     case.add_airflownetwork()
+    case.save_and_run_case(path=tmp_path)
     # this should run without error -> will error if there are any "None" values
     # TODO check for None values in IDF.. or at least test inputs..
     # case.idf.print_idf()
     assert 1
-    # return case
+
+
+def test_ezcase_simple_subsurfaces(tmp_path):
+    case = EZCase(PATH_TO_IDD, PATH_TO_MINIMAL_IDF, PATH_TO_WEATHER_FILE)
+    case.initialize_idf()
+    case.add_zones(test_rooms)
+    case.add_subsurfaces(simple_subsurface_inputs.inputs)
+    
+    case.add_constructions_from_other_idf(
+        [PATH_TO_WINDOW_CONST_IDF, PATH_TO_MAT_AND_CONST_IDF],
+        material_idfs,
+        SAMPLE_CONSTRUCTION_SET,
+    )
+    # case.add_airflownetwork()
+    case.save_and_run_case(path=tmp_path)
+    assert 1
 
 
 if __name__ == "__main__":
-    case = test_ezcase()
-    # case.idf.idf.run(output_directory=THROWAWAY_PATH)
+    pass
+    # case = test_ezcase()
+    # case.save_and_run_case(path=THROWAWAY_PATH)

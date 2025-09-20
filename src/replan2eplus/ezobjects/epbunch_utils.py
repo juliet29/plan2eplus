@@ -18,7 +18,7 @@ def create_dict_from_fields(epbunch: EpBunch):
 
 
 def classFromArgs(className, argDict):
-    # TODO this is a temp solution! -> removes data that might be there!
+    # TODO this is a temp solution! -> removes data that might not be there!
     fieldSet = {f.name for f in fields(className) if f.init}
     filteredArgDict = {k: v for k, v in argDict.items() if k in fieldSet}
     return className(**filteredArgDict)

@@ -12,6 +12,8 @@ from replan2eplus.geometry.coords import Coordinate3D
 from replan2eplus.geometry.directions import WallNormal
 from replan2eplus.geometry.plane import compute_unit_normal, create_domain_from_coords
 
+from rich.table import Table
+
 
 def get_surface_coords(surface: EpBunch):
     surf_coords = surface.coords
@@ -97,6 +99,18 @@ class Surface(EZObject):
         # num = f"-{self._dname.position_number}" if self._dname.position_number else ""
         num = self._dname.full_number
         return f"{self._dname.plan_name}\n{self.direction.name}" + num
+
+    @property
+    def error_string(self):
+        # TODO make this handle having a name, and make it a proper table with demarcations.. 
+        grid = Table.grid(expand=True)
+        grid.add_column()
+        grid.add_column(justify="left")
+        grid.add_row("Zone", f"{self.zone_name}")
+        grid.add_row("Direction", f"{self.direction.name}")
+        grid.add_row("Number", f"{self._dname.full_number}")
+        grid.add_row("Domain", f"{self.domain}")
+        return grid
 
     @property
     def boundary_condition(self) -> SurfaceBoundaryConditionNames:

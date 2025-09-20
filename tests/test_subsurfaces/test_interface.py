@@ -9,6 +9,7 @@ from replan2eplus.examples.minimal import get_minimal_case_with_rooms
 from replan2eplus.examples.subsurfaces import (
     simple_subsurface_inputs,
     three_details_subsurface_inputs,
+    interior_subsurface_inputs,
     room2,
     room1,
     SubsurfaceInputExample,
@@ -33,6 +34,17 @@ def test_creating_subsurfaces_three_details(get_pytest_minimal_case_with_rooms):
     assert len(subsurfaces) == 5
 
 
+def test_creating_interior_subsurface(get_pytest_minimal_case_with_rooms):
+    case = get_pytest_minimal_case_with_rooms
+    subsurfaces = create_subsurfaces(
+        interior_subsurface_inputs.inputs, case.zones, case.idf
+    )
+    assert len(subsurfaces) == 2
+    ss1 = subsurfaces[0]
+    ss2 = subsurfaces[1]
+    assert ss1._epbunch.Outside_Boundary_Condition_Object == ss2.surface.surface_name
+
+
 def test_subsurface_equality(get_pytest_minimal_case_with_subsurfaces):
     case = get_pytest_minimal_case_with_subsurfaces
     eq_subsurfaces = [i for i in case.subsurfaces if i.edge.space_b == room2.name]
@@ -49,6 +61,8 @@ x_edge_detail_groups: list[tuple[WallNormalLiteral, float]] = [
     ("SOUTH", 0),
     ("NORTH", 1),
 ]
+
+
 @pytest.mark.parametrize("direction, plane_loc", x_edge_detail_groups)
 def test_subsurface_x_plane(get_pytest_minimal_case_with_rooms, direction, plane_loc):
     edge = Edge(room2.name, direction)
@@ -68,6 +82,8 @@ y_edge_detail_groups: list[tuple[Edge, float]] = [
     (Edge(room1.name, "WEST"), 0),
     (Edge(room2.name, "EAST"), 2),
 ]
+
+
 @pytest.mark.parametrize("edge, plane_loc", y_edge_detail_groups)
 def test_subsurface_y_plane(get_pytest_minimal_case_with_rooms, edge, plane_loc):
     detail = Details(dimension, mm_nw, "Window")

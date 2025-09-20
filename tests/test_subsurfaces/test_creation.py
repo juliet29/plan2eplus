@@ -1,4 +1,5 @@
 from geomeppy.idf import new_idf
+import pytest
 
 from replan2eplus.examples.minimal import get_minimal_case_with_rooms
 from replan2eplus.examples.subsurfaces import (
@@ -12,7 +13,11 @@ from replan2eplus.examples.subsurfaces import (
 )
 from replan2eplus.ezobjects.subsurface import Edge
 from replan2eplus.geometry.directions import WallNormal
+from replan2eplus.geometry.domain import Domain
+from replan2eplus.geometry.domain_create import Dimension
+from replan2eplus.geometry.range import Range
 from replan2eplus.subsurfaces.interfaces import (
+    Details,
     flatten_dict_map,
 )
 from replan2eplus.subsurfaces.logic import (
@@ -20,22 +25,18 @@ from replan2eplus.subsurfaces.logic import (
     get_surface_between_zones,
 )
 from replan2eplus.subsurfaces.presentation import (
+    compare_and_maybe_change_dimensions,
     create_subsurface_for_exterior_edge,
     create_subsurface_for_interior_edge,
+    prepare_object,
+    compare_domain,
 )
+from replan2eplus.subsurfaces.config import DOMAIN_SHRINK_FACTOR
 
 
-# TODO test fail on bad edge..
-# @pytest.mark.skip("Not implemented")
-# def test_create_edge_with_bad_name():
-#     node_a = Node("fake_room", "Zone")
-#     with pytest.raises:
-#         ...
-
-
-def test_adding_surface_to_random_idf():
+def test_adding_exterior_subsurface_to_random_idf():
     idf = new_idf("test")
-    o = idf.newidfobject("WINDOW", **subsurface_object._asdict())
+    o = idf.newidfobject("WINDOW", **subsurface_object.values)
     assert o.Name == subsurface_object.Name
 
 
@@ -80,6 +81,27 @@ def test_create_subsurface_exterior(get_pytest_minimal_case_with_rooms):
     assert room1.name in subsurface.subsurface_name
 
 
+def test_too_large_dimension():
+    detail = Details(Dimension(10, 2), window_details.location, window_details.type_)
+
+    domain = Domain(Range(0, 3), Range(0, 3))
+    new_detail = compare_and_maybe_change_dimensions(detail, domain)
+    expected_detail = Details(
+        Dimension(3 * DOMAIN_SHRINK_FACTOR, 2),
+        window_details.location,
+        window_details.type_,
+    )
+    assert new_detail == expected_detail
+
+
+@pytest.mark.parametrize("horz_range", [Range(5, 10), Range(5, 25), Range(15, 22)])
+def test_bad_subsurface_location(horz_range):
+    subsurf_domain = Domain(horz_range, Range(10, 20))
+    main_surface_domain = Domain(Range(10, 20), Range(10, 20))
+    with pytest.raises(Exception):
+        compare_domain(main_surface_domain, subsurf_domain)
+
+
 def test_sorting_directed_edges():
     edge = Edge("EAST", room1.name)
     expected_edge = (room1.name, WallNormal.EAST)
@@ -95,15 +117,12 @@ def test_flatten_map_dummy_inputs():
 
 
 if __name__ == "__main__":
-    case = get_minimal_case_with_rooms()
-    subsurface = create_subsurface_for_exterior_edge(
-        zone_drn_edge, window_details, case.zones, case.idf
+    detail = Details(Dimension(10, 2), window_details.location, window_details.type_)
+    domain = Domain(Range(0, 3), Range(0, 3))
+    new_detail = compare_and_maybe_change_dimensions(detail, domain)
+    expected_detail = Details(
+        Dimension(3 * DOMAIN_SHRINK_FACTOR, 2),
+        window_details.location,
+        window_details.type_,
     )
-    dom = subsurface
-    print(dom)
-    pass
-    # subsurfaces = create_subsurfaces(edges, details, details_map, case.zones, case.idf)
-    # int_flat = chain_flatten(interior_subsurfaces)
-    # res = int_flat + exterior_subsurfaces
-
-    # pass
+    assert new_detail == expected_detail

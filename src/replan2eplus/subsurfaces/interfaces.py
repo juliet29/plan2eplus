@@ -5,7 +5,7 @@ from replan2eplus.ezobjects.subsurface import Edge
 from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.geometry.contact_points import CornerEntries
 from replan2eplus.geometry.directions import WallNormal
-from replan2eplus.geometry.domain_create import Dimension
+from replan2eplus.geometry.domain_create import ContactEntries, Dimension
 from replan2eplus.geometry.nonant import NonantEntries
 
 
@@ -23,8 +23,8 @@ class ZoneEdge(NamedTuple):
 
 class Location(NamedTuple):
     nonant_loc: NonantEntries
-    nonant_contact_loc: CornerEntries
-    subsurface_contact_loc: CornerEntries
+    nonant_contact_loc: ContactEntries
+    subsurface_contact_loc: ContactEntries
 
     # TODO make some defaults!
 
@@ -56,8 +56,10 @@ class IndexPair(NamedTuple):
 class SubsurfaceInputs:
     edges: dict[int, Edge]
     details: dict[int, Details]
-    map_: dict[int, list[int]] | list[IndexPair]  # TODO -> is there a better way to do this?
-    # they key here is the detail, and the values are the edge indices.. 
+    map_: (
+        dict[int, list[int]] | list[IndexPair]
+    )  # TODO -> is there a better way to do this?
+    # they key here is the detail, and the values are the edge indices..
 
     @property
     def _index_pairs(self):

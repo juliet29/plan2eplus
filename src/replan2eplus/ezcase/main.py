@@ -123,5 +123,8 @@ class EZCase:
     def add_output_variables(self):
         return self  # use Munch!
 
-    def save_and_run_case(self):
+    def save_and_run_case(self, path: Path):
+        # TODO add command line args..
+        self.idf.idf.save(path / "out.idf")
+        self.idf.idf.run(output_directory=path / "results")
         return self  # compare to see if idf has changed or not -> interactive -> do you want to overwrite existing reults..

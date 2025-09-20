@@ -139,7 +139,7 @@ class IDF:
         # TODO is this check needed / should it be hapening elsewhere? just to
         surface_names = [i.Name for i in self.get_surfaces()]
         assert subsurface_object.Building_Surface_Name in surface_names
-        obj0 = self.idf.newidfobject(key.upper(), **subsurface_object._asdict())
+        obj0 = self.idf.newidfobject(key.upper(), **subsurface_object.values)
 
         return obj0
 

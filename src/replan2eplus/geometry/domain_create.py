@@ -110,7 +110,6 @@ def create_domain_from_contact_point_and_dimensions(
             return create_domain_from_corner_point(coord, point_name, dimensions)
         case "NORTH" | "SOUTH" | "EAST" | "WEST":
             return create_domain_from_cardinal_loc(coord, point_name, dimensions)
-        # TODO case centroid
         case "CENTROID":
             return create_domain_from_centroid_and_dimensions(coord, dimensions)
         case _:

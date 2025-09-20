@@ -8,6 +8,7 @@ from replan2eplus.geometry.domain_calcs import (
     calculate_corner_points,
 )
 from replan2eplus.geometry.range import compute_multirange, expand_range
+import numpy as np
 
 
 AXIS = Literal["X", "Y", "Z"]
@@ -16,6 +17,14 @@ AXIS = Literal["X", "Y", "Z"]
 class Plane(NamedTuple):
     axis: AXIS
     location: float
+
+    def __eq__(self, other: object) -> bool:
+        if isinstance(other, Plane):
+            return (
+                bool(np.isclose(self.location, other.location))
+                and self.axis == other.axis
+            )
+        return False
 
 
 @dataclass(frozen=True)
@@ -39,15 +48,16 @@ class Domain(BaseDomain):
 
     @property
     def cardinal(self):
-        return calculate_cardinal_points(self) 
+        return calculate_cardinal_points(self)
 
     @property
-    def corner(self):  
-        return calculate_corner_points(self) 
+    def corner(self):
+        return calculate_corner_points(self)
 
     @property
     def nonant(self):
         return Nonant(self.horz_range.trirange, self.vert_range.trirange)
+
 
 def expand_domain(domain: Domain, factor: float):
     horz_range = expand_range(domain.horz_range, factor)
