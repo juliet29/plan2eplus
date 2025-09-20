@@ -4,7 +4,7 @@ from replan2eplus.geometry.domain_create import Dimension
 from replan2eplus.geometry.plane import Plane
 from replan2eplus.geometry.range import Range
 from replan2eplus.subsurfaces.interfaces import Details, Location
-from replan2eplus.subsurfaces.presentation import create_subsurfaces
+from replan2eplus.subsurfaces.presentation import create_subsurfaces, create_ss_name
 from replan2eplus.examples.minimal import get_minimal_case_with_rooms
 from replan2eplus.examples.subsurfaces import (
     simple_subsurface_inputs,
@@ -42,7 +42,9 @@ def test_creating_interior_subsurface(get_pytest_minimal_case_with_rooms):
     assert len(subsurfaces) == 2
     ss1 = subsurfaces[0]
     ss2 = subsurfaces[1]
-    assert ss1._epbunch.Outside_Boundary_Condition_Object == ss2.surface.surface_name
+    assert ss1._epbunch.Outside_Boundary_Condition_Object == create_ss_name(
+        ss2.surface.surface_name, interior_subsurface_inputs.details[0]
+    )
 
 
 def test_subsurface_equality(get_pytest_minimal_case_with_subsurfaces):

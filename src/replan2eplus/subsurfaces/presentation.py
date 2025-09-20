@@ -48,6 +48,13 @@ def compare_domain(domain: Domain, subsurf_domain: Domain):
     compare_range(domain.vert_range, subsurf_domain.vert_range)
 
 
+def create_ss_name(surface_name: str, detail: Details):
+    if surface_name:
+        return f"{detail.type_}__{surface_name}"
+    else:
+        return ""
+
+
 # TODO this goes to logic! TODO number files in logic _04_indiv_subsurf
 def prepare_object(
     surface_name: str,
@@ -56,9 +63,6 @@ def prepare_object(
     detail: Details,
     nb_surface_name: str = "",
 ):
-    def create_ss_name(surface_name: str):
-        return f"{detail.type_}__{surface_name}"
-
     # HERE CHECK SUBSURF DOMAINS..
     compare_domain(main_surface_domain, subsurf_domain)
 
@@ -71,11 +75,11 @@ def prepare_object(
     dims = detail.dimension.as_tuple
 
     return SubsurfaceObject(
-        create_ss_name(surface_name),
+        create_ss_name(surface_name, detail),
         surface_name,
         *coords,
         *dims,
-        Outside_Boundary_Condition_Object=nb_surface_name,
+        Outside_Boundary_Condition_Object=create_ss_name(nb_surface_name, detail),
     )
 
 
