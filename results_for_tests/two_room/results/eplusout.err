@@ -1,4 +1,4 @@
-Program Version,EnergyPlus, Version 22.2.0-c249759bad, YMD=2025.09.09 22:43,
+Program Version,EnergyPlus, Version 22.2.0-c249759bad, YMD=2025.09.21 15:30,
    ** Warning ** GetHTSurfaceData: Surfaces with interface to Ground found but no "Ground Temperatures" were input.
    **   ~~~   ** Found first in surface=BLOCK `ROOM1` STOREY 0 FLOOR 0001
    **   ~~~   ** Defaults, constant throughout the year of (18.0) will be used.
@@ -26,4 +26,4 @@ Program Version,EnergyPlus, Version 22.2.0-c249759bad, YMD=2025.09.09 22:43,
    *************
    ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.
    ************* EnergyPlus Sizing Error Summary. During Sizing: 0 Warning; 0 Severe Errors.
-   ************* EnergyPlus Completed Successfully-- 3 Warning; 0 Severe Errors; Elapsed Time=00hr 00min  0.33sec
+   ************* EnergyPlus Completed Successfully-- 3 Warning; 0 Severe Errors; Elapsed Time=00hr 00min  0.43sec

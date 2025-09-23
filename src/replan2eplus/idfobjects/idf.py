@@ -11,6 +11,7 @@ from replan2eplus.errors import IDFMisunderstandingError
 from replan2eplus.ezobjects.subsurface import Subsurface
 from replan2eplus.ezobjects.surface import Surface
 from replan2eplus.idfobjects.subsurface import SubsurfaceKey, SubsurfaceObject
+from replan2eplus.idfobjects.variables import OutputVariables
 from replan2eplus.idfobjects.zone import GeomeppyBlock
 from replan2eplus.idfobjects.afn import (
     AFNKeys,
@@ -31,6 +32,7 @@ from ladybug.analysisperiod import AnalysisPeriod
 from ladybug.epw import EPW
 from loguru import logger
 import sys
+from replan2eplus.idfobjects.outputs import request_output_variables, request_sql
 
 logger.add(sys.stdout, level="WARNING")
 
@@ -84,6 +86,7 @@ class IDF:
         self.idf.epw = self.path_to_weather_file
         self.idf = update_idf_location(self.idf, self.path_to_weather_file)
         self.idf = update_idf_run_period(self.idf)
+        self.idf = request_sql(self.idf)
 
     def print_idf(self):
         self.idf.printidf()  # TOOD make sure works?
@@ -122,6 +125,9 @@ class IDF:
         for key in AFNKeys:
             objects_.extend([self.idf.idfobjects[key]])
         return chain_flatten(objects_)
+
+    def get_output_variables(self):
+        return [o.Variable_Name for o in self.idf.idfobjects["OUTPUT:VARIABLE"]]
 
     ##################################################
     ########## ------ ADDING TO IDF ------ ##########
@@ -190,3 +196,7 @@ class IDF:
                 f"`{construction_name}` has not been added to this IDF. The constructions exosting are: {const_names}"
             )
         surface_or_subsurface._epbunch.Construction_Name = construction_name
+
+    def add_output_variables(self, variables: list[OutputVariables]):
+        self.idf = request_output_variables(self.idf, variables)
+        return 

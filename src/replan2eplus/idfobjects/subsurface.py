@@ -12,8 +12,11 @@ class SubsurfaceObject(NamedTuple):
 
     @property
     def values(self):
-        vals =  {k: v for k, v in self._asdict().items() if v}
-        print(f"SUBSURFAVE VALUES: {vals}")
+        vals = {
+            k: v
+            for k, v in self._asdict().items()
+            if not (k == "Outside_Boundary_Condition_Object" and v == "")
+        }
         return vals
 
 

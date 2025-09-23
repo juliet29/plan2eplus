@@ -73,6 +73,7 @@ def prepare_object(
         subsurf_coord.y - surf_coord.y,
     )  # need to subtract the surface corner..
     dims = detail.dimension.as_tuple
+    print(f"coords for surface: {surface_name} are {coords}")
 
     return SubsurfaceObject(
         create_ss_name(surface_name, detail),

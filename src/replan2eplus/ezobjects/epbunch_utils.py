@@ -47,6 +47,9 @@ def chain_flatten(lst: Iterable[Iterable[T]]) -> list[T]:
 def set_difference(a: Iterable[T], b: Iterable[T]) -> list[T]:
     return list(set(a).difference(set(b)))
 
+# def set_intersection(a: Iterable[T], b: Iterable[T]) -> list[T]:
+#     return list(set(a).difference(set(b)))
+
 # TODO typing here is wrong.. 
 # def filter_list(function: Callable[[T], Any], iterable: Iterable[T]):
 #     return filter(function, iterable)

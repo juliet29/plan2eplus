@@ -5,6 +5,8 @@ import pytest
 
 from replan2eplus.geometry.plane import compute_unit_normal
 
+# TODO this seems wrong location?? 
+
 @pytest.mark.skip()
 def test_read_geom_objects(get_pytest_minimal_case_with_subsurfaces):
     case = get_pytest_minimal_case_with_subsurfaces
