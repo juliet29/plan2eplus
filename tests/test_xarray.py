@@ -38,32 +38,51 @@ def xarr_no_dims():
     print(xarr)
 
 
+def adding_two_arrays_attrs():
+    attrs1 = {"qoi": "qoi1", "unit": "unit1"}
+    attrs2 = {"qoi": "qoi2", "unit": "unit1"}
+    xarr1 = xr.DataArray(data, coords=coords, dims=dims, attrs=attrs1)
+    xarr2 = xr.DataArray(data * 2, coords=coords, dims=dims, attrs=attrs2)
+    with xr.set_options(keep_attrs=True):
+      xarr3 = xarr1 + xarr2
+      rprint(xarr1)
+      rprint(xarr3)
+
+
 def adding_two_arrays():
     xarr1 = xr.DataArray(data, coords=coords, dims=dims)
     xarr2 = xr.DataArray(data * 2, coords=coords, dims=dims)
+
     xarr3 = xarr1 + xarr2
-    print(xarr3)
 
-    # indexing.. 
-    print(xarr3.loc[:, "room1"])
-    print(xarr3.sel(room="room1"))
-    print(xarr3.sel(time=0))
+    # print(xarr3)
 
-    # aggregating.. 
-    print(xarr3.sum(dim=["time"]))
+    # # indexing..
+    # print(xarr3.loc[:, "room1"])
+    # print(xarr3.sel(room="room1"))
+    # print(xarr3.sel(time=0))
 
-    print(xarr3.data)
+    # # aggregating..
+    # print(xarr3.sum(dim=["time"]))
+
+    # print(xarr3.data)
     rprint(xarr3.to_dict())
-    pd_df = xarr3.to_dataframe(name="test")
-    rprint(pd_df)
-    rprint(pl.from_pandas(data=pd_df, include_index=True))
+    # pd_df = xarr3.to_dataframe(name="test")
+    # rprint(pd_df)
+    # rprint(pl.from_pandas(data=pd_df, include_index=True))
+
 
 def test_reorient_numpy_arr():
-    arr = np.array([[1,2,3], [11, 12, 13]])
+    arr = np.array([[1, 2, 3], [11, 12, 13]])
     rprint(arr)
     rprint(np.transpose(arr))
 
 
+def access():
+    xarr1 = xr.DataArray(data, coords=coords, dims=dims)
+    print(xarr1.dims)
+    print(xarr1.coords["time"].values)
+
 
 if __name__ == "__main__":
-    test_reorient_numpy_arr()
+    adding_two_arrays_attrs()

@@ -18,7 +18,10 @@ class SpaceTypes(StrEnum):
     ZONE = "Zone"
     SURFACE = "Surface"
     SITE = "Site"
+
+
 SpaceTypesLiteral = Literal["System", "Zone", "Surface", "Site"]
+
 
 def get_name_for_spatial_data(dataset: BaseCollection):
     keys = dataset.header.metadata.keys()
@@ -69,12 +72,7 @@ class SQLCollection:
         return self.space_tuple.space_type
 
 
-def check_is_unique(items: list):
-    unique_items = set(items)
-    assert len(unique_items) == 1, (
-        f"There is more than one type of item! {unique_items}"
-    )
-    return list(unique_items)[0]
+
 
 
 class DFC:
@@ -95,87 +93,92 @@ class DFC:
     # VARIABLE = "variable"
     # VALUE = "value"
 
-def sqlcollections_to_qoi_result(collections: list[SQLCollection]):
-    pass
-
-
-@dataclass
-class QOIResult2:
-    qoi: str
-    unit: str # TODO units literal.. 
-    space_type: SpaceTypesLiteral
-    # analysis_period: AnalysisPeriod
-    data_arr: xr.DataArray
-    # space_names: list[str]
-    # datetimes: list[datetime]
-
-    # post init -> check that the dimensions of the data arrary.. 
-
-
-
 
 @dataclass
 class QOIResult:
-    collections: list[SQLCollection]
+    qoi: str
+    unit: str  # TODO units literal..
+    analysis_period: AnalysisPeriod
+    space_type: SpaceTypesLiteral
+    data_arr: xr.DataArray
 
-    # @classmethod
-    # def from_collections(cls, collections: )
-
-    # post init checking that all these things are the same..
-    # TODO going to need to be able to initialize this another way.. 
     def __post_init__(self):
-        self.qoi = check_is_unique([i.qoi for i in self.collections])
-        self.unit = check_is_unique([i.unit for i in self.collections])
-        self.space_type = check_is_unique(
-            [i.space_type for i in self.collections]
-        )  # TODO this may also fail.. on failure, split
-        self.analysis_period = check_is_unique(
-            [i.analysis_period for i in self.collections]
-        )  # TODO this may fail.. unless enforce the rule when setting the analysis periods.. or ask to specify when reading SQL..
-        self.datetimes = check_is_unique([i.datetimes for i in self.collections])
+        assert set(self.data_arr.dims) == set([DFC.DATETIMES, DFC.SPACE_NAMES])
 
-        self.space_names = [i.space_name for i in self.collections]
-        self.valid_collections = [i for i in self.collections if len(i.values) > 0]
-        self.valid_space_names = [i.space_name for i in self.valid_collections]
-
-        # TODO when create new QOIResult from a sum, do we still do the post init?
+    @classmethod
+    def from_sql_collections(cls, collections: list[SQLCollection]):
+        return cls(*sqlcollections_to_qoi_result(collections))
 
     @property
-    def data_dict(self):
-        data_dict_ = {}
-        data_dict_[DFC.DATETIMES] = self.datetimes
-        for collection in self.valid_collections:
-            data_dict_[collection.space_name] = collection.values
-
-        return data_dict_
+    def datetimes(self):
+        return list(self.data_arr.coords[DFC.DATETIMES].values)
 
     @property
-    def data_arr(self):
-        coords = [list(self.datetimes), self.valid_space_names]
-        dims = [DFC.DATETIMES, DFC.SPACE_NAMES]
-        data = np.array([i.values for i in self.valid_collections]).transpose()
-        # print(data)
-        arr = xr.DataArray(
-            data=data,  coords=coords, dims=dims
-        )
-        return arr # TODO my custom xarr that i define methods on? or just a function thats for plotting.. 
+    def space_names(self):
+        return list(self.data_arr.coords[DFC.SPACE_NAMES].values)
 
-    @property
-    def dataframe(self):
-        return pl.DataFrame(self.data_dict)
-
-    # TODO try out xarray.. -> nice because has an index..
-
-    def __add__(self, other):
+    def check_can_compute(self, other):
         if not isinstance(other, QOIResult):
-            raise Exception(f"{other} is not of type QOIResult") # TODO define a higher level exception here.. 
+            raise Exception(
+                f"{other} is not of type QOIResult"
+            )  # TODO define a higher level exception here..
         assert self.datetimes == other.datetimes
         assert self.space_names == other.space_names
         assert self.unit == other.unit
-        return self.data_arr + other.data_arr
+        return other
 
-    # property -> filtered collections -> only values that are non zero..
-    # space names.. that are non zero..
+    def copy_with_new_arr(self, result: xr.DataArray):
+        return QOIResult(self.qoi, self.unit, self.analysis_period, self.space_type, result)
 
-    # doing operations on these..
-    # qoi ..
+    def __sub__(self, other):
+        other = self.check_can_compute(other)
+        result = self.data_arr - other.data_arr
+        return self.copy_with_new_arr(result)
+
+    def __add__(self, other):
+        other = self.check_can_compute(other)
+        result = self.data_arr + other.data_arr
+        return self.copy_with_new_arr(result)
+    
+
+
+
+def data_arr_from_sqlcollections(
+    datetimes: list[datetime], space_names: list[str], collections: list[SQLCollection]
+):
+    coords = [list(datetimes), space_names]
+    dims = [DFC.DATETIMES, DFC.SPACE_NAMES]
+    data = np.array([i.values for i in collections]).transpose()
+    return xr.DataArray(data=data, coords=coords, dims=dims)
+
+
+def check_is_unique(items: list):
+    unique_items = set(items)
+    assert len(unique_items) == 1, (
+        f"There is more than one type of item! {unique_items}"
+    )
+    return list(unique_items)[0]
+
+def sqlcollections_to_qoi_result(collections: list[SQLCollection]):
+    qoi = check_is_unique([i.qoi for i in collections])
+    unit = check_is_unique([i.unit for i in collections])
+    space_type = check_is_unique(
+        [i.space_type for i in collections]
+    )  # TODO this may also fail.. on failure, split
+    analysis_period = check_is_unique([i.analysis_period for i in collections])
+
+    datetimes = check_is_unique([i.datetimes for i in collections])
+
+    # space_names = [i.space_name for i in collections]
+    valid_collections = [i for i in collections if len(i.values) > 0]
+    valid_space_names = [i.space_name for i in valid_collections]
+
+    data_arr = data_arr_from_sqlcollections(
+        datetimes, valid_space_names, valid_collections
+    )
+
+    return (qoi, unit, analysis_period, space_type, data_arr)
+
+
+# def sqlcollections_to_qoi_result(collections: list[SQLCollection]):
+#     pass
