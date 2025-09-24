@@ -73,7 +73,7 @@ simple_subsurface_inputs = SubsurfaceInputExample(
 )
 
 airboundary_subsurface_inputs = SubsurfaceInputExample(
-    [e1, e2], [door_details, window_details], {0: [0], 1: [1]}
+    [e1, e2, e3], [door_details, window_details], {0: [0], 1: [1, 2]}
 )
 
 three_details_subsurface_inputs = SubsurfaceInputExample(

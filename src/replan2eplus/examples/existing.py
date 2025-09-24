@@ -11,6 +11,6 @@ def get_example_idf():
 
 def read_example_case():
     case = ExistCase(PATH_TO_IDD, PATH_TO_SAMPLE_IDF)
-    case.initialize_idf()
-    case.get_objects()
+    # case.initialize_idf()
+    # case.get_objects()
     return case

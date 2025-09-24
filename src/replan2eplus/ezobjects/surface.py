@@ -135,6 +135,7 @@ class Surface(EZObject):
     def is_airboundary(self):
         return self.construction_name == DEFAULT_AIRBOUNDARY_OBJECT.Name
 
+
     # def update_construction(self, construction_name: str):
     #     pass
 

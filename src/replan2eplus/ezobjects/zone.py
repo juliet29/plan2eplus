@@ -74,6 +74,7 @@ class Zone(EZObject):
         return floors[0].domain  # TODO check the plane..
 
 
+# TODO: get zones by zone_name 
 def get_zones(name, zones: list[Zone]):
     # NOTE: changing this for studies!
     possible_zones = [i for i in zones if name == i.room_name]

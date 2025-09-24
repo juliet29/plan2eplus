@@ -12,9 +12,10 @@ from replan2eplus.examples.mat_and_const import (
     material_idfs,
     SAMPLE_CONSTRUCTION_SET,
 )
-from replan2eplus.paths import THROWAWAY_PATH, TWO_ROOM_RESULTS
+from replan2eplus.paths import THROWAWAY_PATH, TWO_ROOM_RESULTS, TWO_ROOM_AIRBOUNDARY_RESULTS
 from replan2eplus.paths import PATH_TO_WEATHER_FILE
 from replan2eplus.idfobjects.variables import default_variables
+from rich import print as rprint 
 
 
 
@@ -54,6 +55,7 @@ def run_airboundary_ezcase(output_directory):
         SAMPLE_CONSTRUCTION_SET,
     )
     case.add_airflownetwork()
+    rprint(case.airflownetwork)
     case.idf.add_output_variables(default_variables)  # TODO make wrapper..
     case.save_and_run_case(path=output_directory)
     return case
@@ -84,6 +86,6 @@ def test_ezcase_simple_subsurfaces(tmp_path):
 
 
 if __name__ == "__main__":
-    case = run_simple_ezcase(output_directory=TWO_ROOM_RESULTS)
+    case = run_airboundary_ezcase(output_directory=TWO_ROOM_AIRBOUNDARY_RESULTS)
     # case = test_ezcase()
     # case.save_and_run_case(path=THROWAWAY_PATH)

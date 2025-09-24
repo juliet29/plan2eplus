@@ -25,7 +25,7 @@ def organize_subsurfaces_and_surfaces(
         not_in_afn,
         list(windows),
         list(doors),
-    afn.airboundaries,
+    afn.airboundaries
     )
 
 
@@ -37,4 +37,5 @@ class ConnectionOrg(NamedTuple):
 def organize_connections(
     afn: AirflowNetwork, airboundaries: list[Airboundary], subsurfaces: list[Subsurface]
 ):
+    # doesnt filter because both the baseline and afn objects get plotted.. 
     return ConnectionOrg(airboundaries + subsurfaces, afn.surfacelike_objects)
