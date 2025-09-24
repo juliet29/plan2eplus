@@ -19,6 +19,8 @@ def get_geom_objects(idf: IDF):
 
     return updated_zones, surfaces, subsurfaces
 
+# TODO reconstruct the AFN .. 
+
 
 @dataclass
 class ExistCase:
@@ -40,5 +42,8 @@ class ExistCase:
         self.zones, self.surfaces, self.subsurfaces = get_geom_objects(self.idf)
 
         return self.zones, self.surfaces, self.subsurfaces
+    
+    # should define unique subsurfaces, zone names in upper case, etc.. 
+    # sql results all come in upper case for some reason .. even though on the idf is written in normal case.. 
 
     # TODO maybe this has a path, and then gets its on idf and sql results.. 

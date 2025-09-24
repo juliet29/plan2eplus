@@ -4,7 +4,7 @@ from replan2eplus.ezcase.main import EZCase
 from replan2eplus.examples.subsurfaces import (
     e0,
     airboundary_subsurface_inputs,
-    simple_subsurface_inputs,
+    simple_subsurface_inputs, three_details_subsurface_inputs
 )
 from replan2eplus.examples.mat_and_const import (
     PATH_TO_MAT_AND_CONST_IDF,
@@ -16,6 +16,25 @@ from replan2eplus.paths import THROWAWAY_PATH, TWO_ROOM_RESULTS
 from replan2eplus.paths import PATH_TO_WEATHER_FILE
 from replan2eplus.idfobjects.variables import default_variables
 
+
+
+def run_simple_ezcase(output_directory):
+    case = EZCase(PATH_TO_IDD, PATH_TO_MINIMAL_IDF, PATH_TO_WEATHER_FILE)
+    case.initialize_idf()
+    case.add_zones(test_rooms)
+    
+    case.add_subsurfaces(three_details_subsurface_inputs.inputs)
+    
+    case.add_constructions_from_other_idf(
+        [PATH_TO_WINDOW_CONST_IDF, PATH_TO_MAT_AND_CONST_IDF],
+        material_idfs,
+        SAMPLE_CONSTRUCTION_SET,
+    )
+    case.add_airflownetwork()
+    case.idf.add_output_variables(default_variables)  # TODO make wrapper..
+    case.save_and_run_case(path=output_directory)
+    return case
+    
 
 def run_airboundary_ezcase(output_directory):
     case = EZCase(PATH_TO_IDD, PATH_TO_MINIMAL_IDF, PATH_TO_WEATHER_FILE)
@@ -65,6 +84,6 @@ def test_ezcase_simple_subsurfaces(tmp_path):
 
 
 if __name__ == "__main__":
-    case = run_airboundary_ezcase(output_directory=TWO_ROOM_RESULTS)
+    case = run_simple_ezcase(output_directory=TWO_ROOM_RESULTS)
     # case = test_ezcase()
     # case.save_and_run_case(path=THROWAWAY_PATH)

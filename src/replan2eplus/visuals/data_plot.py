@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from replan2eplus.ezobjects.afn import set_difference, set_intersection
+from replan2eplus.ezobjects.subsurface import Subsurface
 from replan2eplus.visuals.base_plot import BasePlot
 from replan2eplus.visuals.transformations import (
     EXPANSION_FACTOR,
@@ -69,6 +70,20 @@ def pressure_colorbar(data: list[float] | np.ndarray, ax: Axes):
     )
     return bar, cmap, norm
 
+def flow_colorbar(data: list[float] | np.ndarray, ax: Axes):
+    cmap = mpl.colormaps["PuBu"]
+    min_, max_ = min(data), max(data)
+    norm = colors.Normalize(vmin=min_, vmax=max_)
+    bar = (
+        plt.colorbar(
+            cm.ScalarMappable(norm=norm, cmap=cmap),
+            orientation="vertical",
+            label="Volume Flow Rate [m3/s]",
+            ax=ax,
+        ),
+    )
+    return bar, cmap, norm
+
 
 @dataclass
 class DataForPlot:
@@ -127,6 +142,20 @@ class DataPlot(BasePlot):
         return self
 
     def plot_connections_with_data(
-        self,
+        self, data_arr_: DataArray, subsurfaces: list[Subsurface]
     ):
-        pass
+        # TODO include surfaces which are airboundaries.. 
+        self.subsurface_dict =  {i.subsurface_name.upper(): i for i in subsurfaces}
+        self.subsurface_names = list(self.subsurface_dict.keys())
+
+        data_arr = filter_data_arr(data_arr_, self.subsurface_names)
+
+        bar, cmap, norm  = flow_colorbar(data_arr.values, self.axes)
+        styles = [ConnectionStyles().afn_with_data(color=cmap(norm(i))) for i in data_arr.values]
+
+        subsurfaces = [self.subsurface_dict[i] for i in data_arr.space_names.values]
+
+        add_connection_lines([i.domain for i in subsurfaces], [i.edge for i in subsurfaces], self.zones, self.cardinal_domain.cardinal, styles, self.axes)
+    
+        # print(subsurfaces)
+        return self

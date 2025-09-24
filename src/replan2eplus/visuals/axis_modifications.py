@@ -29,12 +29,14 @@ def add_rectangles(domains: list[Domain], styles: list[RectangleStyles], axes: A
         style = styles[0]
         for domain in domains:
             update(domain, style)
-    elif len(styles) > 1: 
+    elif len(styles) > 1:
         assert len(styles) == len(domains)
-        for style, domain in zip(styles, domains):
+        for domain, style in zip(domains, styles):
             update(domain, style)
     else:
-        raise Exception(f"Invalid length of styles! Expected 1 or {len(domains)} to match the number of domains. Instead got {len(styles)}")
+        raise Exception(
+            f"Invalid length of styles! Expected 1 or {len(domains)} to match the number of domains. Instead got {len(styles)}"
+        )
 
     return axes
 
@@ -54,13 +56,35 @@ def add_connection_lines(
     edges: list[Edge],
     zones: list[Zone],
     cardinal_coords: CardinalPoints,
-    style: LineStyles,
+    styles: list[LineStyles],
     axes: Axes,
 ):
-    for domain, edge in zip(domains, edges):
+    def update(domain, edge, style):
         line = subsurface_to_connection_line(domain, edge, zones, cardinal_coords)
         line.set(**style.values)
         axes.add_artist(line)
+
+    if len(styles) == 1:
+        style = styles[0]
+        for domain, edge in zip(domains, edges):
+            update(domain, edge, style)
+    elif len(styles) > 1:
+        assert len(styles) == len(domains)
+        for (
+            domain,
+            edge,
+            style,
+        ) in zip(
+            domains,
+            edges,
+            styles,
+        ):
+            update(domain, edge, style)
+    else:
+        raise Exception(
+            f"Invalid length of styles! Expected 1 or {len(domains)} to match the number of domains. Instead got {len(styles)}"
+        )
+
     return axes
 
 

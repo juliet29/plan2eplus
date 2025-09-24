@@ -79,7 +79,7 @@ class BasePlot:
         subsurfaces: list[Subsurface],
         style=SurfaceStyles(),
     ):
-        surface_org = organize_subsurfaces_and_surfaces(afn, airboundaries, subsurfaces)
+        surface_org = organize_subsurfaces_and_surfaces(afn, airboundaries, subsurfaces) 
         add_surface_lines(
             [i.domain for i in surface_org.non_afn_surfaces],
             style.non_afn_surfaces,
@@ -104,12 +104,13 @@ class BasePlot:
         style=ConnectionStyles(),
     ):
         connections_org = organize_connections(afn, airboundaries, subsurfaces)
+        # TODO: can make cleaner w/ zip.. 
         add_connection_lines(
             [i.domain for i in connections_org.baseline],
             [i.edge for i in connections_org.baseline],
             self.zones,
             self.cardinal_domain.cardinal,
-            style.baseline,
+            [style.baseline],
             self.axes,
         )
         add_connection_lines(
@@ -117,7 +118,7 @@ class BasePlot:
             [i.edge for i in connections_org.afn],
             self.zones,
             self.cardinal_domain.cardinal,
-            style.afn,
+            [style.afn],
             self.axes,
         )
         return self

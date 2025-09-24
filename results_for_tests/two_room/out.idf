@@ -176,12 +176,6 @@ CONSTRUCTION,
     Medium Furnishings,       !- Name
     G05 25mm wood;            !- Outside Layer
 
-CONSTRUCTION:AIRBOUNDARY,
-    Default Airboundary,      !- Name
-    SimpleMixing,             !- Air Exchange Method
-    0.5,                      !- Simple Mixing Air Changes per Hour
-    ;                         !- Simple Mixing Schedule Name
-
 GlobalGeometryRules,
     UpperLeftCorner,          !- Starting Vertex Position
     CounterClockWise,         !- Vertex Entry Direction
@@ -470,7 +464,7 @@ BUILDINGSURFACE:DETAILED,
 BUILDINGSURFACE:DETAILED,
     Block `room1` Storey 0 Wall 0004_1,    !- Name
     wall,                     !- Surface Type
-    Default Airboundary,      !- Construction Name
+    Medium Partitions,        !- Construction Name
     Block `room1` Storey 0,    !- Zone Name
     ,                         !- Space Name
     surface,                  !- Outside Boundary Condition
@@ -495,7 +489,7 @@ BUILDINGSURFACE:DETAILED,
 BUILDINGSURFACE:DETAILED,
     Block `room2` Storey 0 Wall 0002_1,    !- Name
     wall,                     !- Surface Type
-    Default Airboundary,      !- Construction Name
+    Medium Partitions,        !- Construction Name
     Block `room2` Storey 0,    !- Zone Name
     ,                         !- Space Name
     surface,                  !- Outside Boundary Condition
@@ -518,6 +512,17 @@ BUILDINGSURFACE:DETAILED,
     3;                        !- Vertex 4 Zcoordinate
 
 WINDOW,
+    Window__Block `room1` Storey 0 Wall 0002,    !- Name
+    Sgl Clr 6mm,              !- Construction Name
+    Block `room1` Storey 0 Wall 0002,    !- Building Surface Name
+    ,                         !- Frame and Divider Name
+    1.0,                      !- Multiplier
+    0.3333333333333333,       !- Starting X Coordinate
+    1,                        !- Starting Z Coordinate
+    0.25,                     !- Length
+    0.25;                     !- Height
+
+WINDOW,
     Window__Block `room1` Storey 0 Wall 0001,    !- Name
     Sgl Clr 6mm,              !- Construction Name
     Block `room1` Storey 0 Wall 0001,    !- Building Surface Name
@@ -528,10 +533,33 @@ WINDOW,
     0.25,                     !- Length
     0.25;                     !- Height
 
-DOOR,
-    Door__Block `room1` Storey 0 Wall 0002,    !- Name
+WINDOW,
+    Window__Block `room2` Storey 0 Wall 0003,    !- Name
+    Sgl Clr 6mm,              !- Construction Name
+    Block `room2` Storey 0 Wall 0003,    !- Building Surface Name
+    ,                         !- Frame and Divider Name
+    1.0,                      !- Multiplier
+    3.333333e-01,             !- Starting X Coordinate
+    0.375,                    !- Starting Z Coordinate
+    0.25,                     !- Length
+    0.25;                     !- Height
+
+DOOR:INTERZONE,
+    Door__Block `room1` Storey 0 Wall 0004_1,    !- Name
     Medium Furnishings,       !- Construction Name
-    Block `room1` Storey 0 Wall 0002,    !- Building Surface Name
+    Block `room1` Storey 0 Wall 0004_1,    !- Building Surface Name
+    Door__Block `room2` Storey 0 Wall 0002_1,    !- Outside Boundary Condition Object
+    1.0,                      !- Multiplier
+    0.3333333333333333,       !- Starting X Coordinate
+    1,                        !- Starting Z Coordinate
+    0.25,                     !- Length
+    0.25;                     !- Height
+
+DOOR:INTERZONE,
+    Door__Block `room2` Storey 0 Wall 0002_1,    !- Name
+    Medium Furnishings,       !- Construction Name
+    Block `room2` Storey 0 Wall 0002_1,    !- Building Surface Name
+    Door__Block `room1` Storey 0 Wall 0004_1,    !- Outside Boundary Condition Object
     1.0,                      !- Multiplier
     0.3333333333333333,       !- Starting X Coordinate
     1,                        !- Starting Z Coordinate
@@ -569,9 +597,39 @@ AIRFLOWNETWORK:MULTIZONE:ZONE,
     Standard,                 !- Single Sided Wind Pressure Coefficient Algorithm
     10;                       !- Facade Width
 
+AIRFLOWNETWORK:MULTIZONE:ZONE,
+    Block `room2` Storey 0,    !- Zone Name
+    Constant,                 !- Ventilation Control Mode
+    ,                         !- Ventilation Control Zone Temperature Setpoint Schedule Name
+    0,                        !- Minimum Venting Open Factor
+    0,                        !- Indoor and Outdoor Temperature Difference Lower Limit For Maximum Venting Open Factor
+    100,                      !- Indoor and Outdoor Temperature Difference Upper Limit for Minimum Venting Open Factor
+    0,                        !- Indoor and Outdoor Enthalpy Difference Lower Limit For Maximum Venting Open Factor
+    300000,                   !- Indoor and Outdoor Enthalpy Difference Upper Limit for Minimum Venting Open Factor
+    ,                         !- Venting Availability Schedule Name
+    Standard,                 !- Single Sided Wind Pressure Coefficient Algorithm
+    10;                       !- Facade Width
+
 AIRFLOWNETWORK:MULTIZONE:SURFACE,
-    Door__Block `room1` Storey 0 Wall 0002,    !- Surface Name
-    SimpleOpening__Door__Block `room1` Storey 0 Wall 0002,    !- Leakage Component Name
+    Door__Block `room1` Storey 0 Wall 0004_1,    !- Surface Name
+    SimpleOpening__Door__Block `room1` Storey 0 Wall 0004_1,    !- Leakage Component Name
+    ,                         !- External Node Name
+    1,                        !- WindowDoor Opening Factor or Crack Factor
+    ZoneLevel,                !- Ventilation Control Mode
+    ,                         !- Ventilation Control Zone Temperature Setpoint Schedule Name
+    0,                        !- Minimum Venting Open Factor
+    0,                        !- Indoor and Outdoor Temperature Difference Lower Limit For Maximum Venting Open Factor
+    100,                      !- Indoor and Outdoor Temperature Difference Upper Limit for Minimum Venting Open Factor
+    0,                        !- Indoor and Outdoor Enthalpy Difference Lower Limit For Maximum Venting Open Factor
+    300000,                   !- Indoor and Outdoor Enthalpy Difference Upper Limit for Minimum Venting Open Factor
+    ,                         !- Venting Availability Schedule Name
+    ,                         !- Occupant Ventilation Control Name
+    PolygonHeight,            !- Equivalent Rectangle Method
+    1;                        !- Equivalent Rectangle Aspect Ratio
+
+AIRFLOWNETWORK:MULTIZONE:SURFACE,
+    Window__Block `room1` Storey 0 Wall 0002,    !- Surface Name
+    SimpleOpening__Window__Block `room1` Storey 0 Wall 0002,    !- Leakage Component Name
     ,                         !- External Node Name
     1,                        !- WindowDoor Opening Factor or Crack Factor
     ZoneLevel,                !- Ventilation Control Mode
@@ -603,8 +661,32 @@ AIRFLOWNETWORK:MULTIZONE:SURFACE,
     PolygonHeight,            !- Equivalent Rectangle Method
     1;                        !- Equivalent Rectangle Aspect Ratio
 
+AIRFLOWNETWORK:MULTIZONE:SURFACE,
+    Window__Block `room2` Storey 0 Wall 0003,    !- Surface Name
+    SimpleOpening__Window__Block `room2` Storey 0 Wall 0003,    !- Leakage Component Name
+    ,                         !- External Node Name
+    1,                        !- WindowDoor Opening Factor or Crack Factor
+    ZoneLevel,                !- Ventilation Control Mode
+    ,                         !- Ventilation Control Zone Temperature Setpoint Schedule Name
+    0,                        !- Minimum Venting Open Factor
+    0,                        !- Indoor and Outdoor Temperature Difference Lower Limit For Maximum Venting Open Factor
+    100,                      !- Indoor and Outdoor Temperature Difference Upper Limit for Minimum Venting Open Factor
+    0,                        !- Indoor and Outdoor Enthalpy Difference Lower Limit For Maximum Venting Open Factor
+    300000,                   !- Indoor and Outdoor Enthalpy Difference Upper Limit for Minimum Venting Open Factor
+    ,                         !- Venting Availability Schedule Name
+    ,                         !- Occupant Ventilation Control Name
+    PolygonHeight,            !- Equivalent Rectangle Method
+    1;                        !- Equivalent Rectangle Aspect Ratio
+
 AIRFLOWNETWORK:MULTIZONE:COMPONENT:SIMPLEOPENING,
-    SimpleOpening__Door__Block `room1` Storey 0 Wall 0002,    !- Name
+    SimpleOpening__Door__Block `room1` Storey 0 Wall 0004_1,    !- Name
+    1,                        !- Air Mass Flow Coefficient When Opening is Closed
+    0.65,                     !- Air Mass Flow Exponent When Opening is Closed
+    0.0001,                   !- Minimum Density Difference for TwoWay Flow
+    1;                        !- Discharge Coefficient
+
+AIRFLOWNETWORK:MULTIZONE:COMPONENT:SIMPLEOPENING,
+    SimpleOpening__Window__Block `room1` Storey 0 Wall 0002,    !- Name
     1,                        !- Air Mass Flow Coefficient When Opening is Closed
     0.65,                     !- Air Mass Flow Exponent When Opening is Closed
     0.0001,                   !- Minimum Density Difference for TwoWay Flow
@@ -612,6 +694,13 @@ AIRFLOWNETWORK:MULTIZONE:COMPONENT:SIMPLEOPENING,
 
 AIRFLOWNETWORK:MULTIZONE:COMPONENT:SIMPLEOPENING,
     SimpleOpening__Window__Block `room1` Storey 0 Wall 0001,    !- Name
+    1,                        !- Air Mass Flow Coefficient When Opening is Closed
+    0.65,                     !- Air Mass Flow Exponent When Opening is Closed
+    0.0001,                   !- Minimum Density Difference for TwoWay Flow
+    1;                        !- Discharge Coefficient
+
+AIRFLOWNETWORK:MULTIZONE:COMPONENT:SIMPLEOPENING,
+    SimpleOpening__Window__Block `room2` Storey 0 Wall 0003,    !- Name
     1,                        !- Air Mass Flow Coefficient When Opening is Closed
     0.65,                     !- Air Mass Flow Exponent When Opening is Closed
     0.0001,                   !- Minimum Density Difference for TwoWay Flow

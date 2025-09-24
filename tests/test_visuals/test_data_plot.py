@@ -19,17 +19,43 @@ def get_qoi(qoi: OutputVariables):
     return create_result_for_qoi(sql, qoi)
 
 
-def plot_values():
+def plot_zone_data():
     case = ExistCase(PATH_TO_IDD, TWO_ROOM_RESULTS / "out.idf")
     pressure = get_qoi("AFN Node Total Pressure")
     data_at_noon = pressure.select_time(12)
 
-    case.initialize_idf()
-    case.get_objects()
     dp = DataPlot(case.zones)
     dp.plot_zones_with_data(data_at_noon)
     dp.plot_zone_names()
     dp.plot_cardinal_names()
+
+    # TODO set up airboundary read on exist case..
+    # dp.plot_subsurfaces_and_surfaces()
+    return dp
+
+
+def plot_connection_data():
+    case = ExistCase(PATH_TO_IDD, TWO_ROOM_RESULTS / "out.idf")
+    flow_12 = get_qoi("AFN Linkage Node 1 to Node 2 Volume Flow Rate")
+    flow_21 = get_qoi("AFN Linkage Node 1 to Node 2 Volume Flow Rate")
+    combined_flow = flow_12.select_time(1) + flow_21.select_time(1)
+
+    print(combined_flow)
+    print(combined_flow.space_names)
+    dp = DataPlot(case.zones)
+    dp.plot_zones()
+    dp.plot_zone_names()
+    dp.plot_cardinal_names()
+    dp.plot_connections_with_data(combined_flow, case.subsurfaces)
+
+    # data_at_noon = pressure.select_time(12)
+
+    # case.initialize_idf()
+    # case.get_objects()
+    # dp = DataPlot(case.zones)
+    # dp.plot_zones_with_data(data_at_noon)
+    # dp.plot_zone_names()
+    # dp.plot_cardinal_names()
     return dp 
 
 
@@ -41,9 +67,12 @@ def test_space_names():
     assert res.shape == (1, 1)
     return
 
+
 def test_plot_zones():
-    plot_values()
+    plot_zone_data()
     assert 1
 
+
 if __name__ == "__main__":
-    plot_values ()
+    dp = plot_connection_data()
+    dp.show()
