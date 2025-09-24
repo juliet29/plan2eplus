@@ -19,6 +19,7 @@ dependencies = [
     "pytest-cov>=6.2.1",
     "rich>=14.1.0",
     "scipy>=1.16.2",
+    "shapely>=2.1.1",
     "utils4plans>=0.1.6",
     "xarray>=2025.9.0",
 ]

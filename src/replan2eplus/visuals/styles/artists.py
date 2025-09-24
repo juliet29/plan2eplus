@@ -7,6 +7,7 @@ from replan2eplus.visuals.styles.interfaces import (
     LineStyle,
     BoundingBox,
 )
+import math
 
 
 @dataclass
@@ -74,5 +75,7 @@ class ConnectionStyles(NamedTuple):
     baseline = LineStyles(color="gray", linewidth=12, alpha=0.1)
     afn = LineStyles(color="navy", linewidth=3)
 
-    def afn_with_data(self, color: Color):
-        return LineStyles(color=color, linewidth=3)
+    def afn_with_data(self, color: Color, linewidth: float):
+        print(linewidth)
+        linewidth_map = max(3, math.ceil(linewidth))
+        return LineStyles(color=color, linewidth=linewidth_map)

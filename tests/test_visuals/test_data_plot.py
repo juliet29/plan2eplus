@@ -6,10 +6,11 @@ from replan2eplus.idfobjects.variables import OutputVariables
 from replan2eplus.paths import TWO_ROOM_RESULTS, TWO_ROOM_AIRBOUNDARY_RESULTS
 from replan2eplus.results.sql import create_result_for_qoi, get_sql_results
 from replan2eplus.visuals.data_plot import DataPlot, filter_data_arr
+from pathlib import Path 
 
 
-def get_qoi(qoi: OutputVariables):
-    sql = get_sql_results(TWO_ROOM_RESULTS)
+def get_qoi(qoi: OutputVariables, path: Path = TWO_ROOM_RESULTS):
+    sql = get_sql_results(path)
     return create_result_for_qoi(sql, qoi)
 
 
@@ -30,10 +31,11 @@ def plot_zone_data():
 
 
 def plot_connection_data():
+    # TODO the sql needs to be linked to the case reading!!!!
     case = ExistCase(PATH_TO_IDD, TWO_ROOM_AIRBOUNDARY_RESULTS / "out.idf")
-    flow_12 = get_qoi("AFN Linkage Node 1 to Node 2 Volume Flow Rate")
-    flow_21 = get_qoi("AFN Linkage Node 1 to Node 2 Volume Flow Rate")
-    combined_flow = flow_12.select_time(1) + flow_21.select_time(1)
+    flow_12 = get_qoi("AFN Linkage Node 1 to Node 2 Volume Flow Rate", TWO_ROOM_AIRBOUNDARY_RESULTS)
+    flow_21 = get_qoi("AFN Linkage Node 2 to Node 1 Volume Flow Rate", TWO_ROOM_AIRBOUNDARY_RESULTS)
+    combined_flow = flow_12.select_time(1) - flow_21.select_time(1)
 
     print(combined_flow)
     print(combined_flow.space_names)
@@ -42,7 +44,7 @@ def plot_connection_data():
     dp.plot_zone_names()
     dp.plot_cardinal_names()
     dp.plot_subsurfaces_and_surfaces(case.afn, case.airboundaries, case.subsurfaces)
-    dp.plot_connections_with_data(combined_flow, case.subsurfaces)
+    dp.plot_connections_with_data(combined_flow, case.subsurfaces, case.airboundaries)
 
     return dp 
 

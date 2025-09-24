@@ -63,11 +63,14 @@ def add_connection_lines(
         line = subsurface_to_connection_line(domain, edge, zones, cardinal_coords)
         line.set(**style.values)
         axes.add_artist(line)
+        return line 
 
+    lines = []
     if len(styles) == 1:
         style = styles[0]
         for domain, edge in zip(domains, edges):
-            update(domain, edge, style)
+            line = update(domain, edge, style)
+            lines.append(line)
     elif len(styles) > 1:
         assert len(styles) == len(domains)
         for (
@@ -79,13 +82,14 @@ def add_connection_lines(
             edges,
             styles,
         ):
-            update(domain, edge, style)
+            line = update(domain, edge, style)
+            lines.append(line)
     else:
         raise Exception(
             f"Invalid length of styles! Expected 1 or {len(domains)} to match the number of domains. Instead got {len(styles)}"
         )
 
-    return axes
+    return axes, lines
 
 
 class AnnotationPair(NamedTuple):
