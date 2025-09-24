@@ -6,8 +6,7 @@ from replan2eplus.examples.subsurfaces import (
 )
 from replan2eplus.subsurfaces.utils import get_unique_subsurfaces
 
-
-if __name__ == "__main__":
+def make_base_plot():
     case = get_minimal_case_with_rooms()
     case.add_subsurfaces(three_details_subsurface_inputs.inputs)
     case.add_airflownetwork()
@@ -27,4 +26,15 @@ if __name__ == "__main__":
         )  # would be good to specify the color here.
     )
 
+    return bp 
+
+def test_make_base_plot():
+    bp = make_base_plot()
+    assert 1
+    # TODO -> make better tests, check the matplotlib axes.. 
+
+
+
+if __name__ == "__main__":
+    bp = make_base_plot()
     bp.show()

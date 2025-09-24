@@ -19,11 +19,23 @@ from replan2eplus.visuals.styles.artists import (
 )
 
 
-def add_rectangles(domains: list[Domain], style: RectangleStyles, axes: Axes):
-    for domain in domains:
+def add_rectangles(domains: list[Domain], styles: list[RectangleStyles], axes: Axes):
+    def update(domain, style):
         rectangle = domain_to_rectangle(domain)
         rectangle.set(**style.values)
         axes.add_artist(rectangle)
+
+    if len(styles) == 1:
+        style = styles[0]
+        for domain in domains:
+            update(domain, style)
+    elif len(styles) > 1: 
+        assert len(styles) == len(domains)
+        for style, domain in zip(styles, domains):
+            update(domain, style)
+    else:
+        raise Exception(f"Invalid length of styles! Expected 1 or {len(domains)} to match the number of domains. Instead got {len(styles)}")
+
     return axes
 
 

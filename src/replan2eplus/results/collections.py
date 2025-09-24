@@ -5,7 +5,7 @@ from ladybug.datacollection import BaseCollection
 import polars as pl
 import numpy as np
 import xarray as xr
-from datetime import datetime
+import datetime
 
 from replan2eplus.idfobjects.idf import AnalysisPeriod
 
@@ -72,9 +72,6 @@ class SQLCollection:
         return self.space_tuple.space_type
 
 
-
-
-
 class DFC:
     """Dataframe Columns"""
 
@@ -128,7 +125,9 @@ class QOIResult:
         return other
 
     def copy_with_new_arr(self, result: xr.DataArray):
-        return QOIResult(self.qoi, self.unit, self.analysis_period, self.space_type, result)
+        return QOIResult(
+            self.qoi, self.unit, self.analysis_period, self.space_type, result
+        )
 
     def __sub__(self, other):
         other = self.check_can_compute(other)
@@ -139,12 +138,20 @@ class QOIResult:
         other = self.check_can_compute(other)
         result = self.data_arr + other.data_arr
         return self.copy_with_new_arr(result)
-    
 
+    def select_time(self, hour: int):
+        res = self.data_arr.sel(datetimes=datetime.time(hour, 0))
+        # assuming only one value
+        assert res.sizes[DFC.DATETIMES] == 1
+        return res.squeeze()
+
+    # maybe create the dat for plot?
 
 
 def data_arr_from_sqlcollections(
-    datetimes: list[datetime], space_names: list[str], collections: list[SQLCollection]
+    datetimes: list[datetime.datetime],
+    space_names: list[str],
+    collections: list[SQLCollection],
 ):
     coords = [list(datetimes), space_names]
     dims = [DFC.DATETIMES, DFC.SPACE_NAMES]
@@ -158,6 +165,7 @@ def check_is_unique(items: list):
         f"There is more than one type of item! {unique_items}"
     )
     return list(unique_items)[0]
+
 
 def sqlcollections_to_qoi_result(collections: list[SQLCollection]):
     qoi = check_is_unique([i.qoi for i in collections])

@@ -1,15 +1,19 @@
-
 from dataclasses import dataclass, field
 from typing import TypedDict, Literal, NamedTuple
 
-from replan2eplus.visuals.styles.interfaces import FontSize, Color, LineStyle, BoundingBox
+from replan2eplus.visuals.styles.interfaces import (
+    FontSize,
+    Color,
+    LineStyle,
+    BoundingBox,
+)
+
 
 @dataclass
 class PlotStyles:
     @property
     def values(self):
         return self.__dict__
-
 
 
 @dataclass
@@ -32,7 +36,7 @@ class AnnotationStyles(PlotStyles):
 @dataclass
 class RectangleStyles(PlotStyles):
     fill: bool = False
-    facecolor: Color = "white"  # TODO check this..
+    color: Color = "saddlebrown"  # TODO check this..
     edgecolor: Color = "black"
     alpha: float = 1
     linewidth: int = 4
@@ -51,7 +55,6 @@ class LineStyles(PlotStyles):
 
     def reset_label(self):
         self.label = ""
-
 
 
 class SurfaceStyles(NamedTuple):

@@ -27,6 +27,10 @@ class ExistCase:
     idf: IDF | None = None
     path_to_weather: Path = Path("") # TODO this should come from the idf!
 
+    def __post_init__(self):
+        self.initialize_idf()
+        self.get_objects()
+
     def initialize_idf(self):
         self.idf = IDF(self.path_to_idd, self.path_to_initial_idf, self.path_to_weather)
         return self.idf
@@ -34,9 +38,6 @@ class ExistCase:
     def get_objects(self):
         assert self.idf
         self.zones, self.surfaces, self.subsurfaces = get_geom_objects(self.idf)
-
-
-
 
         return self.zones, self.surfaces, self.subsurfaces
 

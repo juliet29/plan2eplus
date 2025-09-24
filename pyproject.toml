@@ -13,10 +13,12 @@ dependencies = [
     "ladybug-core>=0.44.19",
     "loguru>=0.7.3",
     "polars>=1.33.1",
+    "pooch>=1.8.2",
     "pyarrow>=21.0.0",
     "pyprojroot>=0.3.0",
     "pytest-cov>=6.2.1",
     "rich>=14.1.0",
+    "scipy>=1.16.2",
     "utils4plans>=0.1.6",
     "xarray>=2025.9.0",
 ]

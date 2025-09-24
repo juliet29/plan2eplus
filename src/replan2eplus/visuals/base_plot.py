@@ -26,7 +26,8 @@ from replan2eplus.visuals.styles.artists import (
 )
 from replan2eplus.visuals.transformations import (
     EXPANSION_FACTOR,
-)
+) # TODO move this to a config! 
+
 
 
 @dataclass
@@ -48,7 +49,7 @@ class BasePlot:
 
     def plot_zones(self, style=RectangleStyles()):
         add_rectangles(
-            [i.domain for i in self.zones], style, self.axes
+            [i.domain for i in self.zones], [style], self.axes
         )  # TODO if pass a list of styles, then apply each differently -> when are doing values .. or just have different function for if have values..
         return self
 
@@ -127,3 +128,6 @@ class BasePlot:
         self.axes.legend()
 
         plt.show()
+
+
+

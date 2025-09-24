@@ -5,7 +5,9 @@ FontSize = Literal[
     "xx-small", "x-small", "small", "medium", "large", "x-large", "xx-large"
 ]
 
-Color = Literal["navy", "deepskyblue", "gray", "snow", "saddlebrown", "white", "black"]
+NormedColor = tuple[float, float, float, float]
+
+Color = Literal["navy", "deepskyblue", "gray", "snow", "saddlebrown", "white", "black"] | NormedColor
 LineStyle = Literal[
     "-",
     "--",
