@@ -1,4 +1,5 @@
 import pytest
+from replan2eplus.geometry.contact_points import calculate_corner_points
 from replan2eplus.geometry.nonant import NonantEntries
 from replan2eplus.geometry.range import Range
 from replan2eplus.geometry.domain import Domain
@@ -9,9 +10,11 @@ from replan2eplus.geometry.contact_points import (
 from replan2eplus.ops.subsurfaces.interfaces import Dimension, ContactEntries
 from replan2eplus.ops.subsurfaces.logic.placement import (
     create_domain_for_nonant,
+    create_nonant_from_domain,
     create_domain_from_contact_point_and_dimensions,
     place_domain,
 )
+from replan2eplus.geometry.contact_points import calculate_cardinal_points
 
 from replan2eplus.geometry.coords import Coord
 
@@ -31,7 +34,8 @@ cardinal_groups: list[tuple[CardinalEntries, Coord]] = [
 
 @pytest.mark.parametrize("contact_point, coord", cardinal_groups)
 def test_cardinal_points(contact_point, coord, base_domain):
-    assert base_domain.cardinal[contact_point] == coord
+    cardinal_points = calculate_cardinal_points(base_domain)
+    assert cardinal_points[contact_point] == coord
 
 
 corner_groups: list[tuple[CornerEntries, Coord]] = [
@@ -44,7 +48,8 @@ corner_groups: list[tuple[CornerEntries, Coord]] = [
 
 @pytest.mark.parametrize("contact_point, coord", corner_groups)
 def test_corner_points(contact_point, coord, base_domain):
-    assert base_domain.corner[contact_point] == coord
+    corner_points = calculate_corner_points(base_domain)
+    assert corner_points[contact_point] == coord
 
 
 trirange_groups = [(Range(0, 3), 0, 1, 2, 3), (Range(-3, 0), -3, -2, -1, 0)]
@@ -78,7 +83,8 @@ points_groups: list[tuple[NonantEntries, Coord]] = [
 
 @pytest.mark.parametrize("contact_point, coord", points_groups)
 def test_nonant_points(contact_point, coord, base_domain):
-    assert base_domain.nonant[contact_point] == coord
+    nonant = create_nonant_from_domain(base_domain)
+    assert nonant[contact_point] == coord
 
 
 domain_groups: list[tuple[NonantEntries, Domain]] = [
@@ -98,7 +104,8 @@ def test_nonant_domain(contact_point, expected_domain, base_domain):
 # NOTE: this should be a combinatorial thing..but just a few -> will test all cardinal points differently.. better yet -> is the same as if had defined the domain independently..
 def test_get_contact_point_of_nonant_domain(base_domain):
     new_domain = create_domain_for_nonant(base_domain, "bl")
-    assert new_domain.cardinal.NORTH == Coord(0.5, 1)
+    cardinal_points = calculate_cardinal_points(new_domain)
+    assert cardinal_points.NORTH == Coord(0.5, 1)
 
 
 # coord_contact_point_groups: list[tuple[Coord, ContactEntries]] = [

@@ -1,4 +1,5 @@
 from replan2eplus.geometry.domain import Domain
+from replan2eplus.geometry.contact_points import calculate_corner_points
 from replan2eplus.ops.subsurfaces.interfaces import Dimension
 from replan2eplus.geometry.range import Range
 from replan2eplus.idfobjects.subsurface import SubsurfaceObject
@@ -50,8 +51,8 @@ def prepare_object(
     # HERE CHECK SUBSURF DOMAINS..
     compare_domain(main_surface_domain, subsurf_domain)
 
-    subsurf_coord = subsurf_domain.corner.SOUTH_WEST
-    surf_coord = main_surface_domain.corner.SOUTH_WEST
+    subsurf_coord = calculate_corner_points(subsurf_domain).SOUTH_WEST
+    surf_coord = calculate_corner_points(main_surface_domain).SOUTH_WEST
     coords = (
         subsurf_coord.x - surf_coord.x,
         subsurf_coord.y - surf_coord.y,

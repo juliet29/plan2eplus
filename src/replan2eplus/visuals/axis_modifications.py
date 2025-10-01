@@ -7,7 +7,7 @@ from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.geometry.contact_points import CardinalPoints
 from replan2eplus.geometry.coords import Coord
 from replan2eplus.geometry.domain import Domain
-from replan2eplus.visuals.transformations import (
+from replan2eplus.visuals.transform import (
     domain_to_line,
     domain_to_rectangle,
     subsurface_to_connection_line,

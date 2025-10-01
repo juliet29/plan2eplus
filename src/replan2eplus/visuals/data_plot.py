@@ -12,6 +12,7 @@ from xarray import DataArray
 from replan2eplus.ezobjects.afn import Airboundary, set_difference, set_intersection
 from replan2eplus.ezobjects.subsurface import Subsurface
 from replan2eplus.ezobjects.zone import Zone
+from replan2eplus.geometry.contact_points import calculate_cardinal_points
 from replan2eplus.visuals.axis_modifications import (
     add_connection_lines,
     add_rectangles,
@@ -21,7 +22,7 @@ from replan2eplus.visuals.styles.artists import (
     ConnectionStyles,
     RectangleStyles,
 )
-from replan2eplus.visuals.transformations import (
+from replan2eplus.visuals.transform import (
     EXPANSION_FACTOR,
 )
 from replan2eplus.visuals.arrow import add_arrows
@@ -185,11 +186,12 @@ class DataPlot(BasePlot):
         subsurfaces_or_airboundaries = [
             self.subsurface_or_airboundary_dict[i] for i in data_arr.space_names.values
         ]
+
         _, lines = add_connection_lines(
             [i.domain for i in subsurfaces_or_airboundaries],
             [i.edge for i in subsurfaces_or_airboundaries],
             self.zones,
-            self.cardinal_domain.cardinal,
+            calculate_cardinal_points(self.cardinal_domain),
             styles,
             self.axes,
         )

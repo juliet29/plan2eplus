@@ -6,7 +6,10 @@ from replan2eplus.ezobjects.afn import AirflowNetwork
 from replan2eplus.ezobjects.airboundary import Airboundary
 from replan2eplus.ezobjects.subsurface import Subsurface
 from replan2eplus.ezobjects.zone import Zone
-from replan2eplus.geometry.domain import compute_multidomain, expand_domain
+from replan2eplus.visuals.domain_modifications import (
+    compute_multidomain,
+)
+from replan2eplus.geometry.contact_points import calculate_cardinal_points
 from replan2eplus.visuals.axis_modifications import (
     AnnotationPair,
     add_annotations,
@@ -14,7 +17,8 @@ from replan2eplus.visuals.axis_modifications import (
     add_rectangles,
     add_surface_lines,
 )
-from replan2eplus.visuals.organization import (
+from replan2eplus.visuals.domain_modifications import expand_domain
+from replan2eplus.visuals.organize import (
     organize_connections,
     organize_subsurfaces_and_surfaces,
 )
@@ -24,7 +28,7 @@ from replan2eplus.visuals.styles.artists import (
     RectangleStyles,
     SurfaceStyles,
 )
-from replan2eplus.visuals.transformations import (
+from replan2eplus.visuals.transform import (
     EXPANSION_FACTOR,
 )  # TODO move this to a config!
 
@@ -61,10 +65,11 @@ class BasePlot:
         return self
 
     def plot_cardinal_names(self, style=AnnotationStyles()):
+        cardinal_points = calculate_cardinal_points(self.cardinal_domain)
         add_annotations(
             [
                 AnnotationPair(value, key)
-                for key, value in self.cardinal_domain.cardinal.dict_.items()
+                for key, value in cardinal_points.dict_.items()
             ],
             style,
             self.axes,
@@ -108,7 +113,7 @@ class BasePlot:
             [i.domain for i in connections_org.baseline],
             [i.edge for i in connections_org.baseline],
             self.zones,
-            self.cardinal_domain.cardinal,
+            calculate_cardinal_points(self.cardinal_domain),
             [style.baseline],
             self.axes,
         )
@@ -116,7 +121,7 @@ class BasePlot:
             [i.domain for i in connections_org.afn],
             [i.edge for i in connections_org.afn],
             self.zones,
-            self.cardinal_domain.cardinal,
+            calculate_cardinal_points(self.cardinal_domain),
             [style.afn],
             self.axes,
         )

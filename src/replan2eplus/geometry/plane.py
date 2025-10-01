@@ -66,6 +66,7 @@ def compute_unit_normal(coords: list[tuple[float, float, float]]) -> AXIS:
     nv = tuple([abs(int(i)) for i in normal_vector])
     assert len(nv) == 3
 
+    # TODO this can be fixed by normalizing coords.. 
     try:
         return vector_map[nv]
     except:

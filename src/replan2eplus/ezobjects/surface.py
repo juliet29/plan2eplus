@@ -30,10 +30,7 @@ def get_surface_domain(surface: EpBunch):
             f"Invalid unit normal -> are the coords alright for {surface.Name}?: {coords}"
         )
     return create_domain_from_coords(unit_normal_drn, coords)
-    # raise IDFMisunderstandingError(
-    #     "This surface has no neighbor!"
-    # )  # maybe better to return the direction? ->
-    # # TODO could have a neighbor in a multistory situation though..
+
 
 
 # NOTE: this code showcases what could be a recurring pattern for wrapping geomeppy/eppy outputs -> has to be returned in an enum, but then can access using string literals and get hints

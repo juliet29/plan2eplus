@@ -3,19 +3,27 @@ from replan2eplus.geometry.range import Range
 from replan2eplus.geometry.contact_points import (
     CardinalEntries,
     CornerEntries,
-    CornerPoints,
+    calculate_corner_points,
 )
 from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.coords import Coord
 from replan2eplus.ops.subsurfaces.interfaces import Dimension
 from replan2eplus.ops.subsurfaces.interfaces import ContactEntries
+from replan2eplus.geometry.contact_points import (
+    calculate_cardinal_points,
+)
 
 
-# TODO should this be a class method yay or nay? -> actuall
+def create_nonant_from_domain(domain: Domain):
+    return Nonant(domain.horz_range.trirange, domain.vert_range.trirange)
+
+
 def create_domain_for_nonant(domain: Domain, loc: NonantEntries):
-    coord = domain.nonant[loc]
-    horz_dist = domain.nonant.horz_trirange.dist_between
-    vert_dist = domain.nonant.vert_trirange.dist_between
+    nonant = create_nonant_from_domain(domain)
+    horz_dist = nonant.horz_trirange.dist_between
+    vert_dist = nonant.vert_trirange.dist_between
+
+    coord = nonant[loc]
     horz_range = Range(coord.x, coord.x + horz_dist)
     vert_range = Range(coord.y, coord.y + vert_dist)
     return Domain(horz_range, vert_range)
@@ -102,9 +110,11 @@ def create_domain_from_contact_point_and_dimensions(
 def get_nonant_coord(domain: Domain, point_name: ContactEntries):
     match point_name:
         case "NORTH_EAST" | "SOUTH_EAST" | "SOUTH_WEST" | "NORTH_WEST":
-            return domain.corner[point_name]
+            corner_points = calculate_corner_points(domain)
+            return corner_points[point_name]
         case "NORTH" | "SOUTH" | "EAST" | "WEST":
-            return domain.cardinal[point_name]
+            cardinal_points = calculate_cardinal_points(domain)
+            return cardinal_points[point_name]
         case "CENTROID":
             return domain.centroid
         case _:

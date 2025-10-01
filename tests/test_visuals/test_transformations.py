@@ -1,7 +1,8 @@
 import pytest
 from replan2eplus.ops.airboundary.presentation import update_airboundary_constructions
-from replan2eplus.geometry.domain import calculate_cardinal_domain
-from replan2eplus.visuals.transformations import (
+from replan2eplus.visuals.domain_modifications import calculate_cardinal_domain
+from replan2eplus.geometry.contact_points import calculate_cardinal_points
+from replan2eplus.visuals.transform import (
     subsurface_to_connection_line,
 )
 from replan2eplus.visuals.base_plot import BasePlot
@@ -12,8 +13,12 @@ def test_transform_subsurface_to_connection(get_pytest_minimal_case_with_subsurf
     case = get_pytest_minimal_case_with_subsurfaces
     cardinal_domain = calculate_cardinal_domain([i.domain for i in case.zones])
     subsurface = case.subsurfaces[0]
+
     subsurface_to_connection_line(
-        subsurface.domain, subsurface.edge, case.zones, cardinal_domain.cardinal
+        subsurface.domain,
+        subsurface.edge,
+        case.zones,
+        calculate_cardinal_points(cardinal_domain),
     )
     assert 1
 
@@ -24,6 +29,9 @@ def test_transform_airboundary_to_connection(get_pytest_minimal_case_with_rooms)
     cardinal_domain = calculate_cardinal_domain([i.domain for i in case.zones])
     airboundary = airboundaries[0]
     subsurface_to_connection_line(
-        airboundary.domain, airboundary.edge, case.zones, cardinal_domain.cardinal
+        airboundary.domain,
+        airboundary.edge,
+        case.zones,
+        calculate_cardinal_points(cardinal_domain),
     )
     assert 1
