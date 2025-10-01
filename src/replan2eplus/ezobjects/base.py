@@ -9,7 +9,7 @@ from replan2eplus.ezobjects.name import decompose_idf_name
 @dataclass
 class EZObject:
     _epbunch: EpBunch
-    expected_key: Any # str  # TODO does this mess things up? -> want it to be parent of typed and any literal.. 
+    expected_key: Any  # str  # TODO does this mess things up? -> want it to be parent of typed and any literal..
     # TODO idf name stuff
 
     def __post_init__(self):

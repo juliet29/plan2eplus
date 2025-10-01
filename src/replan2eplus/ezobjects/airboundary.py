@@ -4,7 +4,6 @@ from replan2eplus.ezobjects.surface import Surface
 from replan2eplus.ezobjects.subsurface import Edge
 
 
-
 @dataclass
 class Airboundary:
     surface: Surface

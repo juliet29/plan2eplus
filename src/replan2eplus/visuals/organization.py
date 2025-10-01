@@ -4,6 +4,7 @@ from replan2eplus.ezobjects.subsurface import Subsurface
 from replan2eplus.ezobjects.surface import Surface
 from typing import NamedTuple
 
+
 class SurfaceOrg(NamedTuple):
     non_afn_surfaces: list[Surface | Subsurface]
     windows: list[Subsurface]
@@ -21,12 +22,7 @@ def organize_subsurfaces_and_surfaces(
     windows = filter(lambda x: x.is_window, afn.subsurfaces)
     doors = filter(lambda x: x.is_door, afn.subsurfaces)
 
-    return SurfaceOrg(
-        not_in_afn,
-        list(windows),
-        list(doors),
-    afn.airboundaries
-    )
+    return SurfaceOrg(not_in_afn, list(windows), list(doors), afn.airboundaries)
 
 
 class ConnectionOrg(NamedTuple):
@@ -37,5 +33,5 @@ class ConnectionOrg(NamedTuple):
 def organize_connections(
     afn: AirflowNetwork, airboundaries: list[Airboundary], subsurfaces: list[Subsurface]
 ):
-    # doesnt filter because both the baseline and afn objects get plotted.. 
+    # doesnt filter because both the baseline and afn objects get plotted..
     return ConnectionOrg(airboundaries + subsurfaces, afn.surfacelike_objects)

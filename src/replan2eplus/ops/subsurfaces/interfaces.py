@@ -9,7 +9,6 @@ from replan2eplus.geometry.domain_create import ContactEntries, Dimension
 from replan2eplus.geometry.nonant import NonantEntries
 
 
-
 # NOTE: these are given in room names!
 class ZoneDirectionEdge(NamedTuple):
     space_a: str

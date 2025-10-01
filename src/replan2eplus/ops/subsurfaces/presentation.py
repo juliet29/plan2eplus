@@ -1,4 +1,4 @@
-from replan2eplus.ezobjects.epbunch_utils import chain_flatten
+from utils4plans.lists import chain_flatten
 
 from replan2eplus.errors import IDFMisunderstandingError
 from replan2eplus.geometry.range import Range

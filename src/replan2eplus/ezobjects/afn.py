@@ -5,6 +5,7 @@ from replan2eplus.ezobjects.surface import Surface
 from replan2eplus.ezobjects.zone import Zone
 from utils4plans.sets import set_difference, set_intersection
 
+
 @dataclass
 class AirflowNetwork:
     zones: list[Zone]

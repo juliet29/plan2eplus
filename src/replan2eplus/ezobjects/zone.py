@@ -4,7 +4,7 @@ from replan2eplus.errors import BadlyFormatedIDFError
 from replan2eplus.ezobjects.base import EZObject
 
 import replan2eplus.epnames.keys as epkeys
-from replan2eplus.ezobjects.epbunch_utils import sort_and_group_objects_dict
+from utils4plans.lists import sort_and_group_objects_dict
 from replan2eplus.ezobjects.surface import Surface
 from typing import TypeVar
 
@@ -74,9 +74,11 @@ class Zone(EZObject):
         return floors[0].domain  # TODO check the plane..
 
 
-# TODO: get zones by zone_name 
+# TODO: get zones by zone_name
 def get_zones(name, zones: list[Zone]):
     # NOTE: changing this for studies!
     possible_zones = [i for i in zones if name == i.room_name]
-    assert len(possible_zones) == 1, f"Name: {name}, poss_zones: {possible_zones}. Zones to choose from: {[i.room_name for i in zones]}"
+    assert len(possible_zones) == 1, (
+        f"Name: {name}, poss_zones: {possible_zones}. Zones to choose from: {[i.room_name for i in zones]}"
+    )
     return possible_zones[0]

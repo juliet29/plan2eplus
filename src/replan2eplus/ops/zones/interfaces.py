@@ -21,7 +21,6 @@ class Room:
     @property
     def room_name(self):
         return f"`{self.name}`"
-    
 
     def geomeppy_block(self):
         return GeomeppyBlock(
@@ -31,5 +30,3 @@ class Room:
                 "height": self.height,
             }
         )
-
-

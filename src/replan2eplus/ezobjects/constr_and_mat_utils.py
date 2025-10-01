@@ -1,15 +1,21 @@
 from typing import Literal
 from utils4plans.sets import set_difference
-from replan2eplus.ezobjects.epbunch_utils import EpBunch, chain_flatten
+from replan2eplus.ezobjects.epbunch_utils import EpBunch
 from replan2eplus.idfobjects.idf import IDF
 from pathlib import Path
+from utils4plans.lists import chain_flatten
 
 import warnings
 from pathlib import Path
 
-# TODO -> move to materials.. 
+# TODO -> move to materials..
 
-def get_possible_epbunches(path_to_idfs: list[Path], path_to_idd: Path, object_type: Literal["MATERIAL","CONSTRUCTION"] = "CONSTRUCTION"):
+
+def get_possible_epbunches(
+    path_to_idfs: list[Path],
+    path_to_idd: Path,
+    object_type: Literal["MATERIAL", "CONSTRUCTION"] = "CONSTRUCTION",
+):
     possible_epbunches = []
     for path in path_to_idfs:
         other_idf = IDF(path_to_idd, path, Path(""))

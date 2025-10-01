@@ -7,13 +7,17 @@ FontSize = Literal[
 
 NormedColor = tuple[float, float, float, float]
 
-Color = Literal["navy", "deepskyblue", "gray", "snow", "saddlebrown", "white", "black"] | NormedColor
+Color = (
+    Literal["navy", "deepskyblue", "gray", "snow", "saddlebrown", "white", "black"]
+    | NormedColor
+)
 LineStyle = Literal[
     "-",
     "--",
     "-.",
     ":",
 ]
+
 
 class BoundingBox(TypedDict):
     boxstyle: str

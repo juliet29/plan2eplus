@@ -2,7 +2,8 @@
 
 # NotImplementedError() -> also a possibility
 
-# TODO: whats the difference between error and an exception? 
+# TODO: whats the difference between error and an exception?
+
 
 class IDFMisunderstandingError(Exception):
     pass

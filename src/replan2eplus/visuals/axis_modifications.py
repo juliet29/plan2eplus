@@ -63,7 +63,7 @@ def add_connection_lines(
         line = subsurface_to_connection_line(domain, edge, zones, cardinal_coords)
         line.set(**style.values)
         axes.add_artist(line)
-        return line 
+        return line
 
     lines = []
     if len(styles) == 1:

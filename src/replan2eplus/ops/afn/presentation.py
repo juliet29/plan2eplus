@@ -7,7 +7,7 @@ from replan2eplus.idfobjects.afn import (
     AFNKeys,
 )
 from replan2eplus.idfobjects.idf import IDF
-from replan2eplus.ezobjects.epbunch_utils import chain_flatten
+from utils4plans.lists import chain_flatten
 from replan2eplus.ops.subsurfaces.utils import get_unique_subsurfaces
 from replan2eplus.ezobjects.afn import AirflowNetwork
 

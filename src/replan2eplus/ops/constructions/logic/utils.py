@@ -7,7 +7,8 @@ from replan2eplus.ezobjects.constr_and_mat_utils import (
     warn_about_idf_comparison,
 )
 from replan2eplus.ezobjects.construction import Construction
-from replan2eplus.ezobjects.epbunch_utils import chain_flatten, create_dict_from_fields
+from utils4plans.lists import chain_flatten
+from replan2eplus.ezobjects.epbunch_utils import create_dict_from_fields
 from replan2eplus.idfobjects.idf import IDF
 from replan2eplus.ops.materials.presentation import (
     add_materials,

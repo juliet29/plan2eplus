@@ -10,6 +10,7 @@ class BaseDomain:
     horz_range: Range
     vert_range: Range
 
+
 def get_domain_shortcuts(domain: BaseDomain):
     n = domain.vert_range.max
     s = domain.vert_range.min

@@ -52,8 +52,6 @@ class Edge(NamedTuple):
 SubsurfaceOptions = Literal["DOOR", "WINDOW", "DOOR:INTERZONE"]
 
 
-
-
 @dataclass
 class Subsurface(EZObject):
     _epbunch: EpBunch
@@ -75,7 +73,9 @@ class Subsurface(EZObject):
         surface_name = _epbunch.Building_Surface_Name
 
         surface = [i for i in surfaces if i.surface_name == surface_name][0]
-        zone = [i for i in zones if i.zone_name == surface.zone_name][0] # TODO use get zone? 
+        zone = [i for i in zones if i.zone_name == surface.zone_name][
+            0
+        ]  # TODO use get zone?
         if surface.boundary_condition == "outdoors":
             edge = Edge(zone.room_name, surface.direction.name)
         else:
@@ -87,7 +87,6 @@ class Subsurface(EZObject):
 
     def __post_init__(self):
         assert self.expected_key in get_args(SubsurfaceOptions)
-
 
     def __eq__(self, other):
         if isinstance(other, Subsurface):

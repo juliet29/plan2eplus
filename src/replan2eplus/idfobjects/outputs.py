@@ -17,7 +17,9 @@ def check_existing_variable(idf: geomeppyIDF, new_var_name):
 
 
 def is_surface_or_zone_wind(name):
-    if "Wind" in name: # Wind variables only report hourly? how about other variables? # TODO check if this is needed.. 
+    if (
+        "Wind" in name
+    ):  # Wind variables only report hourly? how about other variables? # TODO check if this is needed..
         if "Zone" in name or "Surace" in name:
             return True
 

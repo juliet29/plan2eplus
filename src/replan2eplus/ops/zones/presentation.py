@@ -6,7 +6,6 @@ from replan2eplus.ezobjects.zone import Zone
 # from replan2eplus.ezcase.examples import get_minimal_idf
 
 
-
 # TODO may need a different home..
 def get_zone_surfaces(zone: Zone, surfaces: list[Surface]):
     return [i for i in surfaces if i.zone_name == zone.zone_name]

@@ -40,9 +40,7 @@ class Line:
 
     @property
     def to_line2D(self):
-        return Line2D(
-            *split_coords([self.start, self.end])
-        ) 
+        return Line2D(*split_coords([self.start, self.end]))
 
     @property
     def centroid(self):

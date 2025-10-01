@@ -6,8 +6,6 @@ from enum import StrEnum, Enum
 from typing import Literal
 from replan2eplus.errors import IDFMisunderstandingError, BadlyFormatedIDFError
 from eppy.bunch_subclass import EpBunch
-
-from replan2eplus.ezobjects.epbunch_utils import sort_and_group_objects
 from replan2eplus.geometry.coords import Coordinate3D
 from replan2eplus.geometry.directions import WallNormal
 from replan2eplus.geometry.plane import compute_unit_normal, create_domain_from_coords

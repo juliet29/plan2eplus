@@ -26,8 +26,7 @@ from replan2eplus.visuals.styles.artists import (
 )
 from replan2eplus.visuals.transformations import (
     EXPANSION_FACTOR,
-) # TODO move this to a config! 
-
+)  # TODO move this to a config!
 
 
 @dataclass
@@ -79,7 +78,7 @@ class BasePlot:
         subsurfaces: list[Subsurface],
         style=SurfaceStyles(),
     ):
-        surface_org = organize_subsurfaces_and_surfaces(afn, airboundaries, subsurfaces) 
+        surface_org = organize_subsurfaces_and_surfaces(afn, airboundaries, subsurfaces)
         add_surface_lines(
             [i.domain for i in surface_org.non_afn_surfaces],
             style.non_afn_surfaces,
@@ -104,7 +103,7 @@ class BasePlot:
         style=ConnectionStyles(),
     ):
         connections_org = organize_connections(afn, airboundaries, subsurfaces)
-        # TODO: can make cleaner w/ zip.. 
+        # TODO: can make cleaner w/ zip..
         add_connection_lines(
             [i.domain for i in connections_org.baseline],
             [i.edge for i in connections_org.baseline],
@@ -129,6 +128,3 @@ class BasePlot:
         self.axes.legend()
 
         plt.show()
-
-
-

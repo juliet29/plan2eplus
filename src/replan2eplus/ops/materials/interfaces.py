@@ -88,5 +88,3 @@ material_keys = get_args(MaterialKey)
 #             expected_properties = {}
 
 #     # TODO this will have inheritance -> there are many types of materials!
-
-

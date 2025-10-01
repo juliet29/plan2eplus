@@ -29,27 +29,5 @@ def sort_and_group_objects(lst: Iterable[T], fx: Callable[[T], Any]) -> list[lis
     return [list(g) for _, g in groupby(sorted_objs, fx)]
 
 
-# TODO move to utils4plans..
-def sort_and_group_objects_dict(
-    lst: Iterable[T], fx: Callable[[T], Any]
-) -> dict[Any, list[T]]:
-    sorted_objs = sorted(lst, key=fx)
-    d = {}
-    for k, g in groupby(sorted_objs, fx):
-        d[k] = [i for i in list(g)]
-    return d
 
 
-def chain_flatten(lst: Iterable[Iterable[T]]) -> list[T]:
-    return list(chain.from_iterable(lst))
-
-
-def set_difference(a: Iterable[T], b: Iterable[T]) -> list[T]:
-    return list(set(a).difference(set(b)))
-
-# def set_intersection(a: Iterable[T], b: Iterable[T]) -> list[T]:
-#     return list(set(a).difference(set(b)))
-
-# TODO typing here is wrong.. 
-# def filter_list(function: Callable[[T], Any], iterable: Iterable[T]):
-#     return filter(function, iterable)
