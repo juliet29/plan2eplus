@@ -8,7 +8,7 @@ from replan2eplus.examples.subsurfaces import (
     zone_drn_edge_room2,
     e0,
 )
-from replan2eplus.ops.subsurfaces.presentation import (
+from replan2eplus.ops.subsurfaces.logic.exterior import (
     create_subsurface_for_exterior_edge,
 )
 from replan2eplus.examples.minimal import get_minimal_case_with_rooms

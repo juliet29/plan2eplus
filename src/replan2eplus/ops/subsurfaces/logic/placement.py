@@ -5,12 +5,10 @@ from replan2eplus.geometry.contact_points import (
     CornerEntries,
     CornerPoints,
 )
-from typing import Literal, NamedTuple, Union, NamedTuple
 from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.coords import Coord
-
-
-# TODO the below is strictly subsurface related ---------- so should move to logic??
+from replan2eplus.ops.subsurfaces.interfaces import Dimension
+from replan2eplus.ops.subsurfaces.interfaces import ContactEntries
 
 
 # TODO should this be a class method yay or nay? -> actuall
@@ -22,40 +20,25 @@ def create_domain_for_nonant(domain: Domain, loc: NonantEntries):
     vert_range = Range(coord.y, coord.y + vert_dist)
     return Domain(horz_range, vert_range)
 
-    # TODO return buffer of self..
-
-
-# TODO: this goes to interfaces
-class Dimension(NamedTuple):
-    width: float
-    height: float
-
-    @property
-    def as_tuple(self):
-        return (self.width, self.height)
-
-
-ContactEntries = Union[CornerEntries, CardinalEntries, Literal["CENTROID"]]
-
 
 def create_domain_from_corner_point(
     coord: Coord, point_name: CornerEntries, dimensions: Dimension
 ):
-    # dx = dimensions.width
-    # dy = dimensions.height
+    dx = dimensions.width
+    dy = dimensions.height
     match point_name:
         case "NORTH_EAST":
-            horz_range = Range(coord.x - dimensions.width, coord.x)
+            horz_range = Range(coord.x - dx, coord.x)
             vert_range = Range(coord.y - dimensions.height, coord.y)
         case "SOUTH_EAST":
-            horz_range = Range(coord.x - dimensions.width, coord.x)
-            vert_range = Range(coord.y, coord.y + dimensions.height)
+            horz_range = Range(coord.x - dx, coord.x)
+            vert_range = Range(coord.y, coord.y + dy)
         case "SOUTH_WEST":
-            horz_range = Range(coord.x, coord.x + dimensions.width)
-            vert_range = Range(coord.y, coord.y + dimensions.height)
+            horz_range = Range(coord.x, coord.x + dx)
+            vert_range = Range(coord.y, coord.y + dy)
         case "NORTH_WEST":
-            horz_range = Range(coord.x, coord.x + dimensions.width)
-            vert_range = Range(coord.y - dimensions.height, coord.y)
+            horz_range = Range(coord.x, coord.x + dx)
+            vert_range = Range(coord.y - dy, coord.y)
         case _:
             raise Exception("Invalid corner point!")
 

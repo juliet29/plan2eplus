@@ -6,7 +6,7 @@ from replan2eplus.ezobjects.surface import Surface
 from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.idfobjects.idf import IDF
 from replan2eplus.ops.subsurfaces.interfaces import ZoneEdge
-from replan2eplus.ops.subsurfaces.logic import get_surface_between_zones
+from replan2eplus.ops.subsurfaces.logic.select import get_surface_between_zones
 from replan2eplus.ezobjects.airboundary import Airboundary
 from replan2eplus.ezobjects.subsurface import Edge
 

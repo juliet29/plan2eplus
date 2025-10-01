@@ -16,6 +16,7 @@ from replan2eplus.paths import THROWAWAY_PATH, TWO_ROOM_RESULTS, TWO_ROOM_AIRBOU
 from replan2eplus.paths import PATH_TO_WEATHER_FILE
 from replan2eplus.idfobjects.variables import default_variables
 from rich import print as rprint 
+import pytest
 
 
 
@@ -60,7 +61,7 @@ def run_airboundary_ezcase(output_directory):
     case.save_and_run_case(path=output_directory)
     return case
 
-
+@pytest.mark.slow
 def test_ezcase(tmp_path):
     run_airboundary_ezcase(tmp_path)
     # this should run without error -> will error if there are any "None" values
@@ -68,7 +69,7 @@ def test_ezcase(tmp_path):
     # case.idf.print_idf()
     assert 1
 
-
+@pytest.mark.slow
 def test_ezcase_simple_subsurfaces(tmp_path):
     case = EZCase(PATH_TO_IDD, PATH_TO_MINIMAL_IDF, PATH_TO_WEATHER_FILE)
     case.initialize_idf()

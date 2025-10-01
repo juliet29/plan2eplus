@@ -4,7 +4,7 @@ version = "0.1.9"
 description = "Add your description here"
 readme = "README.md"
 authors = [
-    { name = "Juliet Nwagwu Ume-Ezeoke", email = "jnwagwu@stanford.edu" }
+    { name = "Juliet Nwagwu Ume-Ezeoke", email = "jnwagwu@stanford.edu" },
 ]
 requires-python = ">=3.13"
 dependencies = [
@@ -17,6 +17,7 @@ dependencies = [
     "pyarrow>=21.0.0",
     "pyprojroot>=0.3.0",
     "pytest-cov>=6.2.1",
+    "pytest-skip-slow>=0.0.5",
     "rich>=14.1.0",
     "scipy>=1.16.2",
     "shapely>=2.1.1",
@@ -31,3 +32,5 @@ build-backend = "uv_build"
 
 [tool.uv.sources]
 utils4plans = { path = "../utils4plans" }
+
+

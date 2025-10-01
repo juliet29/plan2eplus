@@ -6,10 +6,9 @@ from replan2eplus.geometry.contact_points import (
     CornerEntries,
     CardinalEntries,
 )
-from replan2eplus.geometry.domain_create import (
+from replan2eplus.ops.subsurfaces.interfaces import Dimension, ContactEntries
+from replan2eplus.ops.subsurfaces.logic.placement import (
     create_domain_for_nonant,
-    ContactEntries,
-    Dimension,
     create_domain_from_contact_point_and_dimensions,
     place_domain,
 )
@@ -117,7 +116,7 @@ def test_get_contact_point_of_nonant_domain(base_domain):
 #         coord, contact_point, dimensions
 #     )
 #     assert expected_domain == domain
-# TODO write test for other entries! 
+# TODO write test for other entries!
 cardinal_contact_groups: list[tuple[CardinalEntries, Domain]] = [
     ("NORTH", Domain(Range(8, 12), Range(6, 10))),
     ("SOUTH", Domain(Range(8, 12), Range(10, 14))),
@@ -148,15 +147,16 @@ def test_create_domain_from_contact_point_and_dim_centroid():
     assert expected_domain == domain
 
 
-
 domain_mm_groups: list[tuple[ContactEntries, ContactEntries, Domain]] = [
     ("NORTH_WEST", "NORTH_WEST", Domain(Range(1, 2), Range(1, 2))),
     ("NORTH_EAST", "NORTH_EAST", Domain(Range(1, 2), Range(1, 2))),
     ("NORTH_EAST", "NORTH_WEST", Domain(Range(2, 3), Range(1, 2))),
     ("SOUTH_WEST", "SOUTH_WEST", Domain(Range(1, 2), Range(1, 2))),
     ("NORTH", "NORTH", Domain(Range(1, 2), Range(1, 2))),
-    ("CENTROID", "CENTROID", Domain(Range(1,2), Range(1,2)))
+    ("CENTROID", "CENTROID", Domain(Range(1, 2), Range(1, 2))),
 ]
+
+
 @pytest.mark.parametrize(
     "nonant_contact_loc, subsurface_contact_loc, expected_domain", domain_mm_groups
 )

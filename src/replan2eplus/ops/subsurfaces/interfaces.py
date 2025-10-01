@@ -1,21 +1,32 @@
 from dataclasses import dataclass
-from typing import NamedTuple, Literal, TypeVar
-from replan2eplus.ezobjects.subsurface import Subsurface
+from typing import NamedTuple, Literal, TypeVar, Union
 from replan2eplus.ezobjects.subsurface import Edge
-from replan2eplus.ezobjects.zone import Zone
-from replan2eplus.geometry.contact_points import CornerEntries
+from replan2eplus.geometry.contact_points import CornerEntries, CardinalEntries
 from replan2eplus.geometry.directions import WallNormal
-from replan2eplus.geometry.domain_create import ContactEntries, Dimension
 from replan2eplus.geometry.nonant import NonantEntries
 
+ContactEntries = Union[CornerEntries, CardinalEntries, Literal["CENTROID"]]
 
-# NOTE: these are given in room names!
+
+class Dimension(NamedTuple):
+    width: float
+    height: float
+
+    @property
+    def as_tuple(self):
+        return (self.width, self.height)
+
+
 class ZoneDirectionEdge(NamedTuple):
+    """for convenience, spaces are described using room names, not the idf names"""
+
     space_a: str
     space_b: WallNormal
 
 
 class ZoneEdge(NamedTuple):
+    """for convenience, spaces are described using room names, not the idf names"""
+
     space_a: str
     space_b: str
 
@@ -29,16 +40,11 @@ class Location(NamedTuple):
 
 
 class Details(NamedTuple):
-    # edge: Edge
     dimension: Dimension
     location: Location
     type_: Literal["Door", "Window"]
 
 
-T = TypeVar("T")
-
-
-# TODO move to utils4plans
 def flatten_dict_map(dict_map: dict[int, list[int]]) -> list[tuple[int, int]]:
     res = []
     for k, v in dict_map.items():
@@ -49,6 +55,9 @@ def flatten_dict_map(dict_map: dict[int, list[int]]) -> list[tuple[int, int]]:
 class IndexPair(NamedTuple):
     detail_ix: int
     edge_ix: int
+
+
+T = TypeVar("T")
 
 
 @dataclass

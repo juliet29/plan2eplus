@@ -1,10 +1,11 @@
 from replan2eplus.geometry.directions import WallNormalLiteral, WallNormalNamesList
 from replan2eplus.geometry.domain import Domain
-from replan2eplus.geometry.domain_create import Dimension
+from replan2eplus.ops.subsurfaces.interfaces import Dimension
 from replan2eplus.geometry.plane import Plane
 from replan2eplus.geometry.range import Range
 from replan2eplus.ops.subsurfaces.interfaces import Details, Location
-from replan2eplus.ops.subsurfaces.presentation import create_subsurfaces, create_ss_name
+from replan2eplus.ops.subsurfaces.logic.prepare import create_ss_name
+from replan2eplus.ops.subsurfaces.presentation import create_subsurfaces
 from replan2eplus.examples.minimal import get_minimal_case_with_rooms
 from replan2eplus.examples.subsurfaces import (
     simple_subsurface_inputs,

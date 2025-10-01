@@ -24,9 +24,6 @@ Tests
 **Visuals**
 - Saving figures in the case folder? using decorators? 
 
-**utils**
-- integrate utils to utils4plans
-
 
 
 ## Maintenance
@@ -61,3 +58,9 @@ Tests
   - and potentially default constructions.. 
 
 
+
+
+## Archived
+
+**utils**
+- ~~integrate utils to utils4plans~~
