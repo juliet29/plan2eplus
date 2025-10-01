@@ -1,4 +1,4 @@
-from replan2eplus.afn.interfaces import AFNInputs
+from replan2eplus.ops.afn.interfaces import AFNInputs
 from replan2eplus.ezobjects.airboundary import Airboundary, get_unique_airboundaries
 from replan2eplus.ezobjects.subsurface import Subsurface
 from replan2eplus.ezobjects.surface import Surface
@@ -8,7 +8,7 @@ from replan2eplus.idfobjects.afn import (
 )
 from replan2eplus.idfobjects.idf import IDF
 from replan2eplus.ezobjects.epbunch_utils import chain_flatten
-from replan2eplus.subsurfaces.utils import get_unique_subsurfaces
+from replan2eplus.ops.subsurfaces.utils import get_unique_subsurfaces
 from replan2eplus.ezobjects.afn import AirflowNetwork
 
 

@@ -1,5 +1,5 @@
 from replan2eplus.idfobjects.subsurface import SubsurfaceObject
-from replan2eplus.subsurfaces.interfaces import (
+from replan2eplus.ops.subsurfaces.interfaces import (
     ZoneEdge,
     ZoneDirectionEdge,
     Details,

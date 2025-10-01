@@ -1,6 +1,8 @@
 from unittest.mock import Base
-from replan2eplus.constructions.interfaces import ConstructionsObject
-from replan2eplus.constructions.logic.update import update_surfaces_with_construction_set
+from replan2eplus.ops.constructions.interfaces import ConstructionsObject
+from replan2eplus.ops.constructions.logic.update import (
+    update_surfaces_with_construction_set,
+)
 from replan2eplus.errors import IDFMisunderstandingError
 from replan2eplus.examples.mat_and_const import (
     PATH_TO_MAT_AND_CONST_IDF,
@@ -9,7 +11,7 @@ from replan2eplus.examples.mat_and_const import (
     TEST_CONSTRUCTIONS_WITH_WINDOW,
 )
 from replan2eplus.examples.defaults import PATH_TO_IDD
-from replan2eplus.constructions.presentation import (
+from replan2eplus.ops.constructions.presentation import (
     create_constructions_from_other_idfs,
     add_constructions,
     find_and_add_materials,

@@ -7,13 +7,13 @@ from utils4plans.sets import set_difference
 
 from replan2eplus.ezobjects.epbunch_utils import classFromArgs
 from replan2eplus.ezobjects.material import Material
-import replan2eplus.materials.interfaces as mat_interfaces
+import replan2eplus.ops.materials.interfaces as mat_interfaces
 from replan2eplus.errors import IDFMisunderstandingError
 from replan2eplus.ezobjects.epbunch_utils import (
     create_dict_from_fields,
 )
 from replan2eplus.idfobjects.idf import IDF, EpBunch
-from replan2eplus.materials.interfaces import (
+from replan2eplus.ops.materials.interfaces import (
     MaterialKey,
     MaterialObjectBase,
     material_keys,

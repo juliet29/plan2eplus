@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from eppy.bunch_subclass import EpBunch
-from replan2eplus.airboundary.interfaces import AirboundaryConstructionObject
-from replan2eplus.constructions.interfaces import ConstructionsObject
+from replan2eplus.ops.airboundary.interfaces import AirboundaryConstructionObject
+from replan2eplus.ops.constructions.interfaces import ConstructionsObject
 import replan2eplus.epnames.keys as epkeys
 from geomeppy import IDF as geomeppyIDF
 from pathlib import Path
@@ -22,7 +22,7 @@ from replan2eplus.idfobjects.afn import (
 )
 from utils4plans.lists import chain_flatten
 
-from replan2eplus.materials.interfaces import (
+from replan2eplus.ops.materials.interfaces import (
     MaterialKey,
     material_keys,
     MaterialObjectBase,
@@ -199,4 +199,4 @@ class IDF:
 
     def add_output_variables(self, variables: list[OutputVariables]):
         self.idf = request_output_variables(self.idf, variables)
-        return 
+        return

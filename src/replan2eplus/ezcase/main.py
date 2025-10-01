@@ -1,11 +1,11 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from replan2eplus.afn.presentation import create_afn_objects
-from replan2eplus.airboundary.presentation import update_airboundary_constructions
+from replan2eplus.ops.afn.presentation import create_afn_objects
+from replan2eplus.ops.airboundary.presentation import update_airboundary_constructions
 
-# from replan2eplus.constructions import update_surfaces_with_construction_set
-from replan2eplus.constructions.presentation import (
+# from replan2eplus.ops.constructions import update_surfaces_with_construction_set
+from replan2eplus.ops.constructions.presentation import (
     add_constructions_from_other_idf,
 )
 from replan2eplus.ezobjects.afn import AirflowNetwork
@@ -16,11 +16,11 @@ from replan2eplus.ezobjects.subsurface import Subsurface, Edge
 from replan2eplus.ezobjects.surface import Surface
 from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.idfobjects.idf import IDF
-from replan2eplus.subsurfaces.interfaces import SubsurfaceInputs
-from replan2eplus.subsurfaces.presentation import create_subsurfaces
-from replan2eplus.zones.interfaces import Room
-from replan2eplus.zones.presentation import create_zones
-from replan2eplus.subsurfaces.utils import get_unique_subsurfaces
+from replan2eplus.ops.subsurfaces.interfaces import SubsurfaceInputs
+from replan2eplus.ops.subsurfaces.presentation import create_subsurfaces
+from replan2eplus.ops.zones.interfaces import Room
+from replan2eplus.ops.zones.presentation import create_zones
+from replan2eplus.ops.subsurfaces.utils import get_unique_subsurfaces
 
 
 # TODO: need to be aware that these might be called out of order, so do rigorous checks!  -> can use decorators for this maybe?

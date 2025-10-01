@@ -5,7 +5,7 @@ from replan2eplus.ezobjects.surface import Surface
 from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.ezobjects.subsurface import Subsurface, Edge
 from replan2eplus.ezobjects.epbunch_utils import get_epbunch_key
-from replan2eplus.zones.presentation import assign_zone_surfaces
+from replan2eplus.ops.zones.presentation import assign_zone_surfaces
 from replan2eplus.idfobjects.afn import AFNKeys
 from replan2eplus.ezobjects.afn import AirflowNetwork
 from replan2eplus.ezobjects.airboundary import Airboundary
@@ -38,7 +38,11 @@ def get_geom_objects(idf: IDF):
         Subsurface.from_epbunch_and_key(i, updated_zones, surfaces)
         for i in idf.get_subsurfaces()
     ]
-    airboundaries = [create_airboudnary(i, updated_zones, surfaces) for i in surfaces if i.is_airboundary]
+    airboundaries = [
+        create_airboudnary(i, updated_zones, surfaces)
+        for i in surfaces
+        if i.is_airboundary
+    ]
 
     return updated_zones, surfaces, subsurfaces, airboundaries
 
@@ -47,7 +51,10 @@ def get_geom_objects(idf: IDF):
 
 
 def get_afn_objects(
-    idf: IDF, zones: list[Zone], subsurfaces: list[Subsurface], airboundaries: list[Airboundary]
+    idf: IDF,
+    zones: list[Zone],
+    subsurfaces: list[Subsurface],
+    airboundaries: list[Airboundary],
 ):
     afn_objects = idf.get_afn_objects()
 
@@ -60,20 +67,22 @@ def get_afn_objects(
     ]
     surface_names = [j.Surface_Name for j in surface_objects]
 
-    afn_airboundaries = [i for i in airboundaries if i.surface.surface_name in surface_names]
+    afn_airboundaries = [
+        i for i in airboundaries if i.surface.surface_name in surface_names
+    ]
 
     afn_subsurfaces = [i for i in subsurfaces if i.subsurface_name in surface_names]
 
     assert len(afn_subsurfaces) + len(afn_airboundaries) == len(surface_objects)
 
-    afn = AirflowNetwork(afn_zones, afn_subsurfaces,afn_airboundaries)
+    afn = AirflowNetwork(afn_zones, afn_subsurfaces, afn_airboundaries)
     return afn
 
 
 @dataclass
 class ExistCase:
     path_to_idd: Path
-    path_to_initial_idf: Path
+    path_to_initial_idf: Path  # TODO this should allow passing in a directory!
     # idf: IDF | None = None
     path_to_weather: Path = Path("")  # TODO this should come from the idf!
 
@@ -82,9 +91,19 @@ class ExistCase:
         self.get_objects()
         self.get_afn()
 
+    @property
+    def folder_name(self):
+        return self.path_to_initial_idf.parts[-2]
+
+    @property
+    def folder_path(self):
+        return self.path_to_initial_idf.parents[0]
+
     def get_objects(self):
         assert self.idf
-        self.zones, self.surfaces, self.subsurfaces, self.airboundaries = get_geom_objects(self.idf)
+        self.zones, self.surfaces, self.subsurfaces, self.airboundaries = (
+            get_geom_objects(self.idf)
+        )
 
         return self.zones, self.surfaces, self.subsurfaces, self.airboundaries
 

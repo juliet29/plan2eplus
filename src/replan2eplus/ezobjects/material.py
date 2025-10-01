@@ -1,7 +1,7 @@
 from replan2eplus.ezobjects.base import EZObject
 from dataclasses import dataclass
 import replan2eplus.epnames.keys as epkeys
-from replan2eplus.materials.interfaces import (
+from replan2eplus.ops.materials.interfaces import (
     MaterialKey,
     MaterialObjectBase,
 )  # TODO potential circular import
@@ -11,5 +11,3 @@ from replan2eplus.materials.interfaces import (
 class Material(EZObject):
     expected_key: MaterialKey
     material_object: MaterialObjectBase
-
-

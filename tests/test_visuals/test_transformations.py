@@ -1,5 +1,5 @@
 import pytest
-from replan2eplus.airboundary.presentation import update_airboundary_constructions
+from replan2eplus.ops.airboundary.presentation import update_airboundary_constructions
 from replan2eplus.geometry.domain import calculate_cardinal_domain
 from replan2eplus.visuals.transformations import (
     subsurface_to_connection_line,

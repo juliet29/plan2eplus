@@ -1,9 +1,9 @@
 from pathlib import Path
 
-from replan2eplus.constructions.logic.update import (
+from replan2eplus.ops.constructions.logic.update import (
     update_surfaces_with_construction_set,
 )
-from replan2eplus.constructions.logic.utils import (
+from replan2eplus.ops.constructions.logic.utils import (
     add_constructions,
     create_constructions_from_other_idfs,
     find_and_add_materials,

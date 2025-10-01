@@ -1,7 +1,7 @@
 from replan2eplus.errors import BadlyFormatedIDFError, IDFMisunderstandingError
 from replan2eplus.ezobjects.surface import Surface
 from replan2eplus.ezobjects.zone import Zone
-from replan2eplus.subsurfaces.interfaces import ZoneEdge, ZoneDirectionEdge
+from replan2eplus.ops.subsurfaces.interfaces import ZoneEdge, ZoneDirectionEdge
 
 
 def get_zones_by_plan_name(room_name: str, zones: list[Zone]):

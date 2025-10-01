@@ -8,7 +8,7 @@ from replan2eplus.examples.mat_and_const import (
 )
 from replan2eplus.examples.existing import get_example_idf
 from replan2eplus.examples.defaults import PATH_TO_IDD
-from replan2eplus.materials.presentation import (
+from replan2eplus.ops.materials.presentation import (
     add_materials,
     create_materials_from_other_idfs,
 )

@@ -16,22 +16,22 @@ from replan2eplus.geometry.directions import WallNormal
 from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.domain_create import Dimension
 from replan2eplus.geometry.range import Range
-from replan2eplus.subsurfaces.interfaces import (
+from replan2eplus.ops.subsurfaces.interfaces import (
     Details,
     flatten_dict_map,
 )
-from replan2eplus.subsurfaces.logic import (
+from replan2eplus.ops.subsurfaces.logic import (
     get_surface_between_zone_and_direction,
     get_surface_between_zones,
 )
-from replan2eplus.subsurfaces.presentation import (
+from replan2eplus.ops.subsurfaces.presentation import (
     compare_and_maybe_change_dimensions,
     create_subsurface_for_exterior_edge,
     create_subsurface_for_interior_edge,
     prepare_object,
     compare_domain,
 )
-from replan2eplus.subsurfaces.config import DOMAIN_SHRINK_FACTOR
+from replan2eplus.ops.subsurfaces.config import DOMAIN_SHRINK_FACTOR
 
 
 def test_adding_exterior_subsurface_to_random_idf():

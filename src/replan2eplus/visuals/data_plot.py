@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Literal
+from typing import Callable, Literal
 
 import matplotlib as mpl
 import matplotlib.cm as cm
@@ -26,6 +26,14 @@ from replan2eplus.visuals.transformations import (
 )
 from replan2eplus.visuals.arrow import add_arrows
 import math
+from matplotlib.colorbar import Colorbar
+from matplotlib.colors import Colormap, Normalize, TwoSlopeNorm
+
+
+ColorBarFx = Callable[
+    [list[float] | np.ndarray, Axes],
+    tuple[tuple[Colorbar], Colormap, Normalize | TwoSlopeNorm],
+]
 
 
 def pressure_colorbar(data: list[float] | np.ndarray, ax: Axes):
@@ -47,7 +55,9 @@ def pressure_colorbar(data: list[float] | np.ndarray, ax: Axes):
             cmap = mpl.colormaps["YlOrRd_r"]
         else:
             center = 0
+
             norm = colors.TwoSlopeNorm(vmin=min_, vcenter=center, vmax=max_)
+
             cmap = mpl.colormaps["RdYlBu"]
 
     bar = (
@@ -58,6 +68,21 @@ def pressure_colorbar(data: list[float] | np.ndarray, ax: Axes):
             ax=ax,
             # shrink=0.5
             # TODO pass in the label
+        ),
+    )
+    return bar, cmap, norm
+
+
+def temperature_colorbar(data: list[float] | np.ndarray, ax: Axes):
+    cmap = mpl.colormaps["YlOrRd"]
+    min_, max_ = min(data), max(data)
+    norm = colors.Normalize(vmin=min_, vmax=max_)
+    bar = (
+        plt.colorbar(
+            cm.ScalarMappable(norm=norm, cmap=cmap),
+            orientation="vertical",
+            label="Temperature [ºC]",
+            ax=ax,
         ),
     )
     return bar, cmap, norm
@@ -76,16 +101,6 @@ def flow_colorbar(data: list[float] | np.ndarray, ax: Axes):
         ),
     )
     return bar, cmap, norm
-
-
-@dataclass
-class DataForPlot:
-    space_names: list[str]
-    values: list[float]
-
-    # potentially denumpy-ify..
-
-    # TODO these need to be aligned! no checks on this but maybe can use xarray!
 
 
 def filter_data_arr(data_arr: DataArray, geom_names: list[str]):
@@ -113,9 +128,11 @@ class DataPlot(BasePlot):
         self.zone_dict = {i.zone_name.upper(): i for i in self.zones}
         self.zone_names = [i.zone_name.upper() for i in self.zones]
 
-    def plot_zones_with_data(self, data_arr_: DataArray):
+    def plot_zones_with_data(
+        self, data_arr_: DataArray, colorbar_fx: ColorBarFx = pressure_colorbar
+    ):
         data_arr = filter_data_arr(data_arr_, self.zone_names)
-        bar, cmap, norm = pressure_colorbar(data_arr.values, self.axes)
+        bar, cmap, norm = colorbar_fx(data_arr.values, self.axes)
         styles = [
             RectangleStyles(fill=True, color=cmap(norm(i))) for i in data_arr.values
         ]
@@ -140,7 +157,7 @@ class DataPlot(BasePlot):
         subsurfaces: list[Subsurface],
         airboundaries: list[Airboundary],
         WIDTH_FACTOR=10,
-        ARROW_FACTOR=12
+        ARROW_FACTOR=12,
     ):
         # TODO check dimensions of the dataarray..
         # TODO this should be handled elsewhere -> in post init? if have zones have everything else, so this should be passed.. unique surfaces should be calculated immediately in the base_plot..
@@ -159,7 +176,6 @@ class DataPlot(BasePlot):
 
         bar, cmap, norm = flow_colorbar(abs(data_arr.values), self.axes)
         normalized_absolute_values = [norm(abs(i)) for i in data_arr.values]
-        print(normalized_absolute_values)
         value_signs = [int(math.copysign(1, i)) for i in data_arr.values]
         styles = [
             ConnectionStyles().afn_with_data(color=cmap(i), linewidth=i * WIDTH_FACTOR)
@@ -167,8 +183,7 @@ class DataPlot(BasePlot):
         ]
 
         subsurfaces_or_airboundaries = [
-            self.subsurface_or_airboundary_dict[i] for i in data_arr.
-            space_names.values
+            self.subsurface_or_airboundary_dict[i] for i in data_arr.space_names.values
         ]
         _, lines = add_connection_lines(
             [i.domain for i in subsurfaces_or_airboundaries],
@@ -178,7 +193,13 @@ class DataPlot(BasePlot):
             styles,
             self.axes,
         )
-        add_arrows(lines, value_signs, np.array(normalized_absolute_values)/ARROW_FACTOR, self.axes, colors=[cmap(i) for i in normalized_absolute_values])
+        add_arrows(
+            lines,
+            value_signs,
+            np.array(normalized_absolute_values) / ARROW_FACTOR,
+            self.axes,
+            colors=[cmap(i) for i in normalized_absolute_values],
+        )
 
         # print(subsurfaces)
         return self

@@ -4,7 +4,8 @@ from replan2eplus.examples.subsurfaces import (
     simple_subsurface_inputs,
     three_details_subsurface_inputs,
 )
-from replan2eplus.subsurfaces.utils import get_unique_subsurfaces
+from replan2eplus.ops.subsurfaces.utils import get_unique_subsurfaces
+
 
 def make_base_plot():
     case = get_minimal_case_with_rooms()
@@ -26,13 +27,13 @@ def make_base_plot():
         )  # would be good to specify the color here.
     )
 
-    return bp 
+    return bp
+
 
 def test_make_base_plot():
     bp = make_base_plot()
     assert 1
-    # TODO -> make better tests, check the matplotlib axes.. 
-
+    # TODO -> make better tests, check the matplotlib axes..
 
 
 if __name__ == "__main__":

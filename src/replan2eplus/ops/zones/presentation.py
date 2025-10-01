@@ -1,14 +1,10 @@
 import warnings
 from replan2eplus.ezobjects.surface import Surface
-from replan2eplus.zones.interfaces import Room
+from replan2eplus.ops.zones.interfaces import Room
 from replan2eplus.idfobjects.idf import IDF
 from replan2eplus.ezobjects.zone import Zone
 # from replan2eplus.ezcase.examples import get_minimal_idf
 
-# TODO: logic!
-# Tests to do on rooms -> no duplicates..
-# -> Domains should be hashed -> no dup domains,
-# no duplicate room names..
 
 
 # TODO may need a different home..

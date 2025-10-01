@@ -1,5 +1,5 @@
 from replan2eplus.examples.minimal import test_rooms
-from replan2eplus.zones.presentation import create_zones
+from replan2eplus.ops.zones.presentation import create_zones
 from replan2eplus.examples.minimal import get_minimal_idf
 from replan2eplus.errors import InvalidEpBunchError
 from replan2eplus.ezobjects.zone import Zone
@@ -34,6 +34,7 @@ def test_zone_names(get_pytest_example_idf):  # TODO more thorough test of names
     zone = Zone(zones[0])
     assert zone._dname.plan_name == "a"
 
+
 ## NOTE: This is more zone specific
 
 
@@ -53,6 +54,7 @@ def test_get_zone_subsurfaces(get_pytest_minimal_case_with_subsurfaces):
     case = get_pytest_minimal_case_with_subsurfaces
     zone = case.zones[0]
     assert len(zone.subsurface_names) == 2
+
 
 if __name__ == "__main__":
     case = get_minimal_case_with_subsurfaces()

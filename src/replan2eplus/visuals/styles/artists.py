@@ -76,6 +76,5 @@ class ConnectionStyles(NamedTuple):
     afn = LineStyles(color="navy", linewidth=3)
 
     def afn_with_data(self, color: Color, linewidth: float):
-        print(linewidth)
         linewidth_map = max(3, math.ceil(linewidth))
         return LineStyles(color=color, linewidth=linewidth_map)

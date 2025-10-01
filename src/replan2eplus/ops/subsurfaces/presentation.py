@@ -8,17 +8,17 @@ from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.domain_create import Dimension, place_domain
 from replan2eplus.idfobjects.subsurface import SubsurfaceKey, SubsurfaceObject
-from replan2eplus.subsurfaces.interfaces import (
+from replan2eplus.ops.subsurfaces.interfaces import (
     Details,
     SubsurfaceInputs,
     ZoneDirectionEdge,
     ZoneEdge,
 )
-from replan2eplus.subsurfaces.logic import (
+from replan2eplus.ops.subsurfaces.logic import (
     get_surface_between_zone_and_direction,
     get_surface_between_zones,
 )
-from replan2eplus.subsurfaces.config import DOMAIN_SHRINK_FACTOR
+from replan2eplus.ops.subsurfaces.config import DOMAIN_SHRINK_FACTOR
 from rich import print as rprint
 
 

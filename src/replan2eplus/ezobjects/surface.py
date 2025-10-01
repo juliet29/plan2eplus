@@ -1,4 +1,4 @@
-from replan2eplus.airboundary.interfaces import DEFAULT_AIRBOUNDARY_OBJECT
+from replan2eplus.ops.airboundary.interfaces import DEFAULT_AIRBOUNDARY_OBJECT
 from replan2eplus.ezobjects.base import EZObject
 from dataclasses import dataclass
 import replan2eplus.epnames.keys as epkeys
@@ -102,7 +102,7 @@ class Surface(EZObject):
 
     @property
     def error_string(self):
-        # TODO make this handle having a name, and make it a proper table with demarcations.. 
+        # TODO make this handle having a name, and make it a proper table with demarcations..
         grid = Table.grid(expand=True)
         grid.add_column()
         grid.add_column(justify="left")
@@ -134,7 +134,6 @@ class Surface(EZObject):
     @property
     def is_airboundary(self):
         return self.construction_name == DEFAULT_AIRBOUNDARY_OBJECT.Name
-
 
     # def update_construction(self, construction_name: str):
     #     pass

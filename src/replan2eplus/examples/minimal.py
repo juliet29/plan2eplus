@@ -2,7 +2,7 @@ from replan2eplus.examples.defaults import PATH_TO_IDD, PATH_TO_MINIMAL_IDF
 from replan2eplus.ezcase.main import EZCase
 from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.range import Range
-from replan2eplus.zones.interfaces import Room
+from replan2eplus.ops.zones.interfaces import Room
 from replan2eplus.paths import PATH_TO_WEATHER_FILE
 
 
@@ -27,12 +27,10 @@ Domain2 = Domain(RangeX2, RangeY1)
 Height = 3.00  # m
 
 
-test_rooms = [Room(0,"room1", Domain1, Height), Room(1,"room2", Domain2, Height)]
+test_rooms = [Room(0, "room1", Domain1, Height), Room(1, "room2", Domain2, Height)]
 
 
 def get_minimal_case_with_rooms():
     case = get_minimal_case()
     case.add_zones(test_rooms)
     return case
-
-

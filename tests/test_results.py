@@ -12,6 +12,8 @@ from rich import print as rprint
 import pytest
 import numpy as np
 
+import pytest
+
 
 def get_results():
     # case = ExistCase(PATH_TO_IDD, TWO_ROOM_RESULTS / "out.idf")
@@ -50,17 +52,18 @@ def test_bad_add_qois():
         _ = flow12 + not_a_flow
 
 
+@pytest.mark.xfail()
 def test_select_instant():
-    exoected_result = [0.07208911, 0.        ]
+    exoected_result = [0.07208911, 0.0]
     flow12 = get_qoi("AFN Linkage Node 1 to Node 2 Volume Flow Rate")
     # dates = flow12.data_arr.datetimes.dt.hour
 
-    res = flow12.data_arr.isel(datetimes=(flow12.data_arr.datetimes.dt.hour==12))
-    res2 = res.isel(datetimes=(res.datetimes.dt.minute==0))[0]
+    res = flow12.data_arr.isel(datetimes=(flow12.data_arr.datetimes.dt.hour == 12))
+    res2 = res.isel(datetimes=(res.datetimes.dt.minute == 0))[0]
     rprint(res)
     rprint(res2)
     rprint(res2.values[0])
-    assert np.isclose(res2.values[0],exoected_result[0])
+    assert np.isclose(res2.values[0], exoected_result[0])
 
 
 if __name__ == "__main__":

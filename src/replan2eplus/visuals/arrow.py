@@ -30,6 +30,7 @@ def create_triangle_patch(
     line = shapely.LineString([i.as_tuple for i in coords])
 
     dist_along = (line.length / 2) * EXPANSION_FACTOR
+    # dist_along = 0.5 * EXPANSION_FACTOR
     if value_sign < 0:
         dist_along *= -1
     p0 = line.interpolate(dist_along)
