@@ -18,6 +18,9 @@ def get_domains(items: Sequence[Surface | Subsurface | Airboundary]):
         domains.append(item.domain)
     return domains 
 
+def get_edges(items: Sequence[ Subsurface | Airboundary]):
+    return [i.edge for i in items]
+
 
 class SurfaceOrg(NamedTuple):
     non_afn_surfaces: list[Surface | Subsurface]

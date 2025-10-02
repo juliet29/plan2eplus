@@ -27,6 +27,7 @@ from replan2eplus.visuals.organize import (
     organize_connections,
     organize_subsurfaces_and_surfaces,
     get_domains,
+    get_edges,
 )
 from replan2eplus.visuals.styles.artists import (
     AnnotationStyles,
@@ -81,7 +82,7 @@ class BasePlot:
             self.axes,
         )
         return self
-    
+
     # NOTE: ASSUMING THAT ALL SUBSURFACES / SURFACES ARE WALLS. then will not have an ortho domain. When incorporate multilievels, will need to plot differently
 
     def plot_subsurfaces_and_surfaces(
@@ -122,25 +123,23 @@ class BasePlot:
         subsurfaces: list[Subsurface],
         style=ConnectionStyles(),
     ):
-        
+        def add(items: Sequence[Airboundary | Subsurface], style: LineStyles):
+            add_connection_lines(
+                get_domains(items),
+                get_edges(items),
+                self.zones,
+                cardinal_points,
+                [style],
+                self.axes,
+            )
+
         connections_org = organize_connections(afn, airboundaries, subsurfaces)
-        # TODO: can make cleaner w/ zip..
-        add_connection_lines(
-            [i.domain for i in connections_org.baseline],
-            [i.edge for i in connections_org.baseline],
-            self.zones,
-            calculate_cardinal_points(self.cardinal_domain),
-            [style.baseline],
-            self.axes,
-        )
-        add_connection_lines(
-            [i.domain for i in connections_org.afn],
-            [i.edge for i in connections_org.afn],
-            self.zones,
-            calculate_cardinal_points(self.cardinal_domain),
-            [style.afn],
-            self.axes,
-        )
+
+        cardinal_points = calculate_cardinal_points(self.cardinal_domain)
+
+        add(connections_org.baseline, style.baseline)
+        add(connections_org.baseline, style.afn)
+
         return self
 
     def show(self):
