@@ -9,6 +9,7 @@ import pytest
 from replan2eplus.geometry.ezobject_domain import create_domain_from_coords
 from replan2eplus.geometry.ezobject_domain import compute_unit_normal
 
+# TODO revise these tests?
 
 @dataclass
 class Bounds:

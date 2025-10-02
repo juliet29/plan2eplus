@@ -4,22 +4,9 @@ from replan2eplus.geometry.domain import Domain
 from dataclasses import dataclass
 
 from replan2eplus.geometry.plane import Plane
-from typing import NamedTuple
-from replan2eplus.geometry.range import Range
 import shapely as sp
 
-
-class ShapelyBounds(NamedTuple):
-    minx: float
-    miny: float
-    maxx: float
-    maxy: float
-
-    @property
-    def domain(self):
-        horz_range = Range(self.minx, self.maxx)
-        vert_range = Range(self.miny, self.maxy)
-        return Domain(horz_range, vert_range)
+from replan2eplus.geometry.shapely_bounds import ShapelyBounds
 
 
 @dataclass
@@ -40,7 +27,7 @@ class OrthoDomain:
         poly = sp.Polygon(self.tuple_list)
         bounds = ShapelyBounds(*poly.bounds)
         return bounds.domain
-    
+
     @property
     def centroid(self):
         return self.bounding_domain.centroid

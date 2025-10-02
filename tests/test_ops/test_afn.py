@@ -11,7 +11,7 @@ from replan2eplus.examples.subsurfaces import (
 from replan2eplus.ops.subsurfaces.logic.exterior import (
     create_subsurface_for_exterior_edge,
 )
-from replan2eplus.examples.minimal import get_minimal_case_with_rooms
+from replan2eplus.examples.cases.minimal import get_minimal_case_with_rooms
 
 # TODO add an image of this!!! -> make a reference for all the examples -> md file?
 

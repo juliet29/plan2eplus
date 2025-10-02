@@ -1,3 +1,4 @@
+from replan2eplus.geometry.domain import Domain
 from replan2eplus.ops.airboundary.interfaces import DEFAULT_AIRBOUNDARY_OBJECT
 from replan2eplus.ezobjects.base import EZObject
 from dataclasses import dataclass
@@ -78,7 +79,11 @@ class Surface(EZObject):
 
     @property
     def domain(self):
-        return get_surface_domain(self._epbunch)
+        domain =  get_surface_domain(self._epbunch)
+        # NOTE: ASSUMING THAT ALL SUBSURFACES / SURFACES ARE WALLS. then will not have an ortho domain 
+        if self.type_ == "wall":
+            assert isinstance(domain, Domain)
+        return domain 
 
     @property
     def type_(self) -> SurfaceTypeNames:

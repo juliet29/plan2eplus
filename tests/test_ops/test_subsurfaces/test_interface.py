@@ -6,7 +6,7 @@ from replan2eplus.geometry.range import Range
 from replan2eplus.ops.subsurfaces.interfaces import Details, Location
 from replan2eplus.ops.subsurfaces.logic.prepare import create_ss_name
 from replan2eplus.ops.subsurfaces.presentation import create_subsurfaces
-from replan2eplus.examples.minimal import get_minimal_case_with_rooms
+from replan2eplus.examples.cases.minimal import get_minimal_case_with_rooms
 from replan2eplus.examples.subsurfaces import (
     simple_subsurface_inputs,
     three_details_subsurface_inputs,

@@ -1,5 +1,5 @@
-from replan2eplus.examples.defaults import PATH_TO_IDD, PATH_TO_MINIMAL_IDF
-from replan2eplus.examples.minimal import test_rooms
+from replan2eplus.examples.paths import PATH_TO_IDD, PATH_TO_MINIMAL_IDF
+from replan2eplus.examples.cases.minimal import test_rooms
 from replan2eplus.ezcase.main import EZCase
 from replan2eplus.examples.subsurfaces import (
     e0,

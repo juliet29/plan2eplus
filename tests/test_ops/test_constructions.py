@@ -10,7 +10,7 @@ from replan2eplus.examples.mat_and_const import (
     PATH_TO_WINDOW_CONST_IDF,
     TEST_CONSTRUCTIONS_WITH_WINDOW,
 )
-from replan2eplus.examples.defaults import PATH_TO_IDD
+from replan2eplus.examples.paths import PATH_TO_IDD
 from replan2eplus.ops.constructions.presentation import (
     create_constructions_from_other_idfs,
     add_constructions,

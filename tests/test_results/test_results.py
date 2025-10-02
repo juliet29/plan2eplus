@@ -1,6 +1,6 @@
 from replan2eplus.paths import TWO_ROOM_RESULTS
 from replan2eplus.ezcase.read import ExistCase
-from replan2eplus.examples.defaults import PATH_TO_IDD
+from replan2eplus.examples.paths import PATH_TO_IDD
 from replan2eplus.results.collections import (
     DFC,
     QOIResult,

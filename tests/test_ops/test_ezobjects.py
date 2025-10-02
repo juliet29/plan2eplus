@@ -1,5 +1,5 @@
-from replan2eplus.examples.minimal import get_minimal_case_with_rooms
-from replan2eplus.examples.minimal import test_rooms
+from replan2eplus.examples.cases.minimal import get_minimal_case_with_rooms
+from replan2eplus.examples.cases.minimal import test_rooms
 
 
 N_SURFACES_PER_CUBE = 6

@@ -35,9 +35,9 @@ class AnnotationStyles(PlotStyles):
 
 
 @dataclass
-class RectangleStyles(PlotStyles):
+class PolygonStyles(PlotStyles):
     fill: bool = False
-    color: Color = "saddlebrown"  # TODO check this..
+    color: Color = "white"  # TODO check this..
     edgecolor: Color = "black"
     alpha: float = 1
     linewidth: int = 4

@@ -2,7 +2,21 @@ from replan2eplus.ezobjects.afn import AirflowNetwork
 from replan2eplus.ezobjects.airboundary import Airboundary
 from replan2eplus.ezobjects.subsurface import Subsurface
 from replan2eplus.ezobjects.surface import Surface
-from typing import NamedTuple
+from typing import NamedTuple, Sequence
+
+from replan2eplus.geometry.domain import Domain
+from replan2eplus.geometry.ortho_domain import OrthoDomain
+
+
+def get_domains(items: Sequence[Surface | Subsurface | Airboundary]):
+    domains: list[Domain] = []
+    for item in items:
+        if isinstance(item.domain, OrthoDomain):
+            raise Exception(
+                f"{item.display_name} has an orthogonal domain, but expected it to have a rectangular domain for plotting: {item}"
+            )
+        domains.append(item.domain)
+    return domains 
 
 
 class SurfaceOrg(NamedTuple):

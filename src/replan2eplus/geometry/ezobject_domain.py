@@ -26,7 +26,7 @@ def create_domain_from_coords_list(coords: list[Coord]):
         ys = sorted(set([i.y for i in coords]))
         horz_range = Range(xs[0], xs[-1])
         vert_range = Range(ys[0], ys[-1])
-        return Domain(horz_range, vert_range)
+        return Domain(horz_range, vert_range) # TODO can use shapely bounds.. 
     else:
         return OrthoDomain(coords)
 

@@ -115,6 +115,8 @@ class Subsurface(EZObject):
     @property
     def domain(self):
         surf_domain = self.surface.domain
+        assert self.surface.type_ == "wall"
+        assert isinstance(surf_domain, Domain)
         surface_min_horz = surf_domain.horz_range.min
         surface_min_vert = surf_domain.vert_range.min
 

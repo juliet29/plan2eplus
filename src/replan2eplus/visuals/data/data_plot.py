@@ -13,19 +13,19 @@ from replan2eplus.ezobjects.afn import Airboundary, set_difference, set_intersec
 from replan2eplus.ezobjects.subsurface import Subsurface
 from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.geometry.contact_points import calculate_cardinal_points
-from replan2eplus.visuals.axis_modifications import (
+from replan2eplus.visuals.axes import (
     add_connection_lines,
-    add_rectangles,
+    add_polygons,
 )
-from replan2eplus.visuals.base_plot import BasePlot
+from replan2eplus.visuals.base.base_plot import BasePlot
 from replan2eplus.visuals.styles.artists import (
     ConnectionStyles,
-    RectangleStyles,
+    PolygonStyles,
 )
-from replan2eplus.visuals.transform import (
+from replan2eplus.visuals.transforms import (
     EXPANSION_FACTOR,
 )
-from replan2eplus.visuals.arrow import add_arrows
+from replan2eplus.visuals.data.arrow import add_arrows
 import math
 from matplotlib.colorbar import Colorbar
 from matplotlib.colors import Colormap, Normalize, TwoSlopeNorm
@@ -135,18 +135,18 @@ class DataPlot(BasePlot):
         data_arr = filter_data_arr(data_arr_, self.zone_names)
         bar, cmap, norm = colorbar_fx(data_arr.values, self.axes)
         styles = [
-            RectangleStyles(fill=True, color=cmap(norm(i))) for i in data_arr.values
+            PolygonStyles(fill=True, color=cmap(norm(i))) for i in data_arr.values
         ]
         domains = [self.zone_dict[i].domain for i in data_arr.space_names.values]
 
-        add_rectangles(domains, styles, self.axes)
+        add_polygons(domains, styles, self.axes)
         # grey for zones not included..
         non_included_zones = set_difference(
             self.zone_names, data_arr.space_names.values
         )
-        add_rectangles(
+        add_polygons(
             [self.zone_dict[i].domain for i in non_included_zones],
-            [RectangleStyles(fill=True, color="gray")],
+            [PolygonStyles(fill=True, color="gray")],
             self.axes,
         )
 

@@ -12,6 +12,10 @@ class Airboundary:
     @property
     def domain(self):
         return self.surface.domain
+    
+    @property
+    def display_name(self):
+        return self.surface.display_name
 
 
 def get_unique_airboundaries(airboundaries: list[Airboundary]):

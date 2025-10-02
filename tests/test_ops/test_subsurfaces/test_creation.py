@@ -1,7 +1,7 @@
 from geomeppy.idf import new_idf
 import pytest
 
-from replan2eplus.examples.minimal import get_minimal_case_with_rooms
+from replan2eplus.examples.cases.minimal import get_minimal_case_with_rooms
 from replan2eplus.examples.subsurfaces import (
     zone_edge,
     zone_drn_edge,

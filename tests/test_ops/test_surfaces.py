@@ -1,7 +1,7 @@
 from replan2eplus.examples.subsurfaces import get_minimal_case_with_subsurfaces
 from replan2eplus.ezobjects.surface import Surface
 import replan2eplus.epnames.keys as keys
-from replan2eplus.examples.existing import get_example_idf
+from replan2eplus.examples.cases.existing import get_example_idf
 
 
 # TODO: test init surface!

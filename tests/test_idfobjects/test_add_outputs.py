@@ -1,4 +1,4 @@
-from replan2eplus.examples.minimal import get_minimal_case_with_rooms
+from replan2eplus.examples.cases.minimal import get_minimal_case_with_rooms
 from utils4plans.sets import set_intersection
 from replan2eplus.idfobjects.variables import default_variables
 

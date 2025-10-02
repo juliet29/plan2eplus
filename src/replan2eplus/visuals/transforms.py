@@ -55,23 +55,13 @@ def domain_to_mpl_polygon(domain: Domain | OrthoDomain):
     if isinstance(domain, Domain):
         coords = calculate_corner_points(domain)
         # TODO is fill = false needed?
-        return Polygon(coords.tuple_list, fill=False)
+        return Polygon(coords.tuple_list)
     else:
-        return Polygon(domain.tuple_list, fill=False)
+        return Polygon(domain.tuple_list)
 
 
-    return Rectangle(
-        (domain.horz_range.min, domain.vert_range.min),
-        domain.horz_range.size,
-        domain.vert_range.size,
-        fill=False,
-    )
 
 
-# TODO -> domain to patch..
-
-
-# TODO write tests for this! and potentially move to geometry folder ..
 def domain_to_line(domain: Domain):
     assert domain.plane
     plane = domain.plane

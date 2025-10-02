@@ -1,9 +1,9 @@
-from replan2eplus.examples.minimal import (
+from replan2eplus.examples.cases.minimal import (
     get_minimal_case,
     get_minimal_idf,
     get_minimal_case_with_rooms,
 )
-from replan2eplus.examples.existing import read_example_case, get_example_idf
+from replan2eplus.examples.cases.existing import read_example_case, get_example_idf
 from replan2eplus.examples.subsurfaces import get_minimal_case_with_subsurfaces
 import pytest
 

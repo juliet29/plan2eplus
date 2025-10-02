@@ -1,8 +1,8 @@
-from replan2eplus.examples.defaults import PATH_TO_IDD
+from replan2eplus.examples.paths import PATH_TO_IDD
 from replan2eplus.ezcase.read import ExistCase
 from replan2eplus.paths import TWO_ROOM_AIRBOUNDARY_RESULTS
 from replan2eplus.results.sql import get_qoi
-from replan2eplus.visuals.data_plot import DataPlot
+from replan2eplus.visuals.data.data_plot import DataPlot
 
 
 from pathlib import Path

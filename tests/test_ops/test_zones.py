@@ -1,6 +1,6 @@
-from replan2eplus.examples.minimal import test_rooms
+from replan2eplus.examples.cases.minimal import test_rooms
 from replan2eplus.ops.zones.presentation import create_zones
-from replan2eplus.examples.minimal import get_minimal_idf
+from replan2eplus.examples.cases.minimal import get_minimal_idf
 from replan2eplus.errors import InvalidEpBunchError
 from replan2eplus.ezobjects.zone import Zone
 import pytest

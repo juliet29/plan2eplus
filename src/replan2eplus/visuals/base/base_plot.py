@@ -1,34 +1,40 @@
 from dataclasses import dataclass
+from typing import Sequence
 
+from matplotlib.axes import Axes
 import matplotlib.pyplot as plt
 
 from replan2eplus.ezobjects.afn import AirflowNetwork
 from replan2eplus.ezobjects.airboundary import Airboundary
 from replan2eplus.ezobjects.subsurface import Subsurface
+from replan2eplus.ezobjects.surface import Surface
 from replan2eplus.ezobjects.zone import Zone
-from replan2eplus.visuals.domain_modifications import (
+from replan2eplus.geometry.domain import Domain
+from replan2eplus.visuals.domains import (
     compute_multidomain,
 )
 from replan2eplus.geometry.contact_points import calculate_cardinal_points
-from replan2eplus.visuals.axis_modifications import (
+from replan2eplus.visuals.axes import (
     AnnotationPair,
+    LineStyles,
     add_annotations,
     add_connection_lines,
-    add_rectangles,
+    add_polygons,
     add_surface_lines,
 )
-from replan2eplus.visuals.domain_modifications import expand_domain
+from replan2eplus.visuals.domains import expand_domain
 from replan2eplus.visuals.organize import (
     organize_connections,
     organize_subsurfaces_and_surfaces,
+    get_domains,
 )
 from replan2eplus.visuals.styles.artists import (
     AnnotationStyles,
     ConnectionStyles,
-    RectangleStyles,
+    PolygonStyles,
     SurfaceStyles,
 )
-from replan2eplus.visuals.transform import (
+from replan2eplus.visuals.transforms import (
     EXPANSION_FACTOR,
 )  # TODO move this to a config!
 
@@ -50,8 +56,8 @@ class BasePlot:
             self.cardinal_domain, self.extents_expansion_factor
         )
 
-    def plot_zones(self, style=RectangleStyles()):
-        add_rectangles(
+    def plot_zones(self, style=PolygonStyles()):
+        add_polygons(
             [i.domain for i in self.zones], [style], self.axes
         )  # TODO if pass a list of styles, then apply each differently -> when are doing values .. or just have different function for if have values..
         return self
@@ -75,6 +81,8 @@ class BasePlot:
             self.axes,
         )
         return self
+    
+    # NOTE: ASSUMING THAT ALL SUBSURFACES / SURFACES ARE WALLS. then will not have an ortho domain. When incorporate multilievels, will need to plot differently
 
     def plot_subsurfaces_and_surfaces(
         self,
@@ -84,19 +92,26 @@ class BasePlot:
         style=SurfaceStyles(),
     ):
         surface_org = organize_subsurfaces_and_surfaces(afn, airboundaries, subsurfaces)
-        add_surface_lines(
-            [i.domain for i in surface_org.non_afn_surfaces],
+
+        def add(items: Sequence[Airboundary | Subsurface | Surface], style: LineStyles):
+            add_surface_lines(get_domains(items), style, self.axes)
+
+        add(
+            surface_org.non_afn_surfaces,
             style.non_afn_surfaces,
-            self.axes,
         )
-        add_surface_lines(
-            [i.domain for i in surface_org.windows], style.windows, self.axes
+        add(
+            surface_org.windows,
+            style.windows,
         )
-        add_surface_lines([i.domain for i in surface_org.doors], style.doors, self.axes)
-        add_surface_lines(
-            [i.surface.domain for i in surface_org.airboundaries],
+        add(
+            surface_org.doors,
+            style.doors,
+        )
+
+        add(
+            surface_org.airboundaries,
             style.airboundaries,
-            self.axes,
         )
         return self
 
@@ -107,6 +122,7 @@ class BasePlot:
         subsurfaces: list[Subsurface],
         style=ConnectionStyles(),
     ):
+        
         connections_org = organize_connections(afn, airboundaries, subsurfaces)
         # TODO: can make cleaner w/ zip..
         add_connection_lines(

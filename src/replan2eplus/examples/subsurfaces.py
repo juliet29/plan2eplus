@@ -7,7 +7,7 @@ from replan2eplus.ops.subsurfaces.interfaces import (
     SubsurfaceInputs,
     Dimension
 )
-from replan2eplus.examples.minimal import get_minimal_case_with_rooms, test_rooms
+from replan2eplus.examples.cases.minimal import get_minimal_case_with_rooms, test_rooms
 from replan2eplus.geometry.directions import WallNormal
 from dataclasses import dataclass
 from replan2eplus.ezobjects.subsurface import Edge

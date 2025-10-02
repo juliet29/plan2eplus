@@ -7,23 +7,26 @@ from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.geometry.contact_points import CardinalPoints
 from replan2eplus.geometry.coords import Coord
 from replan2eplus.geometry.domain import Domain
-from replan2eplus.visuals.transform import (
+from replan2eplus.geometry.ortho_domain import OrthoDomain
+from replan2eplus.visuals.transforms import (
     domain_to_line,
     domain_to_mpl_polygon,
     subsurface_to_connection_line,
 )
 from replan2eplus.visuals.styles.artists import (
     LineStyles,
-    RectangleStyles,
+    PolygonStyles,
     AnnotationStyles,
 )
 
 
-def add_rectangles(domains: list[Domain], styles: list[RectangleStyles], axes: Axes):
+def add_polygons(
+    domains: list[Domain | OrthoDomain], styles: list[PolygonStyles], axes: Axes
+):
     def update(domain, style):
-        rectangle = domain_to_mpl_polygon(domain)
-        rectangle.set(**style.values)
-        axes.add_artist(rectangle)
+        polygon = domain_to_mpl_polygon(domain)
+        polygon.set(**style.values)
+        axes.add_artist(polygon)
 
     if len(styles) == 1:
         style = styles[0]
