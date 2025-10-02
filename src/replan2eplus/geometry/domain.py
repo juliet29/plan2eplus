@@ -1,26 +1,7 @@
 from dataclasses import dataclass
 from replan2eplus.geometry.coords import Coord
-from replan2eplus.geometry.nonant import Nonant
-from typing import Literal, NamedTuple
+from replan2eplus.geometry.planedef import Plane
 from replan2eplus.geometry.range import Range
-
-import numpy as np
-
-
-AXIS = Literal["X", "Y", "Z"]
-
-
-class Plane(NamedTuple):
-    axis: AXIS
-    location: float
-
-    def __eq__(self, other: object) -> bool:
-        if isinstance(other, Plane):
-            return (
-                bool(np.isclose(self.location, other.location))
-                and self.axis == other.axis
-            )
-        return False
 
 
 @dataclass(frozen=True)

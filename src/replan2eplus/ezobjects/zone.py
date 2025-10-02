@@ -30,6 +30,15 @@ class Zone(EZObject):
     expected_key: str = epkeys.ZONE
     surfaces: list[Surface] = field(default_factory=list)
 
+    def __rich_repr__(self):
+        yield "room_name", self.room_name
+        yield "idf_name", self.zone_name
+        yield "domain", self.domain
+        yield "num_surfaces", len(self.surfaces)
+        yield "num_subsurfaces", len(self.subsurface_names)
+        yield "surface_display_names", self.surface_display_names
+        yield "subsurface_names", self.subsurface_names
+
     @property
     def room_name(self):
         return self._dname.plan_name
@@ -41,6 +50,10 @@ class Zone(EZObject):
     @property
     def surface_names(self):
         return [i.surface_name for i in self.surfaces]
+    
+    @property
+    def surface_display_names(self):
+        return sorted([i.display_name for i in self.surfaces])
 
     @property
     def subsurface_names(self) -> list[str]:

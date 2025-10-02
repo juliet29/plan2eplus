@@ -1,10 +1,13 @@
 from geomeppy.geom.polygons import Polygon3D
 from replan2eplus.geometry.coords import Coord, Coordinate3D
-from replan2eplus.geometry.domain import Domain, Plane, AXIS
+from replan2eplus.geometry.domain import Domain
+from replan2eplus.geometry.ortho_domain import OrthoDomain
+from replan2eplus.geometry.planedef import AXIS, Plane
 from replan2eplus.geometry.range import Range
 from loguru import logger
 from pathlib import Path
 import sys
+from rich import print
 
 # TODO: move?
 logger.add(sys.stdout, level="WARNING")
@@ -18,11 +21,14 @@ def get_location_of_fixed_plane(plane: AXIS, coords: list[Coordinate3D]):
 
 
 def create_domain_from_coords_list(coords: list[Coord]):
-    xs = sorted(set([i.x for i in coords]))
-    ys = sorted(set([i.y for i in coords]))
-    horz_range = Range(xs[0], xs[-1])
-    vert_range = Range(ys[0], ys[-1])
-    return Domain(horz_range, vert_range)
+    if len(coords) == 4:
+        xs = sorted(set([i.x for i in coords]))
+        ys = sorted(set([i.y for i in coords]))
+        horz_range = Range(xs[0], xs[-1])
+        vert_range = Range(ys[0], ys[-1])
+        return Domain(horz_range, vert_range)
+    else:
+        return OrthoDomain(coords)
 
 
 def create_domain_from_coords(normal_axis: AXIS, coords: list[Coordinate3D]):
@@ -47,12 +53,16 @@ def create_domain_from_coords(normal_axis: AXIS, coords: list[Coordinate3D]):
     location_of_fixed_plane = get_location_of_fixed_plane(normal_axis, coords)
     # TODO set plane function..
     # domain.plane = Plane(normal_axis, location_of_fixed_plane)
+    plane = Plane(normal_axis, location_of_fixed_plane)
 
-    return Domain(
-        domain.horz_range,
-        domain.vert_range,
-        plane=Plane(normal_axis, location_of_fixed_plane),
-    )
+    if isinstance(domain, Domain):
+        return Domain(
+            domain.horz_range,
+            domain.vert_range,
+            plane,
+        )
+    else:
+        return OrthoDomain(domain.coords, plane)
 
 
 def compute_unit_normal(coords: list[tuple[float, float, float]]) -> AXIS:
@@ -66,7 +76,7 @@ def compute_unit_normal(coords: list[tuple[float, float, float]]) -> AXIS:
     nv = tuple([abs(int(i)) for i in normal_vector])
     assert len(nv) == 3
 
-    # TODO this can be fixed by normalizing coords.. 
+    # TODO this can be fixed by normalizing coords..
     try:
         return vector_map[nv]
     except:

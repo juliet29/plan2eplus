@@ -1,7 +1,7 @@
 from replan2eplus.geometry.directions import WallNormalLiteral, WallNormalNamesList
 from replan2eplus.geometry.domain import Domain
 from replan2eplus.ops.subsurfaces.interfaces import Dimension
-from replan2eplus.geometry.plane import Plane
+from replan2eplus.geometry.planedef import Plane
 from replan2eplus.geometry.range import Range
 from replan2eplus.ops.subsurfaces.interfaces import Details, Location
 from replan2eplus.ops.subsurfaces.logic.prepare import create_ss_name

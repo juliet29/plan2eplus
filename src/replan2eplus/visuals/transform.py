@@ -14,8 +14,8 @@ from replan2eplus.geometry.coords import Coord
 from replan2eplus.geometry.directions import WallNormalNamesList
 from replan2eplus.geometry.domain import (
     Domain,
-    Plane,
 )
+from replan2eplus.geometry.planedef import Plane
 from replan2eplus.geometry.range import Range
 from typing import NamedTuple
 

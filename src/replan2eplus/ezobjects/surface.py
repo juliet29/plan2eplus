@@ -8,7 +8,7 @@ from replan2eplus.errors import IDFMisunderstandingError, BadlyFormatedIDFError
 from eppy.bunch_subclass import EpBunch
 from replan2eplus.geometry.coords import Coordinate3D
 from replan2eplus.geometry.directions import WallNormal
-from replan2eplus.geometry.plane import compute_unit_normal, create_domain_from_coords
+from replan2eplus.geometry.calc_domain2 import compute_unit_normal, create_domain_from_coords
 
 from rich.table import Table
 
@@ -56,6 +56,17 @@ class Surface(EZObject):
 
     def __post_init__(self):
         assert self.expected_key == epkeys.SURFACE
+
+    def __rich_repr__(self):
+        yield "display_name", self.display_name
+        yield "surface_name", self.surface_name
+        yield "zone_name", self.zone_name
+        yield "domain", self.domain
+        yield "num_subsurfaces", len(self.subsurface_names)
+        yield "type_", self.type_
+        yield "is_airboundary", self.is_airboundary
+        yield "neighbor", self.neighbor
+        yield "subsurface_names", self.subsurface_names
 
     @property
     def surface_name(self):
