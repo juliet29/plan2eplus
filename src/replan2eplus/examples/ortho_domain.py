@@ -9,7 +9,7 @@ HEIGHT = 3
 ortho_room = Room(0, "ortho", OrthoDomain.from_tuple_list(ORTHO_COORDS), HEIGHT)
 rect_room = Room(1, "rect", Domain(Range(2, 3), Range(1, 2)), HEIGHT)
 
-def create_ortho_plan():
+def create_ortho_case():
     case = get_minimal_case()
     case.add_zones([ortho_room, rect_room])
     return case
@@ -17,7 +17,7 @@ def create_ortho_plan():
 
 
 if __name__ == "__main__":
-    res = create_ortho_plan()
+    res = create_ortho_case()
     # print(res.zones)
     print(res.zones[0].surfaces)
     # print(res.zones)

@@ -47,7 +47,9 @@ def plot_connection_data():
     dp.plot_zones()
     dp.plot_zone_names()
     dp.plot_cardinal_names()
-    dp.plot_subsurfaces_and_surfaces(case.afn, case.airboundaries, case.subsurfaces)
+    dp.plot_subsurfaces_and_surfaces(
+        case.airflownetwork, case.airboundaries, case.subsurfaces
+    )
     dp.plot_connections_with_data(combined_flow, case.subsurfaces, case.airboundaries)
 
     return dp
@@ -76,9 +78,9 @@ def test_plot_connections():
 # MOVE ELSEWHERE -> test of existing, ot dataplot..
 def test_get_afn_values():
     case = ExistCase(PATH_TO_IDD, TWO_ROOM_AIRBOUNDARY_RESULTS / "out.idf")
-    assert len(case.afn.zones) == 2
-    assert len(case.afn.airboundaries) == 1
-    assert len(case.afn.subsurfaces) == 3
+    assert len(case.airflownetwork.zones) == 2
+    assert len(case.airflownetwork.airboundaries) == 1
+    assert len(case.airflownetwork.subsurfaces) == 3
 
 
 if __name__ == "__main__":

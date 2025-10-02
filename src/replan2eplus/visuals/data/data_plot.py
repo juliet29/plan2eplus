@@ -1,12 +1,6 @@
 from dataclasses import dataclass
-from typing import Callable, Literal
 
-import matplotlib as mpl
-import matplotlib.cm as cm
-import matplotlib.colors as colors
-import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.axes import Axes
 from xarray import DataArray
 
 from replan2eplus.ezobjects.afn import Airboundary, set_difference, set_intersection
@@ -18,6 +12,12 @@ from replan2eplus.visuals.axes import (
     add_polygons,
 )
 from replan2eplus.visuals.base.base_plot import BasePlot
+from replan2eplus.visuals.data.colorbars import (
+    ColorBarFx,
+    flow_colorbar,
+    pressure_colorbar,
+)
+from replan2eplus.visuals.organize import get_domains, get_edges
 from replan2eplus.visuals.styles.artists import (
     ConnectionStyles,
     PolygonStyles,
@@ -27,81 +27,6 @@ from replan2eplus.visuals.transforms import (
 )
 from replan2eplus.visuals.data.arrow import add_arrows
 import math
-from matplotlib.colorbar import Colorbar
-from matplotlib.colors import Colormap, Normalize, TwoSlopeNorm
-
-
-ColorBarFx = Callable[
-    [list[float] | np.ndarray, Axes],
-    tuple[tuple[Colorbar], Colormap, Normalize | TwoSlopeNorm],
-]
-
-
-def pressure_colorbar(data: list[float] | np.ndarray, ax: Axes):
-    expansion = 1.3
-    if len(data) == 1:
-        res = data[0]
-        norm = colors.Normalize(vmin=res - expansion, vmax=res + expansion)
-        cmap = mpl.colormaps["YlOrRd_r"]
-
-    else:
-        min_, max_ = (
-            min(data) * expansion,
-            max(data) * expansion,
-        )  # TODO come up with a netter way of doing this expansion thing / figuring out the limits of data to show..
-        # TODO reverse colors for pressure!
-
-        if max_ <= 0:
-            norm = colors.Normalize(vmin=min_, vmax=max_)
-            cmap = mpl.colormaps["YlOrRd_r"]
-        else:
-            center = 0
-
-            norm = colors.TwoSlopeNorm(vmin=min_, vcenter=center, vmax=max_)
-
-            cmap = mpl.colormaps["RdYlBu"]
-
-    bar = (
-        plt.colorbar(
-            cm.ScalarMappable(norm=norm, cmap=cmap),
-            orientation="vertical",
-            label="Total Pressure [Pa]",
-            ax=ax,
-            # shrink=0.5
-            # TODO pass in the label
-        ),
-    )
-    return bar, cmap, norm
-
-
-def temperature_colorbar(data: list[float] | np.ndarray, ax: Axes):
-    cmap = mpl.colormaps["YlOrRd"]
-    min_, max_ = min(data), max(data)
-    norm = colors.Normalize(vmin=min_, vmax=max_)
-    bar = (
-        plt.colorbar(
-            cm.ScalarMappable(norm=norm, cmap=cmap),
-            orientation="vertical",
-            label="Temperature [ºC]",
-            ax=ax,
-        ),
-    )
-    return bar, cmap, norm
-
-
-def flow_colorbar(data: list[float] | np.ndarray, ax: Axes):
-    cmap = mpl.colormaps["PuBu"]
-    min_, max_ = min(data), max(data)
-    norm = colors.Normalize(vmin=min_, vmax=max_)
-    bar = (
-        plt.colorbar(
-            cm.ScalarMappable(norm=norm, cmap=cmap),
-            orientation="vertical",
-            label="Volume Flow Rate [m3/s]",
-            ax=ax,
-        ),
-    )
-    return bar, cmap, norm
 
 
 def filter_data_arr(data_arr: DataArray, geom_names: list[str]):
@@ -188,8 +113,8 @@ class DataPlot(BasePlot):
         ]
 
         _, lines = add_connection_lines(
-            [i.domain for i in subsurfaces_or_airboundaries],
-            [i.edge for i in subsurfaces_or_airboundaries],
+            get_domains(subsurfaces_or_airboundaries),
+            get_edges(subsurfaces_or_airboundaries),
             self.zones,
             calculate_cardinal_points(self.cardinal_domain),
             styles,

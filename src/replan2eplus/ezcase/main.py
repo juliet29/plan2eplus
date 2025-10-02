@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from pathlib import Path
 
+from utils4plans.io import get_or_make_folder_path
+
 from replan2eplus.ezobjects.afn import AirflowNetwork
 from replan2eplus.ezobjects.airboundary import Airboundary, get_unique_airboundaries
 from replan2eplus.ezobjects.construction import Construction, EPConstructionSet
@@ -124,8 +126,10 @@ class EZCase:
     def add_output_variables(self):
         return self  # use Munch!
 
-    def save_and_run_case(self, path: Path):
+    def save_and_run_case(self, path_: Path):
         # TODO add command line args..
-        self.idf.idf.save(path / "out.idf")
+        path = get_or_make_folder_path(path_.parent, path_.name)
+
+        self.idf.idf.save(path / "out.idf") # TODO ADD TO CONFIG! 
         self.idf.idf.run(output_directory=path / "results")
         return self  # compare to see if idf has changed or not -> interactive -> do you want to overwrite existing reults..

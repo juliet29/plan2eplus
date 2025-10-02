@@ -1,41 +1,27 @@
-from replan2eplus.examples.cases.minimal import get_minimal_case_with_rooms
-from replan2eplus.visuals.base.base_plot import BasePlot
-from replan2eplus.examples.subsurfaces import (
-    simple_subsurface_inputs,
-    three_details_subsurface_inputs,
+from replan2eplus.examples.plots.base_plot import make_base_plot
+from replan2eplus.examples.cases.afn_case import (
+    make_afn_case,
+)
+from replan2eplus.examples.ortho_domain import (
+    create_ortho_case,
 )
 from replan2eplus.ops.subsurfaces.utils import get_unique_subsurfaces
 
 
-def make_base_plot():
-    case = get_minimal_case_with_rooms()
-    case.add_subsurfaces(three_details_subsurface_inputs.inputs)
-    case.add_airflownetwork()
-
-    # get_unique_subsurfaces(case.subsurfaces)
-
-    bp = (
-        BasePlot(case.zones, cardinal_expansion_factor=1.8)
-        .plot_zones()
-        .plot_zone_names()
-        .plot_cardinal_names()
-        .plot_subsurfaces_and_surfaces(
-            case.airflownetwork, case.unique_airboundaries, case.unique_subsurfaces
-        )
-        .plot_connections(
-            case.airflownetwork, case.unique_airboundaries, case.unique_subsurfaces
-        )  # would be good to specify the color here.
-    )
-
-    return bp
-
-
 def test_make_base_plot():
-    bp = make_base_plot()
+    case = make_afn_case()
+    make_base_plot(case)
     assert 1
     # TODO -> make better tests, check the matplotlib axes..
 
 
+def test_make_ortho_plot():
+    case = create_ortho_case()
+    make_base_plot(case)
+    assert 1
+
+
 if __name__ == "__main__":
-    bp = make_base_plot()
+    case = create_ortho_case()
+    bp = make_base_plot(case)
     bp.show()

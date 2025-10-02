@@ -26,7 +26,9 @@ def plot_zones_and_connections(
     dp.plot_zones_with_data(data_at_noon)
     dp.plot_zone_names()
     dp.plot_cardinal_names()
-    dp.plot_subsurfaces_and_surfaces(case.afn, case.airboundaries, case.subsurfaces)
+    dp.plot_subsurfaces_and_surfaces(
+        case.airflownetwork, case.airboundaries, case.subsurfaces
+    )
     dp.plot_connections_with_data(combined_flow, case.subsurfaces, case.airboundaries)
 
     return dp

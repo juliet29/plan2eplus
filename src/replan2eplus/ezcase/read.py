@@ -5,10 +5,11 @@ from replan2eplus.ezobjects.surface import Surface
 from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.ezobjects.subsurface import Subsurface, Edge
 from replan2eplus.ezobjects.epbunch_utils import get_epbunch_key
+from replan2eplus.ops.subsurfaces.utils import get_unique_subsurfaces
 from replan2eplus.ops.zones.presentation import assign_zone_surfaces
 from replan2eplus.idfobjects.afn import AFNKeys
 from replan2eplus.ezobjects.afn import AirflowNetwork
-from replan2eplus.ezobjects.airboundary import Airboundary
+from replan2eplus.ezobjects.airboundary import Airboundary, get_unique_airboundaries
 
 from rich import print as rprint
 
@@ -92,12 +93,12 @@ class ExistCase:
         self.get_afn()
 
     @property
-    def folder_name(self):
+    def folder_name(self): 
         return self.path_to_initial_idf.parts[-2]
 
     @property
     def folder_path(self):
-        return self.path_to_initial_idf.parents[0]
+        return self.path_to_initial_idf.parent
 
     def get_objects(self):
         assert self.idf
@@ -108,9 +109,16 @@ class ExistCase:
         return self.zones, self.surfaces, self.subsurfaces, self.airboundaries
 
     def get_afn(self):
-        self.afn = get_afn_objects(
+        self.airflownetwork = get_afn_objects(
             self.idf, self.zones, self.subsurfaces, self.airboundaries
         )
+    @property
+    def unique_subsurfaces(self):
+        return get_unique_subsurfaces(self.subsurfaces)
+    
+    @property
+    def unique_airboundaries(self):
+        return get_unique_airboundaries(self.airboundaries)
 
     # should define unique subsurfaces, zone names in upper case, etc..
     # sql results all come in upper case for some reason .. even though on the idf is written in normal case..

@@ -1,0 +1,81 @@
+from typing import Callable
+
+import matplotlib as mpl
+import matplotlib.cm as cm
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.axes import Axes
+from matplotlib.colorbar import Colorbar
+from matplotlib.colors import Colormap, Normalize, TwoSlopeNorm
+
+ColorBarFx = Callable[
+    [list[float] | np.ndarray, Axes],
+    tuple[tuple[Colorbar], Colormap, Normalize | TwoSlopeNorm],
+]
+
+
+def pressure_colorbar(data: list[float] | np.ndarray, ax: Axes):
+    expansion = 1.3
+    if len(data) == 1:
+        res = data[0]
+        norm = Normalize(vmin=res - expansion, vmax=res + expansion)
+        cmap = mpl.colormaps["YlOrRd_r"]
+
+    else:
+        min_, max_ = (
+            min(data) * expansion,
+            max(data) * expansion,
+        )  # TODO come up with a better way of doing this expansion thing / figuring out the limits of data to show..
+        # TODO reverse colors for pressure!
+
+        if max_ <= 0:
+            norm = Normalize(vmin=min_, vmax=max_)
+            cmap = mpl.colormaps["YlOrRd_r"]
+        else:
+            center = 0
+
+            norm = TwoSlopeNorm(vmin=min_, vcenter=center, vmax=max_)
+
+            cmap = mpl.colormaps["RdYlBu"]
+
+    bar = (
+        plt.colorbar(
+            cm.ScalarMappable(norm=norm, cmap=cmap),
+            orientation="vertical",
+            label="Total Pressure [Pa]",
+            ax=ax,
+            # shrink=0.5
+            # TODO pass in the label
+        ),
+    )
+    return bar, cmap, norm
+
+
+def temperature_colorbar(data: list[float] | np.ndarray, ax: Axes):
+    cmap = mpl.colormaps["YlOrRd"]
+    min_, max_ = min(data), max(data)
+    norm = Normalize(vmin=min_, vmax=max_)
+    bar = (
+        plt.colorbar(
+            cm.ScalarMappable(norm=norm, cmap=cmap),
+            orientation="vertical",
+            label="Temperature [ºC]",
+            ax=ax,
+        ),
+    )
+    return bar, cmap, norm
+
+
+def flow_colorbar(data: list[float] | np.ndarray, ax: Axes):
+    cmap = mpl.colormaps["PuBu"]
+    min_, max_ = min(data), max(data)
+    norm = Normalize(vmin=min_, vmax=max_)
+    bar = (
+        plt.colorbar(
+            cm.ScalarMappable(norm=norm, cmap=cmap),
+            orientation="vertical",
+            label="Volume Flow Rate [m3/s]",
+            ax=ax,
+        ),
+    )
+    return bar, cmap, norm
