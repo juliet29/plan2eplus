@@ -3,7 +3,7 @@ from replan2eplus.ezcase.read import ExistCase, get_geom_objects
 from replan2eplus.geometry.coords import Coordinate3D
 import pytest
 
-from replan2eplus.geometry.calc_domain2 import compute_unit_normal
+from replan2eplus.geometry.ezobject_domain import compute_unit_normal
 
 # TODO this seems wrong location?? 
 

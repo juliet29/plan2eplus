@@ -2,7 +2,7 @@ from geomeppy.geom.polygons import Polygon3D
 from replan2eplus.geometry.coords import Coord, Coordinate3D
 from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.ortho_domain import OrthoDomain
-from replan2eplus.geometry.planedef import AXIS, Plane
+from replan2eplus.geometry.plane import AXIS, Plane
 from replan2eplus.geometry.range import Range
 from loguru import logger
 from pathlib import Path

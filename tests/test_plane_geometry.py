@@ -1,13 +1,13 @@
 from typing import Callable
 from replan2eplus.geometry.coords import Coordinate3D
-from replan2eplus.geometry.planedef import AXIS
-from replan2eplus.geometry.planedef import Plane
+from replan2eplus.geometry.plane import AXIS
+from replan2eplus.geometry.plane import Plane
 from replan2eplus.geometry.range import Range
 from replan2eplus.geometry.domain import Domain
 from dataclasses import dataclass
 import pytest
-from replan2eplus.geometry.calc_domain2 import create_domain_from_coords
-from replan2eplus.geometry.calc_domain2 import compute_unit_normal
+from replan2eplus.geometry.ezobject_domain import create_domain_from_coords
+from replan2eplus.geometry.ezobject_domain import compute_unit_normal
 
 
 @dataclass

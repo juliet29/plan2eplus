@@ -8,7 +8,7 @@ from replan2eplus.errors import IDFMisunderstandingError, BadlyFormatedIDFError
 from eppy.bunch_subclass import EpBunch
 from replan2eplus.geometry.coords import Coordinate3D
 from replan2eplus.geometry.directions import WallNormal
-from replan2eplus.geometry.calc_domain2 import compute_unit_normal, create_domain_from_coords
+from replan2eplus.geometry.ezobject_domain import compute_unit_normal, create_domain_from_coords
 
 from rich.table import Table
 

@@ -1,16 +1,11 @@
 from replan2eplus.examples.defaults import PATH_TO_IDD
 from replan2eplus.ezcase.read import ExistCase
 from replan2eplus.paths import TWO_ROOM_AIRBOUNDARY_RESULTS
+from replan2eplus.results.sql import get_qoi
 from replan2eplus.visuals.data_plot import DataPlot
-from replan2eplus.results.sql import create_result_for_qoi, get_sql_results
-from replan2eplus.idfobjects.variables import OutputVariables
+
 
 from pathlib import Path
-
-
-def get_qoi(qoi: OutputVariables, path: Path = TWO_ROOM_AIRBOUNDARY_RESULTS):
-    sql = get_sql_results(path)
-    return create_result_for_qoi(sql, qoi)
 
 
 def plot_zones_and_connections(

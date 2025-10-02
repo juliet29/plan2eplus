@@ -9,7 +9,7 @@ from replan2eplus.geometry.coords import Coord
 from replan2eplus.geometry.domain import Domain
 from replan2eplus.visuals.transform import (
     domain_to_line,
-    domain_to_rectangle,
+    domain_to_mpl_polygon,
     subsurface_to_connection_line,
 )
 from replan2eplus.visuals.styles.artists import (
@@ -21,7 +21,7 @@ from replan2eplus.visuals.styles.artists import (
 
 def add_rectangles(domains: list[Domain], styles: list[RectangleStyles], axes: Axes):
     def update(domain, style):
-        rectangle = domain_to_rectangle(domain)
+        rectangle = domain_to_mpl_polygon(domain)
         rectangle.set(**style.values)
         axes.add_artist(rectangle)
 

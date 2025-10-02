@@ -1,10 +1,11 @@
 from pathlib import Path
-from dataclasses import dataclass
-from ladybug.sql import SQLiteResult
-from replan2eplus.results.config import PATH_TO_SQL_SUBPATH
-from replan2eplus.results.collections import SQLCollection
+
 from ladybug.datacollection import BaseCollection
-from replan2eplus.results.collections import QOIResult
+from ladybug.sql import SQLiteResult
+
+from replan2eplus.idfobjects.variables import OutputVariables
+from replan2eplus.results.collections import QOIResult, SQLCollection
+from replan2eplus.results.config import PATH_TO_SQL_SUBPATH
 
 
 def get_sql_results(path_to_outputs: Path):
@@ -38,3 +39,8 @@ def create_result_for_qoi(sql: SQLiteResult, var: str):
     raise Exception(
         f"Invalid variable request: {var} not in {sql.available_outputs} in {sql}"
     )
+
+
+def get_qoi(qoi: OutputVariables, path_to_outputs: Path):
+    sql = get_sql_results(path_to_outputs)
+    return create_result_for_qoi(sql, qoi)

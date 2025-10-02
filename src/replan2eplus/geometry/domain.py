@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from replan2eplus.geometry.coords import Coord
-from replan2eplus.geometry.planedef import Plane
+from replan2eplus.geometry.plane import Plane
 from replan2eplus.geometry.range import Range
 
 

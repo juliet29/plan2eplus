@@ -22,7 +22,7 @@ class Room:
             corner_points = calculate_corner_points(self.domain)
             return corner_points.tuple_list
         else:
-            return self.domain.tuple_coords
+            return self.domain.tuple_list
 
     # NOTE: this translation ensures that the domain is in the correct order, but should I have another check?
 

@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from matplotlib.lines import Line2D
-from matplotlib.patches import Rectangle
+from matplotlib.patches import Rectangle, Polygon
 
 from replan2eplus.errors import IDFMisunderstandingError
 
@@ -9,14 +9,15 @@ from replan2eplus.ezobjects.subsurface import Edge
 
 from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.ezobjects.zone import get_zones
-from replan2eplus.geometry.contact_points import CardinalPoints
+from replan2eplus.geometry.contact_points import CardinalPoints, calculate_corner_points
 from replan2eplus.geometry.coords import Coord
 from replan2eplus.geometry.directions import WallNormalNamesList
 from replan2eplus.geometry.domain import (
     Domain,
 )
-from replan2eplus.geometry.planedef import Plane
+from replan2eplus.geometry.plane import Plane
 from replan2eplus.geometry.range import Range
+from replan2eplus.geometry.ortho_domain import OrthoDomain
 from typing import NamedTuple
 
 EXPANSION_FACTOR = 1.1
@@ -50,13 +51,24 @@ class Line:
         )
 
 
-def domain_to_rectangle(domain: Domain):
+def domain_to_mpl_polygon(domain: Domain | OrthoDomain):
+    if isinstance(domain, Domain):
+        coords = calculate_corner_points(domain)
+        # TODO is fill = false needed?
+        return Polygon(coords.tuple_list, fill=False)
+    else:
+        return Polygon(domain.tuple_list, fill=False)
+
+
     return Rectangle(
         (domain.horz_range.min, domain.vert_range.min),
         domain.horz_range.size,
         domain.vert_range.size,
         fill=False,
     )
+
+
+# TODO -> domain to patch..
 
 
 # TODO write tests for this! and potentially move to geometry folder ..
@@ -66,6 +78,7 @@ def domain_to_line(domain: Domain):
     if plane.axis == "Z":
         raise IDFMisunderstandingError("Can't flatten a domain in the Z Plane!")
     else:
+        # TODO if is ORTHODomain, use bounding box
         min_ = domain.horz_range.min
         max_ = domain.horz_range.max
     if plane.axis == "X":
@@ -90,6 +103,7 @@ def subsurface_to_connection_line(
     middle_coord = Coord(*domain_to_line(domain).centroid)
 
     zone_a = get_zones(space_a, zones)
+    # TODO define centroid as centroid of bounding box..
     coord_a = zone_a.domain.centroid
     if space_b in WallNormalNamesList:
         coord_b = cardinal_coords.dict_[space_b]

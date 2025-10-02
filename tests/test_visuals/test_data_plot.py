@@ -7,7 +7,7 @@ from replan2eplus.results.sql import create_result_for_qoi, get_sql_results
 from replan2eplus.visuals.data_plot import DataPlot, filter_data_arr
 from pathlib import Path
 
-from replan2eplus.visuals.examples import plot_zones_and_connections
+from replan2eplus.examples.plot_example import plot_zones_and_connections
 
 
 def get_qoi(qoi: OutputVariables, path: Path = TWO_ROOM_RESULTS):
