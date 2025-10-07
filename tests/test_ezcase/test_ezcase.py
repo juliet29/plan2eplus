@@ -32,11 +32,11 @@ def run_ortho_case(output_directory):
     return case
 
 
+# TODO this should be moved to examples 
 def run_simple_ezcase(output_directory):
     case = EZCase(PATH_TO_IDD, PATH_TO_MINIMAL_IDF, PATH_TO_WEATHER_FILE)
     case.initialize_idf()
     case.add_zones(test_rooms)
-
     case.add_subsurfaces(three_details_subsurface_inputs.inputs)
 
     case.add_constructions_from_other_idf(

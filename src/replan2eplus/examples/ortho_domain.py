@@ -4,6 +4,8 @@ from replan2eplus.ops.zones.interfaces import OrthoDomain, Room
 from replan2eplus.examples.cases.minimal import get_minimal_case
 from rich import print
 
+# TODO this should probably be in cases 
+
 ORTHO_COORDS = [(1, 1), (2, 1), (2, 2), (3, 2), (3, 3), (1, 3)] # NOTE: upside down L -> top > bottom 
 HEIGHT = 3
 ortho_room = Room(0, "ortho", OrthoDomain.from_tuple_list(ORTHO_COORDS), HEIGHT)
