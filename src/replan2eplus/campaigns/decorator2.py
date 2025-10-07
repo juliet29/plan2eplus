@@ -3,6 +3,9 @@ from dataclasses import dataclass
 from itertools import product
 from rich import print
 from utils4plans.lists import chain_flatten
+from replan2eplus.examples.cases.minimal import test_rooms
+from replan2eplus.examples.subsurfaces import e0, e1, e2, e3
+from replan2eplus.ops.subsurfaces.interfaces import Dimension
 
 
 class Option:
@@ -60,7 +63,7 @@ class DefinitionDict:
     modifications: list[Variable]
 
     @property
-    def combinations(self):
+    def experiments(self):
         def define_mod_experiments(mod: Variable):
             return [
                 ExperimentDef(i, j)
@@ -78,5 +81,32 @@ class DefinitionDict:
         return default_cases + modification_cases
 
 
-def make_experimental_campaign(definitions: DefinitionDict):
-    pass
+def make_experimental_campaign(defn_dict: DefinitionDict):
+    def decorator_experimental_campaign(func):
+        def wrapper(*args, **kwargs):
+            experiments = defn_dict.experiments
+            # case will be run multiple time for each experiment -> # TODO write logic to pull from the data dict..
+            print("Have created experiments!")
+            data_dict = {
+                "rooms": {
+                    "A": [test_rooms[0], test_rooms[1]],
+                    "B": [],
+                },
+                "edges": {
+                    "A": {ix: i for ix, i in enumerate([e0, e1, e2, e3])},
+                    "B": [],
+                },
+                "edge_detail_map": {"A": {0: [1, 2], 1: [3, 4]}}, # TODO think about how this is coming in.. is it coming in separetly -> is it the same for all? have that flexibility in any case.. 
+                "windows": {"-50%": Dimension(0.5, 2), "standard": 1, "+50%": 2},
+            }
+            case = func(
+                data_dict["rooms"]["A"],
+                data_dict["edges"]["A"],
+                data_dict["edge_detail_map"]["A"],
+                data_dict["windows"]["-50%"],
+            )
+            return
+
+        return wrapper
+
+    return decorator_experimental_campaign
