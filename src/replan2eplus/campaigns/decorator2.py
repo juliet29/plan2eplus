@@ -1,4 +1,4 @@
-from typing import NamedTuple, TypedDict
+from typing import Any, NamedTuple, TypedDict
 from dataclasses import dataclass
 from itertools import product
 from rich import print
@@ -6,6 +6,7 @@ from utils4plans.lists import chain_flatten
 from replan2eplus.examples.cases.minimal import test_rooms
 from replan2eplus.examples.subsurfaces import e0, e1, e2, e3
 from replan2eplus.ops.subsurfaces.interfaces import Dimension
+from rich import print
 
 
 class Option:
@@ -81,30 +82,52 @@ class DefinitionDict:
         return default_cases + modification_cases
 
 
-def make_experimental_campaign(defn_dict: DefinitionDict):
+@dataclass
+class DataDict:
+    case: dict[str, dict[str, list]]
+    mods: dict[str, dict[str, Any]]  # really will be list
+
+    def verify_match_defn_dict(self, defn_dict: DefinitionDict):
+        assert set(self.case.keys()) == set(defn_dict.case_variables), (
+            "Case Variables do not match"
+        )
+        # check case names  -> A, B, C
+        # check modification variable name + options.. -> some typing here for sure..
+
+
+def create_func_params(
+    exp: ExperimentDef, data_dict: DataDict, defn_dict: DefinitionDict
+):
+    exp.case_name
+    defn_dict.case_variables
+    # dictionary is better than list here..
+    case_values = {k: v[exp.case_name] for k, v in data_dict.case.items()}
+    mod_values = {}
+    # Actually this is the default behavior,
+    for mod in defn_dict.modifications:
+        default = mod.default_option
+        mod_values[mod.name] = data_dict.mods[mod.name][default]
+    if exp.modification:
+        mod = exp.modification
+        mod_values[mod.name] = data_dict.mods[mod.selection]
+    # print(case_values)
+    # print(mod_values)
+    return case_values, mod_values
+    # TODO some checks to make sure these are aligned
+
+
+def make_experimental_campaign(defn_dict: DefinitionDict, data_dict: DataDict):
     def decorator_experimental_campaign(func):
         def wrapper(*args, **kwargs):
             experiments = defn_dict.experiments
-            # case will be run multiple time for each experiment -> # TODO write logic to pull from the data dict..
             print("Have created experiments!")
-            data_dict = {
-                "rooms": {
-                    "A": [test_rooms[0], test_rooms[1]],
-                    "B": [],
-                },
-                "edges": {
-                    "A": {ix: i for ix, i in enumerate([e0, e1, e2, e3])},
-                    "B": [],
-                },
-                "edge_detail_map": {"A": {0: [1, 2], 1: [3, 4]}}, # TODO think about how this is coming in.. is it coming in separetly -> is it the same for all? have that flexibility in any case.. 
-                "windows": {"-50%": Dimension(0.5, 2), "standard": 1, "+50%": 2},
-            }
-            case = func(
-                data_dict["rooms"]["A"],
-                data_dict["edges"]["A"],
-                data_dict["edge_detail_map"]["A"],
-                data_dict["windows"]["-50%"],
+
+            # case will be run multiple time for each experiment -
+            case_values, mod_values = create_func_params(
+                experiments[0], data_dict, defn_dict
             )
+
+            case = func(**case_values, **mod_values)
             return
 
         return wrapper

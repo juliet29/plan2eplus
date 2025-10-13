@@ -3,9 +3,10 @@ from replan2eplus.ezcase.main import EZCase
 from replan2eplus.ops.zones.interfaces import Room
 from replan2eplus.paths import PATH_TO_WEATHER_FILE
 from replan2eplus.campaigns.decorator2 import make_experimental_campaign
-from replan2eplus.examples.campaigns import SampleDef
+from replan2eplus.campaigns.inputs.defn import SampleDef
+from replan2eplus.campaigns.inputs.data import make_data_dict
 from replan2eplus.ops.subsurfaces.interfaces import (
-    SubsurfaceInputs,
+    SubsurfaceInputs2,
     Edge,
     Detail,
     Dimension,
@@ -13,16 +14,20 @@ from replan2eplus.ops.subsurfaces.interfaces import (
 )
 
 
-@make_experimental_campaign(SampleDef().definition_dict)
-def run_simple_ezcase(rooms, edges, edge_detail_map, dimension):
-    door_detail = Detail(
-        Dimension(1, 2), Location("mm", "CENTROID", "CENTROID"), "Door"
-    )
-    window_detail = Detail(dimension, Location("mm", "CENTROID", "CENTROID"), "Window")
+# TODO: the definition of "run simple ezcase has to match the data dict variables -> can this be assured?"
+@make_experimental_campaign(SampleDef().definition_dict, make_data_dict())
+def run_simple_ezcase(rooms, connections, window_dimension):
+    details = {
+        "door": Detail(
 
-    ss_input = SubsurfaceInputs(
-        edges, {0: window_detail, 1: door_detail}, edge_detail_map
-    )  # TODO: think about how to map.. or better way to define subsurfaces..  -> should be able to pass in a list?
+            window_dimension, Location("mm", "CENTROID", "CENTROID"), "Door"
+        ),
+        "window": Detail(
+            Dimension(1, 2), Location("mm", "CENTROID", "CENTROID"), "Window"
+        ),
+    }
+
+    ss_input = SubsurfaceInputs2(connections, details)
 
     print("Starting to create case!")
     case = EZCase(PATH_TO_IDD, PATH_TO_MINIMAL_IDF, PATH_TO_WEATHER_FILE)
@@ -33,4 +38,4 @@ def run_simple_ezcase(rooms, edges, edge_detail_map, dimension):
 
 
 if __name__ == "__main__":
-    run_simple_ezcase("", "", "", "")
+    run_simple_ezcase("", "", "" )

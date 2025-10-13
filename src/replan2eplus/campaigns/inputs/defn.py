@@ -1,9 +1,9 @@
-from replan2eplus.campaigns.decorator2 import DefinitionDict, Option, Variable
+from replan2eplus.campaigns.decorator2 import DefinitionDict, Option, Variable 
 
 
 class SampleDef:  # TOODO move to examples
     window_mods = Variable(
-        "windows", [Option("-50%"), Option("standard", IS_DEFAULT=True), Option("+50%")]
+        "window_dimension", [Option("-50%"), Option("standard", IS_DEFAULT=True), Option("+50%")]
     )
 
     door_open_modes = Variable(
@@ -23,5 +23,6 @@ class SampleDef:  # TOODO move to examples
         return DefinitionDict(
             self.case_names,
             self.case_variables,
-            [self.window_mods, self.door_open_modes],
+            [self.window_mods ],
         )
+

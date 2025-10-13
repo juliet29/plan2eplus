@@ -36,6 +36,7 @@ assert isinstance(room1.domain, Domain)
 dimension = Dimension(
     room1.domain.horz_range.size / FACTOR, room1.domain.vert_range.size / FACTOR
 )
+
 door_details = Detail(dimension, location, "Door")
 window_details = Detail(dimension, location, "Window")
 window_details_bl = Detail(dimension, location_bl, "Window")
@@ -58,7 +59,7 @@ e3 = Edge(room2.name, "SOUTH")
 
 
 
-
+#TODO: think about how to input edge groups with combined types.. 
 edge_groups = {
     "door": [EdgeGroup.from_tuple_edges([e0], "door", "Zone_Zone")],
     "window": [
