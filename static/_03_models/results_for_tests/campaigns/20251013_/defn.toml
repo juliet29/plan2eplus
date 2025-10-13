@@ -1,0 +1,16 @@
+case_names = [
+    "A",
+    "B",
+]
+case_variables = [
+    "rooms",
+    "connections",
+]
+
+[[modifications]]
+name = "window_dimension"
+options = [
+    { name = "-50%" },
+    { name = "standard", DEFAULT = true },
+    { name = "+50%" },
+]

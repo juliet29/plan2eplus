@@ -12,14 +12,16 @@ from replan2eplus.ops.subsurfaces.interfaces import (
     Dimension,
     Location,
 )
+from replan2eplus.paths import CAMPAIGN_TESTS
 
 
 # TODO: the definition of "run simple ezcase has to match the data dict variables -> can this be assured?"
-@make_experimental_campaign(SampleDef().definition_dict, make_data_dict())
-def run_simple_ezcase(rooms, connections, window_dimension):
+@make_experimental_campaign(
+    SampleDef().definition_dict, make_data_dict(), root_path=CAMPAIGN_TESTS
+)
+def run_simple_ezcase(rooms, connections, window_dimension, out_path):
     details = {
         "door": Detail(
-
             window_dimension, Location("mm", "CENTROID", "CENTROID"), "Door"
         ),
         "window": Detail(
@@ -34,8 +36,9 @@ def run_simple_ezcase(rooms, connections, window_dimension):
     case.initialize_idf()
     case.add_zones(rooms)
     case.add_subsurfaces(ss_input)
+    case.save_and_run_case(path_=out_path, RUN=False)
     print("Done creating case!")
 
 
 if __name__ == "__main__":
-    run_simple_ezcase("", "", "" )
+    run_simple_ezcase("", "", "", "")

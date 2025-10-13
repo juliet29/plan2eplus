@@ -13,6 +13,8 @@ TWO_ROOM_AIRBOUNDARY_RESULTS = TEST_RESULTS / "two_room_airboundary"
 
 ORTHO_CASE_RESULTS = TEST_RESULTS / "ortho"
 
+CAMPAIGN_TESTS = TEST_RESULTS / "campaigns"
+
 PATH_TO_WEATHER_FILE = (
     static_paths.inputs / "weather/PALO_ALTO/CA_PALO-ALTO-AP_724937_23.EPW"
 )

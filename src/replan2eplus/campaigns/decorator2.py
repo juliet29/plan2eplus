@@ -1,8 +1,10 @@
-from typing import Any, NamedTuple, TypedDict
+from pathlib import Path
+from typing import Any, Callable, NamedTuple, TypedDict
 from dataclasses import dataclass
 from itertools import product
 from rich import print
 from utils4plans.lists import chain_flatten
+from utils4plans.io import create_date_string, get_or_make_folder_path, write_toml
 from replan2eplus.examples.cases.minimal import test_rooms
 from replan2eplus.examples.subsurfaces import e0, e1, e2, e3
 from replan2eplus.ops.subsurfaces.interfaces import Dimension
@@ -14,10 +16,22 @@ class Option:
         self.name: str = name
         self.IS_DEFAULT = IS_DEFAULT
 
+    @property
+    def toml(self):
+        return (
+            {"name": self.name}
+            if not self.IS_DEFAULT
+            else {"name": self.name, "DEFAULT": self.IS_DEFAULT}
+        )
+
 
 class ModificationSelection(NamedTuple):
     name: str
     selection: str
+
+    @property
+    def toml(self):
+        return {self.name: self.selection}
 
 
 class Variable(NamedTuple):
@@ -51,10 +65,21 @@ class Variable(NamedTuple):
             for i, j in product([self.name], self.non_default_options)
         ]
 
+    @property
+    def toml(self):
+        return {"name": self.name, "options": [i.toml for i in self.options]}
+
 
 class ExperimentDef(NamedTuple):
     case_name: str
     modification: ModificationSelection | None = None
+
+    @property
+    def toml(self):
+        d1 = {"case": self.case_name}
+        d2 = {"modifications": "" if not self.modification else self.modification.toml}
+        res = {**d1, **d2}
+        return res
 
 
 @dataclass
@@ -63,6 +88,7 @@ class DefinitionDict:
     case_variables: list[str]  # zones, surfaces
     modifications: list[Variable]
 
+    # TODO can this be extended to handle prodycts?
     @property
     def experiments(self):
         def define_mod_experiments(mod: Variable):
@@ -81,6 +107,14 @@ class DefinitionDict:
 
         return default_cases + modification_cases
 
+    @property
+    def toml(self):
+        d = {}
+        d["case_names"] = self.case_names
+        d["case_variables"] = self.case_variables
+        d["modifications"] = [i.toml for i in self.modifications]
+        return d
+
 
 @dataclass
 class DataDict:
@@ -91,8 +125,13 @@ class DataDict:
         assert set(self.case.keys()) == set(defn_dict.case_variables), (
             "Case Variables do not match"
         )
+        # TODO!
         # check case names  -> A, B, C
         # check modification variable name + options.. -> some typing here for sure..
+
+    @property
+    def toml(self):
+        return {"case": self.case, "mods": self.mods}
 
 
 def create_func_params(
@@ -109,25 +148,71 @@ def create_func_params(
         mod_values[mod.name] = data_dict.mods[mod.name][default]
     if exp.modification:
         mod = exp.modification
-        mod_values[mod.name] = data_dict.mods[mod.selection]
-    # print(case_values)
-    # print(mod_values)
+        mod_values[mod.name] = data_dict.mods[mod.name][mod.selection]
     return case_values, mod_values
     # TODO some checks to make sure these are aligned
 
 
-def make_experimental_campaign(defn_dict: DefinitionDict, data_dict: DataDict):
+# TODO add to config
+EXP_TOML_NAME = "metadata"
+DATA_TOML_NAME = "data"
+DEFN_TOML_NAME = "defn"
+
+
+def prepare_experiment(
+    ix: int,
+    exp: ExperimentDef,
+    data_dict: DataDict,
+    defn_dict: DefinitionDict,
+    func: Callable,
+    campaign_path: Path,
+):
+    print(f"\nExp {ix} | {exp}")
+    exp_name = f"{ix:03}"
+    exp_path = get_or_make_folder_path(campaign_path, exp_name)
+    write_toml(exp.toml, exp_path, EXP_TOML_NAME)
+
+    # write metadata.toml to path
+    # return path to case so that out.idf can be saved..
+
+    case_values, mod_values = create_func_params(exp, data_dict, defn_dict)
+
+    case = func(**case_values, **mod_values, out_path=exp_path)
+    return case
+
+
+def write_campaign_toml(
+    data_dict: DataDict,
+    defn_dict: DefinitionDict,
+    campaign_name: str,
+    campaign_path: Path,
+):
+    metadata = {"date": create_date_string(), "name": campaign_name}
+    write_toml(metadata, campaign_path, EXP_TOML_NAME)
+    # write_toml(data_dict.toml, campaign_path, DATA_TOML_NAME)
+    write_toml(defn_dict.toml, campaign_path, DEFN_TOML_NAME)
+
+
+def make_experimental_campaign(
+    defn_dict: DefinitionDict,
+    data_dict: DataDict,
+    root_path: Path,
+    campaign_name: str = "",
+    OVERWRITE=False,
+):
     def decorator_experimental_campaign(func):
         def wrapper(*args, **kwargs):
+            campaign_full_name = f"{create_date_string()}_{campaign_name}"
+            campaign_path = get_or_make_folder_path(root_path, campaign_full_name)
+            write_campaign_toml(data_dict, defn_dict, campaign_name, campaign_path)
+
             experiments = defn_dict.experiments
             print("Have created experiments!")
+            for ix, exp in enumerate(experiments):
+                case = prepare_experiment(
+                    ix, exp, data_dict, defn_dict, func, campaign_path
+                )
 
-            # case will be run multiple time for each experiment -
-            case_values, mod_values = create_func_params(
-                experiments[0], data_dict, defn_dict
-            )
-
-            case = func(**case_values, **mod_values)
             return
 
         return wrapper
