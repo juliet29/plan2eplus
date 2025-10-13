@@ -7,7 +7,7 @@ from replan2eplus.examples.campaigns import SampleDef
 from replan2eplus.ops.subsurfaces.interfaces import (
     SubsurfaceInputs,
     Edge,
-    Details,
+    Detail,
     Dimension,
     Location,
 )
@@ -15,10 +15,10 @@ from replan2eplus.ops.subsurfaces.interfaces import (
 
 @make_experimental_campaign(SampleDef().definition_dict)
 def run_simple_ezcase(rooms, edges, edge_detail_map, dimension):
-    door_detail = Details(
+    door_detail = Detail(
         Dimension(1, 2), Location("mm", "CENTROID", "CENTROID"), "Door"
     )
-    window_detail = Details(dimension, Location("mm", "CENTROID", "CENTROID"), "Window")
+    window_detail = Detail(dimension, Location("mm", "CENTROID", "CENTROID"), "Window")
 
     ss_input = SubsurfaceInputs(
         edges, {0: window_detail, 1: door_detail}, edge_detail_map

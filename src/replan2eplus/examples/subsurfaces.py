@@ -1,11 +1,14 @@
+from replan2eplus.geometry.domain import Domain
 from replan2eplus.idfobjects.subsurface import SubsurfaceObject
 from replan2eplus.ops.subsurfaces.interfaces import (
     ZoneEdge,
     ZoneDirectionEdge,
-    Details,
+    Detail,
     Location,
     SubsurfaceInputs,
-    Dimension
+    Dimension,
+    EdgeGroup,
+    SubsurfaceInputs2,
 )
 from replan2eplus.examples.cases.minimal import get_minimal_case_with_rooms, test_rooms
 from replan2eplus.geometry.directions import WallNormal
@@ -28,12 +31,19 @@ zone_drn_edge_room2 = ZoneDirectionEdge(room2.name, WallNormal.EAST)
 
 location = Location("mm", "SOUTH_WEST", "SOUTH_WEST")
 location_bl = Location("bm", "WEST", "WEST")
+
+assert isinstance(room1.domain, Domain)
 dimension = Dimension(
     room1.domain.horz_range.size / FACTOR, room1.domain.vert_range.size / FACTOR
 )
-door_details = Details(dimension, location, "Door")
-window_details = Details(dimension, location, "Window")
-window_details_bl = Details(dimension, location_bl, "Window")
+door_details = Detail(dimension, location, "Door")
+window_details = Detail(dimension, location, "Window")
+window_details_bl = Detail(dimension, location_bl, "Window")
+details = {
+    "door": Detail(dimension, location, "Door"),
+    "window": Detail(dimension, location_bl, "Window"),
+    "window_bl": Detail(dimension, location_bl, "Window"),
+}
 
 
 # testing actual implementation..
@@ -42,7 +52,7 @@ window_details_bl = Details(dimension, location_bl, "Window")
 @dataclass
 class SubsurfaceInputExample:
     edges: list[Edge]
-    details: list[Details]
+    details: list[Detail]
     map_: dict[int, list[int]]
 
     def to_dict(self, lst: list):
@@ -59,6 +69,7 @@ e0 = Edge(room1.name, room2.name)
 e1 = Edge(room1.name, "WEST")
 e2 = Edge(room1.name, "NORTH")
 e3 = Edge(room2.name, "SOUTH")
+
 
 interior_subsurface_inputs = SubsurfaceInputExample(
     [e0],
@@ -81,6 +92,37 @@ three_details_subsurface_inputs = SubsurfaceInputExample(
     [door_details, window_details, window_details_bl],
     {0: [0], 1: [1, 2], 2: [3]},
 )
+
+
+edge_groups = {
+    "door": [EdgeGroup.from_tuple_edges([e0], "door", "Zone_Zone")],
+    "window": [
+        EdgeGroup.from_tuple_edges(
+            [e1],
+            "window",
+            "Zone_Direction",
+        )
+    ],
+    "ns_windows": [EdgeGroup.from_tuple_edges([e2, e3], "window", "Zone_Direction")],
+    "windows": [EdgeGroup.from_tuple_edges([e1, e2, e3], "window", "Zone_Direction")],
+    "window_bl": [EdgeGroup.from_tuple_edges([e1], "window_bl", "Zone_Direction")],
+}
+
+
+subsurface_inputs_dict = {
+    "interior": SubsurfaceInputs2(
+        edge_groups["door"],
+        details,
+    ),
+    "simple": SubsurfaceInputs2(edge_groups["door"] + edge_groups["window"], details),
+    "airboundary": SubsurfaceInputs2(
+        edge_groups["door"] + edge_groups["ns_windows"], details
+    ),
+    "three_details": SubsurfaceInputs2(
+        edge_groups["door"] + edge_groups["window_bl"] + edge_groups["ns_windows"],
+        details,
+    ),
+}
 
 
 def get_minimal_case_with_subsurfaces():

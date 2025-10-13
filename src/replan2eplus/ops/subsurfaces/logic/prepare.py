@@ -4,10 +4,10 @@ from replan2eplus.ops.subsurfaces.interfaces import Dimension
 from replan2eplus.geometry.range import Range
 from replan2eplus.idfobjects.subsurface import SubsurfaceObject
 from replan2eplus.ops.subsurfaces.config import DOMAIN_SHRINK_FACTOR
-from replan2eplus.ops.subsurfaces.interfaces import Details
+from replan2eplus.ops.subsurfaces.interfaces import Detail
 
 
-def compare_and_maybe_change_dimensions(detail: Details, domain: Domain):
+def compare_and_maybe_change_dimensions(detail: Detail, domain: Domain):
     def compare_and_maybe_change_dimension(
         dimension: float, range_: Range, shrink_factor=DOMAIN_SHRINK_FACTOR
     ):
@@ -18,7 +18,7 @@ def compare_and_maybe_change_dimensions(detail: Details, domain: Domain):
     dimension = detail.dimension
     width = compare_and_maybe_change_dimension(dimension.width, domain.horz_range)
     height = compare_and_maybe_change_dimension(dimension.height, domain.vert_range)
-    return Details(Dimension(width, height), detail.location, detail.type_)
+    return Detail(Dimension(width, height), detail.location, detail.type_)
 
 
 def compare_range(range_: Range, subsurf_range_: Range):
@@ -33,7 +33,7 @@ def compare_domain(domain: Domain, subsurf_domain: Domain):
     compare_range(domain.vert_range, subsurf_domain.vert_range)
 
 
-def create_ss_name(surface_name: str, detail: Details):
+def create_ss_name(surface_name: str, detail: Detail):
     if surface_name:
         return f"{detail.type_}__{surface_name}"
     else:
@@ -45,7 +45,7 @@ def prepare_object(
     surface_name: str,
     subsurf_domain: Domain,
     main_surface_domain: Domain,
-    detail: Details,
+    detail: Detail,
     nb_surface_name: str = "",
 ):
     # HERE CHECK SUBSURF DOMAINS..

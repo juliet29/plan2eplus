@@ -4,7 +4,7 @@ from replan2eplus.ezobjects.subsurface import Subsurface
 from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.idfobjects.idf import IDF
 from replan2eplus.ops.subsurfaces.interfaces import (
-    SubsurfaceInputs,
+    SubsurfaceInputs2,
 )
 from replan2eplus.ops.subsurfaces.logic.exterior import (
     create_subsurface_for_exterior_edge,
@@ -14,7 +14,7 @@ from replan2eplus.ops.subsurfaces.logic.interior import (
 )
 
 def create_subsurfaces(
-    inputs: SubsurfaceInputs,
+    inputs: SubsurfaceInputs2,
     zones: list[Zone],
     idf: IDF,
 ):

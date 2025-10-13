@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from utils4plans.sets import set_intersection
 from typing import NamedTuple, Literal, TypeVar, Union
 from replan2eplus.ezobjects.subsurface import Edge
+from replan2eplus.ezobjects.zone import chain_flatten
 from replan2eplus.geometry.contact_points import CornerEntries, CardinalEntries
 from replan2eplus.geometry.directions import WallNormal, WallNormalNamesList
 from replan2eplus.geometry.nonant import NonantEntries
@@ -40,7 +41,7 @@ class Location(NamedTuple):
     # TODO make some defaults!
 
 
-class Details(NamedTuple):
+class Detail(NamedTuple):
     dimension: Dimension
     location: Location
     type_: Literal["Door", "Window"]
@@ -64,7 +65,7 @@ T = TypeVar("T")
 @dataclass
 class EdgeGroup:
     edges: list[Edge]
-    detail: Details | str 
+    detail: str
     type_: Literal["Zone_Direction", "Zone_Zone"]
 
     def __post_init__(self):
@@ -74,7 +75,7 @@ class EdgeGroup:
     def from_tuple_edges(
         cls,
         edges_: list[tuple[str, str]],
-        detail: Details|str,
+        detail: str,
         type_: Literal["Zone_Direction", "Zone_Zone"],
     ):
         edges = [Edge(*i) for i in edges_]
@@ -96,11 +97,48 @@ class EdgeGroup:
 @dataclass
 class SubsurfaceInputs2:
     edge_groups: list[EdgeGroup]
+    details: dict[str, Detail]
+
+    def get_detail(self, edge_group: EdgeGroup):
+        return self.details[edge_group.detail]
+
+    @property
+    def zone_pairs(self) -> list[tuple[ZoneEdge, Detail]]:
+        return chain_flatten(
+            [
+                self.make_edge_group_edges(i)
+                for i in self.edge_groups
+                if i.type_ == "Zone_Zone"
+            ]
+        )  # type: ignore
+
+    @property
+    def zone_drn_pairs(self) -> list[tuple[ZoneDirectionEdge, Detail]]:
+        return chain_flatten(
+            [
+                self.make_edge_group_edges(i)
+                for i in self.edge_groups
+                if i.type_ == "Zone_Direction"
+            ]
+        )  # type: ignore
+
+    def make_edge_group_edges(self, edge_group: EdgeGroup):
+        detail = self.get_detail(edge_group)
+        if edge_group.type_ == "Zone_Direction":
+            return [
+                (
+                    ZoneDirectionEdge(*i.sorted_directed_edge),
+                    detail,
+                )
+                for i in edge_group.edges
+            ]
+        else:
+            return [(ZoneEdge(*i), detail) for i in edge_group.edges]
 
 
 class SubsurfaceInputs:
     edges: dict[int, Edge]
-    details: dict[int, Details]
+    details: dict[int, Detail]
     map_: (
         dict[int, list[int]] | list[IndexPair]
     )  # TODO -> is there a better way to do this?

@@ -2,7 +2,7 @@ from replan2eplus.errors import IDFMisunderstandingError
 from replan2eplus.ezobjects.subsurface import Edge, Subsurface
 from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.idfobjects.idf import IDF
-from replan2eplus.ops.subsurfaces.interfaces import Details, ZoneEdge
+from replan2eplus.ops.subsurfaces.interfaces import Detail, ZoneEdge
 from replan2eplus.ops.subsurfaces.logic.prepare import (
     compare_and_maybe_change_dimensions,
     prepare_object,
@@ -28,7 +28,7 @@ def check_for_airboundaries(main_surface, nb_surface):
 
 
 def create_subsurface_for_interior_edge(
-    edge: ZoneEdge, detail_: Details, zones: list[Zone], idf: IDF
+    edge: ZoneEdge, detail_: Detail, zones: list[Zone], idf: IDF
 ) -> tuple[Subsurface, Subsurface]:
     key: SubsurfaceKey = (f"{detail_.type_}:Interzone").upper()  # type: ignore #TODO verify!
 

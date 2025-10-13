@@ -14,10 +14,10 @@ from replan2eplus.examples.subsurfaces import (
 from replan2eplus.ezobjects.subsurface import Edge
 from replan2eplus.geometry.directions import WallNormal
 from replan2eplus.geometry.domain import Domain
-from replan2eplus.ops.subsurfaces.interfaces  import Dimension
+from replan2eplus.ops.subsurfaces.interfaces import Dimension
 from replan2eplus.geometry.range import Range
 from replan2eplus.ops.subsurfaces.interfaces import (
-    Details,
+    Detail,
     flatten_dict_map,
 )
 from replan2eplus.ops.subsurfaces.logic.interior import (
@@ -86,11 +86,11 @@ def test_create_subsurface_exterior(get_pytest_minimal_case_with_rooms):
 
 
 def test_too_large_dimension():
-    detail = Details(Dimension(10, 2), window_details.location, window_details.type_)
+    detail = Detail(Dimension(10, 2), window_details.location, window_details.type_)
 
     domain = Domain(Range(0, 3), Range(0, 3))
     new_detail = compare_and_maybe_change_dimensions(detail, domain)
-    expected_detail = Details(
+    expected_detail = Detail(
         Dimension(3 * DOMAIN_SHRINK_FACTOR, 2),
         window_details.location,
         window_details.type_,
@@ -121,12 +121,15 @@ def test_flatten_map_dummy_inputs():
 
 
 if __name__ == "__main__":
-    detail = Details(Dimension(10, 2), window_details.location, window_details.type_)
+    detail = Detail(Dimension(10, 2), window_details.location, window_details.type_)
     domain = Domain(Range(0, 3), Range(0, 3))
     new_detail = compare_and_maybe_change_dimensions(detail, domain)
-    expected_detail = Details(
+    expected_detail = Detail(
         Dimension(3 * DOMAIN_SHRINK_FACTOR, 2),
         window_details.location,
         window_details.type_,
     )
     assert new_detail == expected_detail
+
+
+# TEST subsurface location

@@ -1,8 +1,9 @@
 from replan2eplus.ezobjects.subsurface import Edge, Subsurface
 from replan2eplus.ezobjects.zone import Zone
+from replan2eplus.geometry import domain
 from replan2eplus.ops.subsurfaces.logic.placement import place_domain
 from replan2eplus.idfobjects.idf import IDF
-from replan2eplus.ops.subsurfaces.interfaces import Details, ZoneDirectionEdge
+from replan2eplus.ops.subsurfaces.interfaces import Detail, ZoneDirectionEdge
 from replan2eplus.ops.subsurfaces.logic.prepare import (
     compare_and_maybe_change_dimensions,
     prepare_object,
@@ -12,15 +13,17 @@ from replan2eplus.ops.subsurfaces.logic.select import (
 )
 from replan2eplus.idfobjects.subsurface import SubsurfaceKey
 
-#TODO: needs assurance that the subsurfaces is not orthogonal -> result of get_drn between zone and direction.. 
+
+# TODO: needs assurance that the subsurfaces is not orthogonal -> result of get_drn between zone and direction..
 def create_subsurface_for_exterior_edge(
-    edge: ZoneDirectionEdge, detail_: Details, zones: list[Zone], idf: IDF
+    edge: ZoneDirectionEdge, detail_: Detail, zones: list[Zone], idf: IDF
 ):
     key: SubsurfaceKey = detail_.type_.upper()  # type: ignore #TODO verify!
 
     surface = get_surface_between_zone_and_direction(edge, zones)
 
     # TODO check is not air boundary! -> maybe larger check when placing airboundaires to ensure the surface is internal
+    assert isinstance(surface.domain, domain.Domain)
 
     detail = compare_and_maybe_change_dimensions(detail_, surface.domain)
     subsurf_domain = place_domain(surface.domain, *detail.location, detail.dimension)
