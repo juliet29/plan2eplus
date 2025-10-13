@@ -12,7 +12,7 @@ from replan2eplus.ops.subsurfaces.logic.select import (
 )
 from replan2eplus.idfobjects.subsurface import SubsurfaceKey
 
-
+#TODO: needs assurance that the subsurfaces is not orthogonal -> result of get_drn between zone and direction.. 
 def create_subsurface_for_exterior_edge(
     edge: ZoneDirectionEdge, detail_: Details, zones: list[Zone], idf: IDF
 ):

@@ -1,8 +1,9 @@
 from dataclasses import dataclass
+from utils4plans.sets import set_intersection
 from typing import NamedTuple, Literal, TypeVar, Union
 from replan2eplus.ezobjects.subsurface import Edge
 from replan2eplus.geometry.contact_points import CornerEntries, CardinalEntries
-from replan2eplus.geometry.directions import WallNormal
+from replan2eplus.geometry.directions import WallNormal, WallNormalNamesList
 from replan2eplus.geometry.nonant import NonantEntries
 
 ContactEntries = Union[CornerEntries, CardinalEntries, Literal["CENTROID"]]
@@ -61,6 +62,42 @@ T = TypeVar("T")
 
 
 @dataclass
+class EdgeGroup:
+    edges: list[Edge]
+    detail: Details | str 
+    type_: Literal["Zone_Direction", "Zone_Zone"]
+
+    def __post_init__(self):
+        self.edges_match_type_()
+
+    @classmethod
+    def from_tuple_edges(
+        cls,
+        edges_: list[tuple[str, str]],
+        detail: Details|str,
+        type_: Literal["Zone_Direction", "Zone_Zone"],
+    ):
+        edges = [Edge(*i) for i in edges_]
+        return cls(edges, detail, type_)
+
+    # these should all have the same type of edges => either zone_edge or zone_direction edges..
+    def edges_match_type_(self):
+        for edge in self.edges:
+            if self.type_ == "Zone_Direction":
+                assert len(set_intersection(edge.as_tuple, WallNormalNamesList)) == 1, (
+                    f"Invalid `Zone_Direction` Edge: {edge}"
+                )
+            else:
+                assert len(set_intersection(edge.as_tuple, WallNormalNamesList)) == 0, (
+                    f"Invalid `Zone_Zone` Edge: {edge}"
+                )
+
+
+@dataclass
+class SubsurfaceInputs2:
+    edge_groups: list[EdgeGroup]
+
+
 class SubsurfaceInputs:
     edges: dict[int, Edge]
     details: dict[int, Details]
