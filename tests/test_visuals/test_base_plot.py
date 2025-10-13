@@ -5,7 +5,6 @@ from replan2eplus.examples.cases.afn_case import (
 from replan2eplus.examples.ortho_domain import (
     create_ortho_case,
 )
-from replan2eplus.ops.subsurfaces.utils import get_unique_subsurfaces
 
 
 def test_make_base_plot():

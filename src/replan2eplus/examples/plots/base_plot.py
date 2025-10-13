@@ -1,5 +1,3 @@
-from replan2eplus.examples.cases.minimal import get_minimal_case_with_rooms
-from replan2eplus.examples.subsurfaces import three_details_subsurface_inputs
 from replan2eplus.ezcase.main import EZCase
 from replan2eplus.ezcase.read import ExistCase
 from replan2eplus.visuals.base.base_plot import BasePlot

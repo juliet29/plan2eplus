@@ -2,7 +2,6 @@ import pytest
 
 from replan2eplus.examples.cases.minimal import get_minimal_case_with_rooms
 from replan2eplus.examples.subsurfaces import (
-    SubsurfaceInputExample,
     room1,
     room2,
 )

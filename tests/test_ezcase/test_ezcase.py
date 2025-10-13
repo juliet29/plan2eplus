@@ -1,24 +1,19 @@
-from replan2eplus.examples.paths import PATH_TO_IDD, PATH_TO_MINIMAL_IDF
+import pytest
+from rich import print as rprint
+
 from replan2eplus.examples.cases.minimal import test_rooms
-from replan2eplus.ezcase.main import EZCase
-from replan2eplus.examples.subsurfaces import (
-    e0,
-    airboundary_subsurface_inputs,
-    simple_subsurface_inputs,
-    three_details_subsurface_inputs,
-)
-from replan2eplus.examples.ortho_domain import create_ortho_case
 from replan2eplus.examples.mat_and_const import (
     PATH_TO_MAT_AND_CONST_IDF,
     PATH_TO_WINDOW_CONST_IDF,
-    material_idfs,
     SAMPLE_CONSTRUCTION_SET,
+    material_idfs,
 )
-from replan2eplus.paths import THROWAWAY_PATH, TWO_ROOM_RESULTS, ORTHO_CASE_RESULTS
-from replan2eplus.paths import PATH_TO_WEATHER_FILE
+from replan2eplus.examples.ortho_domain import create_ortho_case
+from replan2eplus.examples.paths import PATH_TO_IDD, PATH_TO_MINIMAL_IDF
+from replan2eplus.examples.subsurfaces import e0, subsurface_inputs_dict
+from replan2eplus.ezcase.main import EZCase
 from replan2eplus.idfobjects.variables import default_variables
-from rich import print as rprint
-import pytest
+from replan2eplus.paths import ORTHO_CASE_RESULTS, PATH_TO_WEATHER_FILE
 
 
 def run_ortho_case(output_directory):
@@ -32,12 +27,12 @@ def run_ortho_case(output_directory):
     return case
 
 
-# TODO this should be moved to examples 
+# TODO this should be moved to examples
 def run_simple_ezcase(output_directory):
     case = EZCase(PATH_TO_IDD, PATH_TO_MINIMAL_IDF, PATH_TO_WEATHER_FILE)
     case.initialize_idf()
     case.add_zones(test_rooms)
-    case.add_subsurfaces(three_details_subsurface_inputs.inputs)
+    case.add_subsurfaces(subsurface_inputs_dict["three_details"])
 
     case.add_constructions_from_other_idf(
         [PATH_TO_WINDOW_CONST_IDF, PATH_TO_MAT_AND_CONST_IDF],
@@ -60,7 +55,7 @@ def run_airboundary_ezcase(output_directory):
         [e0]
     )  # TODO: refuse to add airboundaries to surface with subsurfaces
     # TODO -> bring the creation up to this test, so can see complexity assoc. w/ creating it..
-    case.add_subsurfaces(airboundary_subsurface_inputs.inputs)
+    case.add_subsurfaces(subsurface_inputs_dict["airboundary"])
 
     case.add_constructions_from_other_idf(
         [PATH_TO_WINDOW_CONST_IDF, PATH_TO_MAT_AND_CONST_IDF],
@@ -97,7 +92,7 @@ def test_ezcase_simple_subsurfaces(tmp_path):
     case = EZCase(PATH_TO_IDD, PATH_TO_MINIMAL_IDF, PATH_TO_WEATHER_FILE)
     case.initialize_idf()
     case.add_zones(test_rooms)
-    case.add_subsurfaces(simple_subsurface_inputs.inputs)
+    case.add_subsurfaces(subsurface_inputs_dict["simple"])
 
     case.add_constructions_from_other_idf(
         [PATH_TO_WINDOW_CONST_IDF, PATH_TO_MAT_AND_CONST_IDF],

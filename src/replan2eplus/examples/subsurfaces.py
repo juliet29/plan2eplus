@@ -39,6 +39,7 @@ dimension = Dimension(
 door_details = Detail(dimension, location, "Door")
 window_details = Detail(dimension, location, "Window")
 window_details_bl = Detail(dimension, location_bl, "Window")
+
 details = {
     "door": Detail(dimension, location, "Door"),
     "window": Detail(dimension, location_bl, "Window"),
@@ -49,21 +50,6 @@ details = {
 # testing actual implementation..
 
 
-@dataclass
-class SubsurfaceInputExample:
-    edges: list[Edge]
-    details: list[Detail]
-    map_: dict[int, list[int]]
-
-    def to_dict(self, lst: list):
-        return {ix: i for ix, i in enumerate(lst)}
-
-    @property
-    def inputs(self):
-        return SubsurfaceInputs(
-            self.to_dict(self.edges), self.to_dict(self.details), self.map_ # type: ignore
-        )
-
 
 e0 = Edge(room1.name, room2.name)
 e1 = Edge(room1.name, "WEST")
@@ -71,27 +57,6 @@ e2 = Edge(room1.name, "NORTH")
 e3 = Edge(room2.name, "SOUTH")
 
 
-interior_subsurface_inputs = SubsurfaceInputExample(
-    [e0],
-    [door_details],
-    {0: [0]},
-)
-
-simple_subsurface_inputs = SubsurfaceInputExample(
-    [e0, e1],
-    [door_details, window_details],
-    {0: [0], 1: [1]},
-)
-
-airboundary_subsurface_inputs = SubsurfaceInputExample(
-    [e1, e2, e3], [door_details, window_details], {0: [0], 1: [1, 2]}
-)
-
-three_details_subsurface_inputs = SubsurfaceInputExample(
-    [e0, e1, e2, e3],
-    [door_details, window_details, window_details_bl],
-    {0: [0], 1: [1, 2], 2: [3]},
-)
 
 
 edge_groups = {
