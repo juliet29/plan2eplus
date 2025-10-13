@@ -65,7 +65,7 @@ T = TypeVar("T")
 @dataclass
 class EdgeGroup:
     edges: list[Edge]
-    detail: str
+    detail: str | Detail
     type_: Literal["Zone_Direction", "Zone_Zone"]
 
     def __post_init__(self):
@@ -75,7 +75,7 @@ class EdgeGroup:
     def from_tuple_edges(
         cls,
         edges_: list[tuple[str, str]],
-        detail: str,
+        detail: str | Detail,
         type_: Literal["Zone_Direction", "Zone_Zone"],
     ):
         edges = [Edge(*i) for i in edges_]
@@ -97,10 +97,14 @@ class EdgeGroup:
 @dataclass
 class SubsurfaceInputs2:
     edge_groups: list[EdgeGroup]
-    details: dict[str, Detail]
+    details: dict[str, Detail] | None = None
 
     def get_detail(self, edge_group: EdgeGroup):
-        return self.details[edge_group.detail]
+        if isinstance(edge_group.detail, Detail):
+            return edge_group.detail
+        else:
+            assert self.details
+            return self.details[edge_group.detail]
 
     @property
     def zone_pairs(self) -> list[tuple[ZoneEdge, Detail]]:

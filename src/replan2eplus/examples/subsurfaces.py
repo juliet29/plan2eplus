@@ -61,7 +61,7 @@ class SubsurfaceInputExample:
     @property
     def inputs(self):
         return SubsurfaceInputs(
-            self.to_dict(self.edges), self.to_dict(self.details), self.map_
+            self.to_dict(self.edges), self.to_dict(self.details), self.map_ # type: ignore
         )
 
 
@@ -127,5 +127,5 @@ subsurface_inputs_dict = {
 
 def get_minimal_case_with_subsurfaces():
     case = get_minimal_case_with_rooms()
-    case.add_subsurfaces(simple_subsurface_inputs.inputs)
+    case.add_subsurfaces(subsurface_inputs_dict["simple"])
     return case

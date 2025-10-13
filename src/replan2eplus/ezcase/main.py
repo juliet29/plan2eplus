@@ -19,7 +19,7 @@ from replan2eplus.ops.airboundary.presentation import update_airboundary_constru
 from replan2eplus.ops.constructions.presentation import (
     add_constructions_from_other_idf,
 )
-from replan2eplus.ops.subsurfaces.interfaces import SubsurfaceInputs
+from replan2eplus.ops.subsurfaces.interfaces import  SubsurfaceInputs2
 from replan2eplus.ops.subsurfaces.presentation import create_subsurfaces
 from replan2eplus.ops.subsurfaces.utils import get_unique_subsurfaces
 from replan2eplus.ops.zones.interfaces import Room
@@ -80,7 +80,7 @@ class EZCase:
         )
         return self
 
-    def add_subsurfaces(self, inputs: SubsurfaceInputs):
+    def add_subsurfaces(self, inputs: SubsurfaceInputs2):
         """
         edges: dict[int, Edge] -> u: name in the room plan, v: name in the room plan OR capitalized cardnal direction
         details: dict[int, Details]
