@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import NamedTuple
 from dataclasses import dataclass
 from utils4plans.lists import pairwise
@@ -52,6 +53,7 @@ class Day:
 
 
 def get_index_of_date(month: int, day: int):
+    # TODO write a test for this!
     DEFAULT_YEAR = 2000
     date_ = date(DEFAULT_YEAR, month, day)
     init_date = date(date_.year, 1, 1)
@@ -65,7 +67,8 @@ class DayEntry(NamedTuple):
 
 
 # NOTE: skipping weeks interface, assuming things are constant or just a few days..
-# if had to do a week inteface, would expect different behavior.. 
+# if had to do a week inteface, would expect different behavior..
+
 
 @dataclass
 class Year:
@@ -86,6 +89,14 @@ class Year:
             year[date_ix] = self.default_day.array
 
         return year.flatten()
-    
-    def write_to_file(self):
-        pass
+
+    def write_to_file(self, path: Path):
+        # TODO should end in .csv? config for identifiable name..
+        np.savetxt(
+            path,
+            self.array,
+            # newline=",",
+            delimiter=",",
+            fmt="%.2f",
+            header="values",
+        )

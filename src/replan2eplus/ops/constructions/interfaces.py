@@ -26,5 +26,5 @@ class ConstructionsObject:
     @property
     def valid_dict(self):
         res = {k: v for k, v in self.__dict__.items() if v}
-        print(res)
+        # print(res)
         return res
