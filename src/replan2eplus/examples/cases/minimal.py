@@ -1,9 +1,12 @@
 from replan2eplus.examples.paths import PATH_TO_IDD, PATH_TO_MINIMAL_IDF
+from replan2eplus.paths import PATH_TO_WEATHER_FILE
 from replan2eplus.ezcase.main import EZCase
 from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.range import Range
 from replan2eplus.ops.zones.interfaces import Room
-from replan2eplus.paths import PATH_TO_WEATHER_FILE
+
+
+
 
 
 def get_minimal_idf():
@@ -34,3 +37,4 @@ def get_minimal_case_with_rooms():
     case = get_minimal_case()
     case.add_zones(test_rooms)
     return case
+
