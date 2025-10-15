@@ -4,7 +4,13 @@ from eppy.modeleditor import IDF
 from replan2eplus.paths import PATH_TO_WEATHER_FILE, THROWAWAY_PATH
 from replan2eplus.examples.paths import PATH_TO_IDD, PATH_TO_MINIMAL_IDF
 from replan2eplus.examples.mat_and_const import get_minimal_case_with_materials
-from replan2eplus.ops.schedule.interfaces import Day, TimeEntry, HOURS_PER_DAY
+from replan2eplus.ops.schedule.interfaces import (
+    Day,
+    TimeEntry,
+    HOURS_PER_DAY,
+    DayEntry,
+    Year,
+)
 import numpy as np
 from rich import print
 
@@ -21,14 +27,25 @@ test_days: list[tuple[list[TimeEntry], np.ndarray]] = [
 @pytest.mark.parametrize("times, expected_arr", test_days)
 def test_day_entry(times, expected_arr):
     day = Day(times)
-    assert (day.create_array() == expected_arr).all()
+    assert (day.array == expected_arr).all()
 
 
 def test_single_value_day_entry():
     day = Day.from_single_value(10)
     expected_arr = np.full(shape=(HOURS_PER_DAY), fill_value=10)
-    arr = day.create_array()
+    arr = day.array
     assert (arr == expected_arr).all()
+
+
+def test_year_entry():
+    default_day = Day.from_single_value(0)
+    special_day = Day.from_single_value(10)
+    day_entries = [DayEntry(1, 1, special_day)]
+
+    year = Year(default_day, day_entries)
+
+    assert (year.array[0:24] == np.full(shape=(HOURS_PER_DAY), fill_value=10)).all()
+    assert (year.array[24:48] == np.full(shape=(HOURS_PER_DAY), fill_value=0)).all()
 
 
 @pytest.mark.skip()

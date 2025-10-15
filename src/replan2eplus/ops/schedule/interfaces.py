@@ -2,9 +2,13 @@ from typing import NamedTuple
 from dataclasses import dataclass
 from utils4plans.lists import pairwise
 import numpy as np
+from datetime import date
+
+from utils4plans.sets import set_difference
 
 # TODO move to config
 HOURS_PER_DAY = 24
+DAYS_PER_YEAR = 365
 
 
 class Time(NamedTuple):
@@ -33,10 +37,10 @@ class Day:
     def from_single_value(cls, value: float):
         return cls([TimeEntry(HOURS_PER_DAY, value)])
 
-    def create_array(self):
+    @property
+    def array(self):
         if len(self.time_entries) == 1:
-            i = self.time_entries[0]
-            return np.full(shape=(HOURS_PER_DAY), fill_value=i.value)
+            return np.full(shape=(HOURS_PER_DAY), fill_value=self.time_entries[0].value)
 
         arr = np.zeros(24)
         for ix, (i, j) in enumerate(pairwise(self.time_entries)):
@@ -45,6 +49,43 @@ class Day:
 
             arr[i.end_hour : j.end_hour] = j.value
         return arr
-    
+
+
+def get_index_of_date(month: int, day: int):
+    DEFAULT_YEAR = 2000
+    date_ = date(DEFAULT_YEAR, month, day)
+    init_date = date(date_.year, 1, 1)
+    return date_.toordinal() - init_date.toordinal()
+
+
+class DayEntry(NamedTuple):
+    month: int
+    day: int
+    value: Day
+
+
+# NOTE: skipping weeks interface, assuming things are constant or just a few days..
+# if had to do a week inteface, would expect different behavior.. 
+
+@dataclass
 class Year:
+    default_day: Day
+    day_entries: list[DayEntry]
+    # TODO from single entry -> return constant ..
+
+    @property
+    def array(self):
+        year = np.zeros(shape=(DAYS_PER_YEAR, HOURS_PER_DAY))
+        date_indices = [get_index_of_date(i.month, i.day) for i in self.day_entries]
+        default_indices = set_difference(range(DAYS_PER_YEAR), date_indices)
+
+        for date_ix, entry in zip(date_indices, self.day_entries):
+            year[date_ix] = entry.value.array
+
+        for date_ix in default_indices:
+            year[date_ix] = self.default_day.array
+
+        return year.flatten()
     
+    def write_to_file(self):
+        pass
