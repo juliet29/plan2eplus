@@ -4,31 +4,7 @@ from typing import NamedTuple, Literal
 from pathlib import Path
 
 
-# class Until(NamedTuple):
-#     Time: int
-#     Value: float
 
-#     @property
-#     def values(self):
-#         return (self.Time, self.Value)
-
-
-# @dataclass
-# class FieldSet:
-#     For: Literal[
-#         "AllDays", "Weekdays", "Weekends"
-#     ]  # TODO can be a list of these as well
-#     Through: str  # TODO add type -> has to be date with format: 00/00
-#     Until: list[Until]
-
-
-#     @property
-#     def values(self):
-#         until_dict = 0
-#         d = {
-#             "For": self.For,
-#             "Through": self.Through,
-#         }
 class ScheduleTypeLimits(NamedTuple):
     Name: str
     Lower_Limit_Value: int
@@ -52,7 +28,6 @@ class ScheduleTypeLimits(NamedTuple):
 
     @property
     def values(self):
-        # TODO return key as well?
         return self._asdict()
 
     @property

@@ -16,6 +16,7 @@ dependencies = [
     "polars>=1.33.1",
     "pooch>=1.8.2",
     "pyarrow>=21.0.0",
+    "pydantic-settings>=2.11.0",
     "pyprojroot>=0.3.0",
     "pytest-cov>=6.2.1",
     "pytest-skip-slow>=0.0.5",
