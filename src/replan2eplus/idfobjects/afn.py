@@ -3,7 +3,7 @@ from enum import StrEnum
 
 VentilationControlMode = Literal["Constant", "NoVent"]
 
-
+# TODO -> add to the objects .. 
 class AFNKeys(StrEnum):
     SIM_CONTROL = "AIRFLOWNETWORK:SIMULATIONCONTROL"
     ZONE = "AIRFLOWNETWORK:MULTIZONE:ZONE"

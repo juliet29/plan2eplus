@@ -1,3 +1,4 @@
+from replan2eplus.examples.cases.afn_case import make_afn_case
 from replan2eplus.ops.afn.presentation import create_afn_objects, select_afn_objects
 from replan2eplus.ops.airboundary.presentation import update_airboundary_constructions
 from replan2eplus.examples.subsurfaces import (
@@ -12,6 +13,7 @@ from replan2eplus.ops.subsurfaces.logic.exterior import (
     create_subsurface_for_exterior_edge,
 )
 from replan2eplus.examples.cases.minimal import get_minimal_case_with_rooms
+from replan2eplus.ops.afn.utils import get_idf_objects_from_afn_surface_names
 
 # TODO add an image of this!!! -> make a reference for all the examples -> md file?
 
@@ -81,6 +83,17 @@ def test_selecting_afn_objects_from_case_with_airboundary_one_door(
 
 
 # TODO test the case when AFN subsurfaces shuld be excluded..
+
+
+def test_selecting_idf_afn_objects():
+    case = make_afn_case()
+    select_fx = lambda x: x
+    idf_objs = get_idf_objects_from_afn_surface_names(
+        case.idf,
+        case.airflownetwork,
+        select_fx,
+    )
+    assert len(idf_objs) == 4
 
 
 if __name__ == "__main__":

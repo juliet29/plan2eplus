@@ -127,8 +127,11 @@ class EpPaths:
         )
 
 
-s = Settings()
-EP_PATHS = EpPaths(s.path_to_ep_install, s.names, s.defaults, s.construction_names)
+def load_ep_paths():
+    s = Settings()
+    EP_PATHS = EpPaths(s.path_to_ep_install, s.names, s.defaults, s.construction_names)
+    return EP_PATHS
+
 
 BASE_PATH = pyprojroot.find_root(pyprojroot.has_dir(".git"))
 static_paths = StaticPaths("", base_path=BASE_PATH)

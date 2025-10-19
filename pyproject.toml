@@ -13,6 +13,7 @@ dependencies = [
     "geomeppy>=0.11.8",
     "ladybug-core>=0.44.19",
     "loguru>=0.7.3",
+    "pipe>=2.2",
     "polars>=1.33.1",
     "pooch>=1.8.2",
     "pyarrow>=21.0.0",

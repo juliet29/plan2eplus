@@ -124,7 +124,7 @@ class IDF:
         objects_ = []
         for key in AFNKeys:
             objects_.extend([self.idf.idfobjects[key]])
-        return chain_flatten(objects_)
+        return chain_flatten(objects_) # TODO would be nice if could add types to these.. 
 
     def get_output_variables(self):
         return [o.Variable_Name for o in self.idf.idfobjects["OUTPUT:VARIABLE"]]

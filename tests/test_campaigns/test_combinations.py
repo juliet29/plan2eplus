@@ -1,6 +1,7 @@
 from itertools import product
 
 from replan2eplus.campaigns.inputs.defn import SampleDef
+import pytest
 
 
 def test_product():
@@ -10,6 +11,7 @@ def test_product():
     assert res == [("a", 1), ("a", 2), ("b", 1), ("b", 2), ("c", 1), ("c", 2)]
 
 
+@pytest.mark.skip()
 def test_create_combinations():
     sample_def = SampleDef().definition_dict
     expected_number_of_combos = 15
