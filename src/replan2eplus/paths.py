@@ -36,13 +36,12 @@ class ConstructionNames(BaseModel):
 
 
 class Settings(BaseSettings):
+    model_config = SettingsConfigDict(toml_file="config.toml", validate_default=True)
     path_to_ep_install: Path = Path("/Applications/EnergyPlus-22-2-0")
 
     names: Names = Names()
     defaults: Defaults = Defaults()
     construction_names: ConstructionNames = ConstructionNames()
-
-    model_config = SettingsConfigDict(toml_file="config.toml", validate_default=False)
 
     @classmethod
     def settings_customise_sources(
