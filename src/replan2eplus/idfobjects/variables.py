@@ -15,6 +15,7 @@ Zone_Variables = Literal[
     "AFN Zone Mixing Sensible Heat Loss Rate",
     "AFN Zone Ventilation Sensible Heat Gain Rate",
     "AFN Zone Ventilation Sensible Heat Loss Rate",
+    # "AFN Zone Ventilation Air Change Rate"
 ]
 
 Surface_Variables = Literal[

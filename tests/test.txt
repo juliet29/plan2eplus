@@ -1,0 +1,22 @@
+VERSION | ['key', 'Version_Identifier']
+SIMULATIONCONTROL | ['key', 'Do_Zone_Sizing_Calculation', 'Do_System_Sizing_Calculation', 
+'Do_Plant_Sizing_Calculation', 'Run_Simulation_for_Sizing_Periods', 
+'Run_Simulation_for_Weather_File_Run_Periods', 'Do_HVAC_Sizing_Simulation_for_Sizing_Periods',
+'Maximum_Number_of_HVAC_Sizing_Simulation_Passes']
+BUILDING | ['key', 'Name', 'North_Axis', 'Terrain', 'Loads_Convergence_Tolerance_Value', 
+'Temperature_Convergence_Tolerance_Value', 'Solar_Distribution', 
+'Maximum_Number_of_Warmup_Days', 'Minimum_Number_of_Warmup_Days']
+TIMESTEP | ['key', 'Number_of_Timesteps_per_Hour']
+GLOBALGEOMETRYRULES | ['key', 'Starting_Vertex_Position', 'Vertex_Entry_Direction', 
+'Coordinate_System', 'Daylighting_Reference_Point_Coordinate_System', 
+'Rectangular_Surface_Coordinate_System']
+OUTPUT:VARIABLEDICTIONARY | ['key', 'Key_Field', 'Sort_Option']
+OUTPUT:TABLE:SUMMARYREPORTS | ['key', 'Report_1_Name', 'Report_2_Name', 'Report_3_Name', 
+'Report_4_Name', 'Report_5_Name', 'Report_6_Name', 'Report_7_Name', 'Report_8_Name', 
+'Report_9_Name', 'Report_10_Name', 'Report_11_Name', 'Report_12_Name', 'Report_13_Name', 
+'Report_14_Name', 'Report_15_Name', 'Report_16_Name', 'Report_17_Name', 'Report_18_Name', 
+'Report_19_Name', 'Report_20_Name', 'Report_21_Name', 'Report_22_Name', 'Report_23_Name', 
+'Report_24_Name', 'Report_25_Name']
+OUTPUTCONTROL:TABLE:STYLE | ['key', 'Column_Separator', 'Unit_Conversion']
+OUTPUT:VARIABLE | ['key', 'Key_Value', 'Variable_Name', 'Reporting_Frequency', 
+'Schedule_Name']

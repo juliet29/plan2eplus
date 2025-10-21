@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from eppy.bunch_subclass import EpBunch
+from replan2eplus.idfobjects.schedules import ScheduleFileObject
 from replan2eplus.ops.airboundary.interfaces import AirboundaryConstructionObject
 from replan2eplus.ops.constructions.interfaces import ConstructionsObject
 import replan2eplus.epnames.keys as epkeys
@@ -39,7 +40,16 @@ logger.add(sys.stdout, level="WARNING")
 # TODO --> move stuff in idfobjects into the interfaces files of their folder!
 
 
+def delete_existing_objects(idf: geomeppyIDF, key: str):
+    existing_objects = idf.idfobjects[key]
+    existing_objects.clear()
+    assert len(existing_objects) == 0
+
+    return idf
+
+
 def update_idf_location(idf: geomeppyIDF, path_to_weather_file: Path):
+    idf = delete_existing_objects(idf, "SITE:LOCATION")
     if path_to_weather_file == Path(""):
         logger.trace(
             f"Passed an empty path as the weather file, not updating the idf epw: {path_to_weather_file}"
@@ -61,6 +71,9 @@ def update_idf_run_period(
         st_month=7, st_day=1, end_month=7, end_day=1, timestep=4
     ),
 ):
+    # TODO this is a hack bc not starting out w/ optimal minimal idf -> this needs to be a part of the code.
+    idf = delete_existing_objects(idf, "RUNPERIOD")
+    idf = delete_existing_objects(idf, "SIZINGPERIOD:DESIGNDAY")
     rp = idf.newidfobject("RUNPERIOD")
     rp.Name = "Summer"
     rp.Begin_Month = ap.st_month
@@ -124,10 +137,18 @@ class IDF:
         objects_ = []
         for key in AFNKeys:
             objects_.extend([self.idf.idfobjects[key]])
-        return chain_flatten(objects_) # TODO would be nice if could add types to these.. 
+        return chain_flatten(
+            objects_
+        )  # TODO would be nice if could add types to these..
 
     def get_output_variables(self):
         return [o.Variable_Name for o in self.idf.idfobjects["OUTPUT:VARIABLE"]]
+
+    def get_schedules(self):
+        key = ScheduleFileObject.key
+        file_schedules = self.idf.idfobjects[key]
+        # compact_schedules = self.idf.idfobjects[key] # TODO!
+        return file_schedules  # + compact_schedules
 
     ##################################################
     ########## ------ ADDING TO IDF ------ ##########
@@ -200,3 +221,7 @@ class IDF:
     def add_output_variables(self, variables: list[OutputVariables]):
         self.idf = request_output_variables(self.idf, variables)
         return
+
+    def add_schedule(self, schedule: ScheduleFileObject):
+        obj0 = self.idf.newidfobject(schedule.key, **schedule.values)
+        return obj0

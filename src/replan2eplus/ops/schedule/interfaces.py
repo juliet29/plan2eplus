@@ -4,8 +4,11 @@ from dataclasses import dataclass
 from utils4plans.lists import pairwise
 import numpy as np
 from datetime import date
+from enum import Enum
 
 from utils4plans.sets import set_difference
+
+from replan2eplus.idfobjects.schedules import ScheduleFileObject, ScheduleTypeLimits
 
 # TODO move to config
 HOURS_PER_DAY = 24
@@ -99,4 +102,30 @@ class Year:
             delimiter=",",
             fmt="%.2f",
             header="values",
+        )
+
+
+class UsefulScheduleTypeLimits(Enum):
+    Venting = ScheduleTypeLimits("Venting", 0, 1, "Discrete", "Dimensionless")
+
+
+class ScheduleInput(NamedTuple):
+    name: str
+    year: Year
+    case_save_folder: Path
+    type_limit: UsefulScheduleTypeLimits
+
+    @property
+    def path_to_schedule(self):
+        return self.case_save_folder / f"{self.name}.csv"
+
+    def write_schedule_to_path(self):
+        self.year.write_to_file(self.path_to_schedule)
+
+    @property
+    def schedule_idf_object(self):
+        return ScheduleFileObject(
+            self.name,
+            self.type_limit.value.Name,
+            self.path_to_schedule,
         )

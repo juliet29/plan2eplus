@@ -1,14 +1,10 @@
 from pathlib import Path
-from typing import Any, Callable, NamedTuple, TypedDict
+from typing import Any, Callable, NamedTuple
 from dataclasses import dataclass
 from itertools import product
 from rich import print
 from utils4plans.lists import chain_flatten
 from utils4plans.io import create_date_string, get_or_make_folder_path, write_toml
-from replan2eplus.examples.cases.minimal import test_rooms
-from replan2eplus.examples.subsurfaces import e0, e1, e2, e3
-from replan2eplus.ops.subsurfaces.interfaces import Dimension
-from rich import print
 
 
 class Option:

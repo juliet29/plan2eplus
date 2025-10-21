@@ -4,7 +4,6 @@ from typing import NamedTuple, Literal
 from pathlib import Path
 
 
-
 class ScheduleTypeLimits(NamedTuple):
     Name: str
     Lower_Limit_Value: int
@@ -41,7 +40,8 @@ class ScheduleFileObject(NamedTuple):
     File_Name: Path
     Column_Number: int = 1
     Number_of_Hours_of_Data: int = 8760
-    Rows_to_Skip_at_Top:int = 1
+    Rows_to_Skip_at_Top: int = 1
+    key: str = "SCHEDULE:FILE"
 
     # TODO validate path? and file? # entries = Numbe of Hours or ecven set?
 
@@ -50,11 +50,12 @@ class ScheduleFileObject(NamedTuple):
         # TODO return key as well?
         d = self._asdict()
         d["File_Name"] = str(self.File_Name)
+        d.pop("key")
         return d
 
-    @property
-    def key(self):
-        return "SCHEDULE:FILE"
+    # @property
+    # def key(self) -> str:
+    #     return "SCHEDULE:FILE"
 
 
 # TODO constant schedule

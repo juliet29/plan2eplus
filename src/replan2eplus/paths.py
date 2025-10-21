@@ -36,23 +36,23 @@ class ConstructionNames(BaseModel):
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(toml_file="config.toml", validate_default=True)
+    # model_config = SettingsConfigDict(toml_file="config.toml", validate_default=True)
     path_to_ep_install: Path = Path("/Applications/EnergyPlus-22-2-0")
 
     names: Names = Names()
     defaults: Defaults = Defaults()
     construction_names: ConstructionNames = ConstructionNames()
 
-    @classmethod
-    def settings_customise_sources(
-        cls,
-        settings_cls: type[BaseSettings],
-        init_settings: PydanticBaseSettingsSource,
-        env_settings: PydanticBaseSettingsSource,
-        dotenv_settings: PydanticBaseSettingsSource,
-        file_secret_settings: PydanticBaseSettingsSource,
-    ) -> tuple[PydanticBaseSettingsSource, ...]:
-        return (TomlConfigSettingsSource(settings_cls),)
+    # @classmethod
+    # def settings_customise_sources(
+    #     cls,
+    #     settings_cls: type[BaseSettings],
+    #     init_settings: PydanticBaseSettingsSource,
+    #     env_settings: PydanticBaseSettingsSource,
+    #     dotenv_settings: PydanticBaseSettingsSource,
+    #     file_secret_settings: PydanticBaseSettingsSource,
+    # ) -> tuple[PydanticBaseSettingsSource, ...]:
+    #     return (TomlConfigSettingsSource(settings_cls),)
 
 
 class InvalidPathError(Exception):
@@ -81,6 +81,7 @@ class EpPaths:
     names: Names
     defaults: Defaults
     construction_names: ConstructionNames
+    minimal_case: Path | None = None
 
     def __post_init__(self):
         if not self.path_to_ep_install.exists():
@@ -115,7 +116,10 @@ class EpPaths:
 
     @property
     def default_minimal_case(self):  # TODO better to start from scratch no?
-        return self.example_files / self.defaults.minimal_case
+        if not self.minimal_case:
+            return self.example_files / self.defaults.minimal_case
+        else:
+            return self.minimal_case
 
     @property
     def construction_paths(self):
@@ -126,6 +130,9 @@ class EpPaths:
             self.data_sets / self.construction_names.window_gas_idf,
         )
 
+    def reset_minimal_case(self, path: Path):
+        self.minimal_case = path
+
 
 def load_ep_paths():
     s = Settings()
@@ -135,6 +142,7 @@ def load_ep_paths():
 
 BASE_PATH = pyprojroot.find_root(pyprojroot.has_dir(".git"))
 static_paths = StaticPaths("", base_path=BASE_PATH)
+ep_paths = load_ep_paths()
 
 THROWAWAY_PATH = BASE_PATH / "throwaway"
 

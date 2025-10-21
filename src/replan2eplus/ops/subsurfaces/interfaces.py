@@ -1,9 +1,11 @@
 from dataclasses import dataclass
+from typing import Callable, Literal, NamedTuple, TypeVar, Union
+
 from utils4plans.sets import set_intersection
-from typing import NamedTuple, Literal, TypeVar, Union
+
 from replan2eplus.ezobjects.subsurface import Edge
 from replan2eplus.ezobjects.zone import chain_flatten
-from replan2eplus.geometry.contact_points import CornerEntries, CardinalEntries
+from replan2eplus.geometry.contact_points import CardinalEntries, CornerEntries
 from replan2eplus.geometry.directions import WallNormal, WallNormalNamesList
 from replan2eplus.geometry.nonant import NonantEntries
 
@@ -17,7 +19,18 @@ class Dimension(NamedTuple):
     @property
     def as_tuple(self):
         return (self.width, self.height)
+    
+    @property
+    def area(self):
+        return self.width * self.height
 
+    def modify(self, fx: Callable[[float], float]):
+        return self.__class__(fx(self.width), fx(self.height))
+
+    def modify_area(self, factor: float):
+        # preserves aspect ratio
+        sqrt_val = factor ** (1 / 2)
+        return self.__class__.modify(self, lambda x: sqrt_val * x)
 
 class ZoneDirectionEdge(NamedTuple):
     """for convenience, spaces are described using room names, not the idf names"""

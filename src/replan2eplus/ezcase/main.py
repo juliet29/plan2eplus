@@ -11,22 +11,20 @@ from replan2eplus.ezobjects.subsurface import Edge, Subsurface
 from replan2eplus.ezobjects.surface import Surface
 from replan2eplus.ezobjects.zone import Zone
 from replan2eplus.idfobjects.idf import IDF
-
-
 from replan2eplus.ops.afn.presentation import create_afn_objects
 from replan2eplus.ops.airboundary.presentation import update_airboundary_constructions
-
 from replan2eplus.ops.constructions.presentation import (
     add_constructions_from_other_idf,
 )
-from replan2eplus.ops.subsurfaces.interfaces import  SubsurfaceInputs2
+from replan2eplus.ops.subsurfaces.interfaces import SubsurfaceInputs2
 from replan2eplus.ops.subsurfaces.presentation import create_subsurfaces
 from replan2eplus.ops.subsurfaces.utils import get_unique_subsurfaces
 from replan2eplus.ops.zones.interfaces import Room
 from replan2eplus.ops.zones.presentation import create_zones
+from replan2eplus.idfobjects.variables import default_variables
 
 
-# TODO: need to be aware that these might be called out of order, so do rigorous checks!  -> can use decorators for this maybe?
+# TODO: need to be aware that these might be called out of order, so do rigorous checks!  ->
 
 
 @dataclass
@@ -34,6 +32,7 @@ class EZCase:
     path_to_idd: Path  # TODO Sshould check that is v22.2 or at least that both match..
     path_to_initial_idf: Path
     path_to_weather_file: Path
+    output_path: Path | None = None
 
     # TODO: do these need to be initialized here?
     # path_to_weather: Path p
@@ -118,10 +117,17 @@ class EZCase:
         return self
 
     def add_output_variables(self):
-        return self  # use Munch!
+        self.idf.add_output_variables(default_variables)
+        return self
+    
 
-    def save_and_run_case(self, path_: Path, RUN=True):
+    def save_and_run_case(self, path_: Path | None = None, RUN=True):
         # TODO add command line args..
+        if self.output_path:
+            path_ = self.output_path
+        else:
+            assert path_
+
         path = get_or_make_folder_path(path_.parent, path_.name)
 
         self.idf.idf.save(path / "out.idf")  # TODO ADD TO CONFIG!
