@@ -22,7 +22,8 @@ class IDFObject:
 
     # @classmethod
     # def read(cls, idf: IDF) -> list: ...
-
+    def get_idf_objects(self, idf: IDF) -> list[EpBunch]:
+        return idf.idfobjects[self.key]
 
     @classmethod
     def read(cls, idf: IDF):

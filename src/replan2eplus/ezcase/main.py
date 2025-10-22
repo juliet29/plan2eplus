@@ -19,8 +19,8 @@ from replan2eplus.ops.constructions.presentation import (
 from replan2eplus.ops.subsurfaces.interfaces import SubsurfaceInputs2
 from replan2eplus.ops.subsurfaces.presentation import create_subsurfaces
 from replan2eplus.ops.subsurfaces.utils import get_unique_subsurfaces
-from replan2eplus.ops.zones.interfaces import Room
-from replan2eplus.ops.zones.presentation import create_zones
+from replan2eplus.ops.zones.user_interface import Room
+from replan2eplus.ops.zones.create import create_zones
 from replan2eplus.idfobjects.variables import default_variables
 
 

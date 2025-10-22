@@ -1,4 +1,4 @@
-from replan2eplus.ops.zones.interfaces import Room
+from replan2eplus.ops.zones.user_interface import Room
 from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.range import Range
 
@@ -19,3 +19,7 @@ class Domains:
 class Rooms:
     r2 = Room(1, "room1", Domains.d2, HEIGHT)
     r1 = Room(0, "room2", Domains.d1, HEIGHT)
+
+    @property
+    def two_room_list(self):
+        return [self.r1, self.r2]

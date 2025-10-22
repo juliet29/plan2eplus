@@ -10,6 +10,7 @@ from typing import TypeVar
 
 from replan2eplus.geometry.directions import WallNormal
 from utils4plans.lists import chain_flatten
+from replan2eplus.ezobjects.name import decompose_idf_name
 
 T = TypeVar("T")
 
@@ -25,9 +26,12 @@ class DirectedSurfaces:
 
 
 @dataclass
-class Zone(EZObject):
-    _epbunch: EpBunch
-    expected_key: str = epkeys.ZONE
+class Zone:
+    # _epbunch: EpBunch
+    # room_name: str
+    zone_name: str
+
+    # expected_key: str = epkeys.ZONE
     surfaces: list[Surface] = field(default_factory=list)
 
     def __rich_repr__(self):
@@ -41,16 +45,17 @@ class Zone(EZObject):
 
     @property
     def room_name(self):
-        return self._dname.plan_name
+        idf_name = decompose_idf_name(self.zone_name)
+        return idf_name.plan_name
 
-    @property
-    def zone_name(self):  # idf name?
-        return self._idf_name
+    # @property
+    # def zone_name(self):  # idf name?
+    #     return self._idf_name
 
     @property
     def surface_names(self):
         return [i.surface_name for i in self.surfaces]
-    
+
     @property
     def surface_display_names(self):
         return sorted([i.display_name for i in self.surfaces])

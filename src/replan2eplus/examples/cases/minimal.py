@@ -3,7 +3,7 @@ from replan2eplus.paths import PATH_TO_WEATHER_FILE
 from replan2eplus.ezcase.main import EZCase
 from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.range import Range
-from replan2eplus.ops.zones.interfaces import Room
+from replan2eplus.ops.zones.user_interface import Room
 
 
 

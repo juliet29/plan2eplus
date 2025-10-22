@@ -1,6 +1,6 @@
 from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.range import Range
-from replan2eplus.ops.zones.interfaces import OrthoDomain, Room
+from replan2eplus.ops.zones.user_interface import OrthoDomain, Room
 from replan2eplus.examples.cases.minimal import get_minimal_case
 from rich import print
 

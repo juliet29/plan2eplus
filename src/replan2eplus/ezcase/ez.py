@@ -2,7 +2,13 @@ from geomeppy import IDF
 from dataclasses import dataclass
 from eppy.modeleditor import IDDAlreadySetError
 from pathlib import Path
+from replan2eplus.ezcase.objects import read_existing_objects
 from replan2eplus.paths import ep_paths
+
+from replan2eplus.ops.zones.user_interface import Room
+from replan2eplus.ops.zones.create import create_zones
+
+from typing import NamedTuple
 
 
 def initialize_idd():
@@ -28,9 +34,12 @@ class EZ:
     def __post_init__(self):
         initialize_idd()
         self.idf = open_idf(self.idf_path)
+        self.objects = read_existing_objects(self.idf)
 
     def add_init_values(self):
         return self
 
-    def add_zones(self):
+    def add_zones(self, rooms: list[Room]):
+        self.objects.zones, self.objects.surfaces = create_zones(self.idf, rooms)
+
         return self
