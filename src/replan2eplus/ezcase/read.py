@@ -2,8 +2,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from replan2eplus.idfobjects.idf import IDF
 from replan2eplus.ezobjects.surface import Surface
-from replan2eplus.ezobjects.zone import Zone
-from replan2eplus.ezobjects.subsurface import Subsurface, Edge
+from replan2eplus.ops.zones.ezobject import Zone
+from replan2eplus.ops.subsurfaces.ezobject import Subsurface, Edge
 from replan2eplus.ezobjects.epbunch_utils import get_epbunch_key
 from replan2eplus.ops.subsurfaces.utils import get_unique_subsurfaces
 from replan2eplus.ops.zones.create import assign_zone_surfaces
@@ -93,7 +93,7 @@ class ExistCase:
         self.get_afn()
 
     @property
-    def folder_name(self): 
+    def folder_name(self):
         return self.path_to_initial_idf.parts[-2]
 
     @property
@@ -112,10 +112,11 @@ class ExistCase:
         self.airflownetwork = get_afn_objects(
             self.idf, self.zones, self.subsurfaces, self.airboundaries
         )
+
     @property
     def unique_subsurfaces(self):
         return get_unique_subsurfaces(self.subsurfaces)
-    
+
     @property
     def unique_airboundaries(self):
         return get_unique_airboundaries(self.airboundaries)

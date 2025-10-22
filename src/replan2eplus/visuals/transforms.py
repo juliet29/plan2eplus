@@ -5,9 +5,9 @@ from matplotlib.patches import Rectangle, Polygon
 
 from replan2eplus.errors import IDFMisunderstandingError
 
-from replan2eplus.ezobjects.subsurface import Edge
+from replan2eplus.ops.subsurfaces.ezobject import Edge
 
-from replan2eplus.ezobjects.zone import Zone
+from replan2eplus.ops.zones.ezobject import Zone
 from replan2eplus.ezobjects.zone import get_zones
 from replan2eplus.geometry.contact_points import CardinalPoints, calculate_corner_points
 from replan2eplus.geometry.coords import Coord
@@ -58,8 +58,6 @@ def domain_to_mpl_polygon(domain: Domain | OrthoDomain):
         return Polygon(coords.tuple_list)
     else:
         return Polygon(domain.tuple_list)
-
-
 
 
 def domain_to_line(domain: Domain):

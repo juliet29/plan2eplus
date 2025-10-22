@@ -1,18 +1,17 @@
+from geomeppy import IDF
+from rich import print as rprint
+
 from replan2eplus.errors import IDFMisunderstandingError
-from replan2eplus.ezobjects.subsurface import Edge, Subsurface
-from replan2eplus.ezobjects.zone import Zone
-from replan2eplus.idfobjects.idf import IDF
-from replan2eplus.ops.subsurfaces.interfaces import Detail, ZoneEdge
+from replan2eplus.ops.subsurfaces.ezobject import Edge, Subsurface
+from replan2eplus.ops.subsurfaces.interfaces import ZoneEdge
+from replan2eplus.ops.subsurfaces.logic.placement import place_domain
 from replan2eplus.ops.subsurfaces.logic.prepare import (
     compare_and_maybe_change_dimensions,
     prepare_object,
 )
-from replan2eplus.ops.subsurfaces.logic.placement import place_domain
 from replan2eplus.ops.subsurfaces.logic.select import get_surface_between_zones
-from replan2eplus.idfobjects.subsurface import SubsurfaceKey
-
-
-from rich import print as rprint
+from replan2eplus.ops.subsurfaces.user_interfaces import Detail
+from replan2eplus.ops.zones.ezobject import Zone
 
 
 def check_for_airboundaries(main_surface, nb_surface):
@@ -30,12 +29,12 @@ def check_for_airboundaries(main_surface, nb_surface):
 def create_subsurface_for_interior_edge(
     edge: ZoneEdge, detail_: Detail, zones: list[Zone], idf: IDF
 ) -> tuple[Subsurface, Subsurface]:
-    key: SubsurfaceKey = (f"{detail_.type_}:Interzone").upper()  # type: ignore #TODO verify!
 
     main_surface, nb_surface = get_surface_between_zones(edge, zones)
     try:
         assert main_surface.domain == nb_surface.domain
     except AssertionError:
+        # TODO make an error class to clean this up 
         rprint("[red]Neigboring surfaces should have matching domains.")
         rprint("\nMain surface:")
         rprint(main_surface.error_string)
@@ -52,27 +51,29 @@ def create_subsurface_for_interior_edge(
         main_surface.domain, *detail.location, detail.dimension
     )
 
-    main_obj = idf.add_subsurface(
-        key,
-        prepare_object(
+    main_obj = prepare_object(
             main_surface.surface_name,
             subsurf_domain,
             main_surface.domain,
             detail,
-            nb_surface_name=nb_surface.surface_name,
-        ),
-    )
-    nb_obj = idf.add_subsurface(
-        key,
-        prepare_object(
             nb_surface.surface_name,
-            subsurf_domain,
-            main_surface.domain,
-            detail,
-            nb_surface_name=main_surface.surface_name,
-        ),
+            True,
+        )
+    nb_obj = prepare_object(
+        nb_surface.surface_name,
+        subsurf_domain,
+        main_surface.domain,
+        detail,
+        main_surface.surface_name,
+        True,
     )
 
-    return Subsurface(main_obj, key, main_surface, Edge(*edge)), Subsurface(
-        nb_obj, key, nb_surface, Edge(*edge)
-    )
+    main_obj.write(idf)
+    nb_obj.write(idf)
+
+    ez_edge = Edge(*edge)
+    ez_surf_main = main_obj.create_ezobject(main_surface, ez_edge)
+    ez_surf_nb = nb_obj.create_ezobject(nb_surface, ez_edge)
+
+
+    return ez_surf_main, ez_surf_nb

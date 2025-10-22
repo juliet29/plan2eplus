@@ -5,16 +5,15 @@ from replan2eplus.examples.subsurfaces import (
     room1,
     room2,
 )
-from replan2eplus.ezobjects.subsurface import Edge
+from replan2eplus.ops.subsurfaces.ezobject import Edge
 from replan2eplus.geometry.directions import WallNormalLiteral
 from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.plane import Plane
 from replan2eplus.geometry.range import Range
-from replan2eplus.ops.subsurfaces.interfaces import (
+from replan2eplus.ops.subsurfaces.interfaces import Dimension, Location
+from replan2eplus.ops.subsurfaces.user_interfaces import (
     Detail,
-    Dimension,
-    Location,
-    SubsurfaceInputs2,
+    SubsurfaceInputs,
     EdgeGroup,
 )
 from replan2eplus.ops.subsurfaces.presentation import create_subsurfaces
@@ -40,7 +39,7 @@ def test_subsurface_x_plane(get_pytest_minimal_case_with_rooms, direction, plane
         Plane("Y", plane_loc),
     )
     case = get_pytest_minimal_case_with_rooms
-    input = SubsurfaceInputs2([EdgeGroup([edge], detail, "Zone_Direction")])
+    input = SubsurfaceInputs([EdgeGroup([edge], detail, "Zone_Direction")])
     subsurface = create_subsurfaces(input, case.zones, case.idf)[0]
     assert subsurface.domain == domain
 
@@ -49,7 +48,6 @@ y_edge_detail_groups: list[tuple[Edge, float]] = [
     (Edge(room1.name, "WEST"), 0),
     (Edge(room2.name, "EAST"), 2),
 ]
-
 
 
 @pytest.mark.parametrize("edge, plane_loc", y_edge_detail_groups)
@@ -62,7 +60,7 @@ def test_subsurface_y_plane(get_pytest_minimal_case_with_rooms, edge, plane_loc)
     )
     case = get_pytest_minimal_case_with_rooms
 
-    input = SubsurfaceInputs2([EdgeGroup([edge], detail, "Zone_Direction")])
+    input = SubsurfaceInputs([EdgeGroup([edge], detail, "Zone_Direction")])
     subsurface = create_subsurfaces(input, case.zones, case.idf)[0]
     assert subsurface.domain == domain
 

@@ -9,7 +9,7 @@ from pathlib import Path
 from eppy.modeleditor import IDDAlreadySetError
 
 from replan2eplus.errors import IDFMisunderstandingError
-from replan2eplus.ezobjects.subsurface import Subsurface
+from replan2eplus.ops.subsurfaces.ezobject import Subsurface
 from replan2eplus.ezobjects.surface import Surface
 from replan2eplus.idfobjects.subsurface import SubsurfaceKey, SubsurfaceObject
 from replan2eplus.idfobjects.variables import OutputVariables

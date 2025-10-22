@@ -1,5 +1,6 @@
 from replan2eplus.ezobjects.base import EpBunch
 from replan2eplus.ops.surfaces.ezobject import Surface
+from replan2eplus.ops.surfaces.idfobject import IDFSurface
 from replan2eplus.ops.zones.user_interface import Room
 
 from replan2eplus.ops.zones.idfobject import IDFZone
@@ -16,8 +17,13 @@ def check_valid_room_geom():  # move to helpers..
 
 def create_zones(idf: IDF, rooms: list[Room] = []):
     def create_ezobjects(zone_obj: EpBunch, zone: IDFZone):
-        surface_objs: list[EpBunch] = zone_obj.zonesurfaces  # type: ignore
-        ez_zone = [zone.create_ezobject([Surface(i) for i in surface_objs])]
+        zone_surface_names = [i.Name for i in zone_obj.zonesurfaces if i] # type: ignore # TODO -> better to do get args.. 
+        print(zone_surface_names)
+        idf_surfaces = IDFSurface.read(idf, zone_surface_names)
+        ez_surfaces = [i.create_ezobject() for i in idf_surfaces]
+        # surface_objs: list[EpBunch] = zone_obj.zonesurfaces  # type: ignore
+        # TODO: here are skipping the step of idf surface object..
+        ez_zone = [zone.create_ezobject(ez_surfaces)]
         return ez_zone
 
     if rooms:
@@ -36,4 +42,4 @@ def create_zones(idf: IDF, rooms: list[Room] = []):
     return (
         ez_zones,
         ez_surfaces,
-    )  
+    )

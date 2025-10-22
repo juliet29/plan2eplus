@@ -5,19 +5,20 @@ from eppy.bunch_subclass import EpBunch
 
 from replan2eplus.ezobjects.base import EZObject
 from replan2eplus.ezobjects.epbunch_utils import get_epbunch_key
-from replan2eplus.ops.surfaces.ezobject import Surface 
+from replan2eplus.ops.subsurfaces.interfaces import SubsurfaceType
+from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.geometry.directions import WallNormal, WallNormalNamesList
 from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.range import Range
 from replan2eplus.ops.zones.ezobject import Zone
 
-subsurface_options = [
-    "DOOR",
-    "WINDOW",
-    "DOOR:INTERZONE",
-]  # TODO arg thing since now have literal..
+# subsurface_options = [
+#     "DOOR",
+#     "WINDOW",
+#     "DOOR:INTERZONE",
+# ]  # TODO arg thing since now have literal..
 
-display_map = {"DOOR": "Door", "WINDOW": "Window", "DOOR:INTERZONE": "Door"}
+# display_map = {"DOOR": "Door", "WINDOW": "Window", "DOOR:INTERZONE": "Door"}
 
 
 class Edge(NamedTuple):
@@ -52,40 +53,44 @@ SubsurfaceOptions = Literal["DOOR", "WINDOW", "DOOR:INTERZONE"]
 
 
 @dataclass
-class Subsurface(EZObject):
-    _epbunch: EpBunch
-    expected_key: SubsurfaceOptions
+class Subsurface():
+    subsurface_name: str
+    Starting_X_Coordinate: float
+    Starting_Z_Coordinate: float
+    Length: float
+    Height: float
+    type_: SubsurfaceType
     surface: Surface
     edge: Edge
 
-    @classmethod
-    def from_epbunch_and_key(
-        cls,
-        _epbunch: EpBunch,
-        zones: list[Zone],
-        surfaces: list[Surface],
-    ):
-        # NOTE: this is being created based on reading an IDF
-        # TODO clean up!
-        expected_key = get_epbunch_key(_epbunch)
+    # @classmethod
+    # def from_epbunch_and_key(
+    #     cls,
+    #     _epbunch: EpBunch,
+    #     zones: list[Zone],
+    #     surfaces: list[Surface],
+    # ):
+    #     # NOTE: this is being created based on reading an IDF
+    #     # TODO clean up!
+    #     expected_key = get_epbunch_key(_epbunch)
 
-        surface_name = _epbunch.Building_Surface_Name
+    #     surface_name = _epbunch.Building_Surface_Name
 
-        surface = [i for i in surfaces if i.surface_name == surface_name][0]
-        zone = [i for i in zones if i.zone_name == surface.zone_name][
-            0
-        ]  # TODO use get zone?
-        if surface.boundary_condition == "outdoors":
-            edge = Edge(zone.room_name, surface.direction.name)
-        else:
-            nb_surface = [i for i in surfaces if i.surface_name == surface.neighbor][0]
-            nb_zone = [i for i in zones if i.zone_name == nb_surface.zone_name][0]
-            edge = Edge(zone.room_name, nb_zone.room_name)
+    #     surface = [i for i in surfaces if i.surface_name == surface_name][0]
+    #     zone = [i for i in zones if i.zone_name == surface.zone_name][
+    #         0
+    #     ]  # TODO use get zone?
+    #     if surface.boundary_condition == "outdoors":
+    #         edge = Edge(zone.room_name, surface.direction.name)
+    #     else:
+    #         nb_surface = [i for i in surfaces if i.surface_name == surface.neighbor][0]
+    #         nb_zone = [i for i in zones if i.zone_name == nb_surface.zone_name][0]
+    #         edge = Edge(zone.room_name, nb_zone.room_name)
 
-        return cls(_epbunch, expected_key, surface, edge)  # type: ignore #TODO => get epbunch for subsurface..
+    #     return cls(_epbunch, expected_key, surface, edge)  # type: ignore #TODO => get epbunch for subsurface..
 
-    def __post_init__(self):
-        assert self.expected_key in get_args(SubsurfaceOptions)
+    # def __post_init__(self):
+    #     assert self.expected_key in get_args(SubsurfaceOptions)
 
     def __eq__(self, other):
         if isinstance(other, Subsurface):
@@ -94,22 +99,21 @@ class Subsurface(EZObject):
             # later could include domain.. if have two subsurfaces on one location..
         return False
 
-    @property
-    def subsurface_name(self):
-        return self._epbunch.Name
+    # @property
+    # def subsurface_name(self):
+    #     return self._epbunch.Name
 
     @property
     def display_name(self):
-        type_ = display_map[self.expected_key]
-        return f"{type_}_{self.surface.display_name}"
+        return f"{self.type_}_{self.surface.display_name}"
 
     @property
     def is_door(self):
-        return "DOOR" in self.expected_key
+        return self.type_ == "Door"
 
     @property
     def is_window(self):
-        return "WINDOW" in self.expected_key
+        return self.type_ == "Window"
 
     @property
     def domain(self):
@@ -119,11 +123,11 @@ class Subsurface(EZObject):
         surface_min_horz = surf_domain.horz_range.min
         surface_min_vert = surf_domain.vert_range.min
 
-        horz_min = surface_min_horz + float(self._epbunch.Starting_X_Coordinate)
-        width = float(self._epbunch.Length)
+        horz_min = surface_min_horz + float(self.Starting_X_Coordinate)
+        width = float(self.Length)
 
-        vert_min = surface_min_vert + float(self._epbunch.Starting_Z_Coordinate)
-        height = float(self._epbunch.Height)
+        vert_min = surface_min_vert + float(self.Starting_Z_Coordinate)
+        height = float(self.Height)
 
         horz_range = Range(horz_min, horz_min + width)
         vert_range = Range(vert_min, vert_min + height)

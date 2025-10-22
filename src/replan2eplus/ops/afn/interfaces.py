@@ -1,6 +1,6 @@
-from replan2eplus.ezobjects.subsurface import Subsurface
+from replan2eplus.ops.subsurfaces.ezobject import Subsurface
 from replan2eplus.ezobjects.surface import Surface
-from replan2eplus.ezobjects.zone import Zone
+from replan2eplus.ops.zones.ezobject import Zone
 from replan2eplus.idfobjects.afn import (
     AFNSimpleOpening,
     AFNSimulationControl,

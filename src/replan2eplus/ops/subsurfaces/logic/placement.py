@@ -8,7 +8,7 @@ from replan2eplus.geometry.contact_points import (
 from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.coords import Coord
 from replan2eplus.ops.subsurfaces.interfaces import Dimension
-from replan2eplus.ops.subsurfaces.interfaces import ContactEntries
+from replan2eplus.ops.subsurfaces.ContactEntries import ContactEntries
 from replan2eplus.geometry.contact_points import (
     calculate_cardinal_points,
 )

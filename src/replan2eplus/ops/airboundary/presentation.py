@@ -3,12 +3,12 @@ from replan2eplus.ops.airboundary.interfaces import (
     AirboundaryConstructionObject,
 )
 from replan2eplus.ezobjects.surface import Surface
-from replan2eplus.ezobjects.zone import Zone
+from replan2eplus.ops.zones.ezobject import Zone
 from replan2eplus.idfobjects.idf import IDF
 from replan2eplus.ops.subsurfaces.interfaces import ZoneEdge
 from replan2eplus.ops.subsurfaces.logic.select import get_surface_between_zones
 from replan2eplus.ezobjects.airboundary import Airboundary
-from replan2eplus.ezobjects.subsurface import Edge
+from replan2eplus.ops.subsurfaces.ezobject import Edge
 
 
 def add_airboundary_construction(idf: IDF, object_: AirboundaryConstructionObject):

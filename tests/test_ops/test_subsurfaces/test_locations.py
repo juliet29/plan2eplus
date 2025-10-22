@@ -7,7 +7,8 @@ from replan2eplus.geometry.contact_points import (
     CornerEntries,
     CardinalEntries,
 )
-from replan2eplus.ops.subsurfaces.interfaces import Dimension, ContactEntries
+from replan2eplus.ops.subsurfaces.interfaces import Dimension
+from replan2eplus.ops.subsurfaces.ContactEntries import ContactEntries
 from replan2eplus.ops.subsurfaces.logic.placement import (
     create_domain_for_nonant,
     create_nonant_from_domain,

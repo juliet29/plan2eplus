@@ -2,8 +2,8 @@ from typing import NamedTuple
 
 from matplotlib.axes import Axes
 
-from replan2eplus.ezobjects.subsurface import Edge
-from replan2eplus.ezobjects.zone import Zone
+from replan2eplus.ops.subsurfaces.ezobject import Edge
+from replan2eplus.ops.zones.ezobject import Zone
 from replan2eplus.geometry.contact_points import CardinalPoints
 from replan2eplus.geometry.coords import Coord
 from replan2eplus.geometry.domain import Domain

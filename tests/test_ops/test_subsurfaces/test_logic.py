@@ -11,14 +11,13 @@ from replan2eplus.examples.subsurfaces import (
     room2,
     subsurface_object,
 )
-from replan2eplus.ezobjects.subsurface import Edge
+from replan2eplus.ops.subsurfaces.ezobject import Edge
 from replan2eplus.geometry.directions import WallNormal
 from replan2eplus.geometry.domain import Domain
 from replan2eplus.ops.subsurfaces.interfaces import Dimension
 from replan2eplus.geometry.range import Range
-from replan2eplus.ops.subsurfaces.interfaces import (
+from replan2eplus.ops.subsurfaces.user_interfaces import (
     Detail,
-    flatten_dict_map,
 )
 from replan2eplus.ops.subsurfaces.logic.interior import (
     create_subsurface_for_interior_edge,
@@ -110,14 +109,6 @@ def test_sorting_directed_edges():
     edge = Edge("EAST", room1.name)
     expected_edge = (room1.name, WallNormal.EAST)
     assert expected_edge == edge.sorted_directed_edge
-
-
-# TODO move to utils4plans!
-def test_flatten_map_dummy_inputs():
-    details_map = {1: [1, 2], 2: [3, 4], 3: [5, 6]}
-    expected = [(1, 1), (1, 2), (2, 3), (2, 4), (3, 5), (3, 6)]
-    result = flatten_dict_map(details_map)
-    assert expected == result
 
 
 if __name__ == "__main__":

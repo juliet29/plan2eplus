@@ -1,12 +1,10 @@
 from dataclasses import dataclass
 from typing import Callable
 from replan2eplus.ezobjects.airboundary import Airboundary
-from replan2eplus.ezobjects.subsurface import Subsurface
+from replan2eplus.ops.subsurfaces.ezobject import Subsurface
 from replan2eplus.ezobjects.surface import Surface
-from replan2eplus.ezobjects.zone import Zone
+from replan2eplus.ops.zones.ezobject import Zone
 from utils4plans.sets import set_difference, set_intersection
-
-
 
 
 @dataclass
@@ -36,8 +34,6 @@ class AirflowNetwork:
         self, select_fx: Callable[[list[Subsurface]], list[Subsurface]]
     ):
         return select_fx(self.subsurfaces)
-    
-
 
     # def __str__(self) -> str:
     #     table = Table(AirflowNetwork)

@@ -1,24 +1,24 @@
+from geomeppy import IDF
 from utils4plans.lists import chain_flatten
 
-from replan2eplus.ezobjects.subsurface import Subsurface
-from replan2eplus.ezobjects.zone import Zone
-from replan2eplus.idfobjects.idf import IDF
-from replan2eplus.ops.subsurfaces.interfaces import (
-    SubsurfaceInputs2,
-)
+from replan2eplus.ops.subsurfaces.ezobject import Subsurface
 from replan2eplus.ops.subsurfaces.logic.exterior import (
     create_subsurface_for_exterior_edge,
 )
 from replan2eplus.ops.subsurfaces.logic.interior import (
     create_subsurface_for_interior_edge,
 )
+from replan2eplus.ops.subsurfaces.user_interfaces import (
+    SubsurfaceInputs,
+)
+from replan2eplus.ops.zones.ezobject import Zone
+
 
 def create_subsurfaces(
-    inputs: SubsurfaceInputs2,
+    inputs: SubsurfaceInputs,
     zones: list[Zone],
     idf: IDF,
 ):
-    # TODO fix chain_flatten in utils4plans to use typevar
     interior_subsurfaces: list[Subsurface] = chain_flatten(
         [
             create_subsurface_for_interior_edge(edge, detail, zones, idf)

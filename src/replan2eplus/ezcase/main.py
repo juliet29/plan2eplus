@@ -7,16 +7,16 @@ from replan2eplus.ezobjects.afn import AirflowNetwork
 from replan2eplus.ezobjects.airboundary import Airboundary, get_unique_airboundaries
 from replan2eplus.ezobjects.construction import Construction, EPConstructionSet
 from replan2eplus.ezobjects.material import Material
-from replan2eplus.ezobjects.subsurface import Edge, Subsurface
+from replan2eplus.ops.subsurfaces.ezobject import Edge, Subsurface
 from replan2eplus.ezobjects.surface import Surface
-from replan2eplus.ezobjects.zone import Zone
+from replan2eplus.ops.zones.ezobject import Zone
 from replan2eplus.idfobjects.idf import IDF
 from replan2eplus.ops.afn.presentation import create_afn_objects
 from replan2eplus.ops.airboundary.presentation import update_airboundary_constructions
 from replan2eplus.ops.constructions.presentation import (
     add_constructions_from_other_idf,
 )
-from replan2eplus.ops.subsurfaces.interfaces import SubsurfaceInputs2
+from replan2eplus.ops.subsurfaces.user_interfaces import SubsurfaceInputs
 from replan2eplus.ops.subsurfaces.presentation import create_subsurfaces
 from replan2eplus.ops.subsurfaces.utils import get_unique_subsurfaces
 from replan2eplus.ops.zones.user_interface import Room
@@ -79,7 +79,7 @@ class EZCase:
         )
         return self
 
-    def add_subsurfaces(self, inputs: SubsurfaceInputs2):
+    def add_subsurfaces(self, inputs: SubsurfaceInputs):
         # TODO: check that zones exist
         self.subsurfaces = create_subsurfaces(
             inputs, self.zones, self.idf
@@ -109,7 +109,7 @@ class EZCase:
         self.materials.extend(new_materials)
         return self
 
-    def add_airflownetwork(self): # should be generate afn 
+    def add_airflownetwork(self):  # should be generate afn
         # TODO -> make an EZObject for AFN? Will be helpful for graphing..
         self.airflownetwork = create_afn_objects(
             self.idf, self.zones, self.subsurfaces, self.airboundaries, self.surfaces
@@ -119,7 +119,6 @@ class EZCase:
     def add_output_variables(self):
         self.idf.add_output_variables(default_variables)
         return self
-    
 
     def save_and_run_case(self, path_: Path | None = None, RUN=True):
         # TODO add command line args..

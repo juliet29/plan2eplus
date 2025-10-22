@@ -1,16 +1,15 @@
 from replan2eplus.examples.paths import PATH_TO_IDD, PATH_TO_MINIMAL_IDF
 from replan2eplus.ezcase.main import EZCase
+from replan2eplus.ops.subsurfaces.interfaces import Dimension, Location
 from replan2eplus.ops.zones.user_interface import Room
 from replan2eplus.paths import PATH_TO_WEATHER_FILE
 from replan2eplus.campaigns.decorator2 import make_experimental_campaign
 from replan2eplus.campaigns.inputs.defn import SampleDef
 from replan2eplus.campaigns.inputs.data import make_data_dict
-from replan2eplus.ops.subsurfaces.interfaces import (
-    SubsurfaceInputs2,
+from replan2eplus.ops.subsurfaces.user_interfaces import (
+    SubsurfaceInputs,
     Edge,
     Detail,
-    Dimension,
-    Location,
 )
 from replan2eplus.paths import CAMPAIGN_TESTS
 
@@ -29,7 +28,7 @@ def run_simple_ezcase(rooms, connections, window_dimension, out_path):
         ),
     }
 
-    ss_input = SubsurfaceInputs2(connections, details)
+    ss_input = SubsurfaceInputs(connections, details)
 
     print("Starting to create case!")
     case = EZCase(PATH_TO_IDD, PATH_TO_MINIMAL_IDF, PATH_TO_WEATHER_FILE)

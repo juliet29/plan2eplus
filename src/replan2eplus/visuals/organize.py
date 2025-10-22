@@ -1,6 +1,6 @@
 from replan2eplus.ezobjects.afn import AirflowNetwork
 from replan2eplus.ezobjects.airboundary import Airboundary
-from replan2eplus.ezobjects.subsurface import Subsurface
+from replan2eplus.ops.subsurfaces.ezobject import Subsurface
 from replan2eplus.ezobjects.surface import Surface
 from typing import NamedTuple, Sequence
 
@@ -16,9 +16,10 @@ def get_domains(items: Sequence[Surface | Subsurface | Airboundary]):
                 f"{item.display_name} has an orthogonal domain, but expected it to have a rectangular domain for plotting: {item}"
             )
         domains.append(item.domain)
-    return domains 
+    return domains
 
-def get_edges(items: Sequence[ Subsurface | Airboundary]):
+
+def get_edges(items: Sequence[Subsurface | Airboundary]):
     return [i.edge for i in items]
 
 

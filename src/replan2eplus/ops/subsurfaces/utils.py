@@ -4,7 +4,7 @@
 #     # TODO: for now use dummy hash, later add some sort of ordering..
 #     # do want to keep in the edge order though..
 #     pass
-from replan2eplus.ezobjects.subsurface import Subsurface
+from replan2eplus.ops.subsurfaces.ezobject import Subsurface
 
 
 def get_unique_subsurfaces(subsurfaces: list[Subsurface]):

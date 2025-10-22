@@ -1,19 +1,20 @@
 from replan2eplus.geometry.domain import Domain
 from replan2eplus.idfobjects.subsurface import SubsurfaceObject
 from replan2eplus.ops.subsurfaces.interfaces import (
-    ZoneEdge,
-    ZoneDirectionEdge,
-    Detail,
-    Location,
-    SubsurfaceInputs,
     Dimension,
+    Location,
+    ZoneDirectionEdge,
+    ZoneEdge,
+)
+from replan2eplus.ops.subsurfaces.user_interfaces import (
+    Detail,
     EdgeGroup,
-    SubsurfaceInputs2,
+    SubsurfaceInputs,
 )
 from replan2eplus.examples.cases.minimal import get_minimal_case_with_rooms, test_rooms
 from replan2eplus.geometry.directions import WallNormal
 from dataclasses import dataclass
-from replan2eplus.ezobjects.subsurface import Edge
+from replan2eplus.ops.subsurfaces.ezobject import Edge
 
 FACTOR = 4
 
@@ -51,15 +52,13 @@ details = {
 # testing actual implementation..
 
 
-
 e0 = Edge(room1.name, room2.name)
 e1 = Edge(room1.name, "WEST")
 e2 = Edge(room1.name, "NORTH")
 e3 = Edge(room2.name, "SOUTH")
 
 
-
-#TODO: think about how to input edge groups with combined types.. 
+# TODO: think about how to input edge groups with combined types..
 edge_groups = {
     "door": [EdgeGroup.from_tuple_edges([e0], "door", "Zone_Zone")],
     "window": [
@@ -76,15 +75,15 @@ edge_groups = {
 
 
 subsurface_inputs_dict = {
-    "interior": SubsurfaceInputs2(
+    "interior": SubsurfaceInputs(
         edge_groups["door"],
         details,
     ),
-    "simple": SubsurfaceInputs2(edge_groups["door"] + edge_groups["window"], details),
-    "airboundary": SubsurfaceInputs2(
+    "simple": SubsurfaceInputs(edge_groups["door"] + edge_groups["window"], details),
+    "airboundary": SubsurfaceInputs(
         edge_groups["door"] + edge_groups["ns_windows"], details
     ),
-    "three_details": SubsurfaceInputs2(
+    "three_details": SubsurfaceInputs(
         edge_groups["door"] + edge_groups["window_bl"] + edge_groups["ns_windows"],
         details,
     ),

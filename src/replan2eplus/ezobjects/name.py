@@ -28,7 +28,7 @@ class IDFName(NamedTuple):
         if self.n_position:
             return int(self.n_position.split("_")[1])
         else:
-            return ""
+            return "Z" # TODO map to letters.. 
 
     @property
     def full_number(self):

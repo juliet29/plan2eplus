@@ -3,7 +3,7 @@ from replan2eplus.ezobjects.base import EpBunch
 from replan2eplus.idfobjects.idf import IDF
 from replan2eplus.ezobjects.afn import AirflowNetwork
 from replan2eplus.ezobjects.surface import Surface
-from replan2eplus.ezobjects.subsurface import Subsurface
+from replan2eplus.ops.subsurfaces.ezobject import Subsurface
 from replan2eplus.idfobjects.afn import AFNKeys
 from replan2eplus.ezobjects.epbunch_utils import get_epbunch_key
 from pipe import filter

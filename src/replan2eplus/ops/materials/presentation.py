@@ -1,14 +1,10 @@
 from pathlib import Path
-from re import L
 from typing import Any, NamedTuple
-import warnings
 
-from utils4plans.sets import set_difference
 
 from replan2eplus.ezobjects.epbunch_utils import classFromArgs
 from replan2eplus.ezobjects.material import Material
 import replan2eplus.ops.materials.interfaces as mat_interfaces
-from replan2eplus.errors import IDFMisunderstandingError
 from replan2eplus.ezobjects.epbunch_utils import (
     create_dict_from_fields,
 )

@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from replan2eplus.ezobjects.surface import Surface
-from replan2eplus.ezobjects.subsurface import Edge
+from replan2eplus.ops.subsurfaces.ezobject import Edge
 
 
 @dataclass
@@ -12,7 +12,7 @@ class Airboundary:
     @property
     def domain(self):
         return self.surface.domain
-    
+
     @property
     def display_name(self):
         return self.surface.display_name
