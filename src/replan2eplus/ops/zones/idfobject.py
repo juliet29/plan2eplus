@@ -1,6 +1,7 @@
 from replan2eplus.idfobjects.base import IDFObject, get_object_description
 from dataclasses import dataclass
 from geomeppy import IDF
+from typing import NamedTuple, TypedDict
 
 
 @dataclass
@@ -27,3 +28,14 @@ class Zone(IDFObject):
     # def read(cls, idf: IDF):
     #     objects = idf.idfobjects[cls().key]
     #     return [cls(**get_object_description(i)) for i in objects]
+
+
+@dataclass
+class GeomeppyBlock(IDFObject):
+    name: str
+    coordinates: list[tuple[float, float]]
+    height: float
+
+    def write(self, idf: IDF):
+        idf.add_block(**self.values)
+        return idf

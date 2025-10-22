@@ -4,7 +4,7 @@ from replan2eplus.errors import IDFMisunderstandingError
 from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.contact_points import calculate_corner_points
 from replan2eplus.geometry.ortho_domain import OrthoDomain
-from replan2eplus.idfobjects.zone import GeomeppyBlock
+from replan2eplus.ops.zones.idfobject import GeomeppyBlock
 from typing import NamedTuple
 
 
@@ -30,14 +30,9 @@ class Room:
     def room_name(self):
         return f"`{self.name}`"
 
+    @property
     def geomeppy_block(self):
-        return GeomeppyBlock(
-            {
-                "name": self.room_name,
-                "coordinates": self.coords,
-                "height": self.height,
-            }
-        )
+        return GeomeppyBlock(self.room_name, self.coords, self.height)
 
     # TODO -> geomeppy expects points in a certain way by default, and need to confirm these are there..
     # TODO see normalize function in shapely

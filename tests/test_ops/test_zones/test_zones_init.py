@@ -7,7 +7,10 @@ import pytest
 import replan2eplus.epnames.keys as keys
 from replan2eplus.examples.subsurfaces import get_minimal_case_with_subsurfaces
 from replan2eplus.idfobjects.idf import IDF
-
+from replan2eplus.ezcase.ez import EZ
+from rich import print
+from replan2eplus.ops.zones.idfobject import Zone
+from replan2eplus.examples.interfaces.main import UserInterfaces as UI
 
 N_SURFACES_PER_CUBE = 6
 
@@ -57,10 +60,14 @@ def test_get_zone_subsurfaces(get_pytest_minimal_case_with_subsurfaces):
 
 
 if __name__ == "__main__":
-    case = get_minimal_case_with_subsurfaces()
-    z = case.zones[0]
-    ss = z.subsurface_names
-    print(ss)
+    # case = get_minimal_case_with_subsurfaces()
+    case = EZ()
+    rooms = [UI.rooms.r1, UI.rooms.r2]
+    create_zones(case.idf, rooms)
+
+    # z = case.zones[0]
+    # ss = z.subsurface_names
+    # print(ss)
     # idf = get_minimal_idf()
     # zones, surfaces = create_zones(idf, test_rooms)
     # print(surfaces)
