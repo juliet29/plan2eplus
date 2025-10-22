@@ -1,7 +1,6 @@
 from geomeppy import IDF
 from utils4plans.lists import chain_flatten
 
-from replan2eplus.ops.subsurfaces.ezobject import Subsurface
 from replan2eplus.ops.subsurfaces.logic.exterior import (
     create_subsurface_for_exterior_edge,
 )
@@ -11,23 +10,33 @@ from replan2eplus.ops.subsurfaces.logic.interior import (
 from replan2eplus.ops.subsurfaces.user_interfaces import (
     SubsurfaceInputs,
 )
+from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.ops.zones.ezobject import Zone
+from replan2eplus.ops.subsurfaces.idfobject import IDFSubsurface
 
 
 def create_subsurfaces(
-    inputs: SubsurfaceInputs,
+    inputs: SubsurfaceInputs | None,
+    surfaces: list[Surface],
     zones: list[Zone],
     idf: IDF,
 ):
-    interior_subsurfaces: list[Subsurface] = chain_flatten(
-        [
-            create_subsurface_for_interior_edge(edge, detail, zones, idf)
-            for edge, detail in inputs.zone_pairs
-        ]
-    )
-    exterior_subsurfaces = [
-        create_subsurface_for_exterior_edge(edge, detail, zones, idf)
-        for edge, detail in inputs.zone_drn_pairs
+    existing_subsurfaces = [
+        i.create_ezobject(surfaces) for i in IDFSubsurface.read(idf)
     ]
 
-    return interior_subsurfaces + exterior_subsurfaces
+    if inputs:
+        interior_subsurfaces = chain_flatten(
+            [
+                create_subsurface_for_interior_edge(edge, detail, zones, surfaces, idf)
+                for edge, detail in inputs.zone_pairs
+            ]
+        )
+        exterior_subsurfaces = [
+            create_subsurface_for_exterior_edge(edge, detail, zones, surfaces, idf)
+            for edge, detail in inputs.zone_drn_pairs
+        ]
+
+        return interior_subsurfaces + exterior_subsurfaces + existing_subsurfaces
+    
+    return existing_subsurfaces

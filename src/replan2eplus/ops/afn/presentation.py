@@ -36,7 +36,9 @@ def determine_anti_objects(
     anti_zones = [i for i in zones if i not in afn_zones]
 
     anti_surfaces_l1 = chain_flatten([i.surfaces for i in anti_zones])
-    anti_surfaces_l2: list[str] = [i.neighbor for i in anti_surfaces_l1 if i.neighbor]
+    anti_surfaces_l2: list[str] = [
+        i.neighbor_name for i in anti_surfaces_l1 if i.neighbor_name
+    ]
     anti_surfaces = [i.surface_name for i in anti_surfaces_l1] + anti_surfaces_l2
 
     anti_subsurfaces_l1 = chain_flatten([i.subsurface_names for i in anti_zones])

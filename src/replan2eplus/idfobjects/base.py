@@ -16,7 +16,7 @@ class IDFObject:
         return self.__dict__
 
     @classmethod
-    def read(cls, idf: IDF, *args, **kwargs) -> Sequence:
+    def read(cls, idf: IDF, *args, **kwargs):
         objects = idf.idfobjects[cls().key]
         return [cls(**get_object_description(i)) for i in objects]
 

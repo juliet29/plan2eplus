@@ -1,13 +1,10 @@
 from dataclasses import dataclass, field
-from eppy.bunch_subclass import EpBunch
 from replan2eplus.idfobjects.base import IDFObject, get_object_description
 from replan2eplus.ops.surfaces.ezobject import Surface
 from geomeppy import IDF
 from replan2eplus.ops.surfaces.interfaces import (
     SurfaceCoords,
     SurfaceType,
-    WindExposure,
-    SunExposure,
     OutsideBoundaryCondition,
 )
 

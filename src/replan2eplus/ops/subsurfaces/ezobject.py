@@ -53,15 +53,14 @@ SubsurfaceOptions = Literal["DOOR", "WINDOW", "DOOR:INTERZONE"]
 
 
 @dataclass
-class Subsurface():
+class Subsurface:
     subsurface_name: str
-    Starting_X_Coordinate: float
-    Starting_Z_Coordinate: float
-    Length: float
-    Height: float
-    type_: SubsurfaceType
+    starting_x_coordinate: float
+    starting_z_coordinate: float
+    length: float
+    height: float
+    subsurface_type: SubsurfaceType
     surface: Surface
-    edge: Edge
 
     # @classmethod
     # def from_epbunch_and_key(
@@ -99,35 +98,44 @@ class Subsurface():
             # later could include domain.. if have two subsurfaces on one location..
         return False
 
+    @property
+    def edge(self):
+        if self.surface.boundary_condition == "Outdoors":
+            edge = (self.surface.room_name, self.surface.direction.name)
+        else:
+            assert self.surface.neighbor_room_name
+            edge = (self.surface.room_name, self.surface.neighbor_room_name)
+        return Edge(*edge)
+
     # @property
     # def subsurface_name(self):
     #     return self._epbunch.Name
 
     @property
     def display_name(self):
-        return f"{self.type_}_{self.surface.display_name}"
+        return f"{self.subsurface_type}_{self.surface.display_name}"
 
     @property
     def is_door(self):
-        return self.type_ == "Door"
+        return self.subsurface_type == "Door"
 
     @property
     def is_window(self):
-        return self.type_ == "Window"
+        return self.subsurface_type == "Window"
 
     @property
     def domain(self):
         surf_domain = self.surface.domain
-        assert self.surface.type_ == "wall"
+        assert self.surface.surface_type == "Wall"
         assert isinstance(surf_domain, Domain)
         surface_min_horz = surf_domain.horz_range.min
         surface_min_vert = surf_domain.vert_range.min
 
-        horz_min = surface_min_horz + float(self.Starting_X_Coordinate)
-        width = float(self.Length)
+        horz_min = surface_min_horz + float(self.starting_x_coordinate)
+        width = float(self.length)
 
-        vert_min = surface_min_vert + float(self.Starting_Z_Coordinate)
-        height = float(self.Height)
+        vert_min = surface_min_vert + float(self.starting_z_coordinate)
+        height = float(self.height)
 
         horz_range = Range(horz_min, horz_min + width)
         vert_range = Range(vert_min, vert_min + height)

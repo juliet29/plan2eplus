@@ -21,7 +21,7 @@ def get_surface_between_zones(edge: ZoneEdge, zones: list[Zone]):
     candidates: list[Surface] = []
 
     for surface in zone_a.surfaces:
-        if surface.neighbor and surface.neighbor in zone_b.surface_names:
+        if surface.neighbor_name and surface.neighbor_name in zone_b.surface_names:
             candidates.append(surface)
 
     # TODO this is a repeating pattern -> can just pass the messages!
@@ -55,7 +55,7 @@ def get_surface_between_zone_and_direction(edge: ZoneDirectionEdge, zones: list[
             f"For now, assuming that edges between a zone and a direction are for placing external subsurfaces. There should only be one external subsurface on each facade. Instead found {len(candidates)} surfaces on the {direction} facade of {zone_a.zone_name} "
         )
     surf = candidates[0]
-    assert not surf.neighbor
+    assert not surf.neighbor_name
     return surf  # TODO in line with above assumption, should make sure all candidates do not have neigboriing surfaces
 
 

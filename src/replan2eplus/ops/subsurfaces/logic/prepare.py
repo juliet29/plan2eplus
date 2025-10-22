@@ -2,7 +2,7 @@ from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.contact_points import calculate_corner_points
 from replan2eplus.ops.subsurfaces.interfaces import Dimension
 from replan2eplus.geometry.range import Range
-from replan2eplus.ops.subsurfaces.idfobject import SubsurfaceObject
+from replan2eplus.ops.subsurfaces.idfobject import IDFSubsurface
 from replan2eplus.ops.subsurfaces.config import DOMAIN_SHRINK_FACTOR
 from replan2eplus.ops.subsurfaces.user_interfaces import Detail
 
@@ -60,7 +60,7 @@ def prepare_object(
     )  # need to subtract the surface corner..
     dims = detail.dimension.as_tuple
 
-    return SubsurfaceObject(
+    return IDFSubsurface(
         create_ss_name(surface_name, detail),
         surface_name,
         *coords,

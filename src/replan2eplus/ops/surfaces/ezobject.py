@@ -10,7 +10,11 @@ from replan2eplus.geometry.ezobject_domain import (
     create_domain_from_coords,
 )
 from replan2eplus.ops.airboundary.interfaces import DEFAULT_AIRBOUNDARY_OBJECT
-from replan2eplus.ops.surfaces.interfaces import SurfaceCoords, SurfaceType, OutsideBoundaryCondition
+from replan2eplus.ops.surfaces.interfaces import (
+    SurfaceCoords,
+    SurfaceType,
+    OutsideBoundaryCondition,
+)
 
 
 def get_surface_domain(name: str, surface_coords: SurfaceCoords):
@@ -36,10 +40,9 @@ class Surface:
     boundary_condition: OutsideBoundaryCondition
     boundary_condition_object: str
 
-    original_azimuth: float 
+    original_azimuth: float
     coords: SurfaceCoords
     subsurfaces: list[str]
-
 
     def __rich_repr__(self):
         yield "display_name", self.display_name
@@ -49,7 +52,7 @@ class Surface:
         yield "num_subsurfaces", len(self.subsurface_names)
         yield "surface_type", self.surface_type
         yield "is_airboundary", self.is_airboundary
-        yield "neighbor", self.neighbor
+        yield "neighbor", self.neighbor_name
         yield "subsurface_names", self.subsurface_names
 
     @property
@@ -67,11 +70,11 @@ class Surface:
     @property
     def direction(self):
         match self.surface_type:
-            case "floor":
+            case "Floor":
                 return WallNormal.DOWN
-            case "roof":
+            case "Roof":
                 return WallNormal.UP
-            case "wall":
+            case "Wall":
                 return WallNormal(self.azimuth)
             case _:
                 raise BadlyFormatedIDFError("Invalid surface type!")
@@ -80,7 +83,7 @@ class Surface:
     def display_name(self):
         idf_name = decompose_idf_name(self.surface_name)
         # num = idf_name.full_number
-        return f"{idf_name.plan_name}\n{self.direction.name}" #+ num
+        return f"{idf_name.plan_name}\n{self.direction.name}"  # + num
 
     # @property
     # def error_string(self):
@@ -99,11 +102,21 @@ class Surface:
     #     return SurfaceBoundaryCondition(self..Outside_Boundary_Condition).name
 
     @property
-    def neighbor(self):
+    def neighbor_name(self):
         if self.boundary_condition == "surface":
             return str(self.boundary_condition_object)  #
         else:
             return None
+
+    @property
+    def room_name(self):
+        return decompose_idf_name(self.surface_name).plan_name
+
+    @property
+    def neighbor_room_name(self):
+        if self.neighbor_name:
+            return decompose_idf_name(self.neighbor_name).plan_name
+        return None 
 
     @property
     def subsurface_names(self):

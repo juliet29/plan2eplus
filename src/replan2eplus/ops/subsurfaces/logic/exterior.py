@@ -1,3 +1,4 @@
+from replan2eplus.ezcase.objects import Surface
 from replan2eplus.geometry import domain
 from geomeppy import IDF
 from replan2eplus.ops.subsurfaces.ezobject import Edge
@@ -16,7 +17,11 @@ from replan2eplus.ops.zones.ezobject import Zone
 
 # TODO: needs assurance that the subsurfaces is not orthogonal -> result of get_drn between zone and direction..
 def create_subsurface_for_exterior_edge(
-    edge: ZoneDirectionEdge, detail_: Detail, zones: list[Zone], idf: IDF
+    edge: ZoneDirectionEdge,
+    detail_: Detail,
+    zones: list[Zone],
+    surfaces: list[Surface],
+    idf: IDF,
 ):
     surface = get_surface_between_zone_and_direction(edge, zones)
 
@@ -29,4 +34,4 @@ def create_subsurface_for_exterior_edge(
         surface.surface_name, subsurf_domain, surface.domain, detail, "", False
     )
     obj.write(idf)
-    return obj.create_ezobject(surface, Edge(edge.space_a, edge.space_b.name))
+    return obj.create_ezobject(surfaces)
