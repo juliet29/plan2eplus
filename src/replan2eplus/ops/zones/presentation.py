@@ -26,6 +26,7 @@ def create_zones(idf: IDF, rooms: list[Room]):
     # TODO: use custom exceptions, + use shapely to check what the issues are..
 
     zones = [Zone(_epbunch=i) for i in idf.get_zones()]
+    ## zone.get_referring_objs
     surfaces = [Surface(i) for i in idf.get_surfaces()]
     updates_zones = assign_zone_surfaces(zones, surfaces)
 

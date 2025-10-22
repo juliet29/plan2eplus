@@ -109,7 +109,7 @@ class EZCase:
         self.materials.extend(new_materials)
         return self
 
-    def add_airflownetwork(self):
+    def add_airflownetwork(self): # should be generate afn 
         # TODO -> make an EZObject for AFN? Will be helpful for graphing..
         self.airflownetwork = create_afn_objects(
             self.idf, self.zones, self.subsurfaces, self.airboundaries, self.surfaces

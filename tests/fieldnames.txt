@@ -1,0 +1,16 @@
+[
+    'key',
+    'Name',
+    'Direction_of_Relative_North',
+    'X_Origin',
+    'Y_Origin',
+    'Z_Origin',
+    'Type',
+    'Multiplier',
+    'Ceiling_Height',
+    'Volume',
+    'Floor_Area',
+    'Zone_Inside_Convection_Algorithm',
+    'Zone_Outside_Convection_Algorithm',
+    'Part_of_Total_Floor_Area'
+]

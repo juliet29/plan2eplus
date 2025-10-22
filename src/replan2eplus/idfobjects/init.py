@@ -2,30 +2,7 @@ from typing import NamedTuple
 from geomeppy import IDF
 from dataclasses import dataclass
 
-# TODO read some of these from config..
-
-
-@dataclass
-class IDFObject:
-    # key: str
-
-    @property
-    def key(self) -> str: ...
-
-    @property
-    def values(self):
-        return self.__dict__
-        # d.pop("key")
-        # return d
-
-
-def add_new_objects(idf: IDF, objects: list[IDFObject]):
-    for object in objects:
-        # TODO possibly log..
-        # print(f"object key= {object.key}")
-        # print(f"object kwargs= {object.values}")
-        idf.newidfobject(object.key, **object.values)
-    return idf
+from replan2eplus.idfobjects.base import IDFObject, add_new_objects
 
 
 @dataclass
@@ -103,3 +80,21 @@ def add_base_objects(
     return add_new_objects(
         idf, [version, timestep, building, global_geometry_rules, simulation_control]
     )
+
+
+def add_init_objects(
+    idf: IDF,
+    base_objects: list[IDFObject] = [
+        Version(),
+        Timestep(),
+        Building(),
+        GlobalGeometryRules(),
+        SimulationControl(),
+    ],
+):
+    for obj in base_objects:
+        idf = obj.read(idf)
+    return idf
+    # return add_new_objects(
+    #     idf, [version, timestep, building, global_geometry_rules, simulation_control]
+    # )
