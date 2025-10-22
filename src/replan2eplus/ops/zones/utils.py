@@ -1,4 +1,4 @@
-from replan2eplus.ezobjects.zone import Zone
+from replan2eplus.ops.zones.ezobject import Zone
 from utils4plans.lists import chain_flatten
 
 

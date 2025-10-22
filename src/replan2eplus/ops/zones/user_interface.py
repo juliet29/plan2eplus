@@ -1,11 +1,9 @@
 from dataclasses import dataclass
 
-from replan2eplus.errors import IDFMisunderstandingError
-from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.contact_points import calculate_corner_points
+from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.ortho_domain import OrthoDomain
 from replan2eplus.ops.zones.idfobject import GeomeppyBlock
-from typing import NamedTuple
 
 
 @dataclass

@@ -1,9 +1,10 @@
-from typing import NamedTuple
-from replan2eplus.ezobjects.zone import Zone
-from replan2eplus.ezobjects.surface import Surface
-from replan2eplus.ops.zones.create import create_zones
-from geomeppy import IDF
 from dataclasses import dataclass
+
+from geomeppy import IDF
+
+from replan2eplus.ops.surfaces.ezobject import Surface
+from replan2eplus.ops.zones.create import create_zones
+from replan2eplus.ops.zones.ezobject import Zone
 
 
 @dataclass

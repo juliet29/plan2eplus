@@ -1,16 +1,15 @@
-from typing import NamedTuple, get_args
-from replan2eplus.ezobjects.base import EZObject
 from dataclasses import dataclass
-import replan2eplus.epnames.keys as epkeys
+from typing import Literal, NamedTuple, get_args
+
+from eppy.bunch_subclass import EpBunch
+
+from replan2eplus.ezobjects.base import EZObject
 from replan2eplus.ezobjects.epbunch_utils import get_epbunch_key
-from replan2eplus.ezobjects.zone import Zone
+from replan2eplus.ops.surfaces.ezobject import Surface 
 from replan2eplus.geometry.directions import WallNormal, WallNormalNamesList
 from replan2eplus.geometry.domain import Domain
-from eppy.bunch_subclass import EpBunch
-from typing import Literal
-
 from replan2eplus.geometry.range import Range
-from replan2eplus.ezobjects.surface import Surface
+from replan2eplus.ops.zones.ezobject import Zone
 
 subsurface_options = [
     "DOOR",

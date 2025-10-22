@@ -1,11 +1,8 @@
-from eppy.bunch_subclass import EpBunch
 from dataclasses import dataclass, field
 from replan2eplus.errors import BadlyFormatedIDFError
-from replan2eplus.ezobjects.base import EZObject
 
-import replan2eplus.epnames.keys as epkeys
 from utils4plans.lists import sort_and_group_objects_dict
-from replan2eplus.ezobjects.surface import Surface
+from replan2eplus.ops.surfaces.ezobject import Surface 
 from typing import TypeVar
 
 from replan2eplus.geometry.directions import WallNormal

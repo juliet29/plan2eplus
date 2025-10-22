@@ -1,17 +1,21 @@
-from replan2eplus.geometry.domain import Domain
-from replan2eplus.ops.airboundary.interfaces import DEFAULT_AIRBOUNDARY_OBJECT
-from replan2eplus.ezobjects.base import EZObject
 from dataclasses import dataclass
-import replan2eplus.epnames.keys as epkeys
-from enum import StrEnum, Enum
+from enum import StrEnum
 from typing import Literal
-from replan2eplus.errors import IDFMisunderstandingError, BadlyFormatedIDFError
+
 from eppy.bunch_subclass import EpBunch
+from rich.table import Table
+
+import replan2eplus.epnames.keys as epkeys
+from replan2eplus.errors import BadlyFormatedIDFError
+from replan2eplus.ezobjects.base import EZObject
 from replan2eplus.geometry.coords import Coordinate3D
 from replan2eplus.geometry.directions import WallNormal
-from replan2eplus.geometry.ezobject_domain import compute_unit_normal, create_domain_from_coords
-
-from rich.table import Table
+from replan2eplus.geometry.domain import Domain
+from replan2eplus.geometry.ezobject_domain import (
+    compute_unit_normal,
+    create_domain_from_coords,
+)
+from replan2eplus.ops.airboundary.interfaces import DEFAULT_AIRBOUNDARY_OBJECT
 
 
 def get_surface_coords(surface: EpBunch):
@@ -146,9 +150,4 @@ class Surface(EZObject):
     def is_airboundary(self):
         return self.construction_name == DEFAULT_AIRBOUNDARY_OBJECT.Name
 
-    # def update_construction(self, construction_name: str):
-    #     pass
 
-
-# def segment_surfaces(surfaces: list[Surface]):
-#     return sort_and_group_objects(surfaces, lambda x: x.type_)

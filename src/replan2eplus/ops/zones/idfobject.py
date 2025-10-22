@@ -1,9 +1,10 @@
-from replan2eplus.ezobjects.surface import Surface as EzSurface
-from replan2eplus.idfobjects.base import IDFObject, get_object_description
 from dataclasses import dataclass
+
 from geomeppy import IDF
-from typing import NamedTuple, TypedDict
-from replan2eplus.ezobjects.zone import Zone
+
+from replan2eplus.idfobjects.base import IDFObject
+from replan2eplus.ops.surfaces.ezobject import Surface
+from replan2eplus.ops.zones.ezobject import Zone
 
 
 @dataclass
@@ -26,14 +27,8 @@ class IDFZone(IDFObject):
     def key(self):
         return "ZONE"
 
-    def create_ezobject(self, surfaces: list[EzSurface]):
+    def create_ezobject(self, surfaces: list[Surface]):
         return Zone(self.Name, surfaces)
-
-    # @classmethod
-    # def read(cls, idf: IDF):
-    #     objects = idf.idfobjects[cls().key]
-    #     return [cls(**get_object_description(i)) for i in objects]
-
 
 @dataclass
 class GeomeppyBlock(IDFObject):

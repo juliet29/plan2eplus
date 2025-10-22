@@ -1,9 +1,7 @@
 from dataclasses import dataclass
-from geomeppy import IDF
-from typing import NamedTuple, TypedDict
 from eppy.bunch_subclass import EpBunch
 from replan2eplus.idfobjects.base import IDFObject
-from replan2eplus.ezobjects.surface import Surface  # TODO rename!
+from replan2eplus.ops.surfaces.ezobject import Surface  # TODO rename!
 
 
 @dataclass

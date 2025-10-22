@@ -3,39 +3,15 @@ import pytest
 from replan2eplus.ex.main import Cases
 from replan2eplus.ex.main import UserInterfaces as UI
 
-# from replan2eplus.examples.cases.minimal import get_minimal_idf, test_rooms
-# from replan2eplus.examples.subsurfaces import get_minimal_case_with_subsurfaces
-from replan2eplus.ezcase.ez import EZ
 from replan2eplus.ops.zones.create import create_zones
 
-N_SURFACES_PER_CUBE = 6
 
-
-# ## NOTE: this stuff applies to most ep objects and might be moved
-# def test_init_zone(get_pytest_example_idf):
-#     idf = get_pytest_example_idf
-#     zones = idf.get_zones()
-#     zone = IDFZone(zones[0])
-#     assert zone.expected_key == keys.ZONE  # TODO mayve test name?
-
-
-# def test_init_zone_with_surface(get_pytest_example_idf):
-#     with pytest.raises(InvalidEpBunchError) as excinfo:
-#         idf = get_pytest_example_idf
-#         surfaces = idf.get_surfaces()
-#         IDFZone(surfaces[0])
-#         assert "ZONE" in str(excinfo.value)
-
-
-def test_zone_names():  # TODO more thorough test of names..
+def test_zone_names():
     case = Cases().two_room
     zones = case.objects.zones
     assert set([i.room_name for i in zones]) == set(
         [i.name for i in UI.rooms.two_room_list]
     )
-
-
-## NOTE: This is more zone specific
 
 
 def test_add_zones():
@@ -47,8 +23,15 @@ def test_add_zones():
 def test_add_surfaces_with_zones():
     case = Cases().base
     _, surfaces = create_zones(case.idf, UI.rooms.two_room_list)
-    a = 1+1
+    N_SURFACES_PER_CUBE = 6
     assert len(surfaces) == len(UI.rooms.two_room_list) * N_SURFACES_PER_CUBE
+
+
+def test_read():
+    case = Cases().example
+    n_zones = len(case.objects.zones)
+    assert n_zones == 3
+
 
 
 @pytest.mark.xfail()
@@ -59,13 +42,10 @@ def test_get_zone_subsurfaces(get_pytest_minimal_case_with_subsurfaces):
 
 
 if __name__ == "__main__":
-    # test_add_surfaces_with_zones()
-    case = EZ()
-    rooms = [UI.rooms.r1, UI.rooms.r2]
-    zones = create_zones(case.idf, rooms)
-
-
-
+    test_read()
+    # case = EZ()
+    # rooms = [UI.rooms.r1, UI.rooms.r2]
+    # zones = create_zones(case.idf, rooms)
 
     # ss = z.subsurface_names
     # print(ss)
