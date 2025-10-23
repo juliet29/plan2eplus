@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import get_args
 
 from replan2eplus.errors import BadlyFormatedIDFError
 from replan2eplus.ezobjects.name import decompose_idf_name
@@ -70,14 +71,14 @@ class Surface:
     @property
     def direction(self):
         match self.surface_type:
-            case "Floor":
+            case "floor":
                 return WallNormal.DOWN
-            case "Roof":
+            case "roof":
                 return WallNormal.UP
-            case "Wall":
+            case "wall":
                 return WallNormal(self.azimuth)
             case _:
-                raise BadlyFormatedIDFError("Invalid surface type!")
+                raise BadlyFormatedIDFError(f"Invalid surface type: recieved: {self.surface_type}. Expected {get_args(SurfaceType)}")
 
     @property
     def display_name(self):

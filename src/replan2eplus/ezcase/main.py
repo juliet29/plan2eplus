@@ -8,7 +8,7 @@ from replan2eplus.ezobjects.airboundary import Airboundary, get_unique_airbounda
 from replan2eplus.ezobjects.construction import Construction, EPConstructionSet
 from replan2eplus.ezobjects.material import Material
 from replan2eplus.ops.subsurfaces.ezobject import Edge, Subsurface
-from replan2eplus.ezobjects.surface import Surface
+from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.ops.zones.ezobject import Zone
 from replan2eplus.idfobjects.idf import IDF
 from replan2eplus.ops.afn.presentation import create_afn_objects

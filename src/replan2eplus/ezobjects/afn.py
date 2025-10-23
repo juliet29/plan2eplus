@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Callable
 from replan2eplus.ezobjects.airboundary import Airboundary
 from replan2eplus.ops.subsurfaces.ezobject import Subsurface
-from replan2eplus.ezobjects.surface import Surface
+from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.ops.zones.ezobject import Zone
 from utils4plans.sets import set_difference, set_intersection
 

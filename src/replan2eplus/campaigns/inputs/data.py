@@ -1,6 +1,6 @@
 from replan2eplus.campaigns.decorator2 import DataDict
 from replan2eplus.examples.cases.minimal import test_rooms
-from replan2eplus.examples.subsurfaces import edge_groups
+from replan2eplus.ex.subsurfaces import edge_groups
 
 from replan2eplus.ops.subsurfaces.interfaces import Dimension
 

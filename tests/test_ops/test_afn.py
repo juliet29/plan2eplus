@@ -1,7 +1,7 @@
 from replan2eplus.examples.cases.afn_case import make_afn_case
 from replan2eplus.ops.afn.presentation import create_afn_objects, select_afn_objects
 from replan2eplus.ops.airboundary.presentation import update_airboundary_constructions
-from replan2eplus.examples.subsurfaces import (
+from replan2eplus.ex.subsurfaces import (
     door_details,
     room1,
     zone_drn_edge,

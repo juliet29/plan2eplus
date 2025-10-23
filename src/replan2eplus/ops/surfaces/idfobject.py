@@ -1,5 +1,9 @@
 from dataclasses import dataclass, field
-from replan2eplus.idfobjects.base import IDFObject, get_object_description
+from replan2eplus.idfobjects.base import (
+    IDFObject,
+    filter_relevant_values,
+    get_object_description,
+)
 from replan2eplus.ops.surfaces.ezobject import Surface
 from geomeppy import IDF
 from replan2eplus.ops.surfaces.interfaces import (
@@ -12,7 +16,7 @@ from replan2eplus.ops.surfaces.interfaces import (
 @dataclass
 class IDFSurface(IDFObject):
     Name: str = ""
-    Surface_Type: SurfaceType = "Wall"
+    Surface_Type: SurfaceType = "wall"
     Construction_Name: str = ""
     Zone_Name: str = ""
     Space_Name: str = ""
@@ -39,18 +43,17 @@ class IDFSurface(IDFObject):
                 "subsurfaces": o.subsurfaces,
             }
             # filter based on class attributes.. -> #TODO move to base after test.
-            relevant_values = { 
-                k: v for k, v in key_values.items() if k in cls().values.keys()
-            }
+            relevant_values = filter_relevant_values(key_values, cls().values)
+
             d = relevant_values | properties
 
             return cls(**d)
 
         objects = idf.idfobjects[cls().key]
-        if names:   
+        if names:
             return [create_new_objects(o) for o in objects if o.Name in names]
-        
-        return [create_new_objects(o) for o in objects] 
+
+        return [create_new_objects(o) for o in objects]
 
     def create_ezobject(self):
         return Surface(

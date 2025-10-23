@@ -1,7 +1,7 @@
 from replan2eplus.ezobjects.afn import AirflowNetwork
 from replan2eplus.ezobjects.airboundary import Airboundary
 from replan2eplus.ops.subsurfaces.ezobject import Subsurface
-from replan2eplus.ezobjects.surface import Surface
+from replan2eplus.ops.surfaces.ezobject import Surface
 from typing import NamedTuple, Sequence
 
 from replan2eplus.geometry.domain import Domain

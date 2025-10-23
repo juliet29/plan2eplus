@@ -33,5 +33,9 @@ def create_subsurface_for_exterior_edge(
     obj = prepare_object(
         surface.surface_name, subsurf_domain, surface.domain, detail, "", False
     )
-    obj.write(idf)
+    try:
+        obj.write(idf)
+    except AttributeError:
+        print(obj.values)
+        raise Exception("Problem writing Subusrface Object!")
     return obj.create_ezobject(surfaces)

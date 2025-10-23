@@ -1,7 +1,7 @@
 import pytest
 
 from replan2eplus.ex.main import Cases
-from replan2eplus.ex.main import UserInterfaces as UI
+from replan2eplus.ex.main import Interfaces as UI
 
 from replan2eplus.ops.zones.create import create_zones
 
@@ -31,7 +31,6 @@ def test_read():
     case = Cases().example
     n_zones = len(case.objects.zones)
     assert n_zones == 3
-
 
 
 @pytest.mark.xfail()

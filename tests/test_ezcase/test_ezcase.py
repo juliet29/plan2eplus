@@ -10,7 +10,7 @@ from replan2eplus.examples.mat_and_const import (
 )
 from replan2eplus.examples.ortho_domain import create_ortho_case
 from replan2eplus.examples.paths import PATH_TO_IDD, PATH_TO_MINIMAL_IDF
-from replan2eplus.examples.subsurfaces import e0, subsurface_inputs_dict
+from replan2eplus.ex.subsurfaces import e0, subsurface_inputs_dict
 from replan2eplus.ezcase.main import EZCase
 from replan2eplus.idfobjects.variables import default_variables
 from replan2eplus.paths import ORTHO_CASE_RESULTS, PATH_TO_WEATHER_FILE

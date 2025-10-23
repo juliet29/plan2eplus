@@ -1,4 +1,4 @@
-from replan2eplus.examples.subsurfaces import get_minimal_case_with_subsurfaces, e0, e1
+from replan2eplus.ex.subsurfaces import get_minimal_case_with_subsurfaces, e0, e1
 from replan2eplus.ezcase.read import ExistCase, get_geom_objects
 from replan2eplus.geometry.coords import Coordinate3D
 import pytest

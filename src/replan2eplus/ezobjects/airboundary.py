@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from replan2eplus.ezobjects.surface import Surface
+from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.ops.subsurfaces.ezobject import Edge
 
 

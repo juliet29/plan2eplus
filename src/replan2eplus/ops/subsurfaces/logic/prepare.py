@@ -65,7 +65,7 @@ def prepare_object(
         surface_name,
         *coords,
         *dims,
-        create_ss_name(nb_surface_name, detail),
-        detail.type_,
-        is_interior,
+        # create_ss_name(nb_surface_name, detail),
+        type_=detail.type_,
+        is_interior=is_interior,
     )

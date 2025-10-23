@@ -2,7 +2,7 @@ from replan2eplus.ops.airboundary.interfaces import (
     DEFAULT_AIRBOUNDARY_OBJECT,
     AirboundaryConstructionObject,
 )
-from replan2eplus.ezobjects.surface import Surface
+from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.ops.zones.ezobject import Zone
 from replan2eplus.idfobjects.idf import IDF
 from replan2eplus.ops.subsurfaces.interfaces import ZoneEdge

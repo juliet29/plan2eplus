@@ -1,16 +1,12 @@
 from dataclasses import dataclass
-from typing import Literal, NamedTuple, get_args
+from typing import Literal, NamedTuple
 
-from eppy.bunch_subclass import EpBunch
 
-from replan2eplus.ezobjects.base import EZObject
-from replan2eplus.ezobjects.epbunch_utils import get_epbunch_key
 from replan2eplus.ops.subsurfaces.interfaces import SubsurfaceType
 from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.geometry.directions import WallNormal, WallNormalNamesList
 from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.range import Range
-from replan2eplus.ops.zones.ezobject import Zone
 
 # subsurface_options = [
 #     "DOOR",
@@ -59,6 +55,7 @@ class Subsurface:
     starting_z_coordinate: float
     length: float
     height: float
+    # boundary_condition_object: str
     subsurface_type: SubsurfaceType
     surface: Surface
 

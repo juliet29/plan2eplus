@@ -6,7 +6,7 @@ from replan2eplus.visuals.transforms import (
     subsurface_to_connection_line,
 )
 from replan2eplus.visuals.base.base_plot import BasePlot
-from replan2eplus.examples.subsurfaces import e0
+from replan2eplus.ex.subsurfaces import e0
 
 
 def test_transform_subsurface_to_connection(get_pytest_minimal_case_with_subsurfaces):

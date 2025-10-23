@@ -1,6 +1,6 @@
 from replan2eplus.ops.airboundary.interfaces import DEFAULT_AIRBOUNDARY_OBJECT
 from replan2eplus.ezobjects.construction import EPConstructionSet
-from replan2eplus.ezobjects.surface import Surface
+from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.idfobjects.idf import IDF, Subsurface
 
 # TODO can clean up by adding index method to the objects.. also should have the otherwise for all of these! -> can also have six cases instead of nine!

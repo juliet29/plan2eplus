@@ -1,11 +1,11 @@
 import pytest
 from replan2eplus.errors import IDFMisunderstandingError
-from replan2eplus.examples.subsurfaces import e0, zone_edge
+from replan2eplus.ex.subsurfaces import e0, zone_edge
 from replan2eplus.ops.airboundary.presentation import update_airboundary_constructions
 from replan2eplus.ops.subsurfaces.logic.interior import (
     create_subsurface_for_interior_edge,
 )
-from replan2eplus.examples.subsurfaces import door_details
+from replan2eplus.ex.subsurfaces import door_details
 
 
 def test_add_airboundary(get_pytest_minimal_case_with_rooms):

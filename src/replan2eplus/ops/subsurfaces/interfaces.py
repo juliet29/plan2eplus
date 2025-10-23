@@ -51,5 +51,7 @@ class Location(NamedTuple):
 # TODO make some defaults!
 
 
-SubsurfaceType = Literal["Door", "Window", ""]
-SubsurfaceKey = Literal["DOOR", "WINDOW", "DOOR:INTERZONE"]
+SubsurfaceType = Literal["Door", "Window"]
+SubsurfaceKey = Literal[
+    "DOOR", "WINDOW", "DOOR:INTERZONE", "FENESTRATIONSURFACE:DETAILED"
+]

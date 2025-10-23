@@ -2,7 +2,7 @@ from geomeppy.idf import new_idf
 import pytest
 
 from replan2eplus.examples.cases.minimal import get_minimal_case_with_rooms
-from replan2eplus.examples.subsurfaces import (
+from replan2eplus.ex.subsurfaces import (
     zone_edge,
     zone_drn_edge,
     window_details,

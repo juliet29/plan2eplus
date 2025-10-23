@@ -6,6 +6,16 @@ from eppy.bunch_subclass import EpBunch
 from dataclasses import dataclass
 
 
+def get_object_description(object: EpBunch):
+    d = {k: v for k, v in zip(object.fieldnames, object.fieldvalues)}
+    d.pop("key")
+    return d
+
+
+def filter_relevant_values(existing_values: dict, relevant_values: dict):
+    return {k: v for k, v in existing_values.items() if k in relevant_values.keys()}
+
+
 @dataclass
 class IDFObject:
     @property
@@ -39,9 +49,3 @@ def add_new_objects(idf: IDF, objects: list[IDFObject]):
         # print(f"object kwargs= {object.values}")
         idf.newidfobject(object.key, **object.values)
     return idf
-
-
-def get_object_description(object: EpBunch):
-    d = {k: v for k, v in zip(object.fieldnames, object.fieldvalues)}
-    d.pop("key")
-    return d

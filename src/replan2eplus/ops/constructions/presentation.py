@@ -9,7 +9,7 @@ from replan2eplus.ops.constructions.logic.utils import (
     find_and_add_materials,
 )
 from replan2eplus.ezobjects.construction import EPConstructionSet
-from replan2eplus.ezobjects.surface import Surface
+from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.idfobjects.idf import IDF, Subsurface
 
 

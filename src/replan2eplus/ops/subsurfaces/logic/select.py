@@ -1,5 +1,5 @@
 from replan2eplus.errors import BadlyFormatedIDFError, IDFMisunderstandingError
-from replan2eplus.ezobjects.surface import Surface
+from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.ops.subsurfaces.interfaces import ZoneDirectionEdge
 from replan2eplus.ops.zones.ezobject import Zone
 from replan2eplus.ops.subsurfaces.interfaces import ZoneEdge
@@ -34,8 +34,8 @@ def get_surface_between_zones(edge: ZoneEdge, zones: list[Zone]):
             f"Should not have more than one shared wall between zones. Between {zone_a.zone_name} and {zone_b.zone_name}, have {len(candidates)} walls: `{candidates}` "
         )
     surf = candidates[0]
-    assert surf.neighbor
-    neigbor = [i for i in zone_b.surfaces if i.surface_name == surf.neighbor]
+    assert surf.neighbor_name
+    neigbor = [i for i in zone_b.surfaces if i.surface_name == surf.neighbor_name]
     assert len(neigbor) == 1
     return surf, neigbor[0]
 

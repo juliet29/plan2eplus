@@ -1,5 +1,5 @@
 from replan2eplus.examples.cases.minimal import get_minimal_case_with_rooms
-from replan2eplus.examples.subsurfaces import subsurface_inputs_dict
+from replan2eplus.ex.subsurfaces import subsurface_inputs_dict
 
 
 def make_afn_case():

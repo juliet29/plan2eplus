@@ -2,6 +2,7 @@ from geomeppy import IDF
 from rich import print
 
 from replan2eplus.errors import IDFMisunderstandingError
+from replan2eplus.geometry.domain import Domain
 from replan2eplus.ops.subsurfaces.ezobject import Subsurface
 from replan2eplus.ops.subsurfaces.interfaces import ZoneEdge
 from replan2eplus.ops.subsurfaces.logic.placement import place_domain
@@ -48,6 +49,8 @@ def create_subsurface_for_interior_edge(
 
     check_for_airboundaries(main_surface, nb_surface)
 
+    assert isinstance(main_surface.domain, Domain)
+
     # TODO check dimensions!
     detail = compare_and_maybe_change_dimensions(detail_, main_surface.domain)
 
@@ -72,8 +75,20 @@ def create_subsurface_for_interior_edge(
         True,
     )
 
-    main_obj.write(idf)
-    nb_obj.write(idf)
+    # main_obj.write(idf)
+    try:
+        main_obj.write(idf)
+    except AttributeError:
+        print(main_obj.values)
+        raise Exception("Problem writing Subusrface Object!")
+
+    try:
+        nb_obj.write(idf)
+    except AttributeError:
+        print(nb_obj.values)
+        raise Exception("Problem writing Subusrface Object!")
+
+    # nb_obj.write(idf)
 
     ez_surf_main = main_obj.create_ezobject(surfaces)
     ez_surf_nb = nb_obj.create_ezobject(surfaces)
