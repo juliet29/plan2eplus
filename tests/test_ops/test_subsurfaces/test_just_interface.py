@@ -4,7 +4,7 @@ from replan2eplus.ops.subsurfaces.logic.prepare import create_ss_name
 from replan2eplus.ops.subsurfaces.user_interfaces import EdgeGroup, SubsurfaceInputs
 import pytest
 from replan2eplus.ex.main import Cases, Interfaces
-from replan2eplus.ops.subsurfaces.presentation import create_subsurfaces
+from replan2eplus.ops.subsurfaces.create import create_subsurfaces
 from replan2eplus.ops.zones.idfobject import IDFZone
 from replan2eplus.ops.surfaces.idfobject import IDFSurface
 from rich import print

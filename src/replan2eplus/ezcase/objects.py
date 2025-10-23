@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from geomeppy import IDF
 
 from replan2eplus.ops.subsurfaces.ezobject import Subsurface
-from replan2eplus.ops.subsurfaces.presentation import create_subsurfaces
+from replan2eplus.ops.subsurfaces.create import create_subsurfaces
 from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.ops.zones.create import create_zones
 from replan2eplus.ops.zones.ezobject import Zone

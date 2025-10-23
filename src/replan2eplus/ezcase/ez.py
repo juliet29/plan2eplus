@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from eppy.modeleditor import IDDAlreadySetError
 from pathlib import Path
 from replan2eplus.ezcase.objects import read_existing_objects
-from replan2eplus.ops.subsurfaces.presentation import create_subsurfaces
+from replan2eplus.ops.subsurfaces.create import create_subsurfaces
 from replan2eplus.ops.subsurfaces.user_interfaces import SubsurfaceInputs
 from replan2eplus.paths import ep_paths
 

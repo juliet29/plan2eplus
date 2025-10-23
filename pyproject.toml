@@ -10,6 +10,7 @@ requires-python = ">=3.13"
 dependencies = [
     "bpython>=0.25",
     "eppy>=0.5.63",
+    "expression>=5.6.0",
     "geomeppy>=0.11.8",
     "ladybug-core>=0.44.19",
     "loguru>=0.7.3",

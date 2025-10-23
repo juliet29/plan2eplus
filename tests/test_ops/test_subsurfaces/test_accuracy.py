@@ -15,7 +15,7 @@ from replan2eplus.geometry.range import Range
 # )
 from replan2eplus.ops.subsurfaces.ezobject import Edge
 from replan2eplus.ops.subsurfaces.interfaces import Dimension, Location
-from replan2eplus.ops.subsurfaces.presentation import create_subsurfaces
+from replan2eplus.ops.subsurfaces.create import create_subsurfaces
 from replan2eplus.ops.subsurfaces.user_interfaces import (
     Detail,
     EdgeGroup,
