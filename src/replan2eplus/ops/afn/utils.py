@@ -1,5 +1,5 @@
 from typing import Callable
-from replan2eplus.ezobjects.base import EpBunch
+from replan2eplus.ezobjects.ezbase import EpBunch
 from replan2eplus.idfobjects.idf import IDF
 from replan2eplus.ezobjects.afn import AirflowNetwork
 from replan2eplus.ops.surfaces.ezobject import Surface

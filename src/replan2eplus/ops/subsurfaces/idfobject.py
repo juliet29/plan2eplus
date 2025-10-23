@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import get_args
 
-from replan2eplus.ezobjects.base import EpBunch
+from replan2eplus.ezobjects.ezbase import EpBunch
 from replan2eplus.ops.subsurfaces.interfaces import SubsurfaceKey, SubsurfaceType
 from replan2eplus.idfobjects.base import (
     IDFObject,

@@ -1,4 +1,4 @@
-from replan2eplus.ezobjects.base import EpBunch
+from replan2eplus.ezobjects.ezbase import EpBunch
 from replan2eplus.ops.surfaces.idfobject import IDFSurface
 from replan2eplus.ops.zones.user_interface import Room
 

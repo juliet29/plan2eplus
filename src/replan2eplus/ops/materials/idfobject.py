@@ -1,11 +1,23 @@
 from typing import TypeVar
-from replan2eplus.idfobjects.base import IDFObject
+
+from geomeppy import IDF
+from replan2eplus.idfobjects.base import IDFObject, get_object_description
 from dataclasses import dataclass
 
 
 @dataclass
 class IDFMaterialBase(IDFObject):
     Name: str = ""
+
+    @classmethod
+    def read(cls, idf: IDF, names: list[str] = []):
+        objects = idf.idfobjects[cls().key]
+
+        if names:
+            return [
+                cls(**get_object_description(i)) for i in objects if i.Name in names
+            ]
+        return [cls(**get_object_description(i)) for i in objects]
 
 
 @dataclass
@@ -22,6 +34,25 @@ class IDFMaterial(IDFMaterialBase):
     @property
     def key(self):
         return "MATERIAL"
+
+
+@dataclass
+class IDFMaterialNoMass(IDFMaterialBase):
+    Roughness: float = 0.0  # TODO this is an enum!
+    Thermal_Resistance: float = 0.0
+
+    @property
+    def key(self):
+        return "MATERIAL:NOMASS"
+
+
+@dataclass
+class IDFMaterialAirGap(IDFMaterialBase):
+    Thermal_Resistance: float = 0.0
+
+    @property
+    def key(self):
+        return "MATERIAL:AIRGAP"
 
 
 @dataclass
@@ -45,6 +76,22 @@ class IDFWindowMaterialGlazing(IDFMaterialBase):
         return "WINDOWMATERIAL:GLAZING"
 
 
-IDFMaterialType =  TypeVar("IDFMaterialType", bound=IDFMaterialBase)
+@dataclass
+class IDFWindowMaterialGas(IDFMaterialBase):
+    Gas_Type: str = ""  # TODO this is an enum!
+    Thickness: float = 0.0
 
-material_objects: list[IDFMaterialType] = [IDFMaterial, IDFWindowMaterialGlazing]
+    @property
+    def key(self):
+        return "WINDOWMATERIAL:GAS"
+
+
+IDFMaterialType = TypeVar("IDFMaterialType", bound=IDFMaterialBase)
+
+material_objects: list[IDFMaterialType] = [  # pyright: ignore[reportGeneralTypeIssues]
+    IDFMaterial,
+    IDFMaterialNoMass,
+    IDFMaterialAirGap,
+    IDFWindowMaterialGlazing,
+    IDFWindowMaterialGas,
+]

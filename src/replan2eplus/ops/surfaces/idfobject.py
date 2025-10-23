@@ -34,7 +34,7 @@ class IDFSurface(IDFObject):
         return "BUILDINGSURFACE:DETAILED"
 
     @classmethod
-    def read(cls, idf: IDF, names: list[str] = []):
+    def read(cls, idf: IDF, names: list[str] = []): # pyright: ignore[reportIncompatibleMethodOverride]
         def create_new_objects(o):
             key_values = get_object_description(o)
             properties = {

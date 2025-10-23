@@ -1,0 +1,1847 @@
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    F06 EIFS finish,         !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0095,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    F07 25mm stucco,         !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0254,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    F08 Metal surface,       !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0008,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    F09 Opaque spandrel glass,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0064,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    F10 25mm stone,          !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0254,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    F11 Wood siding,         !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0127,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    F12 Asphalt shingles,    !- Name
+ASHRAE_2005_HOF_Materials.idf-    VeryRough,               !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0032,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    F13 Built-up roofing,    !- Name
+ASHRAE_2005_HOF_Materials.idf-    Rough,                   !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0095,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    F14 Slate or tile,       !- Name
+ASHRAE_2005_HOF_Materials.idf-    VeryRough,               !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0127,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    F15 Wood shingles,       !- Name
+ASHRAE_2005_HOF_Materials.idf-    VeryRough,               !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0064,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    F16 Acoustic tile,       !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0191,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    F17 Carpet,              !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0127,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    F18 Terrazzo,            !- Name
+ASHRAE_2005_HOF_Materials.idf-    Rough,                   !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0254,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    G01 16mm gypsum board,   !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0159,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    G01a 19mm gypsum board,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.019,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    G02 16mm plywood,        !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0159,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    G03 13mm fiberboard sheathing,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0127,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    G04 13mm wood,           !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0127,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    G05 25mm wood,           !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0254,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    G06 50mm wood,           !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0508,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    G07 100mm wood,          !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.1016,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    I01 25mm insulation board,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0254,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    I02 50mm insulation board,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0508,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    I03 75mm insulation board,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0762,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    I04 89mm batt insulation,!- Name
+ASHRAE_2005_HOF_Materials.idf-    VeryRough,               !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0894,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    I05 154mm batt insulation,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    VeryRough,               !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.1544,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    I06 244mm batt insulation,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    VeryRough,               !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.2438,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    M01 100mm brick,         !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.1016,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    M02 150mm lightweight concrete block,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.1524,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    M03 200mm lightweight concrete block,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.2032,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    M04 300mm lightweight concrete block,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.3048,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    M05 200mm concrete block,!- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.2032,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    M06 300mm concrete block,!- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.3048,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    M07 150mm lightweight concrete block (filled),  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.1524,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    M08 200mm lightweight concrete block (filled),  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.2032,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    M09 300mm lightweight concrete block (filled),  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.3048,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    M10 200mm concrete block (filled),  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.2032,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    M11 100mm lightweight concrete,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.1016,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    M12 150mm lightweight concrete,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.1524,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    M13 200mm lightweight concrete,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.2032,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    M14a 100mm heavyweight concrete,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.1016,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    M14 150mm heavyweight concrete,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.1524,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    M15 200mm heavyweight concrete,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.2032,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    M16 300mm heavyweight concrete,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.3048,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    M17 50mm lightweight concrete roof ballast,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0508,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:AirGap,
+ASHRAE_2005_HOF_Materials.idf-    F04 Wall air space resistance,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    0.15;                    !- Thermal Resistance {m2-K/W}
+ASHRAE_2005_HOF_Materials.idf-
+ASHRAE_2005_HOF_Materials.idf:  Material:AirGap,
+ASHRAE_2005_HOF_Materials.idf-    F05 Ceiling air space resistance,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    0.18;                    !- Thermal Resistance {m2-K/W}
+ASHRAE_2005_HOF_Materials.idf-
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Asbestos-cement board - 3.2mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0032,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Asbestos-cement board - 6.4mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0064,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Gypsum or plaster board - 9.5mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0095,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Gypsum or plaster board - 2.7mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0027,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Gypsum or plaster board - 5.9mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0059,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Plywood (Douglas Fir) - 6.4mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0064,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Plywood (Douglas Fir) - 9.5mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0095,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Plywood (Douglas Fir) - 12.7mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0127,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Plywood (Douglas Fir) - 15.9mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0159,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Plywood or wood panels - 19.0mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.019,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Sheathing - regular density - 12.7mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0127,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Sheathing - regular density - 19.8mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0198,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Sheathing intermediate density - 12.7mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0127,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Nail-base sheathing - 12.7mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0127,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Shingle backer - 9.5mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0095,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Shingle backer - 7.9mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0079,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Sound deadening board,   !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0127,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Tile and lay-in panels - plain or acoustic - 12.7mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0127,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Tile and lay-in panels - plain or acoustic - 19mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.019,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Laminated paperboard,    !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0032,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Homogeneous board from repulped paper,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0032,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Hardboard Medium density,!- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.019,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Hardboard High density - service-tempered grade and service grade,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.019,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Hardboard High density - standard-tempered grade,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.019,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Particleboard Low density,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.019,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Particleboard Medium density,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.019,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Particleboard High density,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.019,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Particleboard Underlayment - 15.9mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0159,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Waferboard,              !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.019,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Wood subfloor - 19mm,    !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.019,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Insulation: Cellular glass - 25mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.025,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Insulation: Cellular glass - 50mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.05,                    !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Insulation: Cellular glass - 75mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.075,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Insulation: Glass fiber - organic bonded - 25mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.025,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Insulation: Glass fiber - organic bonded - 50mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.05,                    !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Insulation: Glass fiber - organic bonded - 75mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.075,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Insulation: Expanded perlite - organic bonded - 25mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.025,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Insulation: Expanded rubber (rigid) - 25mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.025,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Insulation: Expanded polystyrene - extruded (smooth skin surface) (CFC-12 exp.),  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.025,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Insulation: Expanded polystyrene - extruded (smooth skin surface) (HCFC-142b exp.),  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.025,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Insulation: Expanded polystyrene - molded beads - 16kg/m3 density,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    VeryRough,               !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.025,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Insulation: Expanded polystyrene - molded beads - 20kg/m3 density,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    VeryRough,               !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.025,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Insulation: Expanded polystyrene - molded beads - 24kg/m3 density,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    VeryRough,               !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.025,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Insulation: Expanded polystyrene - molded beads - 28 k6/m3 density,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    VeryRough,               !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.025,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Insulation: Expanded polystyrene - molded beads - 32 kg/m3 density,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    VeryRough,               !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.025,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Insulation: Cellular polyurethane/polyisocyanuratei (CFC11 exp.) (unfaced),  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Rough,                   !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.025,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Insulation: Cellular polyisocyanuratei (CFC-11 exp.) (gaspermeable facers),  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Rough,                   !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.025,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Insulation: Cellular polyisocyanuratej (CFC-11 exp.) (gasimpermeable facers),  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Rough,                   !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.025,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Brick - fired clay - 2400 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Brick - fired clay - 2240 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Brick - fired clay - 2080 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Brick - fired clay - 1920 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Brick - fired clay - 1760 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Brick - fired clay - 1600 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Brick - fired clay - 1440 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Brick - fired clay - 1280 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Brick - fired clay - 1120 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Quartzitic and sandstone - 2880 kg/m3 - 13mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.013,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Quartzitic and sandstone - 2560 kg/m3 - 13mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.013,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Quartzitic and sandstone - 2240 kg/m3 - 13mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.013,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Quartzitic and sandstone - 1920 kg/m3 - 13mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.013,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Calcitic - dolomitic - limestone - marble - and granite - 2880 kg/m3 - 13mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.013,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Calcitic - dolomitic - limestone - marble - and granite - 2560 kg/m3 - 13mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.013,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Calcitic - dolomitic - limestone - marble - and granite - 2240 kg/m3 - 13mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.013,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Calcitic - dolomitic - limestone - marble - and granite - 1920 kg/m3 - 13mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.013,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Calcitic - dolomitic - limestone - marble - and granite - 1600 kg/m3 - 13mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.013,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Sand and gravel or stone aggregate concretes - 2400 kg/m3 - 51mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.051,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Sand and gravel or stone aggregate concretes - 2240 kg/m3 - 51mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.051,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Sand and gravel or stone aggregate concretes - 2080 kg/m3 - 51mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.051,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Limestone concretes - 2240 kg/m3 - 51mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.051,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Limestone concretes - 1920 kg/m3 - 51mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.051,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Limestone concretes - 1600 kg/m3 - 51mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.051,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Gypsum-fiber concrete (87.5% gypsum - 12.5% wood chips) - 51mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.051,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Cement/lime - mortar - and stucco - 1920 kg/m3 - 51mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.051,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Cement/lime - mortar - and stucco - 1600 kg/m3 - 51mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.051,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Cement/lime - mortar - and stucco - 1280 kg/m3 - 51mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.051,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Expanded shale - clay - slate - expanded slags - cinders - pumice - 1920 kg/m3 - 51mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.051,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Expanded shale - clay - slate - expanded slags - cinders - pumice - 1600 kg/m3 - 51mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.051,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Expanded shale - clay - slate - expanded slags - cinders - pumice - 1280 kg/m3 - 51mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.051,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Expanded shale - clay - slate - expanded slags - cinders - pumice - 960 kg/m3 - 51mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.051,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Expanded shale - clay - slate - expanded slags - cinders - pumice - 640 kg/m3 - 51mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.051,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Perlite - vermiculite - and polystyrene beads - 800 kg/m3 - 51mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.051,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Perlite - vermiculite - and polystyrene beads - 640 kg/m3 - 51mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.051,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Perlite - vermiculite - and polystyrene beads - 480 kg/m3 - 51mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.051,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Perlite - vermiculite - and polystyrene beads - 320 kg/m3 - 51mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.051,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Foam concretes - 1920 kg/m3 - 51mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.051,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Foam concretes - 1600 kg/m3 - 51mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.051,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Foam concretes - 1280 kg/m3 - 51mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.051,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Foam concretes - 1120 kg/m3 - 51mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.051,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Foam concretes and cellular concretes - 960 kg/m3 - 51mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.051,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Foam concretes and cellular concretes - 640 kg/m3 - 51mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.051,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Foam concretes and cellular concretes - 320 kg/m3 - 51mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.051,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Sand and gravel or stone aggregate concretes - 2400 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Sand and gravel or stone aggregate concretes - 2240 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Sand and gravel or stone aggregate concretes - 2080 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Limestone concretes - 2240 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Limestone concretes - 1920 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Limestone concretes - 1600 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Gypsum-fiber concrete (87.5% gypsum - 12.5% wood chips) - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Cement/lime - mortar - and stucco - 1920 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Cement/lime - mortar - and stucco - 1600 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Cement/lime - mortar - and stucco - 1280 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Expanded shale - clay - slate - expanded slags - cinders - pumice - 1920 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Expanded shale - clay - slate - expanded slags - cinders - pumice - 1600 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Expanded shale - clay - slate - expanded slags - cinders - pumice - 1280 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Expanded shale - clay - slate - expanded slags - cinders - pumice - 960 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Expanded shale - clay - slate - expanded slags - cinders - pumice - 640 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Perlite - vermiculite - and polystyrene beads - 800 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Perlite - vermiculite - and polystyrene beads - 640 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Perlite - vermiculite - and polystyrene beads - 480 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Perlite - vermiculite - and polystyrene beads - 320 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Foam concretes - 1920 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Foam concretes - 1600 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Foam concretes - 1280 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Foam concretes - 1120 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Foam concretes and cellular concretes - 960 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Foam concretes and cellular concretes - 640 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete: Foam concretes and cellular concretes - 320 kg/m3 - 102mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.102,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Hardwood - 12.9mm,       !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0129,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Hardwood - 19mm,         !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.019,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Hardwood - 25mm,         !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.025,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Oak - 25mm,              !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.025,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Birch - 25mm,            !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.025,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Maple - 25mm,            !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.025,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Ash - 25mm,              !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.025,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Softwood - 12.9mm,       !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.0129,                  !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Softwood - 19mm,         !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.019,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Softwood - 25mm,         !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.025,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Southern Pine - 25mm,    !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.025,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Douglas Fir-Larch - 25mm,!- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.025,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Southern Cypress - 25mm, !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.025,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Hem-Fir - Spruce-Pine-Fir - 25mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.025,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    West Coast Woods - Cedars - 25mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.025,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    California Redwood - 25mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.025,                   !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete Block: Limestone Aggregrate: 200mm - 16.3 kg - 2 cores,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.2,                     !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete Block: Limestone Aggregrate: 200mm - 16.3 kg - 2 cores - perlite filled cores,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.2,                     !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete Block: Limestone Aggregrate: 300mm - 25 kg - 2 cores,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.3,                     !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete Block: Limestone Aggregrate: 300mm - 25 kg - 2 cores - perlite filled cores,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.3,                     !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete Block: Sand and Gravel Aggregrate: 15-16 kg - 2 or 3 cores,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.2,                     !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete Block: Sand and Gravel Aggregrate: 15-16 kg - 2 or 3 cores - perlite filled cores,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.2,                     !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete Block: Sand and Gravel Aggregrate: 15-16 kg - 2 or 3 cores - vermiculite filled cores,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.2,                     !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete Block: Sand and Gravel Aggregrate: 22.7 kg - 2 cores,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.3,                     !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete Block: Medium Mass Aggregate: 2 or 3 cores,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.3,                     !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete Block: Medium Mass Aggregate: 2 or 3 cores - perlite filled cores,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.3,                     !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete Block: Medium Mass Aggregate: 2 or 3 cores - vermiculite filled cores,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.3,                     !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete Block: Medium Mass Aggregate: 2 or 3 cores - molded EPS (beads) filled cores,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.3,                     !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete Block: Medium Mass Aggregate: 2 or 3 cores - molded EPS inserts in cores,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.3,                     !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete Block: Low Mass Aggregate: 7.3-7.7 kg - 2 or 3 cores,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.15,                    !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete Block: Low Mass Aggregate: 7.3-7.7 kg - 2 or 3 cores - perlite filled cores,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.15,                    !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete Block: Low Mass Aggregate: 7.3-7.7 kg - 2 or 3 cores - vermiculite filled cores,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.15,                    !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete Block: Low Mass Aggregate: 8.6-10.0 kg,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.2,                     !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete Block: Low Mass Aggregate: 8.6-10.0 kg - perlite filled cores,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.2,                     !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete Block: Low Mass Aggregate: 8.6-10.0 kg - vermiculite filled cores,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.2,                     !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete Block: Low Mass Aggregate: 8.6-10.0 kg - molded EPS (beads) filled cores,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.2,                     !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete Block: Low Mass Aggregate: 8.6-10.0 kg - UF foam filled cores,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.2,                     !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete Block: Low Mass Aggregate: 8.6-10.0 kg - molded EPS inserts in cores,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.2,                     !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete Block: Low Mass Aggregate: 14.5-16.3 kg - 2 or 3 cores,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.3,                     !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete Block: Low Mass Aggregate: 14.5-16.3 kg - 2 or 3 cores - perlite filled cores,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.3,                     !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material,
+ASHRAE_2005_HOF_Materials.idf-    Concrete Block: Low Mass Aggregate: 14.5-16.3 kg - 2 or 3 cores - vermiculite filled cores,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.3,                     !- Thickness {m}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Vaporpermeable felt,     !- Name
+ASHRAE_2005_HOF_Materials.idf-    Rough,                   !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.011;                   !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Vaporseal - 2 layers of mopped 0.73 kg/m2 felt,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Rough,                   !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.21;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Vaporseal - plastic film,!- Name
+ASHRAE_2005_HOF_Materials.idf-    Rough,                   !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.002;                   !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Carpet and fibrous pad,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Rough,                   !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.37;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Carpet and rubber pad,   !- Name
+ASHRAE_2005_HOF_Materials.idf-    Rough,                   !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.22;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Cork tile - 3.2mm,       !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.049;                   !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Terrazzo - 25mm,         !- Name
+ASHRAE_2005_HOF_Materials.idf-    Rough,                   !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.014;                   !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Tile: asphalt - linoleum - vinyl - rubber,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.009;                   !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Tile: vinyl asbestos,    !- Name
+ASHRAE_2005_HOF_Materials.idf-    VeryRough,               !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.009;                   !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Wood - hardwood finish - 19mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.12;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Insulation: Mineral fiber - processed from rock - slag - or glass - 75-100mm 6.4-32 kg/m3,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Rough,                   !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    1.94;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Insulation: Mineral fiber - processed from rock - slag - or glass - 90mm -6.4-32 kg/m3,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Rough,                   !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    2.29;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Insulation: Mineral fiber - processed from rock - slag - or glass - 90mm - 19-26 kg/m3,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Rough,                   !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    2.63;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Insulation: Mineral fiber - processed from rock - slag - or glass - 140-165mm - 6.4-32 kg/m3,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Rough,                   !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    3.32;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Insulation: Mineral fiber - processed from rock - slag - or glass - 140mm - 10-26 kg/m3,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Rough,                   !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    3.67;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Insulation: Mineral fiber - processed from rock - slag - or glass - 150-190mm - 6.4-32 kg/m3,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Rough,                   !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    3.91;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Insulation: Mineral fiber - processed from rock - slag - or glass - 210-250mm - 6.4-32 kg/m3,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Rough,                   !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    5.34;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Insulation: Mineral fiber - processed from rock - slag - or glass - 250-330mm - 6.4-32 kg/m3,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Rough,                   !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    6.77;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Acoustical tile - 12.7mm,!- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.22;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Acoustical tile - 19mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.33;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Mineral fiber (rock - slag - glass) - 95-130mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    VeryRough,               !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    1.94;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Mineral fiber (rock - slag - glass) - 170-220mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    VeryRough,               !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    3.35;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Mineral fiber (rock - slag - glass) - 190-250mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    VeryRough,               !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    3.87;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Mineral fiber (rock - slag - glass) - 260-350mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    VeryRough,               !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    5.28;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Mineral fiber (rock - slag - glass) - 90mm (closed sidewall application),  !- Name
+ASHRAE_2005_HOF_Materials.idf-    VeryRough,               !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    2.3;                     !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Asbestos-cement shingles,!- Name
+ASHRAE_2005_HOF_Materials.idf-    VeryRough,               !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.037;                   !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Asphalt roll roofing,    !- Name
+ASHRAE_2005_HOF_Materials.idf-    VeryRough,               !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.026;                   !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Asphalt shingles,        !- Name
+ASHRAE_2005_HOF_Materials.idf-    VeryRough,               !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.077;                   !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Built-up roofing - 10mm, !- Name
+ASHRAE_2005_HOF_Materials.idf-    VeryRough,               !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.058;                   !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Slate - 13mm,            !- Name
+ASHRAE_2005_HOF_Materials.idf-    VeryRough,               !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.009;                   !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Wood shingles - plain and plastic film faced,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    VeryRough,               !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.166;                   !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Cement Plaster: Sand aggregate - 10mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.013;                   !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Cement Plaster: Sand aggregate - 20mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.026;                   !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Gypsum plaster: Lightweight aggregate - 13mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.056;                   !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Gypsum plaster: Lightweight aggregate - 16mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.066;                   !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Gypsum plaster: Lightweight aggregate on metal lath - 19mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.083;                   !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Perlite aggregate plaster: Sand aggregate - 13mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.016;                   !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Perlite aggregate plaster: Sand aggregate - 16mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.019;                   !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Perlite aggregate plaster: Sand aggregate on metal lath - 19mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.023;                   !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Clay tile - hollow - 1 cell deep - 75mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.14;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Clay tile - hollow - 1 cell deep - 100mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.2;                     !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Clay tile - hollow - 2 cells deep - 150mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.27;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Clay tile - hollow - 2 cells deep - 200mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.33;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Clay tile - hollow - 2 cells deep - 250mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.39;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Clay tile - hollow - 3 cells deep - 300mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.44;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Gypsum partition tile 75 by 300 by 760mm - solid,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.222;                   !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Gypsum partition tile 75 by 300 by 760mm - 4 cells,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.238;                   !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Gypsum partition tile 100 by 300 by 760mm - 3 cells,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.294;                   !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Shingles: Asbestos-cement,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    VeryRough,               !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.037;                   !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Shingles: Wood 400mm - 190-mm exposure,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.15;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Shingles: Wood -double 400mm - 300-mm exposure,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.21;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Shingles: Wood - plus insul. backer board,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumRough,             !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.25;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Siding: Asbestos-cement 6.4mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    VeryRough,               !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.037;                   !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Siding: Asphalt roll,    !- Name
+ASHRAE_2005_HOF_Materials.idf-    VeryRough,               !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.026;                   !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Siding: Asphalt insulating,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    VeryRough,               !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.26;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Siding: Hardboard 11mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    MediumSmooth,            !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.12;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Siding: Wood - drop 20 by 200mm,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Rough,                   !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.14;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Siding: Wood - bevel 13 by 200mm - lapped,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Rough,                   !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.14;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Siding: Wood - bevel 19 by 250mm - lapped,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Rough,                   !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.18;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Siding: Wood - plywood 9.5mm - lapped,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Rough,                   !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.1;                     !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Siding: Hollow-backed,   !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.11;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Siding: Insulating-board backed 9.5mm nominal,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.32;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Siding: Insulating-board backed 9.5mm nominal - foil backed,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.52;                    !- Thermal Resistance {m2-K/W}
+--
+ASHRAE_2005_HOF_Materials.idf:  Material:NoMass,
+ASHRAE_2005_HOF_Materials.idf-    Siding: Architectural (soda-lime float) glass,  !- Name
+ASHRAE_2005_HOF_Materials.idf-    Smooth,                  !- Roughness
+ASHRAE_2005_HOF_Materials.idf-    0.018;                   !- Thermal Resistance {m2-K/W}
+--
+MoistureMaterials.idf:  Material,
+MoistureMaterials.idf-    Concrete,                !- Name
+MoistureMaterials.idf-    Rough,                   !- Roughness
+MoistureMaterials.idf-    0.1,                     !- Thickness {m}
+--
+MoistureMaterials.idf:  Material,
+MoistureMaterials.idf-    Spruce,                  !- Name
+MoistureMaterials.idf-    Rough,                   !- Roughness
+MoistureMaterials.idf-    0.012,                   !- Thickness {m}
+--
+MoistureMaterials.idf:  Material,
+MoistureMaterials.idf-    Plywood,                 !- Name
+MoistureMaterials.idf-    Rough,                   !- Roughness
+MoistureMaterials.idf-    0.025,                   !- Thickness {m}
+--
+MoistureMaterials.idf:  Material,
+MoistureMaterials.idf-    Cellulose insulation,    !- Name
+MoistureMaterials.idf-    Rough,                   !- Roughness
+MoistureMaterials.idf-    0.066,                   !- Thickness {m}
+--
+MoistureMaterials.idf:  Material,
+MoistureMaterials.idf-    Glass Fiber insulation,  !- Name
+MoistureMaterials.idf-    Rough,                   !- Roughness
+MoistureMaterials.idf-    1.003,                   !- Thickness {m}
+--
+MoistureMaterials.idf:  Material,
+MoistureMaterials.idf-    Plasterboard,            !- Name
+MoistureMaterials.idf-    Rough,                   !- Roughness
+MoistureMaterials.idf-    0.012,                   !- Thickness {m}
+--
+WindowBlindMaterials.idf:  WindowMaterial:Blind,
+WindowBlindMaterials.idf-    BLIND WITH HIGH REFLECTIVITY SLATS,  !- Name
+WindowBlindMaterials.idf-    Horizontal,              !- Slat Orientation
+WindowBlindMaterials.idf-    0.025,                   !- Slat Width {m}
+--
+WindowBlindMaterials.idf:  WindowMaterial:Blind,
+WindowBlindMaterials.idf-    BLIND WITH MEDIUM REFLECTIVITY SLATS,  !- Name
+WindowBlindMaterials.idf-    Horizontal,              !- Slat Orientation
+WindowBlindMaterials.idf-    0.025,                   !- Slat Width {m}
+--
+WindowBlindMaterials.idf:  WindowMaterial:Blind,
+WindowBlindMaterials.idf-    BLIND WITH LOW REFLECTIVITY SLATS,  !- Name
+WindowBlindMaterials.idf-    Horizontal,              !- Slat Orientation
+WindowBlindMaterials.idf-    0.025,                   !- Slat Width {m}
+--
+WindowGasMaterials.idf:! For gas mixtures use WindowMaterial:GasMixture.
+WindowGasMaterials.idf-! For custom gases--those other than Air,
+WindowGasMaterials.idf-! Argon, Krypton or Xenon--use Type = Custom and
+WindowGasMaterials.idf-! enter gas properties; see description of
+WindowGasMaterials.idf:! WindowMaterial:Gas in Input/Output Reference Manual.
+WindowGasMaterials.idf-! Air
+WindowGasMaterials.idf-! The objects and syntax in this dataset comply with EnergyPlus, Version 8.4.0 and above, unless otherwise noted.
+WindowGasMaterials.idf-
+--
+WindowGasMaterials.idf:  WindowMaterial:Gas,
+WindowGasMaterials.idf-    AIR 3MM,                 !- Name
+WindowGasMaterials.idf-    Air,                     !- Gas Type
+WindowGasMaterials.idf-    0.0032;                  !- Thickness {m}
+--
+WindowGasMaterials.idf:  WindowMaterial:Gas,
+WindowGasMaterials.idf-    AIR 6MM,                 !- Name
+WindowGasMaterials.idf-    Air,                     !- Gas Type
+WindowGasMaterials.idf-    0.0063;                  !- Thickness {m}
+--
+WindowGasMaterials.idf:  WindowMaterial:Gas,
+WindowGasMaterials.idf-    AIR 8MM,                 !- Name
+WindowGasMaterials.idf-    Air,                     !- Gas Type
+WindowGasMaterials.idf-    0.0079;                  !- Thickness {m}
+--
+WindowGasMaterials.idf:  WindowMaterial:Gas,
+WindowGasMaterials.idf-    AIR 13MM,                !- Name
+WindowGasMaterials.idf-    Air,                     !- Gas Type
+WindowGasMaterials.idf-    0.0127;                  !- Thickness {m}
+--
+WindowGasMaterials.idf:  WindowMaterial:Gas,
+WindowGasMaterials.idf-    ARGON 3MM,               !- Name
+WindowGasMaterials.idf-    Argon,                   !- Gas Type
+WindowGasMaterials.idf-    0.0032;                  !- Thickness {m}
+--
+WindowGasMaterials.idf:  WindowMaterial:Gas,
+WindowGasMaterials.idf-    ARGON 6MM,               !- Name
+WindowGasMaterials.idf-    Argon,                   !- Gas Type
+WindowGasMaterials.idf-    0.0063;                  !- Thickness {m}
+--
+WindowGasMaterials.idf:  WindowMaterial:Gas,
+WindowGasMaterials.idf-    ARGON 8MM,               !- Name
+WindowGasMaterials.idf-    Argon,                   !- Gas Type
+WindowGasMaterials.idf-    0.0079;                  !- Thickness {m}
+--
+WindowGasMaterials.idf:  WindowMaterial:Gas,
+WindowGasMaterials.idf-    ARGON 13MM,              !- Name
+WindowGasMaterials.idf-    Argon,                   !- Gas Type
+WindowGasMaterials.idf-    0.0127;                  !- Thickness {m}
+--
+WindowGasMaterials.idf:  WindowMaterial:Gas,
+WindowGasMaterials.idf-    KRYPTON 3MM,             !- Name
+WindowGasMaterials.idf-    Krypton,                 !- Gas Type
+WindowGasMaterials.idf-    0.0032;                  !- Thickness {m}
+--
+WindowGasMaterials.idf:  WindowMaterial:Gas,
+WindowGasMaterials.idf-    KRYPTON 6MM,             !- Name
+WindowGasMaterials.idf-    Krypton,                 !- Gas Type
+WindowGasMaterials.idf-    0.0063;                  !- Thickness {m}
+--
+WindowGasMaterials.idf:  WindowMaterial:Gas,
+WindowGasMaterials.idf-    KRYPTON 8MM,             !- Name
+WindowGasMaterials.idf-    Krypton,                 !- Gas Type
+WindowGasMaterials.idf-    0.0079;                  !- Thickness {m}
+--
+WindowGasMaterials.idf:  WindowMaterial:Gas,
+WindowGasMaterials.idf-    KRYPTON 13MM,            !- Name
+WindowGasMaterials.idf-    Krypton,                 !- Gas Type
+WindowGasMaterials.idf-    0.0127;                  !- Thickness {m}
+--
+WindowGasMaterials.idf:  WindowMaterial:Gas,
+WindowGasMaterials.idf-    XENON 3MM,               !- Name
+WindowGasMaterials.idf-    Xenon,                   !- Gas Type
+WindowGasMaterials.idf-    0.0032;                  !- Thickness {m}
+--
+WindowGasMaterials.idf:  WindowMaterial:Gas,
+WindowGasMaterials.idf-    XENON 6MM,               !- Name
+WindowGasMaterials.idf-    Xenon,                   !- Gas Type
+WindowGasMaterials.idf-    0.0063;                  !- Thickness {m}
+--
+WindowGasMaterials.idf:  WindowMaterial:Gas,
+WindowGasMaterials.idf-    XENON 8MM,               !- Name
+WindowGasMaterials.idf-    Xenon,                   !- Gas Type
+WindowGasMaterials.idf-    0.0079;                  !- Thickness {m}
+--
+WindowGasMaterials.idf:  WindowMaterial:Gas,
+WindowGasMaterials.idf-    XENON 13MM,              !- Name
+WindowGasMaterials.idf-    Xenon,                   !- Gas Type
+WindowGasMaterials.idf-    0.0127;                  !- Thickness {m}
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    CLEAR 2.5MM,             !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    CLEAR 3MM,               !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    CLEAR 6MM,               !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    CLEAR 12MM,              !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    BRONZE 3MM,              !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    BRONZE 6MM,              !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    BRONZE 10MM,             !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    GREY 3MM,                !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    GREY 6MM,                !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    GREY 12MM,               !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    GREEN 3MM,               !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    GREEN 6MM,               !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    LOW IRON 2.5MM,          !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    LOW IRON 3MM,            !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    LOW IRON 4MM,            !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    LOW IRON 5MM,            !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    BLUE 6MM,                !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    REF A CLEAR LO 6MM,      !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    REF A CLEAR MID 6MM,     !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    REF A CLEAR HI 6MM,      !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    REF A TINT LO 6MM,       !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    REF A TINT MID 6MM,      !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    REF A TINT HI 6MM,       !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    REF B CLEAR LO 6MM,      !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    REF B CLEAR HI 6MM,      !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    REF B TINT LO 6MM,       !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    REF B TINT MID 6MM,      !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    REF B TINT HI 6MM,       !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    REF C CLEAR LO 6MM,      !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    REF C CLEAR MID 6MM,     !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    REF C CLEAR HI 6MM,      !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    REF C TINT LO 6MM,       !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    REF C TINT MID 6MM,      !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    REF C TINT HI 6MM,       !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    REF D CLEAR 6MM,         !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    REF D TINT 6MM,          !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    PYR A CLEAR 3MM,         !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    PYR B CLEAR 3MM,         !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    PYR B CLEAR 6MM,         !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    LoE CLEAR 3MM,           !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    LoE CLEAR 3MM Rev,       !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    LoE CLEAR 6MM,           !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    LoE CLEAR 6MM Rev,       !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    LoE TINT 6MM,            !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    LoE SPEC SEL CLEAR 3MM,  !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    LoE SPEC SEL CLEAR 6MM,  !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    LoE SPEC SEL CLEAR 6MM Rev,  !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    LoE SPEC SEL TINT 6MM,   !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    COATED POLY-88,          !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    COATED POLY-77,          !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    COATED POLY-66,          !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    COATED POLY-55,          !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    COATED POLY-44,          !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    COATED POLY-33,          !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    ECABS-1 BLEACHED 6MM,    !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    ECABS-1 COLORED 6MM,     !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    ECREF-1 BLEACHED 6MM,    !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    ECREF-1 COLORED 6MM,     !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    ECABS-2 BLEACHED 6MM,    !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    ECABS-2 COLORED 6MM,     !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    ECREF-2 BLEACHED 6MM,    !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowGlassMaterials.idf:  WindowMaterial:Glazing,
+WindowGlassMaterials.idf-    ECREF-2 COLORED 6MM,     !- Name
+WindowGlassMaterials.idf-    SpectralAverage,         !- Optical Data Type
+WindowGlassMaterials.idf-    ,                        !- Window Glass Spectral Data Set Name
+--
+WindowScreenMaterials.idf:  WindowMaterial:Screen,
+WindowScreenMaterials.idf-    CHARCOAL FIBERGLASS SCREEN 1,  !- Name
+WindowScreenMaterials.idf-    ModelAsDiffuse,          !- Reflected Beam Transmittance Accounting Method
+WindowScreenMaterials.idf-    0.08,                    !- Diffuse Solar Reflectance {dimensionless}
+--
+WindowScreenMaterials.idf:  WindowMaterial:Screen,
+WindowScreenMaterials.idf-    CHARCOAL FIBERGLASS SCREEN 2,  !- Name
+WindowScreenMaterials.idf-    ModelAsDiffuse,          !- Reflected Beam Transmittance Accounting Method
+WindowScreenMaterials.idf-    0.08,                    !- Diffuse Solar Reflectance {dimensionless}
+--
+WindowScreenMaterials.idf:  WindowMaterial:Screen,
+WindowScreenMaterials.idf-    CHARCOAL FIBERGLASS SCREEN 3,  !- Name
+WindowScreenMaterials.idf-    ModelAsDiffuse,          !- Reflected Beam Transmittance Accounting Method
+WindowScreenMaterials.idf-    0.08,                    !- Diffuse Solar Reflectance {dimensionless}
+--
+WindowScreenMaterials.idf:  WindowMaterial:Screen,
+WindowScreenMaterials.idf-    BRIGHT ALUMINUM SCREEN 1,!- Name
+WindowScreenMaterials.idf-    ModelAsDiffuse,          !- Reflected Beam Transmittance Accounting Method
+WindowScreenMaterials.idf-    0.6,                     !- Diffuse Solar Reflectance {dimensionless}
+--
+WindowScreenMaterials.idf:  WindowMaterial:Screen,
+WindowScreenMaterials.idf-    BRIGHT ALUMINUM SCREEN 2,!- Name
+WindowScreenMaterials.idf-    ModelAsDiffuse,          !- Reflected Beam Transmittance Accounting Method
+WindowScreenMaterials.idf-    0.6,                     !- Diffuse Solar Reflectance {dimensionless}
+--
+WindowShadeMaterials.idf:  WindowMaterial:Shade,
+WindowShadeMaterials.idf-    HIGH REFLECT - LOW TRANS SHADE,  !- Name
+WindowShadeMaterials.idf-    0.1,                     !- Solar Transmittance {dimensionless}
+WindowShadeMaterials.idf-    0.8,                     !- Solar Reflectance {dimensionless}
+--
+WindowShadeMaterials.idf:  WindowMaterial:Shade,
+WindowShadeMaterials.idf-    MEDIUM REFLECT - MEDIUM TRANS SHADE,  !- Name
+WindowShadeMaterials.idf-    0.4,                     !- Solar Transmittance {dimensionless}
+WindowShadeMaterials.idf-    0.5,                     !- Solar Reflectance {dimensionless}
+--
+WindowShadeMaterials.idf:  WindowMaterial:Shade,
+WindowShadeMaterials.idf-    MEDIUM REFLECT - LOW TRANS SHADE,  !- Name
+WindowShadeMaterials.idf-    0.1,                     !- Solar Transmittance {dimensionless}
+WindowShadeMaterials.idf-    0.5,                     !- Solar Reflectance {dimensionless}
+--
+WindowShadeMaterials.idf:  WindowMaterial:Shade,
+WindowShadeMaterials.idf-    LOW REFLECT - HIGH TRANS SHADE,  !- Name
+WindowShadeMaterials.idf-    0.7,                     !- Solar Transmittance {dimensionless}
+WindowShadeMaterials.idf-    0.2,                     !- Solar Reflectance {dimensionless}
+--
+WindowShadeMaterials.idf:  WindowMaterial:Shade,
+WindowShadeMaterials.idf-    LOW REFLECT - MEDIUM TRANS SHADE,  !- Name
+WindowShadeMaterials.idf-    0.4,                     !- Solar Transmittance {dimensionless}
+WindowShadeMaterials.idf-    0.2,                     !- Solar Reflectance {dimensionless}
+--
+WindowShadeMaterials.idf:  WindowMaterial:Shade,
+WindowShadeMaterials.idf-    LOW REFLECT - LOW TRANS SHADE,  !- Name
+WindowShadeMaterials.idf-    0.1,                     !- Solar Transmittance {dimensionless}
+WindowShadeMaterials.idf-    0.2,                     !- Solar Reflectance {dimensionless}

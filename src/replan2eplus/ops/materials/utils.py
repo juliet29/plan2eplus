@@ -1,9 +1,11 @@
+from pathlib import Path
 from typing import Callable, Iterable
 from expression.collections import Seq, seq
 from geomeppy import IDF
-from utils4plans.lists import chain_flatten_seq
+from utils4plans.lists import chain_flatten_seq, chain_flatten
 from expression import pipe
 
+from replan2eplus.ezcase.ez import EZ
 from replan2eplus.ops.materials.idfobject import IDFMaterialType, material_objects
 from itertools import chain
 
@@ -13,16 +15,20 @@ from typing import TypeVar
 T = TypeVar("T")
 
 
-# def chain_flatten_seq(lst: Iterable[Iterable[T]]):
-#     return Seq(list(chain.from_iterable(lst)))
-
-
 def read_materials(idf: IDF, names: list[str]):
-    k = pipe(
-        Seq(material_objects).map(lambda x: x.read(idf)),
-        chain_flatten_seq,
-    ).filter(lambda x: x.Name in names)
-    return list(k)
+    k = Seq(material_objects).map(lambda x: x.read(idf, names)).pipe(chain_flatten)
+    return k
+
+
+def read_materials_from_many_idf(idf_paths: list[Path], names: list[str]):
+    materials = (
+        Seq(idf_paths)
+        .map(lambda x: EZ(x).idf)
+        .map(lambda x: read_materials(x, names))
+        .pipe(chain_flatten)
+    )
+    # TODO define set? how about uniqueness and duplicate materials?
+    return materials
 
 
 def get_material_names(materials: list[IDFMaterialType]):

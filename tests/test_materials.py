@@ -3,7 +3,12 @@ from replan2eplus.ops.materials.idfobject import IDFMaterial
 from utils4plans.sets import set_equality
 from replan2eplus.paths import ep_paths
 from rich import print
-from replan2eplus.ops.materials.utils import read_materials, get_material_names
+from replan2eplus.ops.materials.utils import (
+    read_materials,
+    get_material_names,
+    read_materials_from_many_idf,
+)
+
 
 def test_read_material_of_type_a_from_idf():
     case = Cases().example  # TODO replace with own example once get materials working
@@ -22,25 +27,13 @@ def test_read_materials_from_idf_by_name():
     # TODO test reading bad materials -> at least create a log..
 
 
-def read_material_based_on_construction():
-    case = Cases().example
-    construction = []
-    found_materials = read_materials_for_constructions(case.idf, construction)
-    assert set_equality(get_material_names(found_materials), construction)
-
-
-def read_material_from_many_idfs_based_on_construction():
+def test_read_many_materials_from_many_idfs():
     idfs = [i for i in ep_paths.construction_paths.material_idfs]
-    construction = []
-    found_materials = read_materials_for_constructions(idfs, construction)
-    assert set_equality(get_material_names(found_materials), construction)
+    materials = Interfaces.materials.materials_across_idfs
+    found_materials = read_materials_from_many_idf(idfs, materials)
+    assert set_equality(get_material_names(found_materials), materials)
 
 
-def read_material_from_many_idfs_based_on_many_constructions():
-    idfs = [i for i in ep_paths.construction_paths.material_idfs]
-    constructions = []
-    found_materials = read_materials_for_constructions(idfs, constructions)
-    assert set_equality([i.Name for i in found_materials], constructions)
 
 
 if __name__ == "__main__":

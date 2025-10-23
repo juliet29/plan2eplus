@@ -1,4 +1,4 @@
-from replan2eplus.ezobjects.base import EZObject
+from replan2eplus.ezobjects.ezbase import EZObject
 from dataclasses import dataclass
 import replan2eplus.epnames.keys as epkeys
 from replan2eplus.ops.materials.interfaces import (
