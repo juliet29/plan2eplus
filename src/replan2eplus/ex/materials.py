@@ -18,3 +18,10 @@ class ConstructionExamples(NamedTuple):
     ashrae = "Light Exterior Wall"
     window = "Sgl Clr 3mm"
     constructions_across_idfs = [ashrae, window]
+    materials_for_const_across_idfs = [
+        "F08 Metal surface",
+        "I02 50mm insulation board",
+        "F04 Wall air space resistance",
+        "G01a 19mm gypsum board",
+        "CLEAR 3MM",
+    ]
