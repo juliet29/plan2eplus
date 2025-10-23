@@ -4,33 +4,29 @@ from replan2eplus.ops.surfaces.idfobject import IDFSurface
 from rich import print
 # TODO: test init surface!
 
+
 def test_surface_idf():
     case = Cases().two_room
     surfaces = IDFSurface.read(case.idf)
-    print(surfaces)
-    print(case.objects.surfaces)
-    return surfaces
+    assert len(surfaces) == 6*2
 
 
+def test_assign_surface_conditions():
+    case = Cases().two_room
+    surfaces = IDFSurface.read(case.idf)
+    outward_surfaces = [
+        i for i in surfaces if i.Outside_Boundary_Condition.casefold() == "outdoors"
+    ]
+    s1 = outward_surfaces[0].create_ezobject()
+    assert s1.boundary_condition == "outdoors"
 
-# def test_assign_surface_conditions(get_pytest_example_idf):
-#     idf = get_pytest_example_idf
-#     surfaces = idf.get_surfaces()
-#     outward_surfaces = [
-#         i for i in surfaces if i.Outside_Boundary_Condition == "outdoors"
-#     ]
-#     s1 = Surface(outward_surfaces[0])
-#     assert s1.boundary_condition == "outdoors"
 
+def test_get_surface_neighbor():
+    case = Cases().two_room
+    surfaces = [i.create_ezobject() for i in IDFSurface.read(case.idf)]
+    indoor_surfaces = [i for i in surfaces if i.boundary_condition.casefold() == "surface"]
 
-# def test_get_surface_neighbor(get_pytest_example_idf):
-#     idf = get_pytest_example_idf
-#     surfaces = [Surface(i) for i in idf.get_surfaces()]
-#     indoor_surfaces = [i for i in surfaces if i.boundary_condition == "surface"]
-
-#     assert indoor_surfaces[0].neighbor
-
-    
+    assert indoor_surfaces[0].neighbor_name
 
 
 if __name__ == "__main__":

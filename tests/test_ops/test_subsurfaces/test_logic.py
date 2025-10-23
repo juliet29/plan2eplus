@@ -42,7 +42,7 @@ def test_find_correct_surface_between_zones():
 def test_find_correct_surface_between_zone_and_direction():
     case = Cases().two_room
     surf = get_surface_between_zone_and_direction(zone_drn_edge, case.objects.zones)
-    assert surf.direction == WallNormal.WEST g
+    assert surf.direction == WallNormal.WEST 
     assert not surf.neighbor_name
 
     # Geomeppy IDF doesnt check for valididty, but this method should.. -> ie that the surface matches a zone..
