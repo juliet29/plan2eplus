@@ -10,7 +10,7 @@ class IDFMaterialBase(IDFObject):
     Name: str = ""
 
     @classmethod
-    def read(cls, idf: IDF, names: list[str] = []):
+    def read(cls, idf: IDF, names: list[str] = []): # pyright: ignore[reportIncompatibleMethodOverride]
         objects = idf.idfobjects[cls().key]
 
         if names:

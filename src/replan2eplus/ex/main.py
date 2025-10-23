@@ -1,4 +1,4 @@
-from replan2eplus.ex.materials import MaterialExamples
+from replan2eplus.ex.materials import ConstructionExamples, MaterialExamples
 from replan2eplus.ex.rooms import Rooms
 from replan2eplus.ex.subsurfaces import SubsurfaceInputExamples
 from replan2eplus.ezcase.ez import EZ
@@ -9,6 +9,7 @@ class Interfaces:
     rooms = Rooms()
     subsurfaces = SubsurfaceInputExamples()
     materials = MaterialExamples()
+    constructions = ConstructionExamples()
 
 
 class ExampleCase:
@@ -29,6 +30,14 @@ class ExampleCase:
     ]
     window_glazing_material_names = ["WIN-LAY-GLASS-LIGHT"]
     mixed_subset_materials = basic_material_names[0:4] + window_glazing_material_names
+    constructions = [
+        "DOOR-CON",
+        "EXTWALL80",
+        "PARTITION06",
+        "FLOOR SLAB 8 IN",
+        "ROOF34",
+        "WIN-CON-LIGHT",
+    ]
 
 
 class Cases:

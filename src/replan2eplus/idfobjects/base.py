@@ -29,6 +29,16 @@ class IDFObject:
     def read(cls, idf: IDF, *args, **kwargs):
         objects = idf.idfobjects[cls().key]
         return [cls(**get_object_description(i)) for i in objects]
+    
+
+    @classmethod
+    def read_by_name(cls, idf: IDF, names: list[str] = []): # pyright: ignore[reportIncompatibleMethodOverride]
+        objects = idf.idfobjects[cls().key]
+        if names:
+            return [
+                cls(**get_object_description(i)) for i in objects if i.Name in names
+            ]
+        return [cls(**get_object_description(i)) for i in objects]
 
     def write(self, idf: IDF):
         idf.newidfobject(self.key, **self.values)
@@ -49,3 +59,14 @@ def add_new_objects(idf: IDF, objects: list[IDFObject]):
         # print(f"object kwargs= {object.values}")
         idf.newidfobject(object.key, **object.values)
     return idf
+
+
+def get_names_of_idf_objects(objects: Sequence[IDFObject]):
+    lst: list[str] = []
+    for o in objects:
+        try:
+            name: str = o.__getattribute__("Name")
+            lst.append(name)
+        except AttributeError:
+            f"No attribute Name for objects of type(s): {set([type(i) for i in objects])}"
+    return lst

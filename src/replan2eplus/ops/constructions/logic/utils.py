@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from replan2eplus.ops.constructions.interfaces import ConstructionsObject
+from replan2eplus.ops.constructions.idfobject import IDFConstruction
 from replan2eplus.errors import IDFMisunderstandingError
 from replan2eplus.ezobjects.constr_and_mat_utils import (
     get_possible_epbunches,
@@ -26,13 +26,13 @@ def create_constructions_from_other_idfs(
         flat_epbunches = [i for i in flat_epbunches if i.Name in construction_names]
 
     constructions = [
-        ConstructionsObject(**create_dict_from_fields(i)) for i in flat_epbunches
+        IDFConstruction(**create_dict_from_fields(i)) for i in flat_epbunches
     ]
 
     return constructions
 
 
-def check_materials_are_in_idf(const_object: ConstructionsObject, idf: IDF):
+def check_materials_are_in_idf(const_object: IDFConstruction, idf: IDF):
     idf_mats = idf.get_materials()
     idf_mat_names = [i.Name for i in idf_mats]
     for mat in const_object.materials:
@@ -48,7 +48,7 @@ def check_materials_are_in_idf(const_object: ConstructionsObject, idf: IDF):
 
 def find_and_add_materials(
     idf: IDF,
-    construction_objects: list[ConstructionsObject],
+    construction_objects: list[IDFConstruction],
     path_to_material_idfs: list[Path],
     path_to_idd: Path,
 ):
@@ -64,7 +64,7 @@ def find_and_add_materials(
 
 
 # TODO: when adding constructions to idf, fail if the constituent materials are not in the new idf..
-def add_constructions(idf: IDF, construction_objects: list[ConstructionsObject]):
+def add_constructions(idf: IDF, construction_objects: list[IDFConstruction]):
     results = []
     for const_object in construction_objects:
         check_materials_are_in_idf(const_object, idf)

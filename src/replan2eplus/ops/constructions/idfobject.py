@@ -1,10 +1,11 @@
 from dataclasses import dataclass
+from replan2eplus.idfobjects.base import IDFObject
 
 
 @dataclass
-class ConstructionsObject:
-    Name: str
-    Outside_Layer: str
+class IDFConstruction(IDFObject):
+    Name: str = ""
+    Outside_Layer: str = ""
     Layer_2: str = ""
     Layer_3: str = ""
     Layer_4: str = ""
@@ -24,7 +25,9 @@ class ConstructionsObject:
         return [i for i in possible if i]
 
     @property
-    def valid_dict(self):
-        res = {k: v for k, v in self.__dict__.items() if v}
-        # print(res)
-        return res
+    def key(self):
+        return "CONSTRUCTION"
+
+    @property
+    def values(self):
+        return {k: v for k, v in self.__dict__.items() if v}

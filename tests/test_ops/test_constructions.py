@@ -1,5 +1,5 @@
 from unittest.mock import Base
-from replan2eplus.ops.constructions.interfaces import ConstructionsObject
+from replan2eplus.ops.constructions.idfobject import IDFConstruction
 from replan2eplus.ops.constructions.logic.update import (
     update_surfaces_with_construction_set,
 )
@@ -23,7 +23,7 @@ from replan2eplus.examples.mat_and_const import TEST_CONSTRUCTIONS
 
 
 @pytest.fixture()
-def get_constructions_from_idf() -> list[ConstructionsObject]:
+def get_constructions_from_idf() -> list[IDFConstruction]:
     return create_constructions_from_other_idfs(
         [PATH_TO_MAT_AND_CONST_IDF], PATH_TO_IDD, TEST_CONSTRUCTIONS
     )

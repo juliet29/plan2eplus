@@ -1,18 +1,13 @@
 from pathlib import Path
-from typing import Callable, Iterable
-from expression.collections import Seq, seq
+
+from expression.collections import Seq
 from geomeppy import IDF
-from utils4plans.lists import chain_flatten_seq, chain_flatten
-from expression import pipe
+from utils4plans.lists import chain_flatten
 
 from replan2eplus.ezcase.ez import EZ
 from replan2eplus.ops.materials.idfobject import IDFMaterialType, material_objects
-from itertools import chain
 
 
-from typing import TypeVar
-
-T = TypeVar("T")
 
 
 def read_materials(idf: IDF, names: list[str]):
@@ -31,5 +26,3 @@ def read_materials_from_many_idf(idf_paths: list[Path], names: list[str]):
     return materials
 
 
-def get_material_names(materials: list[IDFMaterialType]):
-    return [i.Name for i in materials]

@@ -2,13 +2,19 @@ from typing import NamedTuple
 
 
 class MaterialExamples(NamedTuple):
-    material = "M06 300mm concrete block"
-    material_no_mass = "Terrazzo - 25mm"
-    window_gas_materials = "AIR 6MM"
-    window_material_glazing = "CLEAR 12MM"
+    typical = "M06 300mm concrete block"
+    no_mass = "Terrazzo - 25mm"
+    window_gas = "AIR 6MM"
+    window_glazing = "CLEAR 12MM"
     materials_across_idfs = [
-        material,
-        material_no_mass,
-        window_gas_materials,
-        window_material_glazing,
+        typical,
+        no_mass,
+        window_gas,
+        window_glazing,
     ]
+
+
+class ConstructionExamples(NamedTuple):
+    ashrae = "Light Exterior Wall"
+    window = "Sgl Clr 3mm"
+    constructions_across_idfs = [ashrae, window]

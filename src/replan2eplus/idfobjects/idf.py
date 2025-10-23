@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from eppy.bunch_subclass import EpBunch
 from replan2eplus.idfobjects.schedules import ScheduleFileObject
 from replan2eplus.ops.airboundary.interfaces import AirboundaryConstructionObject
-from replan2eplus.ops.constructions.interfaces import ConstructionsObject
+from replan2eplus.ops.constructions.idfobject import IDFConstruction
 import replan2eplus.epnames.keys as epkeys
 from geomeppy import IDF as geomeppyIDF
 from pathlib import Path
@@ -196,7 +196,7 @@ class IDF:
             object_,
         )  # NOTE: this is special!
 
-    def add_construction(self, object_: ConstructionsObject):
+    def add_construction(self, object_: IDFConstruction):
         obj0 = self.idf.newidfobject(epkeys.CONSTRUCTION, **object_.valid_dict)
         return obj0
 
