@@ -1,23 +1,19 @@
-from geomeppy.idf import new_idf
 import pytest
 
-from replan2eplus.examples.cases.minimal import get_minimal_case_with_rooms
+from replan2eplus.ex.main import Cases, Interfaces
 from replan2eplus.ex.subsurfaces import (
-    zone_edge,
-    zone_drn_edge,
-    window_details,
     door_details,
-    room1,
-    room2,
-    subsurface_object,
+    window_details,
+    zone_drn_edge,
+    zone_edge,
 )
-from replan2eplus.ops.subsurfaces.ezobject import Edge
 from replan2eplus.geometry.directions import WallNormal
 from replan2eplus.geometry.domain import Domain
-from replan2eplus.ops.subsurfaces.interfaces import Dimension
 from replan2eplus.geometry.range import Range
-from replan2eplus.ops.subsurfaces.user_interfaces import (
-    Detail,
+from replan2eplus.ops.subsurfaces.ezobject import Edge
+from replan2eplus.ops.subsurfaces.interfaces import Dimension
+from replan2eplus.ops.subsurfaces.logic.exterior import (
+    create_subsurface_for_exterior_edge,
 )
 from replan2eplus.ops.subsurfaces.logic.interior import (
     create_subsurface_for_interior_edge,
@@ -25,63 +21,48 @@ from replan2eplus.ops.subsurfaces.logic.interior import (
 from replan2eplus.ops.subsurfaces.logic.prepare import (
     compare_and_maybe_change_dimensions,
     compare_domain,
-    prepare_object,
 )
 from replan2eplus.ops.subsurfaces.logic.select import (
     get_surface_between_zone_and_direction,
     get_surface_between_zones,
 )
-from replan2eplus.ops.subsurfaces.logic.exterior import (
-    create_subsurface_for_exterior_edge,
-)
 from replan2eplus.ops.subsurfaces.config import DOMAIN_SHRINK_FACTOR
+from replan2eplus.ops.subsurfaces.user_interfaces import (
+    Detail,
+)
 
 
-def test_adding_exterior_subsurface_to_random_idf():
-    idf = new_idf("test")
-    o = idf.newidfobject("WINDOW", **subsurface_object.values)
-    assert o.Name == subsurface_object.Name
-
-
-def test_adding_subsurface_to_ez_idf(get_pytest_minimal_case_with_rooms):
-    case = get_pytest_minimal_case_with_rooms
-    result = case.idf.add_subsurface("Window", subsurface_object)
-    assert result.Name == subsurface_object.Name
-
-
-def test_find_correct_surface_between_zones(get_pytest_minimal_case_with_rooms):
-    case = get_pytest_minimal_case_with_rooms
-    surf, nb = get_surface_between_zones(zone_edge, case.zones)
+def test_find_correct_surface_between_zones():
+    case = Cases().two_room
+    surf, nb = get_surface_between_zones(zone_edge, case.objects.zones)
     assert surf.direction == WallNormal.EAST
     assert nb.direction == WallNormal.WEST
 
 
-def test_find_correct_surface_between_zone_and_direction(
-    get_pytest_minimal_case_with_rooms,
-):
-    case = get_pytest_minimal_case_with_rooms
-    surf = get_surface_between_zone_and_direction(zone_drn_edge, case.zones)
-    assert surf.direction == WallNormal.WEST  # TODO just guessing might be wrong
+def test_find_correct_surface_between_zone_and_direction():
+    case = Cases().two_room
+    surf = get_surface_between_zone_and_direction(zone_drn_edge, case.objects.zones)
+    assert surf.direction == WallNormal.WEST g
     assert not surf.neighbor_name
 
     # Geomeppy IDF doesnt check for valididty, but this method should.. -> ie that the surface matches a zone..
 
 
-def test_create_subsurface_interior(get_pytest_minimal_case_with_rooms):
-    case = get_pytest_minimal_case_with_rooms
+def test_create_subsurface_interior():
+    case = Cases().two_room
     subsurface, partner_suburface = create_subsurface_for_interior_edge(
-        zone_edge, door_details, case.zones, case.idf
+        zone_edge, door_details, case.objects.zones, case.objects.surfaces, case.idf
     )
-    assert room1.name in subsurface.subsurface_name
-    assert room2.name in partner_suburface.subsurface_name
+    assert Interfaces.rooms.r1.name in subsurface.subsurface_name
+    assert Interfaces.rooms.r2.name in partner_suburface.subsurface_name
 
 
-def test_create_subsurface_exterior(get_pytest_minimal_case_with_rooms):
-    case = get_pytest_minimal_case_with_rooms
+def test_create_subsurface_exterior():
+    case = Cases().two_room
     subsurface = create_subsurface_for_exterior_edge(
-        zone_drn_edge, window_details, case.zones, case.idf
+        zone_drn_edge, window_details, case.objects.zones, case.objects.surfaces, case.idf
     )
-    assert room1.name in subsurface.subsurface_name
+    assert Interfaces.rooms.r1.name in subsurface.subsurface_name
 
 
 def test_too_large_dimension():
@@ -106,8 +87,8 @@ def test_bad_subsurface_location(horz_range):
 
 
 def test_sorting_directed_edges():
-    edge = Edge("EAST", room1.name)
-    expected_edge = (room1.name, WallNormal.EAST)
+    edge = Edge("EAST", Interfaces.rooms.r1.name)
+    expected_edge = (Interfaces.rooms.r1.name, WallNormal.EAST)
     assert expected_edge == edge.sorted_directed_edge
 
 
@@ -124,3 +105,4 @@ if __name__ == "__main__":
 
 
 # TEST subsurface location
+
