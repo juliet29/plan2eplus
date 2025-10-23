@@ -3,7 +3,11 @@ from typing import get_args
 
 from replan2eplus.ezobjects.base import EpBunch
 from replan2eplus.ops.subsurfaces.interfaces import SubsurfaceKey, SubsurfaceType
-from replan2eplus.idfobjects.base import IDFObject, filter_relevant_values, get_object_description
+from replan2eplus.idfobjects.base import (
+    IDFObject,
+    filter_relevant_values,
+    get_object_description,
+)
 from utils4plans.lists import chain_flatten
 from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.ops.subsurfaces.ezobject import Subsurface
@@ -31,20 +35,18 @@ class IDFSubsurface(IDFObject):
             return self.original_key
         else:
             assert self.type_
-        match self.is_interior, self.type_:
-            case False, "Door":
+        match self.is_interior, self.type_.casefold():
+            case False, "door":
                 return "DOOR"
-            case True, "Door":
+            case True, "door":
                 return "DOOR:INTERZONE"
-            case _, "Window":
+            case _, "window":
                 return "WINDOW"
             case _:
-                raise ValueError(
-                    f"Invalid Outside Boundary Condition or type_| Boundary Cond: {self.Outside_Boundary_Condition_Object} type: {self.type_} "
-                )
+                raise ValueError(f"Invalid type: {self.type_} ")
 
     @classmethod
-    def read(cls, idf: IDF):
+    def read(cls, idf: IDF): # pyright: ignore[reportIncompatibleMethodOverride]
         objects = chain_flatten([idf.idfobjects[i] for i in get_args(SubsurfaceKey)])
 
         def get_type(o: EpBunch) -> SubsurfaceType:
@@ -54,7 +56,11 @@ class IDFSubsurface(IDFObject):
         # relevant_values = filter_relevant_values(key_values, cls().values)
 
         return [
-            cls(**filter_relevant_values(get_object_description(i), cls().values), original_key=i.key, type_=get_type(i))
+            cls(
+                **filter_relevant_values(get_object_description(i), cls().values),
+                original_key=i.key,
+                type_=get_type(i),
+            )
             for i in objects
         ]
 

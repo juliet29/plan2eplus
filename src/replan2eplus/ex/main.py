@@ -27,3 +27,9 @@ class Cases:
         case = self.base
         case.add_zones(self.ui.rooms.two_room_list)
         return case
+
+    @property
+    def subsurfaces_simple(self):
+        case = self.two_room
+        case.add_subsurfaces(Interfaces.subsurfaces.simple)
+        return case

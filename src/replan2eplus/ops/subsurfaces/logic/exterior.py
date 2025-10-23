@@ -1,6 +1,6 @@
-from replan2eplus.ezcase.objects import Surface
-from replan2eplus.geometry import domain
 from geomeppy import IDF
+
+from replan2eplus.geometry import domain
 from replan2eplus.ops.subsurfaces.ezobject import Edge
 from replan2eplus.ops.subsurfaces.interfaces import ZoneDirectionEdge
 from replan2eplus.ops.subsurfaces.logic.placement import place_domain
@@ -12,6 +12,7 @@ from replan2eplus.ops.subsurfaces.logic.select import (
     get_surface_between_zone_and_direction,
 )
 from replan2eplus.ops.subsurfaces.user_interfaces import Detail
+from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.ops.zones.ezobject import Zone
 
 

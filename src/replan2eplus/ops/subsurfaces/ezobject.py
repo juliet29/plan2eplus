@@ -21,6 +21,11 @@ class Edge(NamedTuple):
     space_a: str
     space_b: str
 
+    def __eq__(self, other: object) -> bool:
+        if isinstance(other, Edge):
+            return frozenset(self.as_tuple) == frozenset(other.as_tuple)
+        raise Exception(f"{other} does not have type Edge")
+
     @property
     def is_directed_edge(self):
         return (
@@ -58,6 +63,11 @@ class Subsurface:
     # boundary_condition_object: str
     subsurface_type: SubsurfaceType
     surface: Surface
+
+    def __rich_repr__(self):
+        yield "subsurface_name", self.subsurface_name
+        yield "edge", self.edge
+        # yield "domain", self.domain
 
     # @classmethod
     # def from_epbunch_and_key(
@@ -97,10 +107,12 @@ class Subsurface:
 
     @property
     def edge(self):
-        if self.surface.boundary_condition == "Outdoors":
+        if self.surface.boundary_condition.casefold() == "Outdoors".casefold():
             edge = (self.surface.room_name, self.surface.direction.name)
         else:
-            assert self.surface.neighbor_room_name
+            assert self.surface.neighbor_room_name, (
+                f"Surface of subsurface `{self.subsurface_name}` has boundary condition of `{self.surface.boundary_condition}` but does not have a neighbor."
+            )
             edge = (self.surface.room_name, self.surface.neighbor_room_name)
         return Edge(*edge)
 
@@ -114,16 +126,16 @@ class Subsurface:
 
     @property
     def is_door(self):
-        return self.subsurface_type == "Door"
+        return self.subsurface_type.casefold() == "Door".casefold()
 
     @property
     def is_window(self):
-        return self.subsurface_type == "Window"
+        return self.subsurface_type.casefold() == "Window".casefold()
 
     @property
     def domain(self):
         surf_domain = self.surface.domain
-        assert self.surface.surface_type == "Wall"
+        assert self.surface.surface_type.casefold() == "Wall".casefold()
         assert isinstance(surf_domain, Domain)
         surface_min_horz = surf_domain.horz_range.min
         surface_min_vert = surf_domain.vert_range.min

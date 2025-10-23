@@ -3,6 +3,8 @@ from dataclasses import dataclass
 from eppy.modeleditor import IDDAlreadySetError
 from pathlib import Path
 from replan2eplus.ezcase.objects import read_existing_objects
+from replan2eplus.ops.subsurfaces.presentation import create_subsurfaces
+from replan2eplus.ops.subsurfaces.user_interfaces import SubsurfaceInputs
 from replan2eplus.paths import ep_paths
 
 from replan2eplus.ops.zones.user_interface import Room
@@ -43,3 +45,5 @@ class EZ:
         self.objects.zones, self.objects.surfaces = create_zones(self.idf, rooms)
 
         return self
+    def add_subsurfaces(self, subsurface_inputs: SubsurfaceInputs):
+        self.objects.subsurfaces = create_subsurfaces(subsurface_inputs, self.objects.surfaces, self.objects.zones, self.idf)

@@ -2,6 +2,8 @@ from dataclasses import dataclass
 
 from geomeppy import IDF
 
+from replan2eplus.ops.subsurfaces.ezobject import Subsurface
+from replan2eplus.ops.subsurfaces.presentation import create_subsurfaces
 from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.ops.zones.create import create_zones
 from replan2eplus.ops.zones.ezobject import Zone
@@ -11,6 +13,7 @@ from replan2eplus.ops.zones.ezobject import Zone
 class EzObjects:
     zones: list[Zone]
     surfaces: list[Surface]
+    subsurfaces: list[Subsurface]
 
     # airboundaries: list[Airboundary] = []
     # subsurfaces: list[Subsurface] = []
@@ -23,4 +26,5 @@ class EzObjects:
 
 def read_existing_objects(idf: IDF):
     zones, surfaces = create_zones(idf)
-    return EzObjects(zones, surfaces)
+    subsurfaces = create_subsurfaces(None, surfaces, zones, idf)
+    return EzObjects(zones, surfaces, subsurfaces)

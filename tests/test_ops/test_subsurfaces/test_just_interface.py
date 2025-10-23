@@ -82,21 +82,9 @@ def test_creating_interior_subsurface():
     )
 
 
-# def test_creating_subsurfaces_three_details(get_pytest_minimal_case_with_rooms):
-#     case = get_pytest_minimal_case_with_rooms
-#     subsurfaces = create_subsurfaces(
-#         subsurface_inputs_dict["three_details"], case.zones, case.idf
-#     )
-#     assert len(subsurfaces) == 5
 
-
-# def test_creating_interior_subsurface(get_pytest_minimal_case_with_rooms):
-#     case = get_pytest_minimal_case_with_rooms
-#     subsurfaces = create_subsurfaces(
-#         subsurface_inputs_dict["interior"], case.zones, case.idf
-#     )
 if __name__ == "__main__":
-    # case = Cases().example
-    # subsurfaces = IDFSubsurface.read(case.idf)
-    # print(subsurfaces[0])
-    test_simple_subsurface_desc()
+    case = Cases().example
+    subsurfaces = IDFSubsurface.read(case.idf)
+    print(subsurfaces[0])
+    # test_simple_subsurface_desc()
