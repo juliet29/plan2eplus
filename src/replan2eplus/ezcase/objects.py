@@ -26,5 +26,6 @@ class EzObjects:
 
 def read_existing_objects(idf: IDF):
     zones, surfaces = create_zones(idf)
-    subsurfaces = create_subsurfaces(None, surfaces, zones, idf)
+    # subsurfaces = create_subsurfaces(None, surfaces, zones, idf)
+    subsurfaces = []
     return EzObjects(zones, surfaces, subsurfaces)

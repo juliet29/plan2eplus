@@ -30,7 +30,7 @@ def test_add_surfaces_with_zones():
 
 
 def test_read():
-    case = Cases().example
+    case = Cases().ep_afn
     n_zones = len(case.objects.zones)
     assert n_zones == 3
 

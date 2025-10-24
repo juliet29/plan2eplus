@@ -2,7 +2,7 @@ from geomeppy import IDF
 from utils4plans.sets import set_equality
 from utils4plans.lists import chain_flatten
 
-from replan2eplus.ex.main import Cases, ExampleCase, Interfaces
+from replan2eplus.ex.main import Cases, EpAFNCase, Interfaces
 
 from replan2eplus.idfobjects.base import get_names_of_idf_objects
 from replan2eplus.ops.constructions.idfobject import IDFConstruction
@@ -12,32 +12,33 @@ from replan2eplus.ops.constructions.utils import (
     read_constructions_and_assoc_materials,
 )
 from replan2eplus.ops.constructions.presentation import create_constructions
+from replan2eplus.ops.subsurfaces.create import read_subsurfaces
 from replan2eplus.paths import ep_paths
 from rich import print
 from replan2eplus.ex.materials import SAMPLE_CONSTRUCTION_SET
-from replan2eplus.ops.subsurfaces.idfobject import IDFSubsurface
+from replan2eplus.ops.subsurfaces.idfobject import IDFSubsurfaceBase
 from replan2eplus.ops.surfaces.idfobject import IDFSurface
 
 
 def test_read_constructions():
-    case = Cases().example
+    case = Cases().ep_afn
     constructions = IDFConstruction.read(case.idf)
     const_names = get_names_of_idf_objects(constructions)
-    assert set_equality(const_names, ExampleCase.constructions)
+    assert set_equality(const_names, EpAFNCase.constructions)
 
 
 def test_read_construction_by_name():
-    case = Cases().example
-    name = ExampleCase.constructions[0]
+    case = Cases().ep_afn
+    name = EpAFNCase.constructions[0]
     constructions = IDFConstruction.read_by_name(case.idf, [name])
     const_names = get_names_of_idf_objects(constructions)
     assert set_equality(const_names, [name])
 
 
 def test_read_material_based_on_construction():
-    case = Cases().example
+    case = Cases().ep_afn
     assert case.idf_path
-    name = ExampleCase.constructions[0]
+    name = EpAFNCase.constructions[0]
     construction = IDFConstruction.read_by_name(
         case.idf, [name]
     )  # TODO special handling if its just one object
@@ -72,7 +73,7 @@ def test_read_constructions_and_materials_across_idfs():
 
 
 def test_write_constructions():
-    source_case = Cases().example
+    source_case = Cases().ep_afn
     source_constructions = IDFConstruction.read(source_case.idf)
     destination_case = Cases().base
     new_idf = IDF()
@@ -85,11 +86,7 @@ def test_write_constructions():
     )
 
 
-def test_create_constructions():
-    pass
-
-
-if __name__ == "__main__":
+def test_write_ep_construction_set():
     case = Cases().subsurfaces_simple
     cpaths = ep_paths.construction_paths
     create_constructions(
@@ -101,11 +98,14 @@ if __name__ == "__main__":
         case.objects.subsurfaces,
     )
     surface_consts = [i.Construction_Name for i in IDFSurface.read(case.idf)]
-    subsurface_consts = [i.Construction_Name for i in IDFSubsurface.read(case.idf)]
-    # assert set_equality(
-    #     surface_consts + subsurface_consts, SAMPLE_CONSTRUCTION_SET.names
-    # )
+    subsurface_consts = [i.Construction_Name for i in read_subsurfaces(case.idf)]
+    assert set_equality(
+        surface_consts + subsurface_consts, SAMPLE_CONSTRUCTION_SET.names
+    )
 
+
+if __name__ == "__main__":
+    pass
     # ['Medium Exterior Wall', 'Medium Roof/Ceiling', 'Medium Partitions', 'Medium Floor']
 
     # read_material_based_on_construction()

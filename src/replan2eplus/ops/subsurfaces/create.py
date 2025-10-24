@@ -12,7 +12,7 @@ from replan2eplus.ops.subsurfaces.user_interfaces import (
 )
 from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.ops.zones.ezobject import Zone
-from replan2eplus.ops.subsurfaces.idfobject import IDFSubsurface
+from replan2eplus.ops.subsurfaces.idfobject import IDFSubsurfaceBase, read_subsurfaces
 
 
 def create_subsurfaces(
@@ -21,9 +21,8 @@ def create_subsurfaces(
     zones: list[Zone],
     idf: IDF,
 ):
-    existing_subsurfaces = [
-        i.create_ezobject(surfaces) for i in IDFSubsurface.read(idf)
-    ]
+    existing_subsurfaces = [i.create_ezobject(surfaces) for i in read_subsurfaces(idf)]
+    # existing_subsurfaces = []
 
     if inputs:
         interior_subsurfaces = chain_flatten(
@@ -38,5 +37,5 @@ def create_subsurfaces(
         ]
 
         return interior_subsurfaces + exterior_subsurfaces + existing_subsurfaces
-    
+
     return existing_subsurfaces

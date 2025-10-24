@@ -8,6 +8,15 @@ from dataclasses import dataclass
 from utils4plans.lists import get_unique_one
 
 
+class InvalidObjectError(Exception):
+    def __init__(self, object_: object, name: str) -> None:
+        self.object_ = object_
+        self.name = name
+
+    def message(self):
+        return f"No object found for type {self.object_} and name {self.name}"
+
+
 def get_object_description(object: EpBunch):
     d = {k: v for k, v in zip(object.fieldnames, object.fieldvalues)}
     d.pop("key")
@@ -34,6 +43,7 @@ class IDFObject:
 
     @classmethod
     def read_by_name(cls, idf: IDF, names: list[str] = []):  # pyright: ignore[reportIncompatibleMethodOverride]
+        # print(f"key = {cls().key}")
         objects = idf.idfobjects[cls().key]
         if names:
             return [
@@ -57,9 +67,7 @@ class IDFObject:
                 self.get_idf_objects(idf), lambda x: x.Name == object_name
             )
         except AssertionError:
-            raise Exception(
-                f"No object with {object_name} found!: IDFObjects are: {self.get_idf_objects(idf)}"
-            )
+            raise InvalidObjectError(self, object_name)
         assert param in [k for k in self.values.keys()]
         object[param] = new_value
         # object.__setattr__(param, new_value)

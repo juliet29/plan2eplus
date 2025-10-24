@@ -13,7 +13,7 @@ from geomeppy import IDF
 from replan2eplus.ops.subsurfaces.ezobject import Subsurface
 from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.ops.surfaces.idfobject import IDFSurface
-from replan2eplus.ops.subsurfaces.idfobject import IDFSubsurface
+from replan2eplus.ops.subsurfaces.idfobject import IDFSubsurfaceBase, update_subsurface
 
 
 # TODO move to interfaces.., and move epcosnt to user interfaces
@@ -83,8 +83,11 @@ def update_subsurface_construction(
     idf: IDF, surface: Subsurface, construction_name: str
 ):
     check_construction_names(idf, construction_name)
-    IDFSubsurface().update(
+    update_subsurface(
         idf, surface.subsurface_name, "Construction_Name", construction_name
     )
+    # IDFSubsurfaceBase().update(
+    #     idf, surface.subsurface_name, "Construction_Name", construction_name
+    # )
     # need to get the surface and then create a new ezobject -> tears
     # IDFSurface.read(idf, [surface.surface_name])

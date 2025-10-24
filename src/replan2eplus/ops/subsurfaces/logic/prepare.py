@@ -2,7 +2,12 @@ from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.contact_points import calculate_corner_points
 from replan2eplus.ops.subsurfaces.interfaces import Dimension
 from replan2eplus.geometry.range import Range
-from replan2eplus.ops.subsurfaces.idfobject import IDFSubsurface
+from replan2eplus.ops.subsurfaces.idfobject import (
+    IDFDoor,
+    IDFDoorInterzone,
+    IDFSubsurfaceBase,
+    IDFWindow,
+)
 from replan2eplus.ops.subsurfaces.config import DOMAIN_SHRINK_FACTOR
 from replan2eplus.ops.subsurfaces.user_interfaces import Detail
 
@@ -40,6 +45,22 @@ def create_ss_name(surface_name: str, detail: Detail):
         return ""
 
 
+def get_idf_subsurface_object(detail: Detail, is_interior: bool):
+    match detail.type_.lower(), is_interior:
+        case "door", True:
+            return IDFDoorInterzone
+        case "door", False:
+            return IDFDoor
+        case "window", False:
+            return IDFWindow
+        case "window", True:
+            raise NotImplementedError("Have not considered interior windows!")
+        case _:
+            raise Exception(
+                f"Invalid entries: detail_type should be window or door but is {detail.type_} | is_interior should be bool but is {is_interior}"
+            )
+
+
 # TODO this goes to logic! TODO number files in logic _04_indiv_subsurf
 def prepare_object(
     surface_name: str,
@@ -60,16 +81,24 @@ def prepare_object(
     )  # need to subtract the surface corner..
     dims = detail.dimension.as_tuple
 
-    # empty when created, has to be updated later via construction set 
+    # empty when created, has to be updated later via construction set
     construction_name = ""
 
-    return IDFSubsurface(
+    idfobject = get_idf_subsurface_object(detail, is_interior)
+    # TODO consider making this a typed dict?
+    values = IDFSubsurfaceBase(
         create_ss_name(surface_name, detail),
         surface_name,
         construction_name,
         *coords,
         *dims,
-        # create_ss_name(nb_surface_name, detail),
-        type_=detail.type_,
-        is_interior=is_interior,
-    )
+    ).values
+
+    if hasattr(idfobject, "Outside_Boundary_Condition_Object"):
+        return idfobject(
+            **values,
+            Outside_Boundary_Condition_Object=create_ss_name(nb_surface_name, detail), # pyright: ignore[reportCallIssue]
+        )
+    else:
+        return idfobject(**values)
+

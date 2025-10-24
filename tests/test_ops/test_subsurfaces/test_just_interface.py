@@ -1,13 +1,16 @@
 from replan2eplus.ex.subsurfaces import details, e0
-from replan2eplus.ops.subsurfaces.idfobject import IDFSubsurface
+from replan2eplus.idfobjects.base import get_names_of_idf_objects
+from replan2eplus.ops.subsurfaces.idfobject import IDFSubsurfaceBase, read_subsurfaces
 from replan2eplus.ops.subsurfaces.logic.prepare import create_ss_name
 from replan2eplus.ops.subsurfaces.user_interfaces import EdgeGroup, SubsurfaceInputs
 import pytest
-from replan2eplus.ex.main import Cases, Interfaces
+from replan2eplus.ex.main import Cases, Interfaces, EpFourZoneCase
 from replan2eplus.ops.subsurfaces.create import create_subsurfaces
 from replan2eplus.ops.zones.idfobject import IDFZone
 from replan2eplus.ops.surfaces.idfobject import IDFSurface
 from rich import print
+
+from utils4plans.sets import set_equality
 
 
 def test_init_edge_group():
@@ -28,7 +31,11 @@ def test_bad_init_edge_group():
         EdgeGroup.from_tuple_edges(edges, "", "Zone_Direction")
 
 
-# TODO combine with just interface..
+def test_read_subsurfaces():
+    case = Cases().ep_four_zone
+    subsurfaces = read_subsurfaces(case.idf)
+    names = get_names_of_idf_objects(subsurfaces)
+    assert set_equality(names, EpFourZoneCase.subsurface_names)
 
 
 def test_simple_subsurface_desc():
@@ -82,9 +89,10 @@ def test_creating_interior_subsurface():
     )
 
 
-
 if __name__ == "__main__":
-    case = Cases().example
-    subsurfaces = IDFSubsurface.read(case.idf)
-    print(subsurfaces[0])
+    case = Cases().ep_four_zone
+    subsurfaces = read_subsurfaces(case.idf)
+    j = get_names_of_idf_objects(subsurfaces)
+    print(j)
+    # print(subsurfaces[0])
     # test_simple_subsurface_desc()

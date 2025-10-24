@@ -1,10 +1,12 @@
 from dataclasses import dataclass
+from expression.collections import Seq
 from typing import get_args
 
 from replan2eplus.ezobjects.ezbase import EpBunch
 from replan2eplus.ops.subsurfaces.interfaces import SubsurfaceKey, SubsurfaceType
 from replan2eplus.idfobjects.base import (
     IDFObject,
+    InvalidObjectError,
     filter_relevant_values,
     get_object_description,
 )
@@ -16,7 +18,7 @@ from geomeppy import IDF
 
 
 @dataclass
-class IDFSubsurface(IDFObject):
+class IDFSubsurfaceBase(IDFObject):
     Name: str = ""
     Building_Surface_Name: str = ""
     Construction_Name: str = ""
@@ -24,55 +26,9 @@ class IDFSubsurface(IDFObject):
     Starting_Z_Coordinate: float = 0
     Length: float = 0
     Height: float = 0
-    # Outside_Boundary_Condition_Object: str
-    type_: SubsurfaceType = "Door"  # how do we populate this upon readng? maybe different options get key from type or get key from epobject
-    is_interior: bool = False
-    original_key: SubsurfaceKey | None = None
-
-    # TODO: TEST! -> have to define a read method..
-    @property
-    def key(self) -> SubsurfaceKey:
-        if self.original_key:
-            return self.original_key
-        else:
-            assert self.type_
-        match self.is_interior, self.type_.casefold():
-            case False, "door":
-                return "DOOR"
-            case True, "door":
-                return "DOOR:INTERZONE"
-            case _, "window":
-                return "WINDOW"
-            case _:
-                raise ValueError(f"Invalid type: {self.type_} ")
-
-    @classmethod
-    def read(cls, idf: IDF):  # pyright: ignore[reportIncompatibleMethodOverride]
-        objects = chain_flatten([idf.idfobjects[i] for i in get_args(SubsurfaceKey)])
-
-        def get_type(o: EpBunch) -> SubsurfaceType:
-            assert o.Name
-            return "Door" if "door" in o.Name.lower() else "Window"
-
-        # relevant_values = filter_relevant_values(key_values, cls().values)
-
-        return [
-            cls(
-                **filter_relevant_values(get_object_description(i), cls().values),
-                original_key=i.key,
-                type_=get_type(i),
-            )
-            for i in objects
-        ]
 
     @property
-    def values(self):
-        d = self.__dict__
-        d.pop("type_")
-        d.pop("is_interior")
-        d.pop("original_key")
-
-        return d
+    def type_(self) -> SubsurfaceType: ...
 
     def create_ezobject(self, surfaces: list[Surface]) -> Subsurface:
         surface = get_unique_one(
@@ -86,6 +42,82 @@ class IDFSubsurface(IDFObject):
             self.Length,
             self.Height,
             # self.Outside_Boundary_Condition_Object,
-            self.type_,
+            self.type_,  # this will map to the key
             surface,
         )
+
+    def write(self, idf: IDF):
+        vals = {k: v for k, v in self.values.items() if v}
+        idf.newidfobject(self.key, **vals)
+        return idf
+
+
+@dataclass
+class IDFWindow(IDFSubsurfaceBase):
+    Frame_and_Divider_Name: str = ""
+    Multiplier: float = 1
+
+    @property
+    def key(self):
+        return "WINDOW"
+
+    @property
+    def type_(self) -> SubsurfaceType:
+        return "Window"
+
+
+@dataclass
+class IDFDoor(IDFSubsurfaceBase):
+    Multiplier: float = 1
+
+    @property
+    def key(self):
+        return "DOOR"
+
+    @property
+    def type_(self) -> SubsurfaceType:
+        return "Door"
+
+
+@dataclass
+class IDFDoorInterzone(IDFSubsurfaceBase):
+    Outside_Boundary_Condition_Object: str = ""
+    Multiplier: float = 1
+
+    @property
+    def key(self):
+        return "DOOR:INTERZONE"
+
+    @property
+    def type_(self) -> SubsurfaceType:
+        return "Door"
+
+
+subsurface_objects: list[type[IDFSubsurfaceBase]] = [
+    IDFWindow,
+    IDFDoor,
+    IDFDoorInterzone,
+]
+
+
+def read_subsurfaces(idf: IDF, names: list[str] = []):
+    k = (
+        Seq(subsurface_objects)
+        .map(lambda x: x.read_by_name(idf, names))
+        .pipe(chain_flatten)
+    )
+    return k
+
+
+def update_subsurface(idf: IDF, name: str, param: str, new_value: str):
+    for obj in subsurface_objects:
+        try:
+            # NOTE: this assumes that object names are NOT shared across different types of subsurface objects
+            obj().update(idf, name, param, new_value)
+            return
+        except InvalidObjectError:
+            pass
+    # if we get here then not objects matched.
+    raise Exception(
+        f"Unable to update subsurface: no matching subsurface for subsurface named : {name}"
+    )

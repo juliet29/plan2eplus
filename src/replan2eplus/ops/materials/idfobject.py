@@ -1,23 +1,12 @@
 from typing import TypeVar
 
-from geomeppy import IDF
-from replan2eplus.idfobjects.base import IDFObject, get_object_description
+from replan2eplus.idfobjects.base import IDFObject
 from dataclasses import dataclass
 
 
 @dataclass
 class IDFMaterialBase(IDFObject):
     Name: str = ""
-
-    # @classmethod
-    # def read(cls, idf: IDF, names: list[str] = []): # pyright: ignore[reportIncompatibleMethodOverride]
-    #     objects = idf.idfobjects[cls().key]
-
-    #     if names:
-    #         return [
-    #             cls(**get_object_description(i)) for i in objects if i.Name in names
-    #         ]
-    #     return [cls(**get_object_description(i)) for i in objects]
 
 
 @dataclass
@@ -88,7 +77,15 @@ class IDFWindowMaterialGas(IDFMaterialBase):
 
 IDFMaterialType = TypeVar("IDFMaterialType", bound=IDFMaterialBase)
 
-material_objects: list[IDFMaterialType] = [  # pyright: ignore[reportGeneralTypeIssues]
+# material_objects: list[IDFMaterialType] = [  # pyright: ignore[reportGeneralTypeIssues]
+#     IDFMaterial,
+#     IDFMaterialNoMass,
+#     IDFMaterialAirGap,
+#     IDFWindowMaterialGlazing,
+#     IDFWindowMaterialGas,
+# ]
+
+material_objects: list[type[IDFMaterialBase]] = [  
     IDFMaterial,
     IDFMaterialNoMass,
     IDFMaterialAirGap,

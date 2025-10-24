@@ -12,7 +12,8 @@ class Interfaces:
     constructions = ConstructionExamples()
 
 
-class ExampleCase:
+class EpAFNCase:
+    # NOTE: draw back of this case is that it uses ONLY fenestration subsurfaces -> not ideal since this code avoids this.. reasonable enough for enough for materials though
     name = "AirflowNetwork3zVent.idf"
     path = ep_paths.example_files / name
     case = EZ(path)
@@ -40,6 +41,22 @@ class ExampleCase:
     ]
 
 
+class EpFourZoneCase:
+    name = "4ZoneWithShading_Simple_2.idf"
+    path = ep_paths.example_files / name
+    case = EZ(path)
+
+    subsurface_names = [
+        "Zn001:Wall001:Win001",
+        "Zn002:Wall001:Win001",
+        "Zn002:Wall001:Win002",
+        "Zn003:Wall001:Win001",
+        "Zn004:Wall001:Win001",
+        "Zn001:Wall001:Door002",
+        "Zn003:Wall004:Door001",
+    ]
+
+
 class Cases:
     ui = Interfaces()
 
@@ -48,8 +65,12 @@ class Cases:
         return EZ()
 
     @property
-    def example(self):
-        return ExampleCase.case
+    def ep_afn(self):
+        return EpAFNCase.case
+
+    @property
+    def ep_four_zone(self):
+        return EpFourZoneCase.case
 
     @property
     def two_room(self):
