@@ -13,7 +13,7 @@ from replan2eplus.paths import ep_paths
 
 def test_read_material_of_type_a_from_idf():
     case = Cases().example  # TODO replace with own example once get materials working
-    materials = IDFMaterial.read(case.idf)
+    materials = IDFMaterial.read_by_name(case.idf)
     found_material_names = [i.Name for i in materials]
     assert set_equality(found_material_names, ExampleCase.basic_material_names)
 
@@ -37,21 +37,21 @@ def test_read_many_materials_from_many_idfs():
 
 def test_write_material():
     source_case = Cases().example
-    source_materials = IDFMaterial.read(source_case.idf)
+    source_materials = IDFMaterial.read_by_name(source_case.idf)
     destination_case = Cases().base
     new_idf = source_materials[0].write(destination_case.idf)
-    new_materials = IDFMaterial.read(new_idf)
+    new_materials = IDFMaterial.read_by_name(new_idf)
     assert new_materials[0].Name == source_materials[0].Name
 
 
 def test_write_materials():
     source_case = Cases().example
-    source_materials = IDFMaterial.read(source_case.idf)
+    source_materials = IDFMaterial.read_by_name(source_case.idf)
     destination_case = Cases().base
     new_idf = IDF()
     for material in source_materials:
         new_idf = material.write(destination_case.idf)
-    new_materials = IDFMaterial.read(new_idf)
+    new_materials = IDFMaterial.read_by_name(new_idf)
     assert set_equality(
         get_names_of_idf_objects(new_materials),
         get_names_of_idf_objects(source_materials),

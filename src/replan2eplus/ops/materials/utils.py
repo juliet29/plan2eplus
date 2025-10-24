@@ -11,7 +11,7 @@ from replan2eplus.ops.materials.idfobject import IDFMaterialType, material_objec
 
 
 def read_materials(idf: IDF, names: list[str]):
-    k = Seq(material_objects).map(lambda x: x.read(idf, names)).pipe(chain_flatten)
+    k = Seq(material_objects).map(lambda x: x.read_by_name(idf, names)).pipe(chain_flatten)
     return k
 
 

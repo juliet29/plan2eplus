@@ -9,15 +9,15 @@ from dataclasses import dataclass
 class IDFMaterialBase(IDFObject):
     Name: str = ""
 
-    @classmethod
-    def read(cls, idf: IDF, names: list[str] = []): # pyright: ignore[reportIncompatibleMethodOverride]
-        objects = idf.idfobjects[cls().key]
+    # @classmethod
+    # def read(cls, idf: IDF, names: list[str] = []): # pyright: ignore[reportIncompatibleMethodOverride]
+    #     objects = idf.idfobjects[cls().key]
 
-        if names:
-            return [
-                cls(**get_object_description(i)) for i in objects if i.Name in names
-            ]
-        return [cls(**get_object_description(i)) for i in objects]
+    #     if names:
+    #         return [
+    #             cls(**get_object_description(i)) for i in objects if i.Name in names
+    #         ]
+    #     return [cls(**get_object_description(i)) for i in objects]
 
 
 @dataclass
