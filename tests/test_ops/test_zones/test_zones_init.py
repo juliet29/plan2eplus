@@ -3,7 +3,9 @@ import pytest
 from replan2eplus.ex.main import Cases
 from replan2eplus.ex.main import Interfaces as UI
 
+from replan2eplus.idfobjects.base import get_names_of_idf_objects
 from replan2eplus.ops.zones.create import create_zones
+from replan2eplus.ops.zones.idfobject import IDFZone
 
 
 def test_zone_names():
@@ -40,8 +42,20 @@ def test_get_zone_subsurfaces(get_pytest_minimal_case_with_subsurfaces):
     assert len(zone.subsurface_names) == 2
 
 
+def test_update_zone_name():
+    case = Cases().two_room
+    zone_name = "Block `room1` Storey 0"
+    test_name = "test_name"
+    IDFZone().update(case.idf, zone_name, "Name", test_name)
+    new_zones = IDFZone().read(case.idf)
+    assert test_name in get_names_of_idf_objects(new_zones)
+    # zone1 = true_zones[0]
+    # zone1["Name"] =
+
+
 if __name__ == "__main__":
-    test_read()
+    # zones = IDFZone.read(case.idf)[0]
+    test_update_zone_name()
     # case = EZ()
     # rooms = [UI.rooms.r1, UI.rooms.r2]
     # zones = create_zones(case.idf, rooms)

@@ -1,3 +1,4 @@
+from geomeppy import IDF
 from utils4plans.sets import set_equality
 
 from replan2eplus.ex.main import Cases, ExampleCase, Interfaces
@@ -32,6 +33,29 @@ def test_read_many_materials_from_many_idfs():
         ep_paths.construction_paths.material_idfs, materials
     )
     assert set_equality(get_names_of_idf_objects(found_materials), materials)
+
+
+def test_write_material():
+    source_case = Cases().example
+    source_materials = IDFMaterial.read(source_case.idf)
+    destination_case = Cases().base
+    new_idf = source_materials[0].write(destination_case.idf)
+    new_materials = IDFMaterial.read(new_idf)
+    assert new_materials[0].Name == source_materials[0].Name
+
+
+def test_write_materials():
+    source_case = Cases().example
+    source_materials = IDFMaterial.read(source_case.idf)
+    destination_case = Cases().base
+    new_idf = IDF()
+    for material in source_materials:
+        new_idf = material.write(destination_case.idf)
+    new_materials = IDFMaterial.read(new_idf)
+    assert set_equality(
+        get_names_of_idf_objects(new_materials),
+        get_names_of_idf_objects(source_materials),
+    )
 
 
 if __name__ == "__main__":

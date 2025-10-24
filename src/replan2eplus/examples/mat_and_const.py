@@ -1,4 +1,5 @@
 from pathlib import Path
+from replan2eplus.ex.materials import SAMPLE_CONSTRUCTION_SET
 from replan2eplus.paths import static_paths
 from replan2eplus.ezobjects.construction import EPConstructionSet, BaseConstructionSet
 from replan2eplus.ezcase.main import EZCase
@@ -41,17 +42,6 @@ BAD_CONSTRUCTION_SET = EPConstructionSet(
     window=BaseConstructionSet("Sgl Clr 6mm", "Sgl Clr 6mm"),
     door=BaseConstructionSet("Medium Partitions", "Medium Partitions"),
 )
-
-
-SAMPLE_CONSTRUCTION_SET = EPConstructionSet(
-    # interior then exterior
-    # TODO should be able to specify a tuple, and just one object if its the same.., trim white space
-    wall=BaseConstructionSet("Medium Partitions", "Medium Exterior Wall"),
-    floor=BaseConstructionSet("Medium Floor", "Medium Floor"),
-    roof=BaseConstructionSet("Medium Roof/Ceiling", "Medium Roof/Ceiling"),
-    window=BaseConstructionSet("Sgl Clr 6mm", "Sgl Clr 6mm"),
-    door=BaseConstructionSet("Medium Furnishings", "Medium Furnishings"),
-)  # TODO -> could one quicly change the names of these?
 
 
 def get_minimal_case_with_materials():

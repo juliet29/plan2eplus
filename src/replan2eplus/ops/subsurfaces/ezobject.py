@@ -56,6 +56,7 @@ SubsurfaceOptions = Literal["DOOR", "WINDOW", "DOOR:INTERZONE"]
 @dataclass
 class Subsurface:
     subsurface_name: str
+    construction_name: str
     starting_x_coordinate: float
     starting_z_coordinate: float
     length: float

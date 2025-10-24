@@ -60,9 +60,13 @@ def prepare_object(
     )  # need to subtract the surface corner..
     dims = detail.dimension.as_tuple
 
+    # empty when created, has to be updated later via construction set 
+    construction_name = ""
+
     return IDFSubsurface(
         create_ss_name(surface_name, detail),
         surface_name,
+        construction_name,
         *coords,
         *dims,
         # create_ss_name(nb_surface_name, detail),

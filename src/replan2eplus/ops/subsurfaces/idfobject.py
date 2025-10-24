@@ -19,6 +19,7 @@ from geomeppy import IDF
 class IDFSubsurface(IDFObject):
     Name: str = ""
     Building_Surface_Name: str = ""
+    Construction_Name: str = ""
     Starting_X_Coordinate: float = 0
     Starting_Z_Coordinate: float = 0
     Length: float = 0
@@ -46,7 +47,7 @@ class IDFSubsurface(IDFObject):
                 raise ValueError(f"Invalid type: {self.type_} ")
 
     @classmethod
-    def read(cls, idf: IDF): # pyright: ignore[reportIncompatibleMethodOverride]
+    def read(cls, idf: IDF):  # pyright: ignore[reportIncompatibleMethodOverride]
         objects = chain_flatten([idf.idfobjects[i] for i in get_args(SubsurfaceKey)])
 
         def get_type(o: EpBunch) -> SubsurfaceType:
@@ -79,6 +80,7 @@ class IDFSubsurface(IDFObject):
         )
         return Subsurface(
             self.Name,
+            self.Construction_Name,
             self.Starting_X_Coordinate,
             self.Starting_Z_Coordinate,
             self.Length,

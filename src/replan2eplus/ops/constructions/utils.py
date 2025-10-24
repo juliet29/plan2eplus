@@ -1,16 +1,37 @@
 from expression.collections import Seq
 from utils4plans.lists import chain_flatten
 from pathlib import Path
+from replan2eplus.errors import IDFMisunderstandingError
+from replan2eplus.idfobjects.base import get_names_of_idf_objects
 from replan2eplus.ops.constructions.idfobject import IDFConstruction
 from replan2eplus.ezcase.ez import EZ
 from replan2eplus.ops.materials.idfobject import IDFMaterialType, material_objects
 from replan2eplus.ops.materials.utils import read_materials_from_many_idf
 from typing import NamedTuple
+from geomeppy import IDF
+
+from replan2eplus.ops.subsurfaces.ezobject import Subsurface
+from replan2eplus.ops.surfaces.ezobject import Surface
+from replan2eplus.ops.surfaces.idfobject import IDFSurface
+from replan2eplus.ops.subsurfaces.idfobject import IDFSubsurface
 
 
+# TODO move to interfaces.., and move epcosnt to user interfaces
 class ConstructionsAndAssocMaterials(NamedTuple):
     constructions: list[IDFConstruction]
-    materials: list[IDFMaterialType] # pyright: ignore[reportGeneralTypeIssues]
+    materials: list[IDFMaterialType]  # pyright: ignore[reportGeneralTypeIssues]
+
+    def write_constructions(self, idf: IDF):
+        for const in self.constructions:
+            idf = const.write(idf)
+
+    def write_materials(self, idf: IDF):
+        for mat in self.materials:
+            idf = mat.write(idf)
+
+    def write(self, idf: IDF):
+        self.write_constructions(idf)
+        self.write_materials(idf)
 
 
 def read_materials_for_construction(
@@ -39,3 +60,31 @@ def read_constructions_and_assoc_materials(
     mats_to_find = list(set(chain_flatten([i.materials for i in constructions])))
     materials = read_materials_from_many_idf(mat_idf_paths, mats_to_find)
     return ConstructionsAndAssocMaterials(constructions, materials)
+
+
+def check_construction_names(idf: IDF, construction_name: str):
+    const_names = get_names_of_idf_objects(IDFConstruction.read(idf))
+    try:
+        assert construction_name in const_names
+    except AssertionError:
+        raise IDFMisunderstandingError(
+            f"`{construction_name}` has not been added to this IDF. The constructions existing are: {const_names}"
+        )
+
+
+def update_surface_construction(idf: IDF, surface: Surface, construction_name: str):
+    check_construction_names(idf, construction_name)
+    IDFSurface().update(
+        idf, surface.surface_name, "Construction_Name", construction_name
+    )
+
+
+def update_subsurface_construction(
+    idf: IDF, surface: Subsurface, construction_name: str
+):
+    check_construction_names(idf, construction_name)
+    IDFSubsurface().update(
+        idf, surface.subsurface_name, "Construction_Name", construction_name
+    )
+    # need to get the surface and then create a new ezobject -> tears
+    # IDFSurface.read(idf, [surface.surface_name])

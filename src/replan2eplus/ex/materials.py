@@ -1,5 +1,7 @@
 from typing import NamedTuple
 
+from replan2eplus.ezobjects.construction import BaseConstructionSet, EPConstructionSet
+
 
 class MaterialExamples(NamedTuple):
     typical = "M06 300mm concrete block"
@@ -25,3 +27,14 @@ class ConstructionExamples(NamedTuple):
         "G01a 19mm gypsum board",
         "CLEAR 3MM",
     ]
+
+
+SAMPLE_CONSTRUCTION_SET = EPConstructionSet(
+    # interior then exterior
+    # TODO should be able to specify a tuple, and just one object if its the same.., trim white space
+    wall=BaseConstructionSet("Medium Partitions", "Medium Exterior Wall"),
+    floor=BaseConstructionSet("Medium Floor", "Medium Floor"),
+    roof=BaseConstructionSet("Medium Roof/Ceiling", "Medium Roof/Ceiling"),
+    window=BaseConstructionSet("Sgl Clr 6mm", "Sgl Clr 6mm"),
+    door=BaseConstructionSet("Medium Furnishings", "Medium Furnishings"),
+)  # TODO -> could one quicly change the names of these?

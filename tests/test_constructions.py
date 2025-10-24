@@ -1,3 +1,4 @@
+from geomeppy import IDF
 from utils4plans.sets import set_equality
 from utils4plans.lists import chain_flatten
 
@@ -10,8 +11,12 @@ from replan2eplus.ops.constructions.utils import (
     read_materials_for_construction,
     read_constructions_and_assoc_materials,
 )
+from replan2eplus.ops.constructions.presentation import create_constructions
 from replan2eplus.paths import ep_paths
 from rich import print
+from replan2eplus.ex.materials import SAMPLE_CONSTRUCTION_SET
+from replan2eplus.ops.subsurfaces.idfobject import IDFSubsurface
+from replan2eplus.ops.surfaces.idfobject import IDFSurface
 
 
 def test_read_constructions():
@@ -66,7 +71,41 @@ def test_read_constructions_and_materials_across_idfs():
     assert set_equality(result_names, mat_names + const_names)
 
 
-if __name__ == "__main__":
-    test_read_constructions_and_materials_across_idfs()
+def test_write_constructions():
+    source_case = Cases().example
+    source_constructions = IDFConstruction.read(source_case.idf)
+    destination_case = Cases().base
+    new_idf = IDF()
+    for constructuon in source_constructions:
+        new_idf = constructuon.write(destination_case.idf)
+    new_constructions = IDFConstruction.read(new_idf)
+    assert set_equality(
+        get_names_of_idf_objects(new_constructions),
+        get_names_of_idf_objects(source_constructions),
+    )
+
+
+def test_create_constructions():
     pass
+
+
+if __name__ == "__main__":
+    case = Cases().subsurfaces_simple
+    cpaths = ep_paths.construction_paths
+    create_constructions(
+        case.idf,
+        cpaths.constructiin_idfs,
+        cpaths.material_idfs,
+        SAMPLE_CONSTRUCTION_SET,
+        case.objects.surfaces,
+        case.objects.subsurfaces,
+    )
+    surface_consts = [i.Construction_Name for i in IDFSurface.read(case.idf)]
+    subsurface_consts = [i.Construction_Name for i in IDFSubsurface.read(case.idf)]
+    # assert set_equality(
+    #     surface_consts + subsurface_consts, SAMPLE_CONSTRUCTION_SET.names
+    # )
+
+    # ['Medium Exterior Wall', 'Medium Roof/Ceiling', 'Medium Partitions', 'Medium Floor']
+
     # read_material_based_on_construction()

@@ -1,0 +1,219 @@
+Wall:Interzone,
+  A1 , \field Name
+       \required-field
+  A2 , \field Construction Name
+       \required-field
+  A3 , \field Zone Name
+       \required-field
+  A4 , \field Space Name
+  A5 , \field Outside Boundary Condition Object
+       \required-field
+  N1,  \field Azimuth Angle
+  N2,  \field Tilt Angle
+  N3,  \field Starting X Coordinate
+  N4,  \field Starting Y Coordinate
+  N5,  \field Starting Z Coordinate
+  N6,  \field Length
+  N7;  \field Height
+Ceiling:Interzone,
+  A1 , \field Name
+       \required-field
+  A2 , \field Construction Name
+       \required-field
+  A3 , \field Zone Name
+       \required-field
+  A4 , \field Space Name
+  A5 , \field Outside Boundary Condition Object
+       \required-field
+  N1,  \field Azimuth Angle
+  N2,  \field Tilt Angle
+  N3,  \field Starting X Coordinate
+  N4,  \field Starting Y Coordinate
+  N5,  \field Starting Z Coordinate
+  N6,  \field Length
+  N7;  \field Width
+Floor:Interzone,
+  A1 , \field Name
+       \required-field
+  A2 , \field Construction Name
+       \required-field
+  A3 , \field Zone Name
+       \required-field
+  A4 , \field Space Name
+  A5 , \field Outside Boundary Condition Object
+       \required-field
+  N1,  \field Azimuth Angle
+  N2,  \field Tilt Angle
+  N3,  \field Starting X Coordinate
+  N4,  \field Starting Y Coordinate
+  N5,  \field Starting Z Coordinate
+  N6,  \field Length
+  N7;  \field Width
+Window:Interzone,
+  A1 , \field Name
+       \required-field
+  A2 , \field Construction Name
+       \required-field
+  A3 , \field Building Surface Name
+       \required-field
+  A4,  \field Outside Boundary Condition Object
+       \note a blank field will set up a Window in an adjacent zone
+  N1 , \field Multiplier
+  N2,  \field Starting X Coordinate
+  N3,  \field Starting Z Coordinate
+  N4,  \field Length
+  N5;  \field Height
+Door:Interzone,
+  A1 , \field Name
+       \required-field
+  A2 , \field Construction Name
+       \required-field
+  A3 , \field Building Surface Name
+       \required-field
+  A4,  \field Outside Boundary Condition Object
+       \note a blank field will set up a Window in an adjacent zone
+  N1 , \field Multiplier
+  N2,  \field Starting X Coordinate
+  N3,  \field Starting Z Coordinate
+  N4,  \field Length
+  N5;  \field Height
+GlazedDoor:Interzone,
+  A1 , \field Name
+       \required-field
+  A2 , \field Construction Name
+       \required-field
+  A3 , \field Building Surface Name
+       \required-field
+  A4,  \field Outside Boundary Condition Object
+       \note a blank field will set up a Window in an adjacent zone
+  N1 , \field Multiplier
+  N2,  \field Starting X Coordinate
+  N3,  \field Starting Z Coordinate
+  N4,  \field Length
+  N5;  \field Height
+Window,
+  A1 , \field Name
+       \required-field
+  A2 , \field Construction Name
+       \required-field
+  A3 , \field Building Surface Name
+       \required-field
+  A4, \field Frame and Divider Name
+  N1 , \field Multiplier
+  N2,  \field Starting X Coordinate
+  N3,  \field Starting Z Coordinate
+  N4,  \field Length
+  N5;  \field Height
+WindowShadingControl,
+  A1 , \field Name
+       \required-field
+  A2 , \field Zone Name
+       \required-field
+  N1 , \field Shading Control Sequence Number
+       \note can be set with this field. The first WindowShadingControl should be 1 and subsequent
+       \note field is set to Group and groups of windows are being controlled in a certain order.
+  A3 , \field Shading Type
+       \required-field
+  A4 , \field Construction with Shading Name
+  A5 , \field Shading Control Type
+       \required-field
+  A6 , \field Schedule Name
+  N2 , \field Setpoint
+  A7 , \field Shading Control Is Scheduled
+  A8 , \field Glare Control Is Active
+  A9 , \field Shading Device Material Name
+  A10, \field Type of Slat Angle Control for Blinds
+  A11, \field Slat Angle Schedule Name
+  N3 , \field Setpoint 2
+  A12, \field Daylighting Control Object Name
+  A13, \field Multiple Surface Control Type
+  A14, \field Fenestration Surface 1 Name
+       \required-field
+       \note When that field is set to Group the entire list is controlled simultaneously.
+  A15, \field Fenestration Surface 2 Name
+       \note When that field is set to Group the entire list is controlled simultaneously.
+  A16, \field Fenestration Surface 3 Name
+       \note When that field is set to Group the entire list is controlled simultaneously.
+  A17, \field Fenestration Surface 4 Name
+       \note When that field is set to Group the entire list is controlled simultaneously.
+  A18, \field Fenestration Surface 5 Name
+       \note When that field is set to Group the entire list is controlled simultaneously.
+  A19, \field Fenestration Surface 6 Name
+       \note When that field is set to Group the entire list is controlled simultaneously.
+  A20, \field Fenestration Surface 7 Name
+       \note When that field is set to Group the entire list is controlled simultaneously.
+  A21, \field Fenestration Surface 8 Name
+       \note When that field is set to Group the entire list is controlled simultaneously.
+  A22, \field Fenestration Surface 9 Name
+       \note When that field is set to Group the entire list is controlled simultaneously.
+  A23; \field Fenestration Surface 10 Name
+       \note When that field is set to Group the entire list is controlled simultaneously.
+WindowProperty:FrameAndDivider,
+      \min-fields 26
+    A1 , \field Name
+         \required-field
+    N1 , \field Frame Width
+    N2 , \field Frame Outside Projection
+    N3 , \field Frame Inside Projection
+    N4 , \field Frame Conductance
+    N5 , \field Ratio of Frame-Edge Glass Conductance to Center-Of-Glass Conductance
+    N6 , \field Frame Solar Absorptance
+    N7 , \field Frame Visible Absorptance
+    N8 , \field Frame Thermal Hemispherical Emissivity
+    A2 , \field Divider Type
+    N9 , \field Divider Width
+    N10, \field Number of Horizontal Dividers
+    N11, \field Number of Vertical Dividers
+    N12, \field Divider Outside Projection
+    N13, \field Divider Inside Projection
+    N14, \field Divider Conductance
+    N15, \field Ratio of Divider-Edge Glass Conductance to Center-Of-Glass Conductance
+    N16, \field Divider Solar Absorptance
+    N17, \field Divider Visible Absorptance
+    N18, \field Divider Thermal Hemispherical Emissivity
+    N19, \field Outside Reveal Solar Absorptance
+    N20, \field Inside Sill Depth
+    N21, \field Inside Sill Solar Absorptance
+    N22, \field Inside Reveal Depth
+    N23, \field Inside Reveal Solar Absorptance
+    A3;  \field NFRC Product Type for Assembly Calculations
+WindowProperty:StormWindow,
+       \min-fields 7
+  A1,  \field Window Name
+       \required-field
+  A2,  \field Storm Glass Layer Name
+       \required-field
+  N1,  \field Distance Between Storm Glass Layer and Adjacent Glass
+  N2,  \field Month that Storm Glass Layer is Put On
+       \required-field
+  N3,  \field Day of Month that Storm Glass Layer is Put On
+       \required-field
+  N4,  \field Month that Storm Glass Layer is Taken Off
+       \required-field
+  N5;  \field Day of Month that Storm Glass Layer is Taken Off
+       \required-field
+Door,
+  A1 , \field Name
+       \required-field
+  A2 , \field Construction Name
+       \required-field
+  A3 , \field Building Surface Name
+       \required-field
+  N1 , \field Multiplier
+  N2,  \field Starting X Coordinate
+  N3,  \field Starting Z Coordinate
+  N4,  \field Length
+  N5;  \field Height
+GlazedDoor,
+  A1 , \field Name
+       \required-field
+  A2 , \field Construction Name
+       \required-field
+  A3 , \field Building Surface Name
+       \required-field
+  A4, \field Frame and Divider Name
+  N1 , \field Multiplier
+  N2,  \field Starting X Coordinate
+  N3,  \field Starting Z Coordinate
+  N4,  \field Length
+  N5;  \field Height

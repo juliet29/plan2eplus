@@ -1,11 +1,11 @@
 import pytest
 from rich import print as rprint
 
+from replan2eplus.ex.materials import SAMPLE_CONSTRUCTION_SET
 from replan2eplus.examples.cases.minimal import test_rooms
 from replan2eplus.examples.mat_and_const import (
     PATH_TO_MAT_AND_CONST_IDF,
     PATH_TO_WINDOW_CONST_IDF,
-    SAMPLE_CONSTRUCTION_SET,
     material_idfs,
 )
 from replan2eplus.examples.ortho_domain import create_ortho_case
