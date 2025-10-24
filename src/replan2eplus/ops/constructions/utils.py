@@ -86,8 +86,4 @@ def update_subsurface_construction(
     update_subsurface(
         idf, surface.subsurface_name, "Construction_Name", construction_name
     )
-    # IDFSubsurfaceBase().update(
-    #     idf, surface.subsurface_name, "Construction_Name", construction_name
-    # )
-    # need to get the surface and then create a new ezobject -> tears
-    # IDFSurface.read(idf, [surface.surface_name])
+

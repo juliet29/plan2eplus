@@ -1,14 +1,6 @@
-from typing import Literal, NamedTuple
-from enum import StrEnum
-
-VentilationControlMode = Literal["Constant", "NoVent"]
-
-# TODO -> add to the objects .. 
-class AFNKeys(StrEnum):
-    SIM_CONTROL = "AIRFLOWNETWORK:SIMULATIONCONTROL"
-    ZONE = "AIRFLOWNETWORK:MULTIZONE:ZONE"
-    OPENING = "AIRFLOWNETWORK:MULTIZONE:COMPONENT:SIMPLEOPENING"
-    SURFACE = "AIRFLOWNETWORK:MULTIZONE:SURFACE"
+from replan2eplus.idfobjects.base import IDFObject
+from dataclasses import dataclass
+from typing import Literal
 
 
 DEFAULT_DISCHARGE_COEFF = 1
@@ -16,7 +8,8 @@ DEFAULT_AIR_MASS_FLOW_COEFF = 0.001  # 10E-2  kg/s-m
 DEFAULT_MIN_DENSITY_DIFFERENCE = 0.0001  # 10E^-3 kg/m3
 
 
-class AFNSimulationControl(NamedTuple):
+@dataclass
+class IDFAFNSimulationControl(IDFObject):
     Name: str = "Default"
     AirflowNetwork_Control: Literal["MultizoneWithoutDistribution"] = (
         "MultizoneWithoutDistribution"
@@ -28,9 +21,14 @@ class AFNSimulationControl(NamedTuple):
     )
     # TODO this should be calculated! -> but do experiment to see how much it matters...
 
+    @property
+    def key(self):
+        return "AIRFLOWNETWORK:SIMULATIONCONTROL"
 
-class AFNZone(NamedTuple):
-    Zone_Name: str
+
+@dataclass
+class IDFAFNZone(IDFObject):
+    Zone_Name: str = ""
     Ventilation_Control_Mode: Literal["Constant", "NoVent"] = (
         "Constant"  # Constant -> depends on venting availability schedule
     )
@@ -38,17 +36,36 @@ class AFNZone(NamedTuple):
         ""  # TODO dont add if its none..  #TODO add venting availability schedules..
     )
 
+    @property
+    def key(self):
+        return "AIRFLOWNETWORK:MULTIZONE:ZONE"
 
-class AFNSimpleOpening(NamedTuple):
-    Name: str  # subsurface name -> simple opening..
+
+@dataclass
+class IDFAFNSimpleOpening(IDFObject):
+    Name: str = ""  # subsurface name -> simple opening..
     Discharge_Coefficient: float = 1
     Air_Mass_Flow_Coefficient_When_Opening_is_Closed: float = DEFAULT_DISCHARGE_COEFF
     Minimum_Density_Difference_for_TwoWay_Flow: float = DEFAULT_MIN_DENSITY_DIFFERENCE
 
+    # @property
+    # def __post_init__(self):
+    #     self.Name = self.create_name(self.Name)
 
-class AFNSurface(NamedTuple):
-    Surface_Name: str  # subsurface name
-    Leakage_Component_Name: str  # has to been in AFN simple opening!
+
+    @property
+    def key(self):
+        return "AIRFLOWNETWORK:MULTIZONE:COMPONENT:SIMPLEOPENING"
+
+
+@dataclass
+class IDFAFNSurface(IDFObject):
+    Surface_Name: str = ""  # subsurface name
+    Leakage_Component_Name: str = ""  # has to been in AFN simple opening!
     Ventilation_Control_Mode: Literal["ZoneLevel", "NoVent", "Constant"] = "ZoneLevel"
     # NOTE -> can do temperature / enthalpy based controls..
     # here is where can add schedule
+
+    @property
+    def key(self):
+        return "AIRFLOWNETWORK:MULTIZONE:SURFACE"

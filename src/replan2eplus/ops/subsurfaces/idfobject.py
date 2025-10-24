@@ -1,20 +1,16 @@
 from dataclasses import dataclass
-from expression.collections import Seq
-from typing import get_args
 
-from replan2eplus.ezobjects.ezbase import EpBunch
-from replan2eplus.ops.subsurfaces.interfaces import SubsurfaceKey, SubsurfaceType
+from expression.collections import Seq
+from geomeppy import IDF
+from utils4plans.lists import chain_flatten, get_unique_one
+
 from replan2eplus.idfobjects.base import (
     IDFObject,
     InvalidObjectError,
-    filter_relevant_values,
-    get_object_description,
 )
-from utils4plans.lists import chain_flatten
-from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.ops.subsurfaces.ezobject import Subsurface
-from utils4plans.lists import get_unique_one
-from geomeppy import IDF
+from replan2eplus.ops.subsurfaces.interfaces import SubsurfaceType
+from replan2eplus.ops.surfaces.ezobject import Surface
 
 
 @dataclass

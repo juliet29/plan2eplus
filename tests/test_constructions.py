@@ -55,7 +55,6 @@ def test_read_construction_across_idfs():
     found_constructions = read_constructions_by_name_from_many_idfs(
         ep_paths.construction_paths.constructiin_idfs, names
     )
-    print(found_constructions)
     print(chain_flatten([i.materials for i in found_constructions]))
     assert set_equality(get_names_of_idf_objects(found_constructions), names)
 
@@ -67,7 +66,6 @@ def test_read_constructions_and_materials_across_idfs():
         cpaths.constructiin_idfs, cpaths.material_idfs, const_names
     )
     result_names = get_names_of_idf_objects(results.constructions + results.materials)
-    print(results)
     mat_names = Interfaces.constructions.materials_for_const_across_idfs
     assert set_equality(result_names, mat_names + const_names)
 
