@@ -5,12 +5,13 @@ from replan2eplus.ops.afn.idfobject import (
     IDFAFNSurface,
     IDFAFNZone,
 )
+from dataclasses import dataclass
 
 
 def create_name(input_name: str):
     return f"SimpleOpening__{input_name}"
 
-
+@dataclass
 class AFNWriter:
     zone_names: list[str]
     sub_and_surface_names: list[str]
@@ -26,4 +27,3 @@ class AFNWriter:
             IDFAFNSimpleOpening(opening_name).write(idf)
             IDFAFNSurface(name, opening_name).write(idf)
 
-        return

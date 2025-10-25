@@ -38,12 +38,14 @@ class EZ:
         self.idf = open_idf(self.idf_path)
         self.objects = read_existing_objects(self.idf)
 
-    def add_init_values(self):
-        return self
+    # def add_init_values(self):
+    #     return self
 
     def add_zones(self, rooms: list[Room]):
         self.objects.zones, self.objects.surfaces = create_zones(self.idf, rooms)
+        return self 
 
-        return self
+
     def add_subsurfaces(self, subsurface_inputs: SubsurfaceInputs):
         self.objects.subsurfaces = create_subsurfaces(subsurface_inputs, self.objects.surfaces, self.objects.zones, self.idf)
+        return self

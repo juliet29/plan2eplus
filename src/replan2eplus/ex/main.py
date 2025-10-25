@@ -11,7 +11,7 @@ class Interfaces:
     materials = MaterialExamples()
     constructions = ConstructionExamples()
 
-
+# TODO -> move to their own places.., also link to eplus data set is a bit fragile for testing => have local copies in case things change..  /static folder that is a part of the source 
 class EpAFNCase:
     # NOTE: draw back of this case is that it uses ONLY fenestration subsurfaces -> not ideal since this code avoids this.. reasonable enough for enough for materials though
     name = "AirflowNetwork3zVent.idf"

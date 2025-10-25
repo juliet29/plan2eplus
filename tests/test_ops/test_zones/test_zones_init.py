@@ -7,6 +7,8 @@ from replan2eplus.idfobjects.base import get_names_of_idf_objects
 from replan2eplus.ops.zones.create import create_zones
 from replan2eplus.ops.zones.idfobject import IDFZone
 
+N_SURFACES_PER_CUBE = 6
+
 
 def test_zone_names():
     case = Cases().two_room
@@ -25,7 +27,6 @@ def test_add_zones():
 def test_add_surfaces_with_zones():
     case = Cases().base
     _, surfaces = create_zones(case.idf, UI.rooms.two_room_list)
-    N_SURFACES_PER_CUBE = 6
     assert len(surfaces) == len(UI.rooms.two_room_list) * N_SURFACES_PER_CUBE
 
 
@@ -35,11 +36,11 @@ def test_read():
     assert n_zones == 3
 
 
-@pytest.mark.xfail()
-def test_get_zone_subsurfaces(get_pytest_minimal_case_with_subsurfaces):
-    case = get_pytest_minimal_case_with_subsurfaces
-    zone = case.zones[0]
-    assert len(zone.subsurface_names) == 2
+# @pytest.mark.xfail()
+# def test_get_zone_subsurfaces(get_pytest_minimal_case_with_subsurfaces):
+#     case = get_pytest_minimal_case_with_subsurfaces
+#     zone = case.zones[0]
+#     assert len(zone.subsurface_names) == 2
 
 
 def test_update_zone_name():
@@ -53,9 +54,35 @@ def test_update_zone_name():
     # zone1["Name"] =
 
 
+# TODO separate the idf tests from the pure zone tests
+def test_get_one_idf_object():
+    case = Cases().two_room
+    zone_name = "Block `room1` Storey 0"
+    res = IDFZone().get_one_idf_object(case.idf, zone_name)
+    assert res.Name == zone_name
+
+
+def test_get_zone_surfaces():
+    case = Cases().two_room
+    zone_name = "Block `room1` Storey 0"
+    res = IDFZone.get_zone_surface_names(case.idf, zone_name)
+    assert len(res) == N_SURFACES_PER_CUBE
+
+
+def test_get_zone_subsurfaces():
+    case = Cases().subsurfaces_simple
+    zone_name = "Block `room1` Storey 0"
+    res = IDFZone.get_zone_subsurface_names(case.idf, zone_name)
+    assert len(res) == 2
+    # assert len(res) == N_SURFACES_PER_CUBE
+
+
 if __name__ == "__main__":
+    case = Cases().subsurfaces_simple
+    zone_name = "Block `room1` Storey 0"
+    res = IDFZone().get_one_idf_object(case.idf, zone_name)
     # zones = IDFZone.read(case.idf)[0]
-    test_update_zone_name()
+    # test_get_zone_subsurfaces()
     # case = EZ()
     # rooms = [UI.rooms.r1, UI.rooms.r2]
     # zones = create_zones(case.idf, rooms)

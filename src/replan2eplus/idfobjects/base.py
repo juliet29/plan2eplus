@@ -42,14 +42,19 @@ class IDFObject:
         return [cls(**get_object_description(i)) for i in objects]
 
     @classmethod
-    def read_by_name(cls, idf: IDF, names: list[str] = []):  # pyright: ignore[reportIncompatibleMethodOverride]
-        # print(f"key = {cls().key}")
+    def read_by_name(cls, idf: IDF, names: list[str] = []):
         objects = idf.idfobjects[cls().key]
         if names:
             return [
                 cls(**get_object_description(i)) for i in objects if i.Name in names
             ]
         return [cls(**get_object_description(i)) for i in objects]
+
+    @classmethod
+    def read_one_by_name(cls, idf: IDF, name: str):
+        res = cls.read_by_name(idf, [name])
+        assert len(res) == 1, f"Expected to get only one item, insted got {res}"
+        return res[0]
 
     def write(self, idf: IDF):
         idf.newidfobject(self.key, **self.values)
@@ -60,14 +65,18 @@ class IDFObject:
     def get_idf_objects(self, idf: IDF) -> list[EpBunch]:
         return idf.idfobjects[self.key]
 
-    def update(self, idf: IDF, object_name: str, param: str, new_value: str):
+    # TODO turn these all into class methods.. 
+    def get_one_idf_object(self, idf: IDF, name: str) -> EpBunch:
         check_has_name_attribute(self)
         try:
-            object = get_unique_one(
-                self.get_idf_objects(idf), lambda x: x.Name == object_name
-            )
+            object = get_unique_one(self.get_idf_objects(idf), lambda x: x.Name == name)
         except AssertionError:
-            raise InvalidObjectError(self, object_name)
+            raise InvalidObjectError(self, name)
+        return object
+
+    # TODO rub 
+    def update(self, idf: IDF, object_name: str, param: str, new_value: str):
+        object = self.get_one_idf_object(idf, object_name)
         assert param in [k for k in self.values.keys()]
         object[param] = new_value
         # object.__setattr__(param, new_value)

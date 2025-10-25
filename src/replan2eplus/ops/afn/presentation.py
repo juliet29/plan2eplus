@@ -1,12 +1,13 @@
 from replan2eplus.ops.afn.interfaces import AFNInputs
 from replan2eplus.ezobjects.airboundary import Airboundary, get_unique_airboundaries
+from replan2eplus.ops.afn.writer import AFNWriter
 from replan2eplus.ops.subsurfaces.ezobject import Subsurface
 from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.ops.zones.ezobject import Zone
 from replan2eplus.idfobjects.afn import (
     AFNKeys,
 )
-from replan2eplus.idfobjects.idf import IDF
+from geomeppy import IDF
 from utils4plans.lists import chain_flatten
 from replan2eplus.ops.subsurfaces.utils import get_unique_subsurfaces
 from replan2eplus.ezobjects.afn import AirflowNetwork
@@ -72,7 +73,14 @@ def select_afn_objects(
         if i.surface.surface_name not in anti_surfaces
     ]
 
-    return AFNInputs(afn_zones, afn_subsurfaces, afn_airboundaries)
+    zone_names = [i.zone_name for i in afn_zones]
+    sub_and_surface_names = [i.surface.surface_name for i in afn_airboundaries] + [
+        i.subsurface_name for i in afn_subsurfaces
+    ]
+
+    return AirflowNetwork(afn_zones, afn_subsurfaces, afn_airboundaries), AFNWriter(
+        zone_names, sub_and_surface_names
+    )
 
 
 # TODO -> this should be the only thing in presentation
@@ -83,17 +91,8 @@ def create_afn_objects(
     airboundaries: list[Airboundary],
     surfaces: list[Surface],
 ):
-    inputs = select_afn_objects(zones, subsurfaces, airboundaries, surfaces)
-    idf.add_afn_simulation_control(inputs.sim_control)
-
-    for zone in inputs.zones:
-        idf.add_afn_zone(zone)
-        # idf.print_idf()
-
-    for pair in zip(*inputs.surfaces_and_openings):
-        afn_surface, afn_opening = pair
-        idf.add_afn_surface(afn_surface)
-        idf.add_afn_opening(afn_opening)
-    # idf.print_idf()
-
-    return AirflowNetwork(inputs.zones_, inputs.subsurfaces, inputs.airboundaires)
+    afn_holder, afn_writer = select_afn_objects(
+        zones, subsurfaces, airboundaries, surfaces
+    )
+    afn_writer.write(idf)
+    return afn_holder

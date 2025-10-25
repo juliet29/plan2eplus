@@ -19,6 +19,7 @@ class Domains:
 class Rooms:
     r1 = Room(0, "room1", Domains.d1, HEIGHT)
     r2 = Room(1, "room2", Domains.d2, HEIGHT)
+    # two_room_list = [r1, r2]
 
     @property
     def two_room_list(self):
