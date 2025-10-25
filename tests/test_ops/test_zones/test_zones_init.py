@@ -62,14 +62,14 @@ def test_get_one_idf_object():
     assert res.Name == zone_name
 
 
-def test_get_zone_surfaces():
+def test_get_idf_zone_surfaces():
     case = Cases().two_room
     zone_name = "Block `room1` Storey 0"
     res = IDFZone.get_zone_surface_names(case.idf, zone_name)
     assert len(res) == N_SURFACES_PER_CUBE
 
 
-def test_get_zone_subsurfaces():
+def test_get_idf_zone_subsurfaces():
     case = Cases().subsurfaces_simple
     zone_name = "Block `room1` Storey 0"
     res = IDFZone.get_zone_subsurface_names(case.idf, zone_name)

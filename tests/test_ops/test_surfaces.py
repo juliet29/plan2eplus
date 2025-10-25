@@ -34,6 +34,8 @@ def test_get_surface_neighbor():
 def test_get_idf_surface_subsurfaces():
     case = Cases().subsurfaces_simple
     zone_surfaces = case.objects.zones[0].surface_names
+    print(case.objects.surfaces)
+
     n_surfs = 0
     for surf in zone_surfaces:
         res = IDFSurface.get_surface_subsurfaces(case.idf, surf)
@@ -43,5 +45,7 @@ def test_get_idf_surface_subsurfaces():
 
 
 if __name__ == "__main__":
-    pass
+    case = Cases().subsurfaces_simple
+    zone_surfaces = case.objects.zones[0].surface_names
+    print(case.objects.surfaces)
     # print(d)
