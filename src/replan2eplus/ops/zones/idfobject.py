@@ -39,17 +39,16 @@ class IDFZone(IDFObject):
     @classmethod
     def get_zone_subsurfaces(cls, idf, name):
         zone_surfaces = cls.get_zone_surfaces(idf, name)
-        subsurfaces = [i.subsurfaces for i in zone_surfaces] # pyright: ignore[reportAttributeAccessIssue]
+        subsurfaces = [i.subsurfaces for i in zone_surfaces]  # pyright: ignore[reportAttributeAccessIssue]
         return chain_flatten(subsurfaces)
 
     @classmethod
-    def get_zone_surface_names(cls, idf, name):
-        return [i.Name for i in cls.get_zone_surfaces(idf, name)] # pyright: ignore[reportAttributeAccessIssue]
+    def get_zone_surface_names(cls, idf, name) -> list[str]:
+        return [i.Name for i in cls.get_zone_surfaces(idf, name)]  # pyright: ignore[reportAttributeAccessIssue]
 
     @classmethod
-    def get_zone_subsurface_names(cls, idf, name):
+    def get_zone_subsurface_names(cls, idf, name) -> list[str]:
         return [i.Name for i in cls.get_zone_subsurfaces(idf, name)]
-
 
 
 @dataclass

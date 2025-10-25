@@ -6,6 +6,6 @@ from replan2eplus.ops.zones.ezobject import Zone
 from replan2eplus.ops.surfaces.ezobject import Surface
 
 
-def update_zone_relations(idf: IDF, zone: Zone):
-    idf_zone = IDFZone().get_one_idf_object(idf, zone.zone_name)
-    print(idf_zone)
+# def update_zone_relations(idf: IDF, zone: Zone):
+#     zone.surface_names =  IDFZone().get_zone_surface_names(idf, zone.zone_name)
+     

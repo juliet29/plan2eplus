@@ -4,6 +4,7 @@ from replan2eplus.idfobjects.base import (
     filter_relevant_values,
     get_object_description,
 )
+# from eppy.bunch_subclass import EpBunch
 from replan2eplus.ops.surfaces.ezobject import Surface
 from geomeppy import IDF
 from replan2eplus.ops.surfaces.interfaces import (
@@ -34,7 +35,7 @@ class IDFSurface(IDFObject):
         return "BUILDINGSURFACE:DETAILED"
 
     @classmethod
-    def read(cls, idf: IDF, names: list[str] = []): # pyright: ignore[reportIncompatibleMethodOverride]
+    def read(cls, idf: IDF, names: list[str] = []):  # pyright: ignore[reportIncompatibleMethodOverride]
         def create_new_objects(o):
             key_values = get_object_description(o)
             properties = {
@@ -67,6 +68,11 @@ class IDFSurface(IDFObject):
             self.coords,
             self.subsurfaces,
         )
+
+    @classmethod
+    def get_surface_subsurfaces(cls, idf, name):
+        obj = cls().get_one_idf_object(idf, name)
+        return obj.subsurfaces  #
 
 
 # OutsideBiundaryCondition Literal["Adiabatic", "Surface", "Outdoors", "Ground", "Founation", ""]
