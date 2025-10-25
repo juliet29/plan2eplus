@@ -6,11 +6,12 @@ from replan2eplus.ops.subsurfaces.logic.interior import (
     create_subsurface_for_interior_edge,
 )
 from replan2eplus.ex.subsurfaces import door_details
+from replan2eplus.ex.main import Cases
 
 
-def test_add_airboundary(get_pytest_minimal_case_with_rooms):
-    case = get_pytest_minimal_case_with_rooms
-    airboundaries = update_airboundary_constructions(case.idf, [e0], case.zones)
+def test_add_airboundary():
+    case = Cases().two_room
+    airboundaries = update_airboundary_constructions(case.idf, [e0], case.objects.zones)
     assert len(airboundaries) == 2
     for boundary in airboundaries:
         assert "Airboundary" in boundary.surface.construction_name
@@ -23,10 +24,13 @@ def test_add_airboundary(get_pytest_minimal_case_with_rooms):
 # TODO -> test update construction set after airboudnaries are added..
 
 
-def test_cant_add_subsurfacae_on_airboundary(get_pytest_minimal_case_with_rooms):
-    case = get_pytest_minimal_case_with_rooms
-    update_airboundary_constructions(case.idf, [e0], case.zones)
+def test_cant_add_subsurfacae_on_airboundary():
+    case = Cases().two_room
+    update_airboundary_constructions(case.idf, [e0], case.objects.zones)
     with pytest.raises(IDFMisunderstandingError):
         create_subsurface_for_interior_edge(
-            zone_edge, door_details, case.zones, case.idf
+            zone_edge, door_details, case.objects.zones, case.objects.surfaces, case.idf
         )
+
+if __name__ == "__main__":
+    test_add_airboundary()
