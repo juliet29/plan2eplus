@@ -1,7 +1,7 @@
 from geomeppy import IDF
 from utils4plans.lists import chain_flatten
 
-from replan2eplus.ops.geometric.relations import update_surface_relations
+from replan2eplus.ops.surfaces.utils import update_surface_relations
 from replan2eplus.ops.subsurfaces.logic.exterior import (
     create_subsurface_for_exterior_edge,
 )

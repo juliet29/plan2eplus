@@ -1,5 +1,4 @@
-from geomeppy import IDF
-from replan2eplus.idfobjects.base import IDFObject, get_object_description
+from replan2eplus.idfobjects.base import IDFObject 
 from dataclasses import dataclass
 from typing import Literal
 

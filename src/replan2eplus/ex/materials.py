@@ -1,6 +1,6 @@
 from typing import NamedTuple
 
-from replan2eplus.ezobjects.construction import BaseConstructionSet, EPConstructionSet
+from replan2eplus.ops.constructions.interfaces import BaseConstructionSet, EPConstructionSet
 
 
 class MaterialExamples(NamedTuple):

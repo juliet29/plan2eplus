@@ -7,7 +7,7 @@ from typing import TypeVar
 
 from replan2eplus.geometry.directions import WallNormal
 from utils4plans.lists import chain_flatten
-from replan2eplus.ezobjects.name import decompose_idf_name
+from replan2eplus.helpers.name import decompose_idf_name
 from expression.collections import Seq
 
 T = TypeVar("T")

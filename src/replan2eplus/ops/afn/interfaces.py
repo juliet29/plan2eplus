@@ -1,55 +1,29 @@
-from typing import Protocol
-from replan2eplus.ops.subsurfaces.ezobject import Subsurface
-from replan2eplus.ops.surfaces.ezobject import Surface
-from replan2eplus.ops.zones.ezobject import Zone
-from replan2eplus.idfobjects.afn import (
-    AFNSimpleOpening,
-    AFNSimulationControl,
-    AFNSurface,
-    AFNZone,
+from geomeppy import IDF
+from replan2eplus.ops.afn.idfobject import (
+    IDFAFNSimpleOpening,
+    IDFAFNSimulationControl,
+    IDFAFNSurface,
+    IDFAFNZone,
 )
-from replan2eplus.ops.airboundary.ezobject import Airboundary
-
-
 from dataclasses import dataclass
 
 
+def create_name(input_name: str):
+    return f"SimpleOpening__{input_name}"
+
 @dataclass
-class AFNInputs:
-    zones_: list[Zone]
-    subsurfaces: list[Subsurface]
-    airboundaires: list[Airboundary]
+class AFNWriter:
+    zone_names: list[str]
+    sub_and_surface_names: list[str]
 
-    @property
-    def sim_control(self):
-        return AFNSimulationControl()
+    def write(self, idf: IDF):
+        IDFAFNSimulationControl().write(idf)
 
-    @property
-    def zones(self):
-        # TODO if there was a parameter map would apply here..
-        return [AFNZone(i.zone_name) for i in self.zones_]
+        for zone_name in self.zone_names:
+            IDFAFNZone(zone_name).write(idf)
 
-    @property
-    def surfaces_and_openings(self):
-        # Air boundary is allowed by venting is constant, on..
-        subsurface_openings: dict[str, AFNSimpleOpening] = {
-            i.subsurface_name: AFNSimpleOpening(f"SimpleOpening__{i.subsurface_name}")
-            for i in self.subsurfaces
-        }
-        surface_openings: dict[str, AFNSimpleOpening] = {
-            i.surface.surface_name: AFNSimpleOpening(
-                f"SimpleOpening__{i.surface.surface_name}"
-            )
-            for i in self.airboundaires
-        }
-
-        openings = subsurface_openings | surface_openings
-
-        openings_list = list(openings.values())
-        surfaces = [
-            AFNSurface(surface_name, opening.Name)
-            for surface_name, opening in openings.items()
-        ]
-        return surfaces, openings_list
-
+        for name in self.sub_and_surface_names:
+            opening_name = create_name(name)
+            IDFAFNSimpleOpening(opening_name).write(idf)
+            IDFAFNSurface(name, opening_name).write(idf)
 

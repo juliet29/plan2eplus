@@ -5,15 +5,15 @@ from utils4plans.io import get_or_make_folder_path
 
 from replan2eplus.ezobjects.afn import AirflowNetwork
 from replan2eplus.ops.airboundary.ezobject import Airboundary, get_unique_airboundaries
-from replan2eplus.ezobjects.construction import Construction, EPConstructionSet
+from replan2eplus.ops.constructions.interfaces import Construction, EPConstructionSet
 from replan2eplus.ezobjects.material import Material
 from replan2eplus.ops.subsurfaces.ezobject import Edge, Subsurface
 from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.ops.zones.ezobject import Zone
 from replan2eplus.idfobjects.idf import IDF
-from replan2eplus.ops.afn.presentation import create_afn_objects
+from replan2eplus.ops.afn.create import create_afn_objects
 from replan2eplus.ops.airboundary.presentation import update_airboundary_constructions
-from replan2eplus.ops.constructions.presentation import (
+from replan2eplus.ops.constructions.create import (
     add_constructions_from_other_idf,
 )
 from replan2eplus.ops.subsurfaces.user_interfaces import SubsurfaceInputs

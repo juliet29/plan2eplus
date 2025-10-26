@@ -1,7 +1,7 @@
 from pathlib import Path
 from replan2eplus.ex.materials import SAMPLE_CONSTRUCTION_SET
 from replan2eplus.paths import static_paths
-from replan2eplus.ezobjects.construction import EPConstructionSet, BaseConstructionSet
+from replan2eplus.ops.constructions.interfaces import EPConstructionSet, BaseConstructionSet
 from replan2eplus.ezcase.main import EZCase
 from replan2eplus.examples.paths import PATH_TO_IDD, PATH_TO_MINIMAL_IDF
 from replan2eplus.paths import PATH_TO_WEATHER_FILE

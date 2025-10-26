@@ -1,18 +1,10 @@
-from expression.collections import Seq
-from replan2eplus.ops.afn.interfaces import AFNInputs
 from replan2eplus.ops.afn.logic import determine_afn_objects
-from replan2eplus.ops.airboundary.ezobject import Airboundary, get_unique_airboundaries
-from replan2eplus.ops.afn.writer import AFNWriter
+from replan2eplus.ops.airboundary.ezobject import Airboundary
+from replan2eplus.ops.afn.interfaces import AFNWriter
 from replan2eplus.ops.subsurfaces.ezobject import Subsurface
-from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.ops.zones.ezobject import Zone
-from replan2eplus.idfobjects.afn import (
-    AFNKeys,
-)
 from geomeppy import IDF
-from utils4plans.lists import chain_flatten
-from replan2eplus.ops.subsurfaces.utils import get_unique_subsurfaces
-from replan2eplus.ezobjects.afn import AirflowNetwork
+from replan2eplus.ops.afn.ezobject import AirflowNetwork
 
 
 def select_afn_objects(

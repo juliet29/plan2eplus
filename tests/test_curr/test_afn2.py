@@ -11,8 +11,8 @@ from replan2eplus.ops.afn.logic import (
 import pytest
 from rich import print
 
-from replan2eplus.ops.afn.presentation import create_afn_objects, select_afn_objects
-from replan2eplus.ops.afn.writer import IDFAFNSurface, IDFAFNZone
+from replan2eplus.ops.afn.create import create_afn_objects, select_afn_objects
+from replan2eplus.ops.afn.interfaces import IDFAFNSurface, IDFAFNZone
 
 
 @pytest.mark.parametrize("case", AFNExampleCases().list)

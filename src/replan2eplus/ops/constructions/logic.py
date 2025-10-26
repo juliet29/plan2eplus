@@ -1,4 +1,4 @@
-from replan2eplus.ezobjects.construction import EPConstructionSet
+from replan2eplus.ops.constructions.interfaces import EPConstructionSet
 from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.ops.subsurfaces.ezobject import Subsurface
 from geomeppy import IDF
