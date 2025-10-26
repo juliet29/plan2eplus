@@ -18,6 +18,7 @@ from rich import print
 from replan2eplus.ex.materials import SAMPLE_CONSTRUCTION_SET
 from replan2eplus.ops.subsurfaces.idfobject import IDFSubsurfaceBase
 from replan2eplus.ops.surfaces.idfobject import IDFSurface
+from rich import print
 
 
 def test_read_constructions():
@@ -75,9 +76,13 @@ def test_write_constructions():
     source_constructions = IDFConstruction.read(source_case.idf)
     destination_case = Cases().base
     new_idf = IDF()
-    for constructuon in source_constructions:
-        new_idf = constructuon.write(destination_case.idf)
+    for construction in source_constructions:
+        new_idf = construction.write(destination_case.idf)
+
     new_constructions = IDFConstruction.read(new_idf)
+    print(new_constructions)
+    print(IDFConstruction().get_idf_objects(new_idf))
+    print(IDFConstruction().get_idf_objects(source_case.idf))
     assert set_equality(
         get_names_of_idf_objects(new_constructions),
         get_names_of_idf_objects(source_constructions),
@@ -103,7 +108,4 @@ def test_write_ep_construction_set():
 
 
 if __name__ == "__main__":
-    pass
-    # ['Medium Exterior Wall', 'Medium Roof/Ceiling', 'Medium Partitions', 'Medium Floor']
-
-    # read_material_based_on_construction()
+    test_write_constructions()

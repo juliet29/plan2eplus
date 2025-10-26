@@ -1,4 +1,6 @@
 from dataclasses import dataclass
+
+from geomeppy import IDF
 from replan2eplus.idfobjects.base import IDFObject
 
 
@@ -31,3 +33,4 @@ class IDFConstruction(IDFObject):
     @property
     def values(self):
         return {k: v for k, v in self.__dict__.items() if v}
+    

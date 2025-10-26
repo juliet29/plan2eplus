@@ -117,11 +117,7 @@ subsurface_objects: list[type[IDFSubsurfaceBase]] = [
 
 
 def read_subsurfaces(idf: IDF, names: list[str] = []):
-    k = (
-        Seq(subsurface_objects)
-        .map(lambda x: x.read_by_name(idf, names))
-        .pipe(chain_flatten)
-    )
+    k = Seq(subsurface_objects).map(lambda x: x.read(idf, names)).pipe(chain_flatten)
     return k
 
 

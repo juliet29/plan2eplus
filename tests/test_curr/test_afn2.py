@@ -1,4 +1,3 @@
-from copy import deepcopy
 from replan2eplus.ex.afn import AFNExampleCases, AFNCaseDefinition
 
 # from replan2eplus.ezcase.ez import EZ
@@ -6,12 +5,9 @@ from replan2eplus.ex.main import Interfaces
 from replan2eplus.ops.afn.logic import (
     check_surfaces_for_nbs,
     determine_afn_objects,
-    get_avail_afn_zones,
     get_avail_surfaces,
     get_avail_zones,
-    update_zones,
 )
-from geomeppy import IDF
 import pytest
 from rich import print
 
@@ -74,11 +70,11 @@ def test_adding_afn_objects():
     case = case_.case_with_subsurfaces
     _ = create_afn_objects(case.idf, case.objects.zones, case.objects.subsurfaces, [])
     print(case.idf.idfobjects["AIRFLOWNETWORK:MULTIZONE:SURFACE"])
-
-    surfs = IDFAFNSurface.read(case.idf)
+    # TOOD -> do more ioobjects need this? 
+    surfs = IDFAFNSurface.read_and_filter(case.idf)
     assert len(surfs) == case_.n_surfs_in_afn
 
-    zones = IDFAFNZone.read(case.idf)
+    zones = IDFAFNZone.read_and_filter(case.idf)
     assert len(zones) == case_.n_zones_in_afn
 
 

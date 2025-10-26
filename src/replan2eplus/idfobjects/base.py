@@ -41,6 +41,12 @@ class IDFObject:
     def read(cls, idf: IDF, *args, **kwargs):
         objects = idf.idfobjects[cls().key]
 
+        return [cls(**get_object_description(i)) for i in objects]
+
+    @classmethod
+    def read_and_filter(cls, idf: IDF, *args, **kwargs):
+        objects = idf.idfobjects[cls().key]
+
         def filter_d(d: dict):
             return {k: v for k, v in d.items() if k in cls().values.keys()}
 
@@ -57,7 +63,7 @@ class IDFObject:
 
     @classmethod
     def read_one_by_name(cls, idf: IDF, name: str):
-        res = cls.read_by_name(idf, [name])
+        res = cls.read(idf, [name])
         assert len(res) == 1, f"Expected to get only one item, insted got {res}"
         return res[0]
 

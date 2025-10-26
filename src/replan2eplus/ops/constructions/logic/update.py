@@ -1,4 +1,3 @@
-from replan2eplus.ops.airboundary.interfaces import DEFAULT_AIRBOUNDARY_OBJECT
 from replan2eplus.ezobjects.construction import EPConstructionSet
 from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.ops.subsurfaces.ezobject import Subsurface

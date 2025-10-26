@@ -72,11 +72,11 @@ class IDFAFNSurface(IDFObject):
     def key(self):
         return "AIRFLOWNETWORK:MULTIZONE:SURFACE"
 
-    @classmethod
-    def read(cls, idf: IDF, *args, **kwargs):
-        objects = idf.idfobjects[cls().key]
+    # @classmethod
+    # def read(cls, idf: IDF, *args, **kwargs):
+    #     objects = idf.idfobjects[cls().key]
 
-        def filter_d(d: dict):
-            return {k: v for k, v in d.items() if k in cls().values.keys()}
+    #     def filter_d(d: dict):
+    #         return {k: v for k, v in d.items() if k in cls().values.keys()}
 
-        return [cls(**filter_d(get_object_description(i))) for i in objects]
+    #     return [cls(**filter_d(get_object_description(i))) for i in objects]
