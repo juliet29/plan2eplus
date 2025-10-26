@@ -82,6 +82,9 @@ class EpPaths:
     defaults: Defaults
     construction_names: ConstructionNames
     minimal_case: Path | None = None
+    idf_name = "out.idf"
+    results_path = "results"
+    sql_name = "eplusout.sql"
 
     def __post_init__(self):
         if not self.path_to_ep_install.exists():

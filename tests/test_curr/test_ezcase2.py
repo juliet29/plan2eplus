@@ -5,6 +5,7 @@ from replan2eplus.ops.subsurfaces.user_interfaces import EdgeGroup, SubsurfaceIn
 from replan2eplus.ex.subsurfaces import details
 from replan2eplus.ex.afn import EdgeGroups as AFNEdgeGroups
 from rich import print
+from replan2eplus.paths import ep_paths, THROWAWAY_PATH
 
 
 def make_test_case(
@@ -21,6 +22,8 @@ def make_test_case(
     )
     if afn:
         case.add_airflow_network()
+    case.output_path = THROWAWAY_PATH
+    case.epw_path = ep_paths.default_weather
 
     return case
 
@@ -45,4 +48,7 @@ def test_case_airboundary_afn():
 
 
 if __name__ == "__main__":
-    test_case_airboundary_afn()
+
+    r1, r2 = Rooms().two_room_list
+    case = make_test_case(AFNEdgeGroups.A_ns, [Edge(r1.name, r2.name)], afn=True)
+    case.save_and_run(run=True)

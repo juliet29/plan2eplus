@@ -25,11 +25,7 @@ class AirflowNetwork:
     def surfacelike_objects(self):
         return self.subsurfaces + self.airboundaries
 
-    def non_afn_airboundaries(self, airboundaries: list[Airboundary]):
-        return [i for i in airboundaries if i not in self.airboundaries]
 
-    def non_afn_subsurfaces(self, subsurfaces: list[Subsurface]):
-        return [i for i in subsurfaces if i not in self.subsurfaces]
 
     def select_afn_subsurfaces(
         self, select_fx: Callable[[list[Subsurface]], list[Subsurface]]

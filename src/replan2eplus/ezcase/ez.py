@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-
+from replan2eplus.paths import ep_paths
 from replan2eplus.ezcase.objects import read_existing_objects
 
 from replan2eplus.ezcase.utils import initialize_idd, open_idf
@@ -25,6 +25,8 @@ from replan2eplus.ops.zones.user_interface import Room
 @dataclass
 class EZ:
     idf_path: Path | None = None
+    output_path: Path | None = None
+    epw_path: Path | None = None
 
     def __post_init__(self):
         initialize_idd()
@@ -74,3 +76,26 @@ class EZ:
             self.objects.subsurfaces,
         )
         return self
+
+    def save_and_run(
+        self, output_path: Path | None = None, epw_path: Path | None = None, run=False
+    ):
+        if not self.output_path:
+            assert output_path
+            self.output_path = output_path
+        if not self.epw_path:
+            assert epw_path
+            self.epw_path = epw_path
+
+        idf_path = self.output_path / ep_paths.idf_name
+        results_path = self.output_path / ep_paths.results_path
+
+        self.idf.epw = self.epw_path
+
+        if not self.idf_path:
+            self.idf.idfabsname = idf_path
+
+        self.idf.save(idf_path)
+
+        if run:
+            self.idf.run(output_directory=results_path)

@@ -93,7 +93,7 @@ def add_init_objects(
     ],
 ):
     for obj in base_objects:
-        idf = obj.read(idf)
+        obj.write(idf)
     return idf
     # return add_new_objects(
     #     idf, [version, timestep, building, global_geometry_rules, simulation_control]
