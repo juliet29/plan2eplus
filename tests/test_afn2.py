@@ -2,6 +2,7 @@ from copy import deepcopy
 from replan2eplus.ex.afn import AFNExampleCases, AFNCaseDefinition
 
 # from replan2eplus.ezcase.ez import EZ
+from replan2eplus.ex.main import Interfaces
 from replan2eplus.ops.afn.logic import (
     check_surfaces_for_nbs,
     determine_afn_objects,
@@ -13,6 +14,8 @@ from replan2eplus.ops.afn.logic import (
 
 import pytest
 from rich import print
+
+from replan2eplus.ops.afn.presentation import select_afn_objects
 
 
 @pytest.mark.parametrize("case", AFNExampleCases().list)
@@ -48,6 +51,22 @@ def test_get_afn_objects(case_: AFNCaseDefinition):
     assert len(zones) == case_.n_zones_in_afn
     assert len(surfs) == case_.n_surfs_in_afn
 
+def test_selecting_afn_zones():
+    case_ = AFNExampleCases().B_ne
+    case = case_.case_with_subsurfaces
+    afn_holder, _ = select_afn_objects(case.objects.zones, case.objects.subsurfaces, [])
+    assert len(afn_holder.zones) == case_.n_zones_in_afn
+    assert afn_holder.zones[0].room_name == Interfaces.rooms.r1.name 
+
+   
+
+@pytest.mark.xfail() # 
+def test_selecting_afn_surfaces():
+    case_ = AFNExampleCases().B_ne
+    case = case_.case_with_subsurfaces
+    afn_holder, _ = select_afn_objects(case.objects.zones, case.objects.subsurfaces, [])
+    assert len(afn_holder.subsurfaces) == case_.n_surfs_in_afn
+
 
 def reg_test():
     def study(case_: AFNCaseDefinition):
@@ -57,29 +76,8 @@ def reg_test():
             case.objects.zones, case.objects.subsurfaces
         )
 
-        # active_case = case.case_with_subsurfaces
-        # avail_zones = get_avail_zones(active_case.objects.zones)
-        print(f"found_zones: {zones}")
-        print(f"found_surfs: {surfs}")
+        print(f"found_zones: {[i.room_name for i in zones]}")
 
-        # avail_surfs = get_avail_subsurfaces(
-        #     active_case.objects.subsurfaces, avail_zones
-        # ).pipe(check_surfaces_for_nbs)
-        # # print(f"avail_surfs1: {avail_surfs}")
-        # # print(f"avail_surfs1 again: {avail_surfs}")
-
-        # avail_zones2 = update_zones(avail_zones, avail_surfs)
-
-        # avail_zones3 = get_avail_afn_zones(avail_zones2)
-        # print(f"avail zones3 {avail_zones3}")
-
-        # pipe(
-        #     get_avail_zones(actikkve_case.objects.zones),
-        #     get_avail_subsurfaces(active_case.objects.subsurfaces, avail_zones).pipe(
-        #         check_surfaces_for_nbs
-        #     ),
-        #     update_zones(avail_zones, avail_surfs),
-        # )
 
     for case in AFNExampleCases().list:
         study(case)

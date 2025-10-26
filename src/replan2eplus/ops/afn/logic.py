@@ -18,10 +18,11 @@ Neighborly = Subsurface | Airboundary
 
 @dataclass
 class AFNZone:
-    surfaces: Iterable[str]
+    name: str 
+    surface_names: Iterable[str]
 
 
-# TODO come back to this later..
+# # TODO come back to this later..
 def get_matching_objects(
     param: str, curr_object_names: Seq[str], other_objects: Iterable[T]
 ) -> Seq[T]:
@@ -36,23 +37,23 @@ def get_matching_objects(
 def get_avail_zones(zones: Iterable[Zone]):
     return (
         Seq(zones)
-        .map(lambda x: AFNZone(x.potential_afn_surface_names))
-        .filter(lambda x: len(list(x.surfaces)) >= 2)
+        .map(lambda x: AFNZone(x.zone_name, x.potential_afn_surface_names))
+        .filter(lambda x: len(list(x.surface_names)) >= 2)
     ).to_list()
 
 
 def get_avail_afn_zones(zones: Iterable[AFNZone]):
-    return (Seq(zones).filter(lambda x: len(list(x.surfaces)) >= 2)).to_list()
+    return (Seq(zones).filter(lambda x: len(list(x.surface_names)) >= 2)).to_list()
 
 
 def get_avail_surfaces(surfaces: Iterable[Neighborly], avail_zones: Iterable[AFNZone]):
-    names = Seq(avail_zones).map(lambda x: x.surfaces).pipe(chain_flatten_seq)
-    avail_surfaces = names.map(
-        lambda x: get_unique_one(surfaces, lambda obj: obj.name == x)
-    )
+    names = Seq(avail_zones).map(lambda x: x.surface_names).pipe(chain_flatten_seq)
+    # avail_surfaces = names.map(
+    #     lambda x: get_unique_one(surfaces, lambda obj: obj.name == x)
+    # )
 
-    # return get_matching_objects("name", names, surfaces)
-    return avail_surfaces
+    return get_matching_objects("name", names, surfaces)
+    #return avail_surfaces
 
 
 def check_surfaces_for_nbs(surfaces: Seq[Neighborly]):
@@ -68,11 +69,11 @@ def check_surfaces_for_nbs(surfaces: Seq[Neighborly]):
 
 
 def update_zones(avail_zones: Iterable[AFNZone], avail_surfs: Iterable[Neighborly]):
-    surface_names = Seq(avail_surfs).map(lambda x: x.name)
+    avail_surface_names = Seq(avail_surfs).map(lambda x: x.name)
 
     def update_zone_surfaces(zone: AFNZone):
-        zone.surfaces = (
-            Seq(zone.surfaces).filter(lambda x: x in surface_names).to_list()
+        zone.surface_names = (
+            Seq(zone.surface_names).filter(lambda x: x in avail_surface_names).to_list()
         )
         return zone
 
@@ -88,9 +89,11 @@ def determine_afn_objects(zones: Iterable[Zone], surfaces: Iterable[Neighborly])
     new_avail_zones = get_avail_afn_zones(updated_zones)
     new_avail_surfs = get_avail_surfaces(surfaces, new_avail_zones).to_list()
 
-    # afn_zones = Seq(new_avail_zones).map(
-    #     lambda x: get_unique_one(zones, lambda obj: obj.zone_name == x)
-    # )
+    afn_zones = Seq(new_avail_zones).map(lambda x: x.name).map(
+        lambda x: get_unique_one(zones, lambda obj: obj.zone_name == x)
+    ).to_list()
 
-    # return list(afn_zones), list(new_avail_surfs)
-    return new_avail_zones, new_avail_surfs
+    # print(afn_zones)
+
+    return list(afn_zones), list(new_avail_surfs)
+    # return new_avail_zones, new_avail_surfs
