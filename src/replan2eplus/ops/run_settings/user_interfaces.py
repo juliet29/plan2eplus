@@ -9,10 +9,10 @@ from replan2eplus.ops.run_settings.idfobject import IDFLocation, IDFRunPeriod
 @dataclass
 class AnalysisPeriod:
     name: str
-    st_month: int  # pyright: ignore[reportIncompatibleMethodOverride]
-    end_month: int  # pyright: ignore[reportIncompatibleMethodOverride]
-    st_day: int  # pyright: ignore[reportIncompatibleMethodOverride]
-    end_day: int  # pyright: ignore[reportIncompatibleMethodOverride]
+    st_month: int
+    end_month: int
+    st_day: int
+    end_day: int
 
     def create_idf_object(self):
         return IDFRunPeriod(
@@ -24,10 +24,6 @@ class AnalysisPeriod:
 class EPW:
     path: Path
 
-    @property
-    def lb_epw(self):
-        return EPW(self.path)
-
     def create_idf_object(self):
         epw = LBEPW(self.path)
         loc = epw.location
@@ -35,6 +31,7 @@ class EPW:
         return IDFLocation(loc.city, loc.latitude, loc.time_zone, loc.elevation)
 
 
+# TODO move these to other places!
 default_analysis_period = AnalysisPeriod("July_1", 7, 7, 1, 1)
 
 
