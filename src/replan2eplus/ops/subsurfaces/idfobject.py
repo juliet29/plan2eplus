@@ -26,10 +26,16 @@ class IDFSubsurfaceBase(IDFObject):
     @property
     def type_(self) -> SubsurfaceType: ...
 
-    def create_ezobject(self, surfaces: list[Surface]) -> Subsurface:
-        surface = get_unique_one(
+    def get_surface(self, surfaces: list[Surface]):
+        return get_unique_one(
             surfaces, lambda x: x.surface_name == self.Building_Surface_Name
         )
+
+    @property
+    def empty_boundary_condition_object(self):
+        return ""
+
+    def create_ezobject(self, surfaces: list[Surface]) -> Subsurface:
         return Subsurface(
             self.Name,
             self.Construction_Name,
@@ -37,9 +43,10 @@ class IDFSubsurfaceBase(IDFObject):
             self.Starting_Z_Coordinate,
             self.Length,
             self.Height,
+            self.empty_boundary_condition_object,
             # self.Outside_Boundary_Condition_Object,
             self.type_,  # this will map to the key
-            surface,
+            self.get_surface(surfaces),
         )
 
     def write(self, idf: IDF):
@@ -87,6 +94,19 @@ class IDFDoorInterzone(IDFSubsurfaceBase):
     @property
     def type_(self) -> SubsurfaceType:
         return "Door"
+
+    def create_ezobject(self, surfaces: list[Surface]) -> Subsurface:
+        return Subsurface(
+            self.Name,
+            self.Construction_Name,
+            self.Starting_X_Coordinate,
+            self.Starting_Z_Coordinate,
+            self.Length,
+            self.Height,
+            self.Outside_Boundary_Condition_Object,
+            self.type_,  # this will map to the key
+            self.get_surface(surfaces),
+        )
 
 
 subsurface_objects: list[type[IDFSubsurfaceBase]] = [

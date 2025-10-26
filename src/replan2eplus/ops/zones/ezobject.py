@@ -2,12 +2,13 @@ from dataclasses import dataclass, field
 from replan2eplus.errors import BadlyFormatedIDFError
 
 from utils4plans.lists import sort_and_group_objects_dict
-from replan2eplus.ops.surfaces.ezobject import Surface 
+from replan2eplus.ops.surfaces.ezobject import Surface
 from typing import TypeVar
 
 from replan2eplus.geometry.directions import WallNormal
 from utils4plans.lists import chain_flatten
 from replan2eplus.ezobjects.name import decompose_idf_name
+from expression.collections import Seq
 
 T = TypeVar("T")
 
@@ -24,12 +25,10 @@ class DirectedSurfaces:
 
 @dataclass
 class Zone:
-    # _epbunch: EpBunch
-    # room_name: str
     zone_name: str
-
-    # expected_key: str = epkeys.ZONE
     surfaces: list[Surface] = field(default_factory=list)
+
+    ## :**********   Representation **********
 
     def __rich_repr__(self):
         yield "room_name", self.room_name
@@ -45,32 +44,35 @@ class Zone:
         idf_name = decompose_idf_name(self.zone_name)
         return idf_name.plan_name
 
-    # @property
-    # def zone_name(self):  # idf name?
-    #     return self._idf_name
+    ## :********** Associations **********
 
     @property
     def surface_names(self):
         return [i.surface_name for i in self.surfaces]
 
     @property
-    def surface_display_names(self):
+    def surface_display_names(self):  # TODO see if can just print surfaces..
         return sorted([i.display_name for i in self.surfaces])
 
     @property
     def subsurface_names(self) -> list[str]:
-        return chain_flatten(
-            [i.subsurface_names for i in self.surfaces if i.subsurface_names]
+        return chain_flatten([i.subsurfaces for i in self.surfaces if i.subsurfaces])
+
+    # @property
+    # def afn_surfaces(self):
+    #     return [i for i in self.surfaces if i.is_airboundary]
+
+    @property
+    def potential_afn_surface_names(self):
+        airboundaries = (
+            Seq(self.surfaces)
+            .filter(lambda x: x.is_airboundary)
+            .map(lambda x: x.surface_name)
+            .to_list()
         )
+        return list(airboundaries) + self.subsurface_names
 
-    @property
-    def afn_surfaces(self):
-        return [i for i in self.surfaces if i.is_airboundary]
-
-    @property
-    def potential_afn_surface_or_subsurface_names(self):
-        surface_names = [i.surface_name for i in self.afn_surfaces]
-        return surface_names + self.subsurface_names
+    ## :********** Geometry **********
 
     @property
     def directed_surfaces(self):
@@ -90,6 +92,7 @@ class Zone:
 
 
 # TODO: get zones by zone_name
+# TODO: remove
 def get_zones(name, zones: list[Zone]):
     # NOTE: changing this for studies!
     possible_zones = [i for i in zones if name == i.room_name]

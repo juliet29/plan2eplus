@@ -35,7 +35,8 @@ class IDFObject:
     @property
     def values(self):
         return self.__dict__
-
+    
+    # TODO delete -> think the read by name is replaces this .. 
     @classmethod
     def read(cls, idf: IDF, *args, **kwargs):
         objects = idf.idfobjects[cls().key]
@@ -74,22 +75,16 @@ class IDFObject:
             raise InvalidObjectError(self, name)
         return object
 
-    # TODO rub 
     def update(self, idf: IDF, object_name: str, param: str, new_value: str):
         object = self.get_one_idf_object(idf, object_name)
         assert param in [k for k in self.values.keys()]
         object[param] = new_value
-        # object.__setattr__(param, new_value)
-        # TODO check type of this?
 
     def create_ezobject(self, *args, **kwargs) -> Any: ...
 
-
+# TODO -> delete dont think this is being used anywher
 def add_new_objects(idf: IDF, objects: list[IDFObject]):
     for object in objects:
-        # TODO possibly log..
-        # print(f"object key= {object.key}")
-        # print(f"object kwargs= {object.values}")
         idf.newidfobject(object.key, **object.values)
     return idf
 

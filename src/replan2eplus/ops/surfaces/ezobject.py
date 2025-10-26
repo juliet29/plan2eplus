@@ -10,7 +10,9 @@ from replan2eplus.geometry.ezobject_domain import (
     compute_unit_normal,
     create_domain_from_coords,
 )
-from replan2eplus.ops.airboundary.interfaces import DEFAULT_AIRBOUNDARY_OBJECT
+
+# from replan2eplus.ops.airboundary.idfobject
+from replan2eplus.ops.airboundary.interfaces import DEFAULAT_AIRBOUNDARY_NAME
 from replan2eplus.ops.surfaces.interfaces import (
     SurfaceCoords,
     SurfaceType,
@@ -45,16 +47,53 @@ class Surface:
     coords: SurfaceCoords
     subsurfaces: list[str]
 
+    ## :**********   Representation **********
+
     def __rich_repr__(self):
         yield "display_name", self.display_name
         yield "surface_name", self.surface_name
         yield "zone_name", self.zone_name
         yield "domain", self.domain
-        yield "num_subsurfaces", len(self.subsurface_names)
         yield "surface_type", self.surface_type
-        yield "is_airboundary", self.is_airboundary
+        yield "construction", self.construction_name
         yield "neighbor", self.neighbor_name
-        yield "subsurface_names", self.subsurface_names
+        yield "subsurfaces", self.subsurfaces
+
+    def __str__(self):
+        idf_name = decompose_idf_name(self.surface_name)
+        # num = idf_name.full_number
+        return f"{idf_name.plan_name}_{self.direction.name}"
+
+    @property
+    def display_name(self):
+        idf_name = decompose_idf_name(self.surface_name)
+        # num = idf_name.full_number
+        return f"{idf_name.plan_name}\n{self.direction.name}"  # + num
+
+    ## :********** Associations **********
+
+    @property
+    def neighbor_name(self):
+        if self.boundary_condition == "surface":
+            return str(self.boundary_condition_object)  #
+        else:
+            return None
+
+    @property
+    def room_name(self):
+        return decompose_idf_name(self.surface_name).plan_name
+
+    @property
+    def room_name_of_neighbor(self):
+        if self.neighbor_name:
+            return decompose_idf_name(self.neighbor_name).plan_name
+        return None
+
+    @property
+    def is_airboundary(self):
+        return self.construction_name == DEFAULAT_AIRBOUNDARY_NAME
+
+    ## :********** Geometry **********
 
     @property
     def domain(self):
@@ -78,51 +117,6 @@ class Surface:
             case "wall":
                 return WallNormal(self.azimuth)
             case _:
-                raise BadlyFormatedIDFError(f"Invalid surface type: recieved: {self.surface_type}. Expected {get_args(SurfaceType)}")
-
-    @property
-    def display_name(self):
-        idf_name = decompose_idf_name(self.surface_name)
-        # num = idf_name.full_number
-        return f"{idf_name.plan_name}\n{self.direction.name}"  # + num
-
-    # @property
-    # def error_string(self):
-    #     # TODO make this handle having a name, and make it a proper table with demarcations..
-    #     grid = Table.grid(expand=True)
-    #     grid.add_column()
-    #     grid.add_column(justify="left")
-    #     grid.add_row("Zone", f"{self.zone_name}")
-    #     grid.add_row("Direction", f"{self.direction.name}")
-    #     grid.add_row("Number", f"{self._dname.full_number}")
-    #     grid.add_row("Domain", f"{self.domain}")
-    #     return grid
-
-    # @property
-    # def boundary_condition(self) -> SurfaceBoundaryConditionNames:
-    #     return SurfaceBoundaryCondition(self..Outside_Boundary_Condition).name
-
-    @property
-    def neighbor_name(self):
-        if self.boundary_condition == "surface":
-            return str(self.boundary_condition_object)  #
-        else:
-            return None
-
-    @property
-    def room_name(self):
-        return decompose_idf_name(self.surface_name).plan_name
-
-    @property
-    def neighbor_room_name(self):
-        if self.neighbor_name:
-            return decompose_idf_name(self.neighbor_name).plan_name
-        return None 
-
-    @property
-    def subsurface_names(self):
-        return [i.Name for i in self.subsurfaces]  # type: ignore
-
-    @property
-    def is_airboundary(self):
-        return self.construction_name == DEFAULT_AIRBOUNDARY_OBJECT.Name
+                raise BadlyFormatedIDFError(
+                    f"Invalid surface type: recieved: {self.surface_type}. Expected {get_args(SurfaceType)}"
+                )

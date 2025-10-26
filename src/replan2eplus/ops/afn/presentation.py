@@ -1,5 +1,7 @@
+from expression.collections import Seq
 from replan2eplus.ops.afn.interfaces import AFNInputs
-from replan2eplus.ezobjects.airboundary import Airboundary, get_unique_airboundaries
+from replan2eplus.ops.afn.logic import determine_afn_objects
+from replan2eplus.ops.airboundary.ezobject import Airboundary, get_unique_airboundaries
 from replan2eplus.ops.afn.writer import AFNWriter
 from replan2eplus.ops.subsurfaces.ezobject import Subsurface
 from replan2eplus.ops.surfaces.ezobject import Surface
@@ -13,70 +15,17 @@ from replan2eplus.ops.subsurfaces.utils import get_unique_subsurfaces
 from replan2eplus.ezobjects.afn import AirflowNetwork
 
 
-def get_afn_subsurfaces(afn_zones: list[Zone], subsurfaces: list[Subsurface]):
-    potential_subsurface_names = chain_flatten([i.subsurface_names for i in afn_zones])
-    potential_subsurfaces = [
-        i for i in subsurfaces if i.subsurface_name in potential_subsurface_names
-    ]  # TODO filter function would help clean this up..
-    afn_subsurfaces = get_unique_subsurfaces(potential_subsurfaces)
-    return afn_subsurfaces
-
-
-def get_afn_airboundaries(afn_zones: list[Zone], airboundaries: list[Airboundary]):
-    afn_zone_names = [i.zone_name for i in afn_zones]
-    possible_airboundaries = [
-        i for i in airboundaries if i.surface.zone_name in afn_zone_names
-    ]
-    afn_airboundaries = get_unique_airboundaries(possible_airboundaries)
-    return afn_airboundaries
-
-
-def determine_anti_objects(
-    zones: list[Zone], surfaces: list[Surface], afn_zones: list[Zone]
-):
-    anti_zones = [i for i in zones if i not in afn_zones]
-
-    anti_surfaces_l1 = chain_flatten([i.surfaces for i in anti_zones])
-    anti_surfaces_l2: list[str] = [
-        i.neighbor_name for i in anti_surfaces_l1 if i.neighbor_name
-    ]
-    anti_surfaces = [i.surface_name for i in anti_surfaces_l1] + anti_surfaces_l2
-
-    anti_subsurfaces_l1 = chain_flatten([i.subsurface_names for i in anti_zones])
-    # need to get the surfaces in neighbors..
-    nb_surfs = [i for i in surfaces if i.surface_name in anti_surfaces_l2]
-    anti_subsurfaces_l2 = chain_flatten([i.subsurface_names for i in nb_surfs])
-    anti_subsurfaces = anti_subsurfaces_l1 + anti_subsurfaces_l2
-    return anti_surfaces, anti_subsurfaces
-
-
 def select_afn_objects(
     zones: list[Zone],
     subsurfaces: list[Subsurface],
     airboundaries: list[Airboundary],
-    surfaces: list[Surface],
+    # surfaces: list[Surface],
 ):
-    afn_zones = [
-        i for i in zones if len(i.potential_afn_surface_or_subsurface_names) >= 2
-    ]
-    anti_surfaces, anti_subsurfaces = determine_anti_objects(zones, surfaces, afn_zones)
-
-    afn_subsurfaces = [
-        i
-        for i in get_afn_subsurfaces(afn_zones, subsurfaces)
-        if i.subsurface_name not in anti_subsurfaces
-    ]
-
-    afn_airboundaries = [
-        i
-        for i in get_afn_airboundaries(afn_zones, airboundaries)
-        if i.surface.surface_name not in anti_surfaces
-    ]
+    afn_zones, afn_surfaces = determine_afn_objects(zones, airboundaries + subsurfaces)
 
     zone_names = [i.zone_name for i in afn_zones]
-    sub_and_surface_names = [i.surface.surface_name for i in afn_airboundaries] + [
-        i.subsurface_name for i in afn_subsurfaces
-    ]
+    sub_and_surface_names = [i.name for i in afn_surfaces]
+    afn_airboundaries = 
 
     return AirflowNetwork(afn_zones, afn_subsurfaces, afn_airboundaries), AFNWriter(
         zone_names, sub_and_surface_names
@@ -89,10 +38,7 @@ def create_afn_objects(
     zones: list[Zone],
     subsurfaces: list[Subsurface],
     airboundaries: list[Airboundary],
-    surfaces: list[Surface],
 ):
-    afn_holder, afn_writer = select_afn_objects(
-        zones, subsurfaces, airboundaries, surfaces
-    )
+    afn_holder, afn_writer = select_afn_objects(zones, subsurfaces, airboundaries)
     afn_writer.write(idf)
     return afn_holder

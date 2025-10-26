@@ -17,6 +17,14 @@ class Airboundary:
     def display_name(self):
         return self.surface.display_name
 
+    @property
+    def neighbor_name(self):
+        return self.surface.neighbor_name
+
+    @property
+    def name(self):
+        return self.surface.surface_name
+
 
 def get_unique_airboundaries(airboundaries: list[Airboundary]):
     return [i for i in airboundaries if i.edge.space_a in i.surface.zone_name]

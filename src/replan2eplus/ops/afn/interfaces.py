@@ -1,3 +1,4 @@
+from typing import Protocol
 from replan2eplus.ops.subsurfaces.ezobject import Subsurface
 from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.ops.zones.ezobject import Zone
@@ -7,7 +8,7 @@ from replan2eplus.idfobjects.afn import (
     AFNSurface,
     AFNZone,
 )
-from replan2eplus.ezobjects.airboundary import Airboundary
+from replan2eplus.ops.airboundary.ezobject import Airboundary
 
 
 from dataclasses import dataclass
@@ -50,3 +51,5 @@ class AFNInputs:
             for surface_name, opening in openings.items()
         ]
         return surfaces, openings_list
+
+

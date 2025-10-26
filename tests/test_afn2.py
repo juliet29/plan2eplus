@@ -6,7 +6,7 @@ from replan2eplus.ops.afn.logic import (
     check_surfaces_for_nbs,
     determine_afn_objects,
     get_avail_afn_zones,
-    get_avail_subsurfaces,
+    get_avail_surfaces,
     get_avail_zones,
     update_zones,
 )
@@ -27,9 +27,7 @@ def test_get_avail_zones(case: AFNCaseDefinition):
 def test_get_avail_subsurfaces(case: AFNCaseDefinition):
     active_case = case.case_with_subsurfaces
     avail_zones = get_avail_zones(active_case.objects.zones)
-    avail_subsurfaces = get_avail_subsurfaces(
-        active_case.objects.subsurfaces, avail_zones
-    )
+    avail_subsurfaces = get_avail_surfaces(active_case.objects.subsurfaces, avail_zones)
     assert len(avail_subsurfaces.to_list()) == case.n_surfaces_in_avail_zones
 
 
@@ -37,7 +35,7 @@ def test_get_avail_subsurfaces(case: AFNCaseDefinition):
 def test_filter_subsurfaces(case: AFNCaseDefinition):
     active_case = case.case_with_subsurfaces
     avail_zones = get_avail_zones(active_case.objects.zones)
-    res = get_avail_subsurfaces(active_case.objects.subsurfaces, avail_zones).pipe(
+    res = get_avail_surfaces(active_case.objects.subsurfaces, avail_zones).pipe(
         check_surfaces_for_nbs
     )
     assert len(res) == case.n_surfaces_after_check_nbs

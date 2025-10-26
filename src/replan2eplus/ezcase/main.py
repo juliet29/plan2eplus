@@ -4,7 +4,7 @@ from pathlib import Path
 from utils4plans.io import get_or_make_folder_path
 
 from replan2eplus.ezobjects.afn import AirflowNetwork
-from replan2eplus.ezobjects.airboundary import Airboundary, get_unique_airboundaries
+from replan2eplus.ops.airboundary.ezobject import Airboundary, get_unique_airboundaries
 from replan2eplus.ezobjects.construction import Construction, EPConstructionSet
 from replan2eplus.ezobjects.material import Material
 from replan2eplus.ops.subsurfaces.ezobject import Edge, Subsurface

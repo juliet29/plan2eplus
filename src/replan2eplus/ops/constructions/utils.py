@@ -72,11 +72,13 @@ def check_construction_names(idf: IDF, construction_name: str):
         )
 
 
-def update_surface_construction(idf: IDF, surface: Surface, construction_name: str):
-    check_construction_names(idf, construction_name)
+def update_surface_construction(idf: IDF, surface: Surface, construction_name: str, check_constructions=True):
+    if check_constructions:
+        check_construction_names(idf, construction_name)
     IDFSurface().update(
         idf, surface.surface_name, "Construction_Name", construction_name
     )
+    surface.construction_name = construction_name
 
 
 def update_subsurface_construction(
@@ -86,4 +88,5 @@ def update_subsurface_construction(
     update_subsurface(
         idf, surface.subsurface_name, "Construction_Name", construction_name
     )
+    surface.construction_name = construction_name
 

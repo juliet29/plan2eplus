@@ -1,13 +1,11 @@
 from dataclasses import dataclass
 from typing import Literal, NamedTuple
-
-
 from replan2eplus.ops.subsurfaces.interfaces import SubsurfaceType
 from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.geometry.directions import WallNormal, WallNormalNamesList
 from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.range import Range
-
+from rich import print
 # subsurface_options = [
 #     "DOOR",
 #     "WINDOW",
@@ -61,43 +59,19 @@ class Subsurface:
     starting_z_coordinate: float
     length: float
     height: float
-    # boundary_condition_object: str
+    neighbor_name_: str
     subsurface_type: SubsurfaceType
     surface: Surface
+
+    ## :**********  Representation **********
 
     def __rich_repr__(self):
         yield "subsurface_name", self.subsurface_name
         yield "edge", self.edge
         # yield "domain", self.domain
 
-    # @classmethod
-    # def from_epbunch_and_key(
-    #     cls,
-    #     _epbunch: EpBunch,
-    #     zones: list[Zone],
-    #     surfaces: list[Surface],
-    # ):
-    #     # NOTE: this is being created based on reading an IDF
-    #     # TODO clean up!
-    #     expected_key = get_epbunch_key(_epbunch)
-
-    #     surface_name = _epbunch.Building_Surface_Name
-
-    #     surface = [i for i in surfaces if i.surface_name == surface_name][0]
-    #     zone = [i for i in zones if i.zone_name == surface.zone_name][
-    #         0
-    #     ]  # TODO use get zone?
-    #     if surface.boundary_condition == "outdoors":
-    #         edge = Edge(zone.room_name, surface.direction.name)
-    #     else:
-    #         nb_surface = [i for i in surfaces if i.surface_name == surface.neighbor][0]
-    #         nb_zone = [i for i in zones if i.zone_name == nb_surface.zone_name][0]
-    #         edge = Edge(zone.room_name, nb_zone.room_name)
-
-    #     return cls(_epbunch, expected_key, surface, edge)  # type: ignore #TODO => get epbunch for subsurface..
-
-    # def __post_init__(self):
-    #     assert self.expected_key in get_args(SubsurfaceOptions)
+    def __str__(self):
+        return f"{self.subsurface_type}_{self.surface}"
 
     def __eq__(self, other):
         if isinstance(other, Subsurface):
@@ -107,19 +81,8 @@ class Subsurface:
         return False
 
     @property
-    def edge(self):
-        if self.surface.boundary_condition.casefold() == "Outdoors".casefold():
-            edge = (self.surface.room_name, self.surface.direction.name)
-        else:
-            assert self.surface.neighbor_room_name, (
-                f"Surface of subsurface `{self.subsurface_name}` has boundary condition of `{self.surface.boundary_condition}` but does not have a neighbor."
-            )
-            edge = (self.surface.room_name, self.surface.neighbor_room_name)
-        return Edge(*edge)
-
-    # @property
-    # def subsurface_name(self):
-    #     return self._epbunch.Name
+    def name(self):
+        return self.subsurface_name
 
     @property
     def display_name(self):
@@ -132,6 +95,25 @@ class Subsurface:
     @property
     def is_window(self):
         return self.subsurface_type.casefold() == "Window".casefold()
+
+    ## :**********  Associaations **********
+
+    @property
+    def edge(self):
+        if self.surface.boundary_condition.casefold() == "Outdoors".casefold():
+            edge = (self.surface.room_name, self.surface.direction.name)
+        else:
+            assert self.surface.room_name_of_neighbor, (
+                f"Surface of subsurface `{self.subsurface_name}` has boundary condition of `{self.surface.boundary_condition}` but does not have a neighbor."
+            )
+            edge = (self.surface.room_name, self.surface.room_name_of_neighbor)
+        return Edge(*edge)
+
+    @property
+    def neighbor_name(self):
+        return self.neighbor_name_
+
+    ## :********** Geometry **********
 
     @property
     def domain(self):
