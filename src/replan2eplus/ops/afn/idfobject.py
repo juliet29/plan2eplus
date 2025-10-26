@@ -1,4 +1,5 @@
-from replan2eplus.idfobjects.base import IDFObject
+from geomeppy import IDF
+from replan2eplus.idfobjects.base import IDFObject, get_object_description
 from dataclasses import dataclass
 from typing import Literal
 
@@ -52,7 +53,6 @@ class IDFAFNSimpleOpening(IDFObject):
     # def __post_init__(self):
     #     self.Name = self.create_name(self.Name)
 
-
     @property
     def key(self):
         return "AIRFLOWNETWORK:MULTIZONE:COMPONENT:SIMPLEOPENING"
@@ -63,9 +63,20 @@ class IDFAFNSurface(IDFObject):
     Surface_Name: str = ""  # subsurface name
     Leakage_Component_Name: str = ""  # has to been in AFN simple opening!
     Ventilation_Control_Mode: Literal["ZoneLevel", "NoVent", "Constant"] = "ZoneLevel"
+    External_Node_Name: str = ""
+
     # NOTE -> can do temperature / enthalpy based controls..
     # here is where can add schedule
 
     @property
     def key(self):
         return "AIRFLOWNETWORK:MULTIZONE:SURFACE"
+
+    @classmethod
+    def read(cls, idf: IDF, *args, **kwargs):
+        objects = idf.idfobjects[cls().key]
+
+        def filter_d(d: dict):
+            return {k: v for k, v in d.items() if k in cls().values.keys()}
+
+        return [cls(**filter_d(get_object_description(i))) for i in objects]

@@ -32,7 +32,6 @@ def select_afn_objects(
     )
 
 
-# TODO -> this should be the only thing in presentation
 def create_afn_objects(
     idf: IDF,
     zones: list[Zone],

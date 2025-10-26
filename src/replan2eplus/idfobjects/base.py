@@ -35,12 +35,16 @@ class IDFObject:
     @property
     def values(self):
         return self.__dict__
-    
-    # TODO delete -> think the read by name is replaces this .. 
+
+    # TODO delete -> think the read by name is replaces this ..
     @classmethod
     def read(cls, idf: IDF, *args, **kwargs):
         objects = idf.idfobjects[cls().key]
-        return [cls(**get_object_description(i)) for i in objects]
+
+        def filter_d(d: dict):
+            return {k: v for k, v in d.items() if k in cls().values.keys()}
+
+        return [cls(**filter_d(get_object_description(i))) for i in objects]
 
     @classmethod
     def read_by_name(cls, idf: IDF, names: list[str] = []):
@@ -66,7 +70,7 @@ class IDFObject:
     def get_idf_objects(self, idf: IDF) -> list[EpBunch]:
         return idf.idfobjects[self.key]
 
-    # TODO turn these all into class methods.. 
+    # TODO turn these all into class methods..
     def get_one_idf_object(self, idf: IDF, name: str) -> EpBunch:
         check_has_name_attribute(self)
         try:
@@ -81,6 +85,7 @@ class IDFObject:
         object[param] = new_value
 
     def create_ezobject(self, *args, **kwargs) -> Any: ...
+
 
 # TODO -> delete dont think this is being used anywher
 def add_new_objects(idf: IDF, objects: list[IDFObject]):

@@ -16,15 +16,15 @@ def test_selecting_afn_objects():
     assert len(afn_holder.subsurfaces) == 1
 
 
-# def test_adding_afn_objects():
-#     """
-#     # expect 1 sim control object, 1 zone, (1 subsurfaces with 1 surface and 1 opening each -> 1x2 = 2)
-#     # expect 4 objects in total
-#     """
-#     case = Cases().subsurfaces_simple
-#     create_afn_objects(case.idf, case.zones, case.subsurfaces, [], case.surfaces)
-#     afn_objects = case.idf.get_afn_objects()
-#     assert len(afn_objects) == 4
+def test_adding_afn_objects():
+    """
+    # expect 1 sim control object, 1 zone, (1 subsurfaces with 1 surface and 1 opening each -> 1x2 = 2)
+    # expect 4 objects in total
+    """
+    case = Cases().subsurfaces_simple
+    create_afn_objects(case.idf, case.zones, case.subsurfaces, [], case.surfaces)
+    afn_objects = case.idf.get_afn_objects()
+    assert len(afn_objects) == 4
 
 
 # def test_selecting_afn_objects_from_case_with_airboundary_two_doors(

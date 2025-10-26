@@ -11,11 +11,12 @@ from replan2eplus.ops.afn.logic import (
     get_avail_zones,
     update_zones,
 )
-
+from geomeppy import IDF
 import pytest
 from rich import print
 
-from replan2eplus.ops.afn.presentation import select_afn_objects
+from replan2eplus.ops.afn.presentation import create_afn_objects, select_afn_objects
+from replan2eplus.ops.afn.writer import IDFAFNSurface, IDFAFNZone
 
 
 @pytest.mark.parametrize("case", AFNExampleCases().list)
@@ -51,21 +52,34 @@ def test_get_afn_objects(case_: AFNCaseDefinition):
     assert len(zones) == case_.n_zones_in_afn
     assert len(surfs) == case_.n_surfs_in_afn
 
+
 def test_selecting_afn_zones():
     case_ = AFNExampleCases().B_ne
     case = case_.case_with_subsurfaces
     afn_holder, _ = select_afn_objects(case.objects.zones, case.objects.subsurfaces, [])
     assert len(afn_holder.zones) == case_.n_zones_in_afn
-    assert afn_holder.zones[0].room_name == Interfaces.rooms.r1.name 
+    assert afn_holder.zones[0].room_name == Interfaces.rooms.r1.name
 
-   
 
-@pytest.mark.xfail() # 
+@pytest.mark.xfail()  #
 def test_selecting_afn_surfaces():
     case_ = AFNExampleCases().B_ne
     case = case_.case_with_subsurfaces
     afn_holder, _ = select_afn_objects(case.objects.zones, case.objects.subsurfaces, [])
     assert len(afn_holder.subsurfaces) == case_.n_surfs_in_afn
+
+
+def test_adding_afn_objects():
+    case_ = AFNExampleCases().B_ne
+    case = case_.case_with_subsurfaces
+    _ = create_afn_objects(case.idf, case.objects.zones, case.objects.subsurfaces, [])
+    print(case.idf.idfobjects["AIRFLOWNETWORK:MULTIZONE:SURFACE"])
+
+    surfs = IDFAFNSurface.read(case.idf)
+    assert len(surfs) == case_.n_surfs_in_afn
+
+    zones = IDFAFNZone.read(case.idf)
+    assert len(zones) == case_.n_zones_in_afn
 
 
 def reg_test():
@@ -78,10 +92,9 @@ def reg_test():
 
         print(f"found_zones: {[i.room_name for i in zones]}")
 
-
     for case in AFNExampleCases().list:
         study(case)
 
 
 if __name__ == "__main__":
-    reg_test()
+    test_adding_afn_objects()
