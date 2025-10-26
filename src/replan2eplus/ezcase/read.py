@@ -1,9 +1,10 @@
 from dataclasses import dataclass
 from pathlib import Path
 from replan2eplus.idfobjects.idf import IDF
+from replan2eplus.ops.subsurfaces.interfaces import Edge
 from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.ops.zones.ezobject import Zone
-from replan2eplus.ops.subsurfaces.ezobject import Subsurface, Edge
+from replan2eplus.ops.subsurfaces.ezobject import Subsurface
 from replan2eplus.ezobjects.epbunch_utils import get_epbunch_key
 from replan2eplus.ops.subsurfaces.utils import get_unique_subsurfaces
 from replan2eplus.ops.zones.create import assign_zone_surfaces

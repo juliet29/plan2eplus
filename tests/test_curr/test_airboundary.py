@@ -1,7 +1,7 @@
 import pytest
 from replan2eplus.errors import IDFMisunderstandingError
 from replan2eplus.ex.subsurfaces import e0, zone_edge
-from replan2eplus.ops.airboundary.presentation import update_airboundary_constructions
+from replan2eplus.ops.airboundary.create import update_airboundary_constructions
 from replan2eplus.ops.subsurfaces.logic.interior import (
     create_subsurface_for_interior_edge,
 )

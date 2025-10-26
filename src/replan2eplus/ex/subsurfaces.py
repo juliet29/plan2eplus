@@ -1,6 +1,6 @@
 from replan2eplus.geometry.directions import WallNormal
 from replan2eplus.geometry.domain import Domain
-from replan2eplus.ops.subsurfaces.ezobject import Edge
+from replan2eplus.ops.subsurfaces.interfaces import Edge
 from replan2eplus.ops.subsurfaces.interfaces import (
     Dimension,
     Location,

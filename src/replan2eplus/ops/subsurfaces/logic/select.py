@@ -4,7 +4,7 @@ from replan2eplus.ops.subsurfaces.interfaces import ZoneDirectionEdge
 from replan2eplus.ops.zones.ezobject import Zone
 from replan2eplus.ops.subsurfaces.interfaces import ZoneEdge
 
-
+    # TODO : use get unique here... 
 def get_zones_by_plan_name(room_name: str, zones: list[Zone]):
     candidates = [i for i in zones if i.room_name == room_name]
     assert len(candidates) == 1, BadlyFormatedIDFError(

@@ -5,7 +5,7 @@ from replan2eplus.ops.airboundary.idfobject import (
     IDFAirboundaryConstruction,
 )
 from replan2eplus.ops.constructions.utils import update_surface_construction
-from replan2eplus.ops.subsurfaces.ezobject import Edge
+from replan2eplus.ops.subsurfaces.interfaces import Edge
 from replan2eplus.ops.subsurfaces.interfaces import ZoneEdge
 from replan2eplus.ops.subsurfaces.logic.select import get_surface_between_zones
 from replan2eplus.ops.zones.ezobject import Zone

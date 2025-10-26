@@ -23,9 +23,7 @@ def create_subsurfaces(
     zones: list[Zone],
     idf: IDF,
 ):
-    # print(f"creating subsurfaces. here aret the surfaces we have {surfaces}")
     existing_subsurfaces = [i.create_ezobject(surfaces) for i in read_subsurfaces(idf)]
-    # existing_subsurfaces = []
 
     if inputs:
         interior_subsurfaces = chain_flatten(

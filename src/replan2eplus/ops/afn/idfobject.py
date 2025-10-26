@@ -1,4 +1,4 @@
-from replan2eplus.idfobjects.base import IDFObject 
+from replan2eplus.idfobjects.base import IDFObject
 from dataclasses import dataclass
 from typing import Literal
 
@@ -16,10 +16,9 @@ class IDFAFNSimulationControl(IDFObject):
     )
     Building_Type: Literal["LowRise", "HighRise"] = "LowRise"
     Azimuth_Angle_of_Long_Axis_of_Building: float = 0
-    Ratio_of_Building_Width_Along_Short_Axis_to_Width_Along_Long_Axis: float = (
-        1  # 1 => square aspect ratio
-    )
-    # TODO this should be calculated! -> but do experiment to see how much it matters...
+    Ratio_of_Building_Width_Along_Short_Axis_to_Width_Along_Long_Axis: float = 1  # 1 => square aspect ratio  # TODO this should be calculated! -> but do experiment to see how much it matters...
+    Wind_Pressure_Coefficient_Type: str = ""
+    Height_Selection_for_Local_Wind_Pressure_Calculation: Literal["ExternalNode", "OpeningHeight"] = "OpeningHeight"
 
     @property
     def key(self):
@@ -43,14 +42,11 @@ class IDFAFNZone(IDFObject):
 
 @dataclass
 class IDFAFNSimpleOpening(IDFObject):
-    Name: str = ""  # subsurface name -> simple opening..
+    # NOTE: this is one of many types of leakage components -> gets linked to the afn surface
+    Name: str = ""
     Discharge_Coefficient: float = 1
-    Air_Mass_Flow_Coefficient_When_Opening_is_Closed: float = DEFAULT_DISCHARGE_COEFF
+    Air_Mass_Flow_Coefficient_When_Opening_is_Closed: float = DEFAULT_DISCHARGE_COEFF # how does this influence?
     Minimum_Density_Difference_for_TwoWay_Flow: float = DEFAULT_MIN_DENSITY_DIFFERENCE
-
-    # @property
-    # def __post_init__(self):
-    #     self.Name = self.create_name(self.Name)
 
     @property
     def key(self):
@@ -59,10 +55,12 @@ class IDFAFNSimpleOpening(IDFObject):
 
 @dataclass
 class IDFAFNSurface(IDFObject):
-    Surface_Name: str = ""  # subsurface name
-    Leakage_Component_Name: str = ""  # has to been in AFN simple opening!
+    Surface_Name: str = ""
+    Leakage_Component_Name: str = ""
     Ventilation_Control_Mode: Literal["ZoneLevel", "NoVent", "Constant"] = "ZoneLevel"
+    # needs to be `Constant` when setting a venting availabily schedule on a per surface basis.. -> this is most applicable for doors.. q
     External_Node_Name: str = ""
+    Venting_Availability_Schedule_Name = ""
 
     # NOTE -> can do temperature / enthalpy based controls..
     # here is where can add schedule
@@ -70,12 +68,3 @@ class IDFAFNSurface(IDFObject):
     @property
     def key(self):
         return "AIRFLOWNETWORK:MULTIZONE:SURFACE"
-
-    # @classmethod
-    # def read(cls, idf: IDF, *args, **kwargs):
-    #     objects = idf.idfobjects[cls().key]
-
-    #     def filter_d(d: dict):
-    #         return {k: v for k, v in d.items() if k in cls().values.keys()}
-
-    #     return [cls(**filter_d(get_object_description(i))) for i in objects]

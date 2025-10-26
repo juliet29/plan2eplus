@@ -1,4 +1,4 @@
-from replan2eplus.geometry.directions import WallNormal
+from replan2eplus.geometry.directions import WallNormal, WallNormalNamesList
 from replan2eplus.geometry.contact_points import CardinalEntries, CornerEntries
 from replan2eplus.geometry.nonant import NonantEntries
 from typing import Callable, Literal, NamedTuple, Union
@@ -55,3 +55,42 @@ SubsurfaceType = Literal["Door", "Window"]
 SubsurfaceKey = Literal[
     "DOOR", "WINDOW", "DOOR:INTERZONE", "FENESTRATIONSURFACE:DETAILED"
 ]
+
+
+# subsurface_options = [
+#     "DOOR",
+#     "WINDOW",
+#     "DOOR:INTERZONE",
+# ]  # TODO arg thing since now have literal..
+
+# display_map = {"DOOR": "Door", "WINDOW": "Window", "DOOR:INTERZONE": "Door"}
+
+
+class Edge(NamedTuple):
+    space_a: str
+    space_b: str
+
+    def __eq__(self, other: object) -> bool:
+        if isinstance(other, Edge):
+            return frozenset(self.as_tuple) == frozenset(other.as_tuple)
+        raise Exception(f"{other} does not have type Edge")
+
+    @property
+    def is_directed_edge(self):
+        return (
+            self.space_a in WallNormalNamesList or self.space_b in WallNormalNamesList
+        )
+
+    @property
+    def as_tuple(self):
+        return (self.space_a, self.space_b)
+
+    @property
+    def sorted_directed_edge(self):
+        if self.is_directed_edge:
+            zone, drn = sorted(
+                [self.space_a, self.space_b], key=lambda x: x in WallNormalNamesList
+            )  # NOTE: order is (false=0, true=1)
+            return (zone, WallNormal[drn])
+        else:
+            raise Exception("This is not a directed edge!")

@@ -13,7 +13,7 @@ from replan2eplus.geometry.range import Range
 #     Rooms.r1,
 #     Rooms.r2,
 # )
-from replan2eplus.ops.subsurfaces.ezobject import Edge
+from replan2eplus.ops.subsurfaces.interfaces import Edge
 from replan2eplus.ops.subsurfaces.interfaces import Dimension, Location
 from replan2eplus.ops.subsurfaces.create import create_subsurfaces
 from replan2eplus.ops.subsurfaces.user_interfaces import (

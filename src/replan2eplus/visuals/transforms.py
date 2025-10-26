@@ -5,7 +5,7 @@ from matplotlib.patches import Rectangle, Polygon
 
 from replan2eplus.errors import IDFMisunderstandingError
 
-from replan2eplus.ops.subsurfaces.ezobject import Edge
+from replan2eplus.ops.subsurfaces.interfaces import Edge
 
 from replan2eplus.ops.zones.ezobject import Zone
 from replan2eplus.ezobjects.zone import get_zones

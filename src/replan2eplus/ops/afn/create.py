@@ -30,6 +30,6 @@ def create_afn_objects(
     subsurfaces: list[Subsurface],
     airboundaries: list[Airboundary],
 ):
-    afn_holder, afn_writer = select_afn_objects(zones, subsurfaces, airboundaries)
+    airflow_network, afn_writer = select_afn_objects(zones, subsurfaces, airboundaries)
     afn_writer.write(idf)
-    return afn_holder
+    return airflow_network

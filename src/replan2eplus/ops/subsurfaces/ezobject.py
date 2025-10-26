@@ -1,51 +1,13 @@
 from dataclasses import dataclass
-from typing import Literal, NamedTuple
-from replan2eplus.ops.subsurfaces.interfaces import SubsurfaceType
+from typing import Literal
+from replan2eplus.ops.subsurfaces.interfaces import Edge, SubsurfaceType
 from replan2eplus.ops.surfaces.ezobject import Surface
-from replan2eplus.geometry.directions import WallNormal, WallNormalNamesList
 from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.range import Range
 from rich import print
-# subsurface_options = [
-#     "DOOR",
-#     "WINDOW",
-#     "DOOR:INTERZONE",
-# ]  # TODO arg thing since now have literal..
+# need the surface its on..
 
-# display_map = {"DOOR": "Door", "WINDOW": "Window", "DOOR:INTERZONE": "Door"}
-
-
-class Edge(NamedTuple):
-    space_a: str
-    space_b: str
-
-    def __eq__(self, other: object) -> bool:
-        if isinstance(other, Edge):
-            return frozenset(self.as_tuple) == frozenset(other.as_tuple)
-        raise Exception(f"{other} does not have type Edge")
-
-    @property
-    def is_directed_edge(self):
-        return (
-            self.space_a in WallNormalNamesList or self.space_b in WallNormalNamesList
-        )
-
-    @property
-    def as_tuple(self):
-        return (self.space_a, self.space_b)
-
-    @property
-    def sorted_directed_edge(self):
-        if self.is_directed_edge:
-            zone, drn = sorted(
-                [self.space_a, self.space_b], key=lambda x: x in WallNormalNamesList
-            )  # NOTE: order is (false=0, true=1)
-            return (zone, WallNormal[drn])
-        else:
-            raise Exception("This is not a directed edge!")
-        # need the surface its on..
-
-    # TODO properties to add: surface, partner obj, connecting zones, "driving zones" (for the purpose of the AFN )
+# TODO properties to add: surface, partner obj, connecting zones, "driving zones" (for the purpose of the AFN )
 
 
 SubsurfaceOptions = Literal["DOOR", "WINDOW", "DOOR:INTERZONE"]

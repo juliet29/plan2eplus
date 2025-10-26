@@ -3,7 +3,7 @@ from typing import Literal, NamedTuple
 
 from utils4plans.sets import set_intersection
 
-from replan2eplus.ops.subsurfaces.ezobject import Edge
+from replan2eplus.ops.subsurfaces.interfaces import Edge
 
 from utils4plans.lists import chain_flatten
 from replan2eplus.geometry.directions import WallNormalNamesList
@@ -13,7 +13,7 @@ from replan2eplus.ops.subsurfaces.interfaces import (
     Location,
     ZoneDirectionEdge,
     ZoneEdge,
-    SubsurfaceType
+    SubsurfaceType,
 )
 
 

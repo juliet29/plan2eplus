@@ -10,7 +10,7 @@ from replan2eplus.ex.subsurfaces import (
 from replan2eplus.geometry.directions import WallNormal
 from replan2eplus.geometry.domain import Domain
 from replan2eplus.geometry.range import Range
-from replan2eplus.ops.subsurfaces.ezobject import Edge
+from replan2eplus.ops.subsurfaces.interfaces import Edge
 from replan2eplus.ops.subsurfaces.interfaces import Dimension
 from replan2eplus.ops.subsurfaces.logic.exterior import (
     create_subsurface_for_exterior_edge,
@@ -42,7 +42,7 @@ def test_find_correct_surface_between_zones():
 def test_find_correct_surface_between_zone_and_direction():
     case = Cases().two_room
     surf = get_surface_between_zone_and_direction(zone_drn_edge, case.objects.zones)
-    assert surf.direction == WallNormal.WEST 
+    assert surf.direction == WallNormal.WEST
     assert not surf.neighbor_name
 
     # Geomeppy IDF doesnt check for valididty, but this method should.. -> ie that the surface matches a zone..
@@ -60,7 +60,11 @@ def test_create_subsurface_interior():
 def test_create_subsurface_exterior():
     case = Cases().two_room
     subsurface = create_subsurface_for_exterior_edge(
-        zone_drn_edge, window_details, case.objects.zones, case.objects.surfaces, case.idf
+        zone_drn_edge,
+        window_details,
+        case.objects.zones,
+        case.objects.surfaces,
+        case.idf,
     )
     assert Interfaces.rooms.r1.name in subsurface.subsurface_name
 
@@ -105,4 +109,3 @@ if __name__ == "__main__":
 
 
 # TEST subsurface location
-

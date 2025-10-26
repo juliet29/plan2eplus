@@ -1,32 +1,25 @@
-from geomeppy import IDF
 from dataclasses import dataclass
-from eppy.modeleditor import IDDAlreadySetError
 from pathlib import Path
+
+
 from replan2eplus.ezcase.objects import read_existing_objects
+
+from replan2eplus.ezcase.utils import initialize_idd, open_idf
+from replan2eplus.ops.constructions.create import create_constructions
+from replan2eplus.ops.constructions.user_interface import (
+    ConstructionInput,
+    default_construction_input,
+)
 from replan2eplus.ops.subsurfaces.create import create_subsurfaces
+from replan2eplus.ops.subsurfaces.interfaces import (
+    Edge,
+)
 from replan2eplus.ops.subsurfaces.user_interfaces import SubsurfaceInputs
-from replan2eplus.paths import ep_paths
 
-from replan2eplus.ops.zones.user_interface import Room
+from replan2eplus.ops.airboundary.create import update_airboundary_constructions
+from replan2eplus.ops.afn.create import create_afn_objects
 from replan2eplus.ops.zones.create import create_zones
-
-from typing import NamedTuple
-
-
-def initialize_idd():
-    try:
-        IDF.setiddname(ep_paths.idd_path)
-    except IDDAlreadySetError:
-        pass
-
-
-def open_idf(idf_path: Path | None = None):
-    if idf_path:
-        assert idf_path.exists(), f"Invalid idf path: {idf_path}"
-        return IDF(idf_path)
-    idf = IDF()
-    idf.initnew(None)
-    return idf
+from replan2eplus.ops.zones.user_interface import Room
 
 
 @dataclass
@@ -38,14 +31,46 @@ class EZ:
         self.idf = open_idf(self.idf_path)
         self.objects = read_existing_objects(self.idf)
 
-    # def add_init_values(self):
-    #     return self
-
     def add_zones(self, rooms: list[Room]):
         self.objects.zones, self.objects.surfaces = create_zones(self.idf, rooms)
-        return self 
+        return self
 
+    def add_subsurfaces(
+        self, subsurface_inputs: SubsurfaceInputs, airboundary_edges: list[Edge] = []
+    ):
+        self.objects.airboundaries = update_airboundary_constructions(
+            self.idf, airboundary_edges, self.objects.zones
+        )
+        # TODO the airboundaries should be part of the subsurface inputs.. -> detail or airboundary description ..
 
-    def add_subsurfaces(self, subsurface_inputs: SubsurfaceInputs):
-        self.objects.subsurfaces = create_subsurfaces(subsurface_inputs, self.objects.surfaces, self.objects.zones, self.idf)
+        self.objects.subsurfaces = create_subsurfaces(
+            subsurface_inputs, self.objects.surfaces, self.objects.zones, self.idf
+        )
+        return self
+
+    def add_airflow_network(self):
+        self.objects.airflow_network = create_afn_objects(
+            self.idf,
+            self.objects.zones,
+            self.objects.subsurfaces,
+            self.objects.airboundaries,
+        )
+        return self
+
+    def add_constructions(
+        self,
+        construction_inputs: ConstructionInput = default_construction_input,  # TODO decide if the name will be singular or plural, also should the defaults be this high up?
+    ):
+        # TODO have a default construction set
+        cpaths, mpaths, cset = (
+            construction_inputs  # TODO: add construction inputs to function definition
+        )
+        create_constructions(
+            self.idf,
+            cpaths,
+            mpaths,
+            cset,
+            self.objects.surfaces,
+            self.objects.subsurfaces,
+        )
         return self

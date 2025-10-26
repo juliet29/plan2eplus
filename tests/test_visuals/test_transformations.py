@@ -1,5 +1,5 @@
 import pytest
-from replan2eplus.ops.airboundary.presentation import update_airboundary_constructions
+from replan2eplus.ops.airboundary.create import update_airboundary_constructions
 from replan2eplus.visuals.domains import calculate_cardinal_domain
 from replan2eplus.geometry.contact_points import calculate_cardinal_points
 from replan2eplus.visuals.transforms import (

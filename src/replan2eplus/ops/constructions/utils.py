@@ -1,19 +1,20 @@
-from expression.collections import Seq
-from utils4plans.lists import chain_flatten
 from pathlib import Path
+from typing import NamedTuple
+
+from expression.collections import Seq
+from geomeppy import IDF
+from utils4plans.lists import chain_flatten
+
 from replan2eplus.errors import IDFMisunderstandingError
+from replan2eplus.ezcase.utils import open_idf
 from replan2eplus.idfobjects.base import get_names_of_idf_objects
 from replan2eplus.ops.constructions.idfobject import IDFConstruction
-from replan2eplus.ezcase.ez import EZ
-from replan2eplus.ops.materials.idfobject import IDFMaterialType, material_objects
+from replan2eplus.ops.materials.idfobject import IDFMaterialType
 from replan2eplus.ops.materials.utils import read_materials_from_many_idf
-from typing import NamedTuple
-from geomeppy import IDF
-
 from replan2eplus.ops.subsurfaces.ezobject import Subsurface
+from replan2eplus.ops.subsurfaces.idfobject import update_subsurface
 from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.ops.surfaces.idfobject import IDFSurface
-from replan2eplus.ops.subsurfaces.idfobject import IDFSubsurfaceBase, update_subsurface
 
 
 # TODO move to interfaces.., and move epcosnt to user interfaces
@@ -45,7 +46,7 @@ def read_materials_for_construction(
 def read_constructions_by_name_from_many_idfs(idf_paths: list[Path], names: list[str]):
     constructions = (
         Seq(idf_paths)
-        .map(lambda x: EZ(x).idf)
+        .map(lambda x: open_idf(x))
         .map(lambda x: IDFConstruction.read_by_name(x, names))
         .pipe(chain_flatten)
     )

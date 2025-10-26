@@ -1,7 +1,7 @@
 from geomeppy import IDF
 
 from replan2eplus.geometry import domain
-from replan2eplus.ops.subsurfaces.ezobject import Edge
+from replan2eplus.ops.subsurfaces.interfaces import Edge
 from replan2eplus.ops.subsurfaces.interfaces import ZoneDirectionEdge
 from replan2eplus.ops.subsurfaces.logic.placement import place_domain
 from replan2eplus.ops.subsurfaces.logic.prepare import (

@@ -44,7 +44,6 @@ class IDFSubsurfaceBase(IDFObject):
             self.Length,
             self.Height,
             self.empty_boundary_condition_object,
-            # self.Outside_Boundary_Condition_Object,
             self.type_,  # this will map to the key
             self.get_surface(surfaces),
         )
@@ -125,6 +124,7 @@ def update_subsurface(idf: IDF, name: str, param: str, new_value: str):
     for obj in subsurface_objects:
         try:
             # NOTE: this assumes that object names are NOT shared across different types of subsurface objects
+            # TODO check this when reading in .. 
             obj().update(idf, name, param, new_value)
             return
         except InvalidObjectError:
