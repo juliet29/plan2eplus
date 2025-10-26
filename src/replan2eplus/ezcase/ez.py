@@ -1,6 +1,11 @@
 from dataclasses import dataclass
 from pathlib import Path
 
+from replan2eplus.ops.run_settings.user_interfaces import (
+    AnalysisPeriod,
+    write_run_period_and_location,
+    default_analysis_period
+)
 from replan2eplus.paths import ep_paths
 from replan2eplus.ezcase.objects import read_existing_objects
 
@@ -27,6 +32,7 @@ class EZ:
     idf_path: Path | None = None
     output_path: Path | None = None
     epw_path: Path | None = None
+    analysis_period: AnalysisPeriod | None = None
 
     def __post_init__(self):
         initialize_idd()
@@ -78,7 +84,11 @@ class EZ:
         return self
 
     def save_and_run(
-        self, output_path: Path | None = None, epw_path: Path | None = None, run=False
+        self,
+        output_path: Path | None = None,
+        epw_path: Path | None = None,
+        analysis_period: AnalysisPeriod | None = default_analysis_period,
+        run=False,
     ):
         if not self.output_path:
             assert output_path
@@ -86,16 +96,19 @@ class EZ:
         if not self.epw_path:
             assert epw_path
             self.epw_path = epw_path
+        if not self.analysis_period:
+            assert analysis_period
+            self.analysis_period = analysis_period
 
         idf_path = self.output_path / ep_paths.idf_name
         results_path = self.output_path / ep_paths.results_path
 
-        self.idf.epw = self.epw_path
-
-        if not self.idf_path:
-            self.idf.idfabsname = idf_path
+        write_run_period_and_location(self.idf, self.analysis_period, self.epw_path)
 
         self.idf.save(idf_path)
 
         if run:
+            if not self.idf_path:
+                self.idf.idfabsname = idf_path
+            self.idf.epw = self.epw_path
             self.idf.run(output_directory=results_path)
