@@ -75,6 +75,10 @@ class Edge(NamedTuple):
             return frozenset(self.as_tuple) == frozenset(other.as_tuple)
         raise Exception(f"{other} does not have type Edge")
 
+    def __hash__(self) -> int:
+        fe = frozenset(self.as_tuple)
+        return hash(fe)
+
     @property
     def is_directed_edge(self):
         return (

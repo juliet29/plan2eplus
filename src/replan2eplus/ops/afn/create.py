@@ -19,7 +19,7 @@ def select_afn_objects(
     sub_and_surface_names = [i.name for i in afn_surfaces]
 
     # TODO: AFN is empty for now -> things that call on it need to take surfaces and sub surfaces together
-    return AirflowNetwork(afn_zones, [], []), AFNWriter(
+    return AirflowNetwork(afn_zones, afn_surfaces), AFNWriter(
         zone_names, sub_and_surface_names
     )
 

@@ -1,38 +1,44 @@
-
 from dataclasses import dataclass
-from typing import Callable
+
 from replan2eplus.ops.airboundary.ezobject import Airboundary
 from replan2eplus.ops.subsurfaces.ezobject import Subsurface
-from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.ops.zones.ezobject import Zone
-from utils4plans.sets import set_difference, set_intersection
 
 
 @dataclass
 class AirflowNetwork:
     zones: list[Zone]
-    subsurfaces: list[Subsurface]
-    airboundaries: list[Airboundary]
-
-    # TODO post init to check that these actually are in the AFN!
+    afn_surfaces: list[Subsurface | Airboundary]
 
     def __rich_repr__(self):
         yield "zones", [i.zone_name for i in self.zones]
-        yield "subsurfaces", [i.subsurface_name for i in self.subsurfaces]
-        yield "airboundaries", [i.surface.surface_name for i in self.airboundaries]
+        yield "afn_surfaces", [i.name for i in self.afn_surfaces]
 
     @property
-    def surfacelike_objects(self):
-        return self.subsurfaces + self.airboundaries
+    def subsurfaces(
+        self,
+    ) -> list[Subsurface]:  # TODO consider changing these go filters..
+        return [i for i in self.afn_surfaces if isinstance(i, Subsurface)]
 
+    @property
+    def airboundaries(self) -> list[Airboundary]:
+        return [i for i in self.afn_surfaces if isinstance(i, Airboundary)]
 
+    def get_non_afn_surfaces(self, surfaces: list[Subsurface | Airboundary]):
+        res = filter(
+            lambda x: x.name
+            not in map(
+                lambda y: y.name,
+                self.afn_surfaces,
+            ),
+            surfaces,
+        )
+        return list(res)
 
-    def select_afn_subsurfaces(
-        self, select_fx: Callable[[list[Subsurface]], list[Subsurface]]
-    ):
-        return select_fx(self.subsurfaces)
+    # TODO post init to check that these actually are in the AFN!
 
-    # def __str__(self) -> str:
-    #     table = Table(AirflowNetwork)
-    #     zone_names = [i.zone_name for i in self.zones]
+    # def select_afn_subsurfaces(
+    #     self, select_fx: Callable[[list[Subsurface]], list[Subsurface]]
+    # ):
+    #     return select_fx(self.subsurfaces)
     #     subsurface_names = [i.subs]

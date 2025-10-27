@@ -1,24 +1,21 @@
 from dataclasses import dataclass
+from typing import NamedTuple
 
 from matplotlib.lines import Line2D
-from matplotlib.patches import Rectangle, Polygon
+from matplotlib.patches import Polygon, Rectangle
 
 from replan2eplus.errors import IDFMisunderstandingError
-
-from replan2eplus.ops.subsurfaces.interfaces import Edge
-
-from replan2eplus.ops.zones.ezobject import Zone
-from replan2eplus.ezobjects.zone import get_zones
 from replan2eplus.geometry.contact_points import CardinalPoints, calculate_corner_points
 from replan2eplus.geometry.coords import Coord
 from replan2eplus.geometry.directions import WallNormalNamesList
 from replan2eplus.geometry.domain import (
     Domain,
 )
+from replan2eplus.geometry.ortho_domain import OrthoDomain
 from replan2eplus.geometry.plane import Plane
 from replan2eplus.geometry.range import Range
-from replan2eplus.geometry.ortho_domain import OrthoDomain
-from typing import NamedTuple
+from replan2eplus.ops.subsurfaces.interfaces import Edge
+from replan2eplus.ops.zones.ezobject import Zone, get_zones
 
 EXPANSION_FACTOR = 1.1
 

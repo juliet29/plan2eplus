@@ -2,8 +2,8 @@ from dataclasses import dataclass
 
 import numpy as np
 from xarray import DataArray
-
-from replan2eplus.ezobjects.afn import Airboundary, set_difference, set_intersection
+from utils4plans.sets import set_intersection, set_difference
+from replan2eplus.ops.airboundary.ezobject import Airboundary
 from replan2eplus.ops.subsurfaces.ezobject import Subsurface
 from replan2eplus.ops.zones.ezobject import Zone
 from replan2eplus.geometry.contact_points import calculate_cardinal_points

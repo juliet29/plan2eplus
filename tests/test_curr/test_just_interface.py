@@ -89,10 +89,19 @@ def test_creating_interior_subsurface():
     )
 
 
+def test_subsurface_equality():
+    case = Cases().two_room
+    subsurfaces = create_subsurfaces(
+        Interfaces.subsurfaces.interior,
+        case.objects.surfaces,
+        case.objects.zones,
+        case.idf,
+    )
+    ss1 = subsurfaces[0]
+    ss2 = subsurfaces[1]
+    assert ss1 == ss2
+    assert len(set([ss1, ss2])) == 1
+
+
 if __name__ == "__main__":
-    case = Cases().ep_four_zone
-    subsurfaces = read_subsurfaces(case.idf)
-    j = get_names_of_idf_objects(subsurfaces)
-    print(j)
-    # print(subsurfaces[0])
-    # test_simple_subsurface_desc()
+    test_subsurface_equality()

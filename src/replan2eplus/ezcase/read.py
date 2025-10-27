@@ -9,7 +9,7 @@ from replan2eplus.ezobjects.epbunch_utils import get_epbunch_key
 from replan2eplus.ops.subsurfaces.utils import get_unique_subsurfaces
 from replan2eplus.ops.zones.create import assign_zone_surfaces
 from replan2eplus.idfobjects.afn import AFNKeys
-from replan2eplus.ezobjects.afn import AirflowNetwork
+from replan2eplus.ops.afn.ezobject import AirflowNetwork
 from replan2eplus.ops.airboundary.ezobject import Airboundary, get_unique_airboundaries
 
 from rich import print as rprint

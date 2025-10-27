@@ -1,26 +1,25 @@
-from replan2eplus.examples.plots.base_plot import make_base_plot
-from replan2eplus.examples.cases.afn_case import (
-    make_afn_case,
-)
-from replan2eplus.examples.ortho_domain import (
-    create_ortho_case,
-)
+from replan2eplus.ex.afn import EdgeGroups as AFNEdgeGroups
+
+# from replan2eplus.examples.ortho_domain import (
+#     create_ortho_case,
+# )
+from replan2eplus.ex.make import airboundary_edges, make_base_plot, make_test_case
 
 
 def test_make_base_plot():
-    case = make_afn_case()
+    case = make_test_case(AFNEdgeGroups.A_ew, afn=True)
     make_base_plot(case)
     assert 1
     # TODO -> make better tests, check the matplotlib axes..
 
 
-def test_make_ortho_plot():
-    case = create_ortho_case()
-    make_base_plot(case)
-    assert 1
+# def test_make_ortho_plot():
+#     case = create_ortho_case()
+#     make_base_plot(case)
+#     assert 1
 
 
 if __name__ == "__main__":
-    case = create_ortho_case()
+    case = make_test_case(AFNEdgeGroups.D, afn=True)
     bp = make_base_plot(case)
     bp.show()

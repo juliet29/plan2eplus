@@ -4,7 +4,7 @@ from typing import Sequence
 from matplotlib.axes import Axes
 import matplotlib.pyplot as plt
 
-from replan2eplus.ezobjects.afn import AirflowNetwork
+from replan2eplus.ops.afn.ezobject import AirflowNetwork
 from replan2eplus.ops.airboundary.ezobject import Airboundary
 from replan2eplus.ops.subsurfaces.ezobject import Subsurface
 from replan2eplus.ops.surfaces.ezobject import Surface

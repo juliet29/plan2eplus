@@ -39,8 +39,11 @@ class Subsurface:
         if isinstance(other, Subsurface):
             if other.edge == self.edge:
                 return True
-            # later could include domain.. if have two subsurfaces on one location..
+            # NOTE: this only works because assuming each surface can have only one subsurface. Later, will need to include the domain
         return False
+
+    def __hash__(self) -> int:
+        return self.edge.__hash__()
 
     @property
     def name(self):

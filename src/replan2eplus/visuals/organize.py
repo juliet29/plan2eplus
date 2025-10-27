@@ -1,4 +1,4 @@
-from replan2eplus.ezobjects.afn import AirflowNetwork
+from replan2eplus.ops.afn.ezobject import AirflowNetwork
 from replan2eplus.ops.airboundary.ezobject import Airboundary
 from replan2eplus.ops.subsurfaces.ezobject import Subsurface
 from replan2eplus.ops.surfaces.ezobject import Surface
@@ -24,7 +24,7 @@ def get_edges(items: Sequence[Subsurface | Airboundary]):
 
 
 class SurfaceOrg(NamedTuple):
-    non_afn_surfaces: list[Surface | Subsurface]
+    non_afn_surfaces: list[Airboundary | Subsurface]
     windows: list[Subsurface]
     doors: list[Subsurface]
     airboundaries: list[Airboundary]
@@ -33,14 +33,12 @@ class SurfaceOrg(NamedTuple):
 def organize_subsurfaces_and_surfaces(
     afn: AirflowNetwork, airboundaries: list[Airboundary], subsurfaces: list[Subsurface]
 ):
-    non_afn_surfaces = [i.surface for i in afn.non_afn_airboundaries(airboundaries)]
-    not_in_afn = non_afn_surfaces + afn.non_afn_subsurfaces(subsurfaces)
+    non_afn_surfaces = afn.get_non_afn_surfaces(airboundaries + subsurfaces)
 
-    # TODO this is an experiment -> will keep w/ list comprehensions for now..
     windows = filter(lambda x: x.is_window, afn.subsurfaces)
     doors = filter(lambda x: x.is_door, afn.subsurfaces)
 
-    return SurfaceOrg(not_in_afn, list(windows), list(doors), afn.airboundaries)
+    return SurfaceOrg(non_afn_surfaces, list(windows), list(doors), afn.airboundaries)
 
 
 class ConnectionOrg(NamedTuple):
@@ -51,5 +49,5 @@ class ConnectionOrg(NamedTuple):
 def organize_connections(
     afn: AirflowNetwork, airboundaries: list[Airboundary], subsurfaces: list[Subsurface]
 ):
-    # doesnt filter because both the baseline and afn objects get plotted..
-    return ConnectionOrg(airboundaries + subsurfaces, afn.surfacelike_objects)
+    # NOTE: doesnt filter because both the baseline and afn objects get plotted, they just get plotted with different markings 
+    return ConnectionOrg(airboundaries + subsurfaces, afn.afn_surfaces)
