@@ -47,13 +47,18 @@ class Surface:
     coords: SurfaceCoords
     subsurfaces: list[str]
 
+    def __post_int__(self):
+        pass
+        # self.surface_type = self.surface_type.lower() # pyright: ignore[reportAttributeAccessIssue]
+        # self.boundary_condition = self.boundary_condition.lower() # pyright: ignore[reportAttributeAccessIssue]
+
     ## :**********   Representation **********
 
     def __rich_repr__(self):
         yield "display_name", self.display_name
         yield "surface_name", self.surface_name
         yield "zone_name", self.zone_name
-        yield "domain", self.domain
+        # yield "domain", self.domain # TODO put back when done fixing EpFourCase.. 
         yield "surface_type", self.surface_type
         yield "construction", self.construction_name
         yield "neighbor", self.neighbor_name
@@ -74,7 +79,7 @@ class Surface:
 
     @property
     def neighbor_name(self):
-        if self.boundary_condition == "surface":
+        if self.boundary_condition.casefold() == "surface":
             return str(self.boundary_condition_object)  #
         else:
             return None
@@ -109,7 +114,7 @@ class Surface:
 
     @property
     def direction(self):
-        match self.surface_type:
+        match self.surface_type.casefold():
             case "floor":
                 return WallNormal.DOWN
             case "roof":

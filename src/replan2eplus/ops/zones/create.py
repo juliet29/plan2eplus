@@ -19,6 +19,8 @@ def create_zones(idf: IDF, rooms: list[Room] = []):
         # TODO this should be a util.. 
         zone_surface_names = [i.Name for i in zone_obj.zonesurfaces if i] # type: ignore # TODO -> better to do get args.. 
         idf_surfaces = IDFSurface.read(idf, zone_surface_names)
+        if not idf_surfaces:
+            raise Exception("No surfaces found even though zones were found! Likely the key that describes the surfaces in this file has not been implemented.")
         ez_surfaces = [i.create_ezobject() for i in idf_surfaces]
         # TODO: here are skipping the step of idf surface object..
         ez_zone = [zone.create_ezobject(ez_surfaces)]

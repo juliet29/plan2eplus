@@ -11,6 +11,7 @@ from replan2eplus.idfobjects.base import (
 from replan2eplus.ops.subsurfaces.ezobject import Subsurface
 from replan2eplus.ops.subsurfaces.interfaces import SubsurfaceType
 from replan2eplus.ops.surfaces.ezobject import Surface
+from rich import print
 
 
 @dataclass
@@ -27,15 +28,23 @@ class IDFSubsurfaceBase(IDFObject):
     def type_(self) -> SubsurfaceType: ...
 
     def get_surface(self, surfaces: list[Surface]):
-        return get_unique_one(
-            surfaces, lambda x: x.surface_name == self.Building_Surface_Name
-        )
+        try:
+            return get_unique_one(
+                surfaces, lambda x: x.surface_name == self.Building_Surface_Name
+            )
+        except AssertionError:
+            raise Exception(
+                f"Error when trying to get matching surface for {self.Building_Surface_Name}. Input surfaces are: {surfaces}  "
+            )
 
     @property
     def empty_boundary_condition_object(self):
         return ""
 
     def create_ezobject(self, surfaces: list[Surface]) -> Subsurface:
+        print(
+            f"surfaces when about to create object: {[i.surface_name for i in surfaces]}"
+        )
         return Subsurface(
             self.Name,
             self.Construction_Name,
@@ -124,7 +133,7 @@ def update_subsurface(idf: IDF, name: str, param: str, new_value: str):
     for obj in subsurface_objects:
         try:
             # NOTE: this assumes that object names are NOT shared across different types of subsurface objects
-            # TODO check this when reading in .. 
+            # TODO check this when reading in ..
             obj().update(idf, name, param, new_value)
             return
         except InvalidObjectError:

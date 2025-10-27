@@ -19,17 +19,18 @@ from replan2eplus.ex.materials import SAMPLE_CONSTRUCTION_SET
 from replan2eplus.ops.subsurfaces.idfobject import IDFSubsurfaceBase
 from replan2eplus.ops.surfaces.idfobject import IDFSurface
 from rich import print
+from replan2eplus.ezcase.ez import EZ
 
 
 def test_read_constructions():
-    case = Cases().ep_afn
+    case = EZ(Cases().ep_afn.path)
     constructions = IDFConstruction.read(case.idf)
     const_names = get_names_of_idf_objects(constructions)
     assert set_equality(const_names, EpAFNCase.constructions)
 
 
 def test_read_construction_by_name():
-    case = Cases().ep_afn
+    case = EZ(Cases().ep_afn.path)
     name = EpAFNCase.constructions[0]
     constructions = IDFConstruction.read_by_name(case.idf, [name])
     const_names = get_names_of_idf_objects(constructions)
@@ -37,7 +38,7 @@ def test_read_construction_by_name():
 
 
 def test_read_material_based_on_construction():
-    case = Cases().ep_afn
+    case = EZ(Cases().ep_afn.path)
     assert case.idf_path
     name = EpAFNCase.constructions[0]
     construction = IDFConstruction.read_by_name(
@@ -72,7 +73,7 @@ def test_read_constructions_and_materials_across_idfs():
 
 
 def test_write_constructions():
-    source_case = Cases().ep_afn
+    source_case = EZ(Cases().ep_afn.path)
     source_constructions = IDFConstruction.read(source_case.idf)
     destination_case = Cases().base
     new_idf = IDF()

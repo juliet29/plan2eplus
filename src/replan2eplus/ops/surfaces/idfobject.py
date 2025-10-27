@@ -22,13 +22,13 @@ class IDFSurface(IDFObject):
     Construction_Name: str = ""
     Zone_Name: str = ""
     Space_Name: str = ""
-    Outside_Boundary_Condition: OutsideBoundaryCondition = "Surface"
+    Outside_Boundary_Condition: OutsideBoundaryCondition = "surface"
     Outside_Boundary_Condition_Object: str = ""
 
     azimuth: float = 0
     coords: SurfaceCoords = field(
         default_factory=list
-    )  # TODO this is wrong, check this..
+    )  
     subsurfaces: list[str] = field(default_factory=list)
 
     @property
@@ -42,9 +42,9 @@ class IDFSurface(IDFObject):
             properties = {
                 "azimuth": o.azimuth,
                 "coords": o.coords,
-                "subsurfaces": o.subsurfaces,
+                "subsurfaces": [i.Name for i in o.subsurfaces],
             }
-            # filter based on class attributes.. -> #TODO move to base after test.
+            # filter based on class attributes..  
             relevant_values = filter_relevant_values(key_values, cls().values)
 
             d = relevant_values | properties

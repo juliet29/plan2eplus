@@ -11,12 +11,13 @@ class Interfaces:
     materials = MaterialExamples()
     constructions = ConstructionExamples()
 
-# TODO -> move to their own places.., also link to eplus data set is a bit fragile for testing => have local copies in case things change..  /static folder that is a part of the source 
+
+# TODO -> move to their own places.., also link to eplus data set is a bit fragile for testing => have local copies in case things change..  /static folder that is a part of the source
 class EpAFNCase:
     # NOTE: draw back of this case is that it uses ONLY fenestration subsurfaces -> not ideal since this code avoids this.. reasonable enough for enough for materials though
     name = "AirflowNetwork3zVent.idf"
     path = ep_paths.example_files / name
-    case = EZ(path)
+    # case = EZ(path)
     basic_material_names = [
         "A1 - 1 IN STUCCO",
         "C4 - 4 IN COMMON BRICK",
@@ -44,7 +45,7 @@ class EpAFNCase:
 class EpFourZoneCase:
     name = "4ZoneWithShading_Simple_2.idf"
     path = ep_paths.example_files / name
-    case = EZ(path)
+    # case = EZ(path)
 
     subsurface_names = [
         "Zn001:Wall001:Win001",
@@ -66,11 +67,11 @@ class Cases:
 
     @property
     def ep_afn(self):
-        return EpAFNCase.case
+        return EpAFNCase
 
     @property
     def ep_four_zone(self):
-        return EpFourZoneCase.case
+        return EpFourZoneCase
 
     @property
     def two_room(self):

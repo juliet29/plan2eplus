@@ -2,6 +2,7 @@ from geomeppy import IDF
 from utils4plans.sets import set_equality
 
 from replan2eplus.ex.main import Cases, EpAFNCase, Interfaces
+from replan2eplus.ezcase.ez import EZ
 from replan2eplus.idfobjects.base import get_names_of_idf_objects
 from replan2eplus.ops.materials.idfobject import IDFMaterial
 from replan2eplus.ops.materials.utils import (
@@ -12,14 +13,14 @@ from replan2eplus.paths import ep_paths
 
 
 def test_read_material_of_type_a_from_idf():
-    case = Cases().ep_afn  # TODO replace with own example once get materials working
+    case = EZ(Cases().ep_afn.path)  # TODO replace with own example once get materials working
     materials = IDFMaterial.read(case.idf)
     found_material_names = [i.Name for i in materials]
     assert set_equality(found_material_names, EpAFNCase.basic_material_names)
 
 
 def test_read_materials_from_idf_by_name():
-    case = Cases().ep_afn
+    case = EZ(Cases().ep_afn.path)
     found_materials = read_materials(case.idf, EpAFNCase.mixed_subset_materials)
     assert set_equality(
         get_names_of_idf_objects(found_materials), EpAFNCase.mixed_subset_materials
@@ -36,7 +37,7 @@ def test_read_many_materials_from_many_idfs():
 
 
 def test_write_material():
-    source_case = Cases().ep_afn
+    source_case = EZ(Cases().ep_afn.path)
     source_materials = IDFMaterial.read(source_case.idf)
     destination_case = Cases().base
     new_idf = source_materials[0].write(destination_case.idf)
@@ -45,7 +46,7 @@ def test_write_material():
 
 
 def test_write_materials():
-    source_case = Cases().ep_afn
+    source_case = EZ(Cases().ep_afn.path)
     source_materials = IDFMaterial.read(source_case.idf)
     destination_case = Cases().base
     new_idf = IDF()

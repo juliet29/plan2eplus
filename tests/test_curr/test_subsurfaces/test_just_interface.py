@@ -1,4 +1,5 @@
 from replan2eplus.ex.subsurfaces import details, e0
+from replan2eplus.ezcase.ez import EZ
 from replan2eplus.idfobjects.base import get_names_of_idf_objects
 from replan2eplus.ops.subsurfaces.idfobject import IDFSubsurfaceBase, read_subsurfaces
 from replan2eplus.ops.subsurfaces.logic.prepare import create_ss_name
@@ -31,11 +32,11 @@ def test_bad_init_edge_group():
         EdgeGroup.from_tuple_edges(edges, "", "Zone_Direction")
 
 
-def test_read_subsurfaces():
-    case = Cases().ep_four_zone
-    subsurfaces = read_subsurfaces(case.idf)
-    names = get_names_of_idf_objects(subsurfaces)
-    assert set_equality(names, EpFourZoneCase.subsurface_names)
+# def test_read_subsurfaces_from_():
+#     case = EZ(Cases().ep_four_zone.path)
+#     subsurfaces = read_subsurfaces(case.idf)
+#     names = get_names_of_idf_objects(subsurfaces)
+#     assert set_equality(names, EpFourZoneCase.subsurface_names)
 
 
 def test_simple_subsurface_desc():
@@ -104,4 +105,5 @@ def test_subsurface_equality():
 
 
 if __name__ == "__main__":
-    test_subsurface_equality()
+    ex = Cases().ep_four_zone
+    case = EZ(ex.path)

@@ -8,9 +8,7 @@ from replan2eplus.ops.subsurfaces.logic.exterior import (
 from replan2eplus.ops.subsurfaces.logic.interior import (
     create_subsurface_for_interior_edge,
 )
-from replan2eplus.ops.subsurfaces.user_interfaces import (
-   SubsurfaceInputs
-)
+from replan2eplus.ops.subsurfaces.user_interfaces import SubsurfaceInputs
 from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.ops.zones.ezobject import Zone
 from replan2eplus.ops.subsurfaces.idfobject import IDFSubsurfaceBase, read_subsurfaces
@@ -18,12 +16,25 @@ from rich import print
 
 
 def create_subsurfaces(
-    inputs: SubsurfaceInputs| None,
+    inputs: SubsurfaceInputs | None,
     surfaces: list[Surface],
     zones: list[Zone],
     idf: IDF,
 ):
-    existing_subsurfaces = [i.create_ezobject(surfaces) for i in read_subsurfaces(idf)]
+    # print(surfaces)
+    idf_subsurfaces = read_subsurfaces(idf)
+    # NOTE: have not defined all the possible types of subsurfaces, so error will result if the type is of say "Window:Interzone"
+    # if idf_subsurfaces:
+    print(f"surfaces just before get object: {[i.surface_name for i in surfaces]}")
+    existing_subsurfaces = []
+    if idf_subsurfaces:
+        for i in idf_subsurfaces:
+            print(f"about to create ezobject")
+            res = i.create_ezobject(surfaces)
+            existing_subsurfaces.append(res)
+    print("done w/ exist subsurf..")
+    # existing_subsurfaces = [i.create_ezobject(surfaces) for i in idf_subsurfaces]
+    # NOTE: dont have to update surface subsurface here bc idf already knows the relations
 
     if inputs:
         interior_subsurfaces = chain_flatten(

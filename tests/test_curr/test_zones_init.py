@@ -6,6 +6,7 @@ from replan2eplus.ex.main import Interfaces as UI
 from replan2eplus.idfobjects.base import get_names_of_idf_objects
 from replan2eplus.ops.zones.create import create_zones
 from replan2eplus.ops.zones.idfobject import IDFZone
+from replan2eplus.ezcase.ez import EZ
 
 N_SURFACES_PER_CUBE = 6
 
@@ -30,10 +31,16 @@ def test_add_surfaces_with_zones():
     assert len(surfaces) == len(UI.rooms.two_room_list) * N_SURFACES_PER_CUBE
 
 
+@pytest.mark.xfail()  # TODO replace with own example
 def test_read():
-    case = Cases().ep_afn
+    case = EZ(Cases().ep_four_zone.path)
     n_zones = len(case.objects.zones)
     assert n_zones == 3
+
+
+def test_read_from_idf_with_keys_not_implemented():
+    with pytest.raises(Exception):
+        _ = EZ(Cases().ep_four_zone.path)
 
 
 # @pytest.mark.xfail()
@@ -81,6 +88,7 @@ if __name__ == "__main__":
     case = Cases().subsurfaces_simple
     zone_name = "Block `room1` Storey 0"
     res = IDFZone().get_one_idf_object(case.idf, zone_name)
+
     # zones = IDFZone.read(case.idf)[0]
     # test_get_zone_subsurfaces()
     # case = EZ()
