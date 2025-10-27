@@ -1,3 +1,4 @@
+from typing import NamedTuple
 from replan2eplus.geometry.directions import WallNormal
 from replan2eplus.geometry.domain import Domain
 from replan2eplus.ops.subsurfaces.interfaces import Edge
@@ -65,7 +66,14 @@ class EdgeGroups:
     window_bl = [EdgeGroup.from_tuple_edges([e1], "window_bl", "Zone_Direction")]
 
 
-class SubsurfaceInputExamples:
+class SubsurfaceEdgeGroups:
+    interior = EdgeGroups.door
+    simple = EdgeGroups.door + EdgeGroups.window
+    airboundary = EdgeGroups.door + EdgeGroups.ns_windows
+    three_details = EdgeGroups.door + EdgeGroups.window_bl + EdgeGroups.ns_windows
+
+
+class SubsurfaceInputExamples:  #  TODO: this is a bit redundant, but not a huge issue..
     interior = SubsurfaceInputs(
         EdgeGroups.door,
         details,
@@ -76,6 +84,41 @@ class SubsurfaceInputExamples:
         EdgeGroups.door + EdgeGroups.window_bl + EdgeGroups.ns_windows,
         details,
     )
+
+
+class SubsurfaceInfo(NamedTuple):
+    name: str
+    n_external_windows: int
+    n_external_doors: int
+    n_internal_doors: int
+
+    @property
+    def sum_subsurfaces(self):
+        return self.n_external_windows + self.n_external_doors + self.n_internal_doors*2
+
+class SubsurfaceInputOutput(NamedTuple):
+    edge_groups: list[EdgeGroup]
+    info: SubsurfaceInfo
+
+
+
+class SubsurfaceInputOutputExamples:
+    interior = SubsurfaceInputOutput(
+        SubsurfaceEdgeGroups.interior, SubsurfaceInfo("interior", 0, 0, 1)
+    )
+    simple = SubsurfaceInputOutput(
+        SubsurfaceEdgeGroups.simple, SubsurfaceInfo("simple", 1, 0, 1)
+    )
+    airboundary = SubsurfaceInputOutput(
+        SubsurfaceEdgeGroups.airboundary, SubsurfaceInfo("airboundary", 2, 0, 1)
+    )
+    three_details = SubsurfaceInputOutput(
+        SubsurfaceEdgeGroups.three_details, SubsurfaceInfo("three_details", 3, 0, 1)
+    )
+
+    @property
+    def list_examples(self):
+        return [self.interior, self.simple, self.airboundary, self.three_details]
 
 
 # def get_minimal_case_with_subsurfaces():

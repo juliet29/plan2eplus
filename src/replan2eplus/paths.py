@@ -147,17 +147,10 @@ BASE_PATH = pyprojroot.find_root(pyprojroot.has_dir(".git"))
 static_paths = StaticPaths("", base_path=BASE_PATH)
 ep_paths = load_ep_paths()
 
-THROWAWAY_PATH = BASE_PATH / "throwaway"
 
-TEST_RESULTS = static_paths.models / "results_for_tests"
-
-TWO_ROOM_RESULTS = TEST_RESULTS / "two_room"
-TWO_ROOM_AIRBOUNDARY_RESULTS = TEST_RESULTS / "two_room_airboundary"
-
-ORTHO_CASE_RESULTS = TEST_RESULTS / "ortho"
-
-CAMPAIGN_TESTS = TEST_RESULTS / "campaigns"
-
-PATH_TO_WEATHER_FILE = (
-    static_paths.inputs / "weather/PALO_ALTO/CA_PALO-ALTO-AP_724937_23.EPW"
-)
+class DynamicPaths:
+    THROWAWAY_PATH = BASE_PATH / "throwaway"
+    results_for_tests = static_paths.models / "results_for_tests"
+    ORTHO_CASE_RESULTS = results_for_tests / "ortho"
+    CAMPAIGN_TESTS = results_for_tests / "campaigns"
+    subsurface_examples = results_for_tests / "subsurface_examples"

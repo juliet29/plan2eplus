@@ -9,7 +9,7 @@ from replan2eplus.ops.subsurfaces.logic.interior import (
     create_subsurface_for_interior_edge,
 )
 from replan2eplus.ops.subsurfaces.user_interfaces import (
-    SubsurfaceInputs,
+   SubsurfaceInputs
 )
 from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.ops.zones.ezobject import Zone
@@ -18,7 +18,7 @@ from rich import print
 
 
 def create_subsurfaces(
-    inputs: SubsurfaceInputs | None,
+    inputs: SubsurfaceInputs| None,
     surfaces: list[Surface],
     zones: list[Zone],
     idf: IDF,

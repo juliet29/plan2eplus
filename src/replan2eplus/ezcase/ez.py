@@ -4,7 +4,7 @@ from pathlib import Path
 from replan2eplus.ops.run_settings.user_interfaces import (
     AnalysisPeriod,
     write_run_period_and_location,
-    default_analysis_period
+    default_analysis_period,
 )
 from replan2eplus.paths import ep_paths
 from replan2eplus.ezcase.objects import read_existing_objects
@@ -25,6 +25,7 @@ from replan2eplus.ops.airboundary.create import update_airboundary_constructions
 from replan2eplus.ops.afn.create import create_afn_objects
 from replan2eplus.ops.zones.create import create_zones
 from replan2eplus.ops.zones.user_interface import Room
+from utils4plans.io import get_or_make_folder_path
 
 
 @dataclass
@@ -100,10 +101,15 @@ class EZ:
             assert analysis_period
             self.analysis_period = analysis_period
 
+        self.output_path = get_or_make_folder_path(
+            self.output_path.parent, self.output_path.name
+        )
+
         idf_path = self.output_path / ep_paths.idf_name
         results_path = self.output_path / ep_paths.results_path
 
         write_run_period_and_location(self.idf, self.analysis_period, self.epw_path)
+        print("hi")
 
         self.idf.save(idf_path)
 

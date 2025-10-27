@@ -7,7 +7,7 @@ from replan2eplus.campaigns.decorator2 import make_experimental_campaign
 from replan2eplus.campaigns.inputs.defn import SampleDef
 from replan2eplus.campaigns.inputs.data import make_data_dict
 from replan2eplus.ops.subsurfaces.user_interfaces import (
-    SubsurfaceInputs,
+  SubsurfaceInputs,
     Detail,
 )
 from replan2eplus.paths import CAMPAIGN_TESTS

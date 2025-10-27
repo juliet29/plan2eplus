@@ -18,7 +18,7 @@ from replan2eplus.ops.airboundary.create import update_airboundary_constructions
 from replan2eplus.ops.constructions.create import (
     add_constructions_from_other_idf,
 )
-from replan2eplus.ops.subsurfaces.user_interfaces import SubsurfaceInputs
+from replan2eplus.ops.subsurfaces.user_interfaces import list[EdgeGroup]
 from replan2eplus.ops.subsurfaces.create import create_subsurfaces
 from replan2eplus.ops.subsurfaces.utils import get_unique_subsurfaces
 from replan2eplus.ops.zones.user_interface import Room
@@ -81,7 +81,7 @@ class EZCase:
         )
         return self
 
-    def add_subsurfaces(self, inputs: SubsurfaceInputs):
+    def add_subsurfaces(self, inputs: list[EdgeGroup]):
         # TODO: check that zones exist
         self.subsurfaces = create_subsurfaces(
             inputs, self.zones, self.idf
