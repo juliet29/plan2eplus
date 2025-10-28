@@ -60,4 +60,4 @@ def test_write_materials():
 
 
 if __name__ == "__main__":
-    test_read_materials_from_idf_by_name()
+    test_read_material_of_type_a_from_idf()

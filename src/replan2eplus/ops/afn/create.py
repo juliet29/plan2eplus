@@ -6,7 +6,7 @@ from replan2eplus.ops.subsurfaces.ezobject import Subsurface
 from replan2eplus.ops.zones.ezobject import Zone
 from geomeppy import IDF
 from replan2eplus.ops.afn.ezobject import AirflowNetwork
-from expression.collections import Seq
+# from expression.collections import Seq
 
 
 # def find_existing_afn_objects(
@@ -57,6 +57,11 @@ def create_afn_objects(
     subsurfaces: list[Subsurface],
     airboundaries: list[Airboundary],
 ):
-    airflow_network, afn_writer = select_afn_objects(zones, subsurfaces, airboundaries)
-    afn_writer.write(idf)
-    return airflow_network
+    if zones:
+        if subsurfaces or airboundaries:
+            airflow_network, afn_writer = select_afn_objects(
+                zones, subsurfaces, airboundaries
+            )
+            afn_writer.write(idf)
+            return airflow_network
+    return AirflowNetwork([], [])
