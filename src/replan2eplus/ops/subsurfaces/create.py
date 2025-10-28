@@ -21,19 +21,15 @@ def create_subsurfaces(
     zones: list[Zone],
     idf: IDF,
 ):
-    # print(surfaces)
     idf_subsurfaces = read_subsurfaces(idf)
     # NOTE: have not defined all the possible types of subsurfaces, so error will result if the type is of say "Window:Interzone"
     # if idf_subsurfaces:
-    print(f"surfaces just before get object: {[i.surface_name for i in surfaces]}")
+
     existing_subsurfaces = []
     if idf_subsurfaces:
         for i in idf_subsurfaces:
-            print(f"about to create ezobject")
             res = i.create_ezobject(surfaces)
             existing_subsurfaces.append(res)
-    print("done w/ exist subsurf..")
-    # existing_subsurfaces = [i.create_ezobject(surfaces) for i in idf_subsurfaces]
     # NOTE: dont have to update surface subsurface here bc idf already knows the relations
 
     if inputs:

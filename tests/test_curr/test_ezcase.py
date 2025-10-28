@@ -1,7 +1,7 @@
 from rich import print
 import pytest
 
-from replan2eplus.ex.afn import EdgeGroups as AFNEdgeGroups
+from replan2eplus.ex.afn import AFNEdgeGroups as AFNEdgeGroups
 from replan2eplus.ex.make import make_test_case
 from replan2eplus.ex.make import airboundary_edges
 

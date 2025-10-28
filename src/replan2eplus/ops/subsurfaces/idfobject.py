@@ -43,7 +43,6 @@ class IDFSubsurfaceBase(IDFObject):
 
     def create_ezobject(self, surfaces: list[Surface]) -> Subsurface:
         print(
-            f"surfaces when about to create object: {[i.surface_name for i in surfaces]}"
         )
         return Subsurface(
             self.Name,

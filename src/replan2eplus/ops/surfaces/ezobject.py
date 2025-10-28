@@ -13,6 +13,7 @@ from replan2eplus.geometry.ezobject_domain import (
 
 # from replan2eplus.ops.airboundary.idfobject
 from replan2eplus.ops.airboundary.interfaces import DEFAULAT_AIRBOUNDARY_NAME
+from replan2eplus.ops.subsurfaces.interfaces import Edge
 from replan2eplus.ops.surfaces.interfaces import (
     SurfaceCoords,
     SurfaceType,
@@ -58,7 +59,7 @@ class Surface:
         yield "display_name", self.display_name
         yield "surface_name", self.surface_name
         yield "zone_name", self.zone_name
-        # yield "domain", self.domain # TODO put back when done fixing EpFourCase.. 
+        # yield "domain", self.domain # TODO put back when done fixing EpFourCase..
         yield "surface_type", self.surface_type
         yield "construction", self.construction_name
         yield "neighbor", self.neighbor_name
@@ -93,6 +94,12 @@ class Surface:
         if self.neighbor_name:
             return decompose_idf_name(self.neighbor_name).plan_name
         return None
+
+    @property
+    def edge(self):
+        if self.room_name_of_neighbor:
+            return Edge(self.room_name, self.room_name_of_neighbor)
+        raise Exception("No neighbor!, Cant be an airboundry edge")
 
     @property
     def is_airboundary(self):

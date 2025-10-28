@@ -48,7 +48,7 @@ class EZ:
         self, subsurface_inputs: SubsurfaceInputs, airboundary_edges: list[Edge] = []
     ):
         self.objects.airboundaries = update_airboundary_constructions(
-            self.idf, airboundary_edges, self.objects.zones
+            self.idf, airboundary_edges, self.objects.zones, self.objects.surfaces
         )
         # TODO the airboundaries should be part of the subsurface inputs.. -> detail or airboundary description ..
 
@@ -109,7 +109,6 @@ class EZ:
         results_path = self.output_path / ep_paths.results_path
 
         write_run_period_and_location(self.idf, self.analysis_period, self.epw_path)
-        print("hi")
 
         self.idf.save(idf_path)
 

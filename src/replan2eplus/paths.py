@@ -154,3 +154,5 @@ class DynamicPaths:
     ORTHO_CASE_RESULTS = results_for_tests / "ortho"
     CAMPAIGN_TESTS = results_for_tests / "campaigns"
     subsurface_examples = results_for_tests / "subsurface_examples"
+    afn_examples = results_for_tests / "afn_examples"
+    airboundary_examples = results_for_tests / "airboundary_examples"

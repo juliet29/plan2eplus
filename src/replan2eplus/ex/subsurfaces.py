@@ -69,7 +69,7 @@ class EdgeGroups:
 class SubsurfaceEdgeGroups:
     interior = EdgeGroups.door
     simple = EdgeGroups.door + EdgeGroups.window
-    airboundary = EdgeGroups.door + EdgeGroups.ns_windows
+    airboundary =  EdgeGroups.ns_windows
     three_details = EdgeGroups.door + EdgeGroups.window_bl + EdgeGroups.ns_windows
 
 

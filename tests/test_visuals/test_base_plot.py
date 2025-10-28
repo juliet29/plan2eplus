@@ -1,4 +1,4 @@
-from replan2eplus.ex.afn import EdgeGroups as AFNEdgeGroups
+from replan2eplus.ex.afn import AFNEdgeGroups as AFNEdgeGroups
 
 # from replan2eplus.examples.ortho_domain import (
 #     create_ortho_case,

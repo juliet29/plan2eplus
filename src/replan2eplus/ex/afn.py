@@ -11,7 +11,8 @@ r1 = Rooms.r1.name
 r2 = Rooms.r2.name
 N, E, S, W = "north east south west".upper().split()
 
-class EdgeGroups:
+
+class AFNEdgeGroups:
     A_ns = [
         EdgeGroup.from_tuple_edges(
             [
@@ -72,12 +73,13 @@ class AFNCaseDefinition:
     def case_with_subsurfaces(self):
         base_case = EZ().add_zones(Rooms().two_room_list)
         return base_case.add_subsurfaces(SubsurfaceInputs(self.edge_groups, details))
-    
-A_ns = AFNCaseDefinition("A_ns", EdgeGroups.A_ns, 2, 4, 4, 2, 4)
-A_ew = AFNCaseDefinition("A_ew", EdgeGroups.A_ew, 2, 4, 4, 2, 4)
-B_ne = AFNCaseDefinition("B_ne", EdgeGroups.B_ne, 1, 2, 2, 1, 2)
-C_n = AFNCaseDefinition("C_n", EdgeGroups.C_n, 1, 2, 1, 0, 0)
-D = AFNCaseDefinition("D", EdgeGroups.D, 0, 0, 0, 0, 0)
+
+
+A_ns = AFNCaseDefinition("A_ns", AFNEdgeGroups.A_ns, 2, 4, 4, 2, 4)
+A_ew = AFNCaseDefinition("A_ew", AFNEdgeGroups.A_ew, 2, 4, 4, 2, 4)
+B_ne = AFNCaseDefinition("B_ne", AFNEdgeGroups.B_ne, 1, 2, 2, 1, 2)
+C_n = AFNCaseDefinition("C_n", AFNEdgeGroups.C_n, 1, 2, 1, 0, 0)
+D = AFNCaseDefinition("D", AFNEdgeGroups.D, 0, 0, 0, 0, 0)
 
 
 class AFNExampleCases:

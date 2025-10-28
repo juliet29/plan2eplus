@@ -1,17 +1,21 @@
 import pytest
 from replan2eplus.errors import IDFMisunderstandingError
-from replan2eplus.ex.subsurfaces import e0, zone_edge
+from replan2eplus.ex.subsurfaces import SubsurfaceInputOutputExamples, e0, zone_edge
+from replan2eplus.ezcase.ez import EZ, ep_paths
 from replan2eplus.ops.airboundary.create import update_airboundary_constructions
 from replan2eplus.ops.subsurfaces.logic.interior import (
     create_subsurface_for_interior_edge,
 )
 from replan2eplus.ex.subsurfaces import door_details
 from replan2eplus.ex.main import Cases
+from replan2eplus.paths import DynamicPaths
 
 
 def test_add_airboundary():
     case = Cases().two_room
-    airboundaries = update_airboundary_constructions(case.idf, [e0], case.objects.zones)
+    airboundaries = update_airboundary_constructions(
+        case.idf, [e0], case.objects.zones, case.objects.surfaces
+    )
     assert len(airboundaries) == 2
     for boundary in airboundaries:
         assert "Airboundary" in boundary.surface.construction_name
@@ -26,11 +30,21 @@ def test_add_airboundary():
 
 def test_cant_add_subsurfacae_on_airboundary():
     case = Cases().two_room
-    update_airboundary_constructions(case.idf, [e0], case.objects.zones)
+    update_airboundary_constructions(
+        case.idf, [e0], case.objects.zones, case.objects.surfaces
+    )
     with pytest.raises(IDFMisunderstandingError):
         create_subsurface_for_interior_edge(
             zone_edge, door_details, case.objects.zones, case.objects.surfaces, case.idf
         )
 
+
+def test_read_airboundary_from_existing_case():
+    example = SubsurfaceInputOutputExamples.airboundary
+    output_path = DynamicPaths.airboundary_examples / example.info.name
+    case = EZ(idf_path=output_path / ep_paths.idf_name)
+    assert len(case.objects.airboundaries) == 1*2
+
+
 if __name__ == "__main__":
-    test_add_airboundary()
+    test_read_airboundary_from_existing_case()

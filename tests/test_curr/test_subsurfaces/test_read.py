@@ -6,14 +6,7 @@ from replan2eplus.ex.subsurfaces import (
     SubsurfaceInputOutput,
     SubsurfaceInputOutputExamples,
 )
-from replan2eplus.ex.make import make_test_case
 from rich import print
-
-
-def write_subsurface_cases_to_file(example: SubsurfaceInputOutput):
-    output_path = DynamicPaths.subsurface_examples / example.info.name
-    case = make_test_case(example.edge_groups, output_path=output_path)
-    case.save_and_run(run=False)
 
 
 def prep_test_read_subsurfaces(example: SubsurfaceInputOutput):
