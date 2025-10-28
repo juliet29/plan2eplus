@@ -1,5 +1,6 @@
 from replan2eplus.idfobjects.base import IDFObject
 from dataclasses import dataclass
+from geomeppy import IDF
 
 
 @dataclass

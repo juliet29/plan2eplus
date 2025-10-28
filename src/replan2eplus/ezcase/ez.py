@@ -1,10 +1,10 @@
 from dataclasses import dataclass
 from pathlib import Path
 
+from replan2eplus.ops.run_settings.defaults import default_analysis_period
 from replan2eplus.ops.run_settings.user_interfaces import (
     AnalysisPeriod,
     write_run_period_and_location,
-    default_analysis_period,
 )
 from replan2eplus.paths import ep_paths
 from replan2eplus.ezcase.objects import read_existing_objects
@@ -34,11 +34,12 @@ class EZ:
     output_path: Path | None = None
     epw_path: Path | None = None
     analysis_period: AnalysisPeriod | None = None
+    read_existing: bool = True
 
     def __post_init__(self):
         initialize_idd()
         self.idf = open_idf(self.idf_path)
-        self.objects = read_existing_objects(self.idf)
+        self.objects = read_existing_objects(self.idf, self.read_existing)
 
     def add_zones(self, rooms: list[Room]):
         self.objects.zones, self.objects.surfaces = create_zones(self.idf, rooms)

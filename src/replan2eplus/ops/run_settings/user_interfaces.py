@@ -31,15 +31,11 @@ class EPW:
         return IDFLocation(loc.city, loc.latitude, loc.time_zone, loc.elevation)
 
 
-# TODO move these to other places!
-default_analysis_period = AnalysisPeriod("July_1", 7, 7, 1, 1)
-
-
 def write_run_period_and_location(
     idf: IDF, analysis_period: AnalysisPeriod, epw_path: Path
 ):
     ap_object = analysis_period.create_idf_object()
-    ap_object.write(idf)
+    ap_object.overwrite(idf)
 
     location_object = EPW(epw_path).create_idf_object()
-    location_object.write(idf)
+    location_object.overwrite(idf)

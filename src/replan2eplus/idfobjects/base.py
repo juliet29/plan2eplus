@@ -92,6 +92,13 @@ class IDFObject:
 
     def create_ezobject(self, *args, **kwargs) -> Any: ...
 
+    def overwrite(self, idf: IDF):
+        existing_idf_objects = idf.idfobjects[self.key]
+        for o in existing_idf_objects:
+            idf.removeidfobject(o)
+
+        self.write(idf)
+
 
 # TODO -> delete dont think this is being used anywher
 def add_new_objects(idf: IDF, objects: list[IDFObject]):

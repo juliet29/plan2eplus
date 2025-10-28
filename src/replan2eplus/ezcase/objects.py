@@ -30,13 +30,15 @@ class EzObjects:
     # self.airflownetwork = AirflowNetwork([], [], [])
 
 
-def read_existing_objects(idf: IDF):
-    zones, surfaces = create_zones(idf)
-    subsurfaces = create_subsurfaces(
-        None, surfaces, zones, idf
-    )  # TODO correct arguments so that idf comes first
-    airboundaries = update_airboundary_constructions(idf, [], zones, surfaces)
-    afn = create_afn_objects(
-        idf, zones, subsurfaces, airboundaries
-    )  # TODO read existing in ..
-    return EzObjects(zones, surfaces, subsurfaces, airboundaries, afn)
+def read_existing_objects(idf: IDF, read_existing=True):
+    if read_existing:
+        zones, surfaces = create_zones(idf)
+        subsurfaces = create_subsurfaces(
+            None, surfaces, zones, idf
+        )  # TODO correct arguments so that idf comes first
+        airboundaries = update_airboundary_constructions(idf, [], zones, surfaces)
+        afn = create_afn_objects(
+            idf, zones, subsurfaces, airboundaries
+        )  # TODO read existing in ..
+        return EzObjects(zones, surfaces, subsurfaces, airboundaries, afn)
+    return EzObjects([], [], [], [], AirflowNetwork([], []))

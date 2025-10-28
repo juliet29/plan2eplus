@@ -1,9 +1,12 @@
 from rich import print
 import pytest
 
-from replan2eplus.ex.afn import AFNEdgeGroups as AFNEdgeGroups
+from replan2eplus.ex.afn import AFNEdgeGroups as AFNEdgeGroups, AFNExampleCases
 from replan2eplus.ex.make import make_test_case
 from replan2eplus.ex.make import airboundary_edges
+
+from replan2eplus.ezcase.ez import EZ, ep_paths
+from replan2eplus.paths import DynamicPaths
 
 
 @pytest.mark.slow
@@ -26,11 +29,19 @@ def test_case_airboundary_afn():
     assert 1
 
 
+def test_run_case_without_reading():
+    path = DynamicPaths.afn_examples / AFNExampleCases.A_ew.name / ep_paths.idf_name
+    case = EZ(path, read_existing=False)
+    case.save_and_run(DynamicPaths.THROWAWAY_PATH, ep_paths.default_weather, run=True)
+    assert 1
+
+
 # TODO!
 # ortho domains..
 # running from an existing idf -> to run don't need to read an idf really, that is just needed for graphing.. so maybe reading existing objects is a flag that can get turned on or off.. if adding new things, should read ..
 
 
 if __name__ == "__main__":
-    case = make_test_case(AFNEdgeGroups.A_ns, airboundary_edges, afn=True)
-    case.save_and_run(run=True)
+    # case = make_test_case(AFNEdgeGroups.A_ns, airboundary_edges, afn=True)
+    test_run_case_without_reading()
+    # case.save_and_run(run=True)
