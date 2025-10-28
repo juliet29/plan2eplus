@@ -12,7 +12,7 @@ from replan2eplus.geometry.ezobject_domain import (
 )
 
 # from replan2eplus.ops.airboundary.idfobject
-from replan2eplus.ops.airboundary.interfaces import DEFAULAT_AIRBOUNDARY_NAME
+from replan2eplus.ops.airboundary.interfaces import DEFAULT_AIRBOUNDARY_NAME
 from replan2eplus.ops.subsurfaces.interfaces import Edge
 from replan2eplus.ops.surfaces.interfaces import (
     SurfaceCoords,
@@ -103,7 +103,8 @@ class Surface:
 
     @property
     def is_airboundary(self):
-        return self.construction_name == DEFAULAT_AIRBOUNDARY_NAME
+        return self.construction_name == DEFAULT_AIRBOUNDARY_NAME
+        # TODO: when reading in, the name of the construction for the airboundary may be different from the name that has been assigned as the "Default" -> better way to do this? -> do we need construction ezobjects? 
 
     ## :********** Geometry **********
 

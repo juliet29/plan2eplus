@@ -25,7 +25,7 @@ def test_add_airboundary():
     # ab = airboundaries[0]
 
 
-# TODO -> test update construction set after airboudnaries are added..
+# TODO -> test update construction set after airboudnaries are added.. -> make sure that they dont get overwritten.. 
 
 
 def test_cant_add_subsurfacae_on_airboundary():

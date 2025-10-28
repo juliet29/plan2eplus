@@ -1,4 +1,6 @@
 from replan2eplus.ex.afn import AFNExampleCases, AFNCaseDefinition
+from replan2eplus.ezcase.ez import EZ, ep_paths
+from replan2eplus.paths import DynamicPaths
 
 # from replan2eplus.ezcase.ez import EZ
 from replan2eplus.ex.main import Interfaces
@@ -70,12 +72,24 @@ def test_adding_afn_objects():
     case = case_.case_with_subsurfaces
     _ = create_afn_objects(case.idf, case.objects.zones, case.objects.subsurfaces, [])
     print(case.idf.idfobjects["AIRFLOWNETWORK:MULTIZONE:SURFACE"])
-    # TOOD -> do more ioobjects need this? 
+    # TOOD -> do more ioobjects need this?
     surfs = IDFAFNSurface.read_and_filter(case.idf)
     assert len(surfs) == case_.n_surfs_in_afn
 
     zones = IDFAFNZone.read_and_filter(case.idf)
     assert len(zones) == case_.n_zones_in_afn
+
+
+def test_reading_existing_afn():
+    # NOTE: the afn should be the same given the same input of zones, subsurfaces, and airboundaries..
+
+    case_ = AFNExampleCases().B_ne
+    output_path = DynamicPaths.afn_examples / case_.name
+    case = EZ(idf_path=output_path / ep_paths.idf_name)
+
+    assert len(case.objects.airflow_network.afn_surfaces) == case_.n_surfs_in_afn
+
+    assert len(case.objects.airflow_network.zones) == case_.n_zones_in_afn
 
 
 def reg_test():
@@ -93,4 +107,4 @@ def reg_test():
 
 
 if __name__ == "__main__":
-    test_adding_afn_objects()
+    test_reading_existing_afn()

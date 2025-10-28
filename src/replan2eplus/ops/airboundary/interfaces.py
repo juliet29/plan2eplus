@@ -1,1 +1,1 @@
-DEFAULAT_AIRBOUNDARY_NAME = "Default Airboundary"
+DEFAULT_AIRBOUNDARY_NAME = "Default Airboundary"

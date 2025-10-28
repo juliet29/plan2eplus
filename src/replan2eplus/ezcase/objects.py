@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 from geomeppy import IDF
 
+from replan2eplus.ops.afn.create import create_afn_objects
 from replan2eplus.ops.afn.ezobject import AirflowNetwork
 from replan2eplus.ops.airboundary.create import update_airboundary_constructions
 from replan2eplus.ops.airboundary.ezobject import Airboundary
@@ -35,5 +36,7 @@ def read_existing_objects(idf: IDF):
         None, surfaces, zones, idf
     )  # TODO correct arguments so that idf comes first
     airboundaries = update_airboundary_constructions(idf, [], zones, surfaces)
-    afn = AirflowNetwork([], [])  # TODO read existing in ..
+    afn = create_afn_objects(
+        idf, zones, subsurfaces, airboundaries
+    )  # TODO read existing in ..
     return EzObjects(zones, surfaces, subsurfaces, airboundaries, afn)
