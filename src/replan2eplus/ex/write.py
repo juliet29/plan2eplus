@@ -19,7 +19,7 @@ def write_afn_cases_to_file():
     for example in examples:
         output_path = DynamicPaths.afn_examples / example.name
         case = make_test_case(example.edge_groups, output_path=output_path)
-        case.save_and_run(run=False)
+        case.save_and_run(run=True)
 
 
 def write_airboundary_case_to_file():

@@ -1,0 +1,795 @@
+Window,
+       \memo Allows for simplified entry of Windows.
+  A1 , \field Name
+       \required-field
+       \type alpha
+       \reference SubSurfNames
+       \reference GlazedExtSubSurfNames
+       \reference SurfAndSubSurfNames
+       \reference AllHeatTranSurfNames
+       \reference OutFaceEnvNames
+       \reference AllHeatTranAngFacNames
+       \reference AllShadingAndHTSurfNames
+  A2 , \field Construction Name
+       \required-field
+       \note To be matched with a construction in this input file
+       \type object-list
+       \object-list ConstructionNames
+  A3 , \field Building Surface Name
+       \note Name of Surface (Wall, usually) the Window is on (i.e., Base Surface)
+       \note Window assumes the azimuth and tilt angles of the surface it is on.
+       \required-field
+       \type object-list
+       \object-list SurfaceNames
+  A4, \field Frame and Divider Name
+       \note Enter the name of a WindowProperty:FrameAndDivider object
+       \type object-list
+       \object-list WindowFrameAndDividerNames
+       \note Used only for exterior windows (rectangular) and glass doors.
+       \note Unused for triangular windows.
+       \note If not specified (blank), window or glass door has no frame or divider
+       \note and no beam solar reflection from reveal surfaces.
+  N1 , \field Multiplier
+       \note Used only for Surface Type = WINDOW, GLASSDOOR or DOOR
+       \note Non-integer values will be truncated to integer
+       \default 1.0
+       \minimum 1.0
+  N2,  \field Starting X Coordinate
+       \note Window starting coordinate is specified relative to the Base Surface origin.
+       \units m
+  N3,  \field Starting Z Coordinate
+       \note How far up the wall the Window starts. (in 2-d, this would be a Y Coordinate)
+       \units m
+  N4,  \field Length
+       \units m
+  N5;  \field Height
+       \units m
+
+Door,
+       \memo Allows for simplified entry of opaque Doors.
+  A1 , \field Name
+       \required-field
+       \type alpha
+       \reference SubSurfNames
+       \reference SurfAndSubSurfNames
+       \reference AllHeatTranSurfNames
+       \reference OutFaceEnvNames
+       \reference AllHeatTranAngFacNames
+       \reference RadiantSurfaceNames
+       \reference AllShadingAndHTSurfNames
+  A2 , \field Construction Name
+       \required-field
+       \note To be matched with a construction in this input file
+       \type object-list
+       \object-list ConstructionNames
+  A3 , \field Building Surface Name
+       \note Name of Surface (Wall, usually) the Door is on (i.e., Base Surface)
+       \note Door assumes the azimuth and tilt angles of the surface it is on.
+       \required-field
+       \type object-list
+       \object-list SurfaceNames
+  N1 , \field Multiplier
+       \note Used only for Surface Type = WINDOW, GLASSDOOR or DOOR
+       \note Non-integer values will be truncated to integer
+       \default 1.0
+       \minimum 1.0
+  N2,  \field Starting X Coordinate
+       \note Door starting coordinate is specified relative to the Base Surface origin.
+       \units m
+  N3,  \field Starting Z Coordinate
+       \note How far up the wall the Door starts. (in 2-d, this would be a Y Coordinate)
+       \units m
+  N4,  \field Length
+       \units m
+  N5;  \field Height
+       \units m
+
+GlazedDoor,
+       \memo Allows for simplified entry of glass Doors.
+  A1 , \field Name
+       \required-field
+       \type alpha
+       \reference SubSurfNames
+       \reference GlazedExtSubSurfNames
+       \reference SurfAndSubSurfNames
+       \reference AllHeatTranSurfNames
+       \reference OutFaceEnvNames
+       \reference AllHeatTranAngFacNames
+       \reference AllShadingAndHTSurfNames
+  A2 , \field Construction Name
+       \required-field
+       \note To be matched with a construction in this input file
+       \type object-list
+       \object-list ConstructionNames
+  A3 , \field Building Surface Name
+       \note Name of Surface (Wall, usually) the Door is on (i.e., Base Surface)
+       \note Door assumes the azimuth and tilt angles of the surface it is on.
+       \required-field
+       \type object-list
+       \object-list SurfaceNames
+  A4, \field Frame and Divider Name
+       \note Enter the name of a WindowProperty:FrameAndDivider object
+       \type object-list
+       \object-list WindowFrameAndDividerNames
+       \note Used only for exterior windows (rectangular) and glass doors.
+       \note Unused for triangular windows.
+       \note If not specified (blank), window or glass door has no frame or divider
+       \note and no beam solar reflection from reveal surfaces.
+  N1 , \field Multiplier
+       \note Used only for Surface Type = WINDOW, GLASSDOOR or DOOR
+       \note Non-integer values will be truncated to integer
+       \default 1.0
+       \minimum 1.0
+  N2,  \field Starting X Coordinate
+       \note Door starting coordinate is specified relative to the Base Surface origin.
+       \units m
+  N3,  \field Starting Z Coordinate
+       \note How far up the wall the Door starts. (in 2-d, this would be a Y Coordinate)
+       \units m
+  N4,  \field Length
+       \units m
+  N5;  \field Height
+       \units m
+
+Window:Interzone,
+       \memo Allows for simplified entry of interzone windows (adjacent to
+       \memo other zones).
+  A1 , \field Name
+       \required-field
+       \type alpha
+       \reference SubSurfNames
+       \reference SurfAndSubSurfNames
+       \reference AllHeatTranSurfNames
+       \reference OutFaceEnvNames
+       \reference AllHeatTranAngFacNames
+       \reference AllShadingAndHTSurfNames
+  A2 , \field Construction Name
+       \required-field
+       \note To be matched with a construction in this input file
+       \type object-list
+       \object-list ConstructionNames
+  A3 , \field Building Surface Name
+       \note Name of Surface (Wall, usually) the Window is on (i.e., Base Surface)
+       \note Window assumes the azimuth and tilt angles of the surface it is on.
+       \required-field
+       \type object-list
+       \object-list SurfaceNames
+  A4,  \field Outside Boundary Condition Object
+       \type object-list
+       \object-list OutFaceEnvNames
+       \note Specify a surface name in an adjacent zone for known interior windows.
+       \note Specify a zone name of an adjacent zone to automatically generate
+       \note the interior window in the adjacent zone.
+       \note a blank field will set up a Window in an adjacent zone
+       \note (same zone as adjacent to base surface)
+  N1 , \field Multiplier
+       \note Used only for Surface Type = WINDOW, GLASSDOOR or DOOR
+       \note Non-integer values will be truncated to integer
+       \default 1.0
+       \minimum 1.0
+  N2,  \field Starting X Coordinate
+       \note Window starting coordinate is specified relative to the Base Surface origin.
+       \units m
+  N3,  \field Starting Z Coordinate
+       \note How far up the wall the Window starts. (in 2-d, this would be a Y Coordinate)
+       \units m
+  N4,  \field Length
+       \units m
+  N5;  \field Height
+       \units m
+
+Door:Interzone,
+       \memo Allows for simplified entry of interzone (opaque interior) doors (adjacent to
+       \memo other zones).
+  A1 , \field Name
+       \required-field
+       \type alpha
+       \reference SubSurfNames
+       \reference SurfAndSubSurfNames
+       \reference AllHeatTranSurfNames
+       \reference OutFaceEnvNames
+--
+       \memo doors (ref: FenestrationSurface:Detailed, Window, and GlazedDoor).
+       \extensible:1
+  A1 , \field Name
+       \required-field
+       \type alpha
+       \reference WindowShadeControlNames
+       \note Referenced by surfaces that are exterior windows
+       \note Not used by interzone windows
+  A2 , \field Zone Name
+       \required-field
+       \type object-list
+       \object-list ZoneNames
+  N1 , \field Shading Control Sequence Number
+       \type integer
+       \minimum 1
+       \default 1
+       \note If multiple WindowShadingControl objects are used than the order that they deploy the window shades
+       \note can be set with this field. The first WindowShadingControl should be 1 and subsequent
+       \note WindowShadingControl should 2 or 3 or higher. This is usually used when the Multiple Surface Control Type
+       \note field is set to Group and groups of windows are being controlled in a certain order.
+  A3 , \field Shading Type
+       \required-field
+       \type choice
+       \key InteriorShade
+       \key ExteriorShade
+       \key ExteriorScreen
+       \key InteriorBlind
+       \key ExteriorBlind
+       \key BetweenGlassShade
+       \key BetweenGlassBlind
+       \key SwitchableGlazing
+  A4 , \field Construction with Shading Name
+       \type object-list
+       \object-list ConstructionNames
+       \note Required if Shading Type = SwitchableGlazing
+       \note Required if Shading Type = interior or exterior shade or blind, or exterior screen, and
+       \note "Shading Device Material Name" is not specified.
+       \note If both "Construction with Shading Name" and "Shading Device Material Name" are entered,
+       \note the former takes precedence.
+  A5 , \field Shading Control Type
+       \required-field
+       \type choice
+       \key AlwaysOn
+       \key AlwaysOff
+       \key OnIfScheduleAllows
+       \note OnIfScheduleAllows requires that Schedule Name be specified and
+       \note Shading Control Is Scheduled = Yes.
+       \note AlwaysOn, AlwaysOff and OnIfScheduleAllows are the only valid control types for ExteriorScreen.
+       \note The following six control types are used primarily to reduce
+       \note zone cooling load due to window solar gain
+       \key OnIfHighSolarOnWindow
+       \key OnIfHighHorizontalSolar
+       \key OnIfHighOutdoorAirTemperature
+       \key OnIfHighZoneAirTemperature
+       \key OnIfHighZoneCooling
+       \key OnIfHighGlare
+       \note Following entry should be used only if Shading Type = SwitchableGlazing
+       \note and window is in a daylit zone
+       \key MeetDaylightIlluminanceSetpoint
+       \note The following three control types are used to reduce zone Heating load. They can be
+       \note used with any Shading Type but are most appropriate for opaque interior or exterior
+       \note shades with high insulating value ("opaque movable insulation")
+       \key OnNightIfLowOutdoorTempAndOffDay
+       \key OnNightIfLowInsideTempAndOffDay
+       \key OnNightIfHeatingAndOffDay
+       \note The following two control types are used to reduce zone heating and cooling load.
+       \note They can be used with any Shading Type but are most appropriate for translucent interior
+       \note or exterior shades with high insulating value ("translucent movable insulation")
+       \key OnNightIfLowOutdoorTempAndOnDayIfCooling
+       \key OnNightIfHeatingAndOnDayIfCooling
+       \note The following two control types are used to reduce zone Cooling load.
+       \note They can be used with any Shading Type but are most appropriate for interior
+       \note or exterior blinds,interior or exterior shades with low insulating value, or
+       \note switchable glazing
+       \key OffNightAndOnDayIfCoolingAndHighSolarOnWindow
+       \key OnNightAndOnDayIfCoolingAndHighSolarOnWindow
+       \note The following four control types require that both Setpoint and Setpoint2 be specified
+       \note Setpoint will correspond to outdoor air temp or zone air temp (deg C)
+       \note Setpoint2 will correspond to solar on window or horizontal solar (W/m2)
+       \key OnIfHighOutdoorAirTempAndHighSolarOnWindow
+       \key OnIfHighOutdoorAirTempAndHighHorizontalSolar
+       \key OnIfHighZoneAirTempAndHighSolarOnWindow
+       \key OnIfHighZoneAirTempAndHighHorizontalSolar
+       \note The following three control types require that both Setpoint and Setpoint2 be specified
+       \note Setpoint corresponds to solar radiation incident (W/m2)
+       \note Setpoint2 corresponds to luminance (cd/m2)
+       \note They can only be used in zones with daylighting controls.
+       \note They are applicable to any Shading Type except ExteriorScreen.
+       \key OnIfHighSolarOrHighLuminanceTillMidnight
+       \key OnIfHighSolarOrHighLuminanceTillSunset
+       \key OnIfHighSolarOrHighLuminanceTillNextMorning
+  A6 , \field Schedule Name
+       \type object-list
+       \object-list ScheduleNames
+       \note Required if Shading Control Is Scheduled = Yes.
+       \note If schedule value = 1, shading control is active, i.e., shading can take place only
+       \note if the control test passes. If schedule value = 0, shading is off whether or not
+       \note the control test passes. Schedule Name is required if Shading Control Is Scheduled = Yes.
+       \note If Schedule Name is not specified, shading control is assumed to be active at all times.
+  N2 , \field Setpoint
+       \units W/m2, W or deg C
+       \note W/m2 for solar-based controls, W for cooling- or heating-based controls,
+       \note deg C for temperature-based controls.
+       \note Unused for Shading Control Type = AlwaysOn, AlwaysOff, OnIfScheduleAllows,
+       \note OnIfHighGlare, Glare, and DaylightIlluminance
+       \type real
+  A7 , \field Shading Control Is Scheduled
+       \type choice
+       \key No
+       \key Yes
+       \default No
+       \note If Yes, Schedule Name is required; if No, Schedule Name is not used.
+       \note Shading Control Is Scheduled = Yes is required if Shading Control Type = OnIfScheduleAllows.
+  A8 , \field Glare Control Is Active
+       \type choice
+       \key No
+       \key Yes
+       \default No
+       \note If Yes and window is in a daylit zone, shading is on if zone's discomfort glare index exceeds
+       \note the maximum discomfort glare index specified in the Daylighting object referenced by the zone.
+       \note The glare test is OR'ed with the test specified by Shading Control Type.
+       \note Glare Control Is Active = Yes is required if Shading Control Type = OnIfHighGlare.
+  A9 , \field Shading Device Material Name
+       \type object-list
+       \object-list WindowShadesScreensAndBlinds
+       \note Enter the name of a WindowMaterial:Shade, WindowMaterial:Screen or WindowMaterial:Blind object.
+       \note Required if "Construction with Shading Name" is not specified.
+       \note Not used if Shading Control Type = SwitchableGlazing, BetweenGlassShade, or BetweenGlassBlind.
+       \note If both "Construction with Shading Name" and "Shading Device Material Name" are entered,
+       \note the former takes precedence.
+  A10, \field Type of Slat Angle Control for Blinds
+       \type choice
+       \key FixedSlatAngle
+       \key ScheduledSlatAngle
+       \key BlockBeamSolar
+       \default FixedSlatAngle
+       \note Used only if Shading Type = InteriorBlind, ExteriorBlind or BetweenGlassBlind.
+       \note If choice is ScheduledSlatAngle then Slat Angle Schedule Name is required.
+  A11, \field Slat Angle Schedule Name
+       \type object-list
+       \object-list ScheduleNames
+       \note Used only if Shading Type = InteriorBlind, ExteriorBlind or BetweenGlassBlind.
+       \note Required if Type of Slat Angle Control for Blinds = ScheduledSlatAngle
+       \note Schedule values should be degrees (0 minimum, 180 maximum)
+  N3 , \field Setpoint 2
+       \units W/m2, deg C or cd/m2
+       \note W/m2 for solar-based controls, deg C for temperature-based controls,
+       \note cd/m2 for luminance based controls.
+       \note Used only as the second setpoint for the following two-setpoint control types:
+       \note OnIfHighOutdoorAirTempAndHighSolarOnWindow, OnIfHighOutdoorAirTempAndHighHorizontalSolar,
+       \note OnIfHighZoneAirTempAndHighSolarOnWindow, OnIfHighZoneAirTempAndHighHorizontalSolar,
+       \note OnIfHighSolarOrHighLuminanceTillMidnight, OnIfHighSolarOrHighLuminanceTillSunset,
+       \note and OnIfHighSolarOrHighLuminanceTillNextMorning.
+       \type real
+       \ip-units unknown
+  A12, \field Daylighting Control Object Name
+       \type object-list
+       \object-list DaylightingControlNames
+       \note Reference to the Daylighting:Controls object that provides the glare and illuminance control to the zone.
+  A13, \field Multiple Surface Control Type
+       \type choice
+       \key Sequential
+       \key Group
+       \default Sequential
+       \note When Sequential is used the list of fenestration surfaces are controlled individually in the order specified
+       \note When Group is used the entire list is controlled simultaneously and if glare control is needed the entire
+       \note group of window shades are deployed together a the same time
+  A14, \field Fenestration Surface 1 Name
+       \required-field
+       \begin-extensible
+       \type object-list
+       \object-list GlazedExtSubSurfNames
+       \note When Multiple Surface Control Type is set to Sequential the shades will be deployed for the referenced surface objects in order.
+       \note When that field is set to Group the entire list is controlled simultaneously.
+  A15, \field Fenestration Surface 2 Name
+       \type object-list
+       \object-list GlazedExtSubSurfNames
+       \note When Multiple Surface Control Type is set to Sequential the shades will be deployed for the referenced surface objects in order.
+       \note When that field is set to Group the entire list is controlled simultaneously.
+  A16, \field Fenestration Surface 3 Name
+       \type object-list
+       \object-list GlazedExtSubSurfNames
+       \note When Multiple Surface Control Type is set to Sequential the shades will be deployed for the referenced surface objects in order.
+       \note When that field is set to Group the entire list is controlled simultaneously.
+  A17, \field Fenestration Surface 4 Name
+       \type object-list
+       \object-list GlazedExtSubSurfNames
+       \note When Multiple Surface Control Type is set to Sequential the shades will be deployed for the referenced surface objects in order.
+       \note When that field is set to Group the entire list is controlled simultaneously.
+  A18, \field Fenestration Surface 5 Name
+       \type object-list
+       \object-list GlazedExtSubSurfNames
+       \note When Multiple Surface Control Type is set to Sequential the shades will be deployed for the referenced surface objects in order.
+       \note When that field is set to Group the entire list is controlled simultaneously.
+  A19, \field Fenestration Surface 6 Name
+       \type object-list
+       \object-list GlazedExtSubSurfNames
+       \note When Multiple Surface Control Type is set to Sequential the shades will be deployed for the referenced surface objects in order.
+       \note When that field is set to Group the entire list is controlled simultaneously.
+  A20, \field Fenestration Surface 7 Name
+       \type object-list
+       \object-list GlazedExtSubSurfNames
+       \note When Multiple Surface Control Type is set to Sequential the shades will be deployed for the referenced surface objects in order.
+       \note When that field is set to Group the entire list is controlled simultaneously.
+  A21, \field Fenestration Surface 8 Name
+       \type object-list
+       \object-list GlazedExtSubSurfNames
+       \note When Multiple Surface Control Type is set to Sequential the shades will be deployed for the referenced surface objects in order.
+       \note When that field is set to Group the entire list is controlled simultaneously.
+  A22, \field Fenestration Surface 9 Name
+       \type object-list
+       \object-list GlazedExtSubSurfNames
+       \note When Multiple Surface Control Type is set to Sequential the shades will be deployed for the referenced surface objects in order.
+       \note When that field is set to Group the entire list is controlled simultaneously.
+  A23; \field Fenestration Surface 10 Name
+       \type object-list
+       \object-list GlazedExtSubSurfNames
+       \note When Multiple Surface Control Type is set to Sequential the shades will be deployed for the referenced surface objects in order.
+       \note When that field is set to Group the entire list is controlled simultaneously.
+
+WindowProperty:FrameAndDivider,
+         \memo Specifies the dimensions of a window frame, dividers, and inside reveal surfaces.
+         \memo Referenced by the surface objects for exterior windows and glass doors
+         \memo (ref: FenestrationSurface:Detailed, Window, and GlazedDoor).
+      \min-fields 26
+    A1 , \field Name
+         \required-field
+         \type alpha
+         \reference WindowFrameAndDividerNames
+         \note Referenced by surfaces that are exterior windows
+         \note Not used by interzone windows
+    N1 , \field Frame Width
+         \units m
+         \type real
+         \minimum 0.0
+         \maximum 1.0
+         \default 0.0
+         \note Width of frame in plane of window
+         \note Frame width assumed the same on all sides of window
+    N2 , \field Frame Outside Projection
+         \units m
+         \type real
+         \minimum 0.0
+         \maximum 0.5
+         \default 0.0
+         \note Amount that frame projects outward from the outside face of the glazing
+    N3 , \field Frame Inside Projection
+         \units m
+         \type real
+         \minimum 0.0
+         \maximum 0.5
+         \default 0.0
+         \note Amount that frame projects inward from the inside face of the glazing
+    N4 , \field Frame Conductance
+         \units W/m2-K
+         \type real
+         \minimum 0.0
+         \note Effective conductance of frame
+         \note Excludes air films
+         \note Obtained from WINDOW 5 or other 2-D calculation
+    N5 , \field Ratio of Frame-Edge Glass Conductance to Center-Of-Glass Conductance
+         \type real
+         \minimum> 0.0
+         \maximum 4.0
+         \default 1.0
+         \note Excludes air films; applies only to multipane windows
+         \note Obtained from WINDOW 5 or other 2-D calculation
+    N6 , \field Frame Solar Absorptance
+         \type real
+         \minimum 0.0
+         \maximum 1.0
+         \default 0.7
+         \note Assumed same on outside and inside of frame
+    N7 , \field Frame Visible Absorptance
+         \type real
+         \minimum 0.0
+         \maximum 1.0
+         \default 0.7
+         \note Assumed same on outside and inside of frame
+    N8 , \field Frame Thermal Hemispherical Emissivity
+         \type real
+         \minimum> 0.0
+         \default 0.9
+         \note Assumed same on outside and inside of frame
+    A2 , \field Divider Type
+         \type choice
+         \key DividedLite
+         \key Suspended
+         \default DividedLite
+    N9 , \field Divider Width
+         \units m
+         \type real
+         \minimum 0.0
+         \maximum 0.5
+         \default 0.0
+         \note Width of dividers in plane of window
+         \note Width assumed the same for all dividers
+    N10, \field Number of Horizontal Dividers
+         \type real
+         \minimum 0
+         \default 0
+         \note "Horizontal" means parallel to local window X-axis
+    N11, \field Number of Vertical Dividers
+         \type real
+         \minimum 0
+         \default 0
+         \note "Vertical" means parallel to local window Y-axis
+    N12, \field Divider Outside Projection
+         \units m
+         \type real
+         \minimum 0.0
+         \maximum 0.5
+         \default 0.0
+         \note Amount that divider projects outward from the outside face of the glazing
+         \note Outside projection assumed the same for all divider elements
+    N13, \field Divider Inside Projection
+         \units m
+         \type real
+         \minimum 0.0
+         \maximum 0.5
+         \default 0.0
+         \note Amount that divider projects inward from the inside face of the glazing
+         \note Inside projection assumed the same for all divider elements
+    N14, \field Divider Conductance
+         \units W/m2-K
+         \type real
+         \minimum 0.0
+         \default 0.0
+         \note Effective conductance of divider
+         \note Excludes air films
+         \note Obtained from WINDOW 5 or other 2-D calculation
+    N15, \field Ratio of Divider-Edge Glass Conductance to Center-Of-Glass Conductance
+         \type real
+         \minimum> 0.0
+         \maximum 4.0
+         \default 1.0
+         \note Excludes air films
+         \note Obtained from WINDOW 5 or other 2-D calculation
+    N16, \field Divider Solar Absorptance
+         \type real
+         \minimum 0.0
+         \maximum 1.0
+         \default 0.0
+         \note Assumed same on outside and inside of divider
+    N17, \field Divider Visible Absorptance
+         \type real
+         \minimum 0.0
+         \maximum 1.0
+         \default 0.0
+         \note Assumed same on outside and inside of divider
+    N18, \field Divider Thermal Hemispherical Emissivity
+         \type real
+         \minimum> 0.0
+         \maximum< 1.0
+         \default 0.9
+         \note Assumed same on outside and inside of divider
+    N19, \field Outside Reveal Solar Absorptance
+         \type real
+         \minimum 0.0
+         \maximum 1.0
+         \default 0.0
+    N20, \field Inside Sill Depth
+         \units m
+         \type real
+         \minimum 0.0
+         \maximum 2.0
+         \default 0.0
+    N21, \field Inside Sill Solar Absorptance
+         \type real
+         \minimum 0.0
+         \maximum 1.0
+         \default 0.0
+    N22, \field Inside Reveal Depth
+         \note Distance from plane of inside surface of glazing
+         \note to plane of inside surface of wall.
+         \note Outside reveal depth is determined from the geometry
+         \note of the window and the wall it is on; it is non-zero if the plane of
+         \note the outside surface of the glazing is set back from the plane of the
+         \note outside surface of the wall.
+         \units m
+         \minimum 0.0
+         \maximum 2.0
+         \default 0.0
+    N23, \field Inside Reveal Solar Absorptance
+         \type real
+         \minimum 0.0
+         \maximum 1.0
+         \default 0.0
+    A3;  \field NFRC Product Type for Assembly Calculations
+         \type choice
+         \key CasementDouble
+         \key CasementSingle
+         \key DualAction
+         \key Fixed
+         \key Garage
+         \key Greenhouse
+         \key HingedEscape
+         \key HorizontalSlider
+         \key Jal
+         \key Pivoted
+         \key ProjectingSingle
+         \key ProjectingDual
+         \key DoorSidelite
+         \key Skylight
+         \key SlidingPatioDoor
+         \key CurtainWall
+         \key SpandrelPanel
+         \key SideHingedDoor
+         \key DoorTransom
+         \key TropicalAwning
+         \key TubularDaylightingDevice
+         \key VerticalSlider
+         \default CurtainWall
+--
+WindowProperty:StormWindow,
+       \min-fields 7
+       \memo This is a movable exterior glass layer that is usually applied in the winter
+       \memo and removed in the summer.
+  A1,  \field Window Name
+       \note Must be the name of a FenestrationSurface:Detailed object with Surface Type = WINDOW.
+       \note The WindowProperty:StormWindow object can only be used with exterior windows.
+       \required-field
+       \type object-list
+       \object-list SubSurfNames
+  A2,  \field Storm Glass Layer Name
+       \note Must be a WindowMaterial:Glazing or WindowMaterial:Glazing:RefractionExtinctionMethod
+       \note Gap between storm glass layer and adjacent glass layer is assumed to be filled
+       \note with Air
+       \required-field
+       \type object-list
+       \object-list GlazingMaterialName
+  N1,  \field Distance Between Storm Glass Layer and Adjacent Glass
+       \type real
+       \units m
+       \minimum> 0.0
+       \maximum 0.5
+       \default 0.050
+  N2,  \field Month that Storm Glass Layer is Put On
+       \required-field
+       \minimum 1
+       \maximum 12
+       \type integer
+  N3,  \field Day of Month that Storm Glass Layer is Put On
+       \required-field
+       \minimum 1
+       \maximum 31
+       \type integer
+  N4,  \field Month that Storm Glass Layer is Taken Off
+       \required-field
+       \minimum 1
+       \maximum 12
+       \type integer
+  N5;  \field Day of Month that Storm Glass Layer is Taken Off
+       \required-field
+       \minimum 1
+       \maximum 31
+       \type integer
+
+InternalMass,
+       \memo Used to describe internal zone surface area that does not need to be part of geometric
+       \memo representation. This should be the total surface area exposed to the zone air.
+       \memo If you use a ZoneList in the Zone or ZoneList name field then this definition applies
+       \memo to all the zones in the ZoneList. Likewise for SpaceList.
+  A1 , \field Name
+       \required-field
+       \type alpha
+       \reference AllHeatTranSurfNames
+       \reference AllHeatTranAngFacNames
+       \reference RadiantSurfaceNames
+  A2 , \field Construction Name
+       \required-field
+       \note To be matched with a construction in this input file
+       \type object-list
+       \object-list ConstructionNames
+  A3 , \field Zone or ZoneList Name
+       \required-field
+       \type object-list
+       \object-list ZoneAndZoneListNames
+       \note Zone the surface is a part of.
+       \note used to be Interior Environment
+  A4 , \field Space or SpaceList Name
+       \type object-list
+       \object-list SpaceAndSpaceListNames
+       \note Space the surface is a part of (optional, see description of Space object for more details).
+       \note This field is ignored when a ZoneList Name is specified for Zone or ZoneList Name.
+  N1 ; \field Surface Area
+       \required-field
+       \units m2
+       \minimum> 0
+
+Shading:Site,
+       \memo used for shading elements such as trees
+       \memo these items are fixed in space and would not move with relative geometry
+  A1 , \field Name
+       \required-field
+       \type alpha
+       \reference AllShadingAndHTSurfNames
+       \reference AllShadingSurfNames
+  N1,  \field Azimuth Angle
+       \note Facing direction of outside of shading device (S=180,N=0,E=90,W=270)
+       \minimum 0
+       \maximum 360
+       \units deg
+  N2,  \field Tilt Angle
+       \default 90
+       \minimum 0
+       \maximum 180
+       \units deg
+  N3,  \field Starting X Coordinate
+       \note Starting coordinate is the Lower Left Corner of the Shade
+       \units m
+  N4,  \field Starting Y Coordinate
+       \units m
+  N5,  \field Starting Z Coordinate
+       \units m
+  N6,  \field Length
+       \units m
+  N7;  \field Height
+       \units m
+
+Shading:Building,
+       \memo used for shading elements such as trees, other buildings, parts of this building not being modeled
+       \memo these items are relative to the current building and would move with relative geometry
+  A1 , \field Name
+       \required-field
+       \type alpha
+       \reference AllShadingAndHTSurfNames
+       \reference AllShadingSurfNames
+  N1,  \field Azimuth Angle
+       \note Facing direction of outside of shading device (S=180,N=0,E=90,W=270)
+       \minimum 0
+       \maximum 360
+       \units deg
+  N2,  \field Tilt Angle
+       \default 90
+       \minimum 0
+       \maximum 180
+       \units deg
+  N3,  \field Starting X Coordinate
+       \note Starting coordinate is the Lower Left Corner of the Shade
+       \units m
+  N4,  \field Starting Y Coordinate
+       \units m
+  N5,  \field Starting Z Coordinate
+       \units m
+  N6,  \field Length
+       \units m
+  N7;  \field Height
+       \units m
+
+Shading:Site:Detailed,
+  \extensible:3 -- duplicate last set of x,y,z coordinates, renumbering please (and changing z terminator to , for all but last)
+       \memo used for shading elements such as trees
+       \memo these items are fixed in space and would not move with relative geometry
+       \format vertices
+       \min-fields 12
+  A1 , \field Name
+       \required-field
+       \type alpha
+       \reference AllShadingAndHTSurfNames
+       \reference AllShadingSurfNames
+  A2,  \field Transmittance Schedule Name
+       \note Transmittance schedule for the shading device, defaults to zero (always opaque)
+       \type object-list
+       \object-list ScheduleNames
+  N1 , \field Number of Vertices
+       \note shown with 6 vertex coordinates -- extensible object
+       \autocalculatable
+       \default autocalculate
+       \minimum 3
+       \note Rules for vertices are given in GlobalGeometryRules coordinates --
+       \note For this object all surface coordinates are in world coordinates.
+  N2,  \field Vertex 1 X-coordinate
+       \begin-extensible
+       \required-field
+       \units m
+       \type real
+  N3 , \field Vertex 1 Y-coordinate
+       \required-field
+       \units m
+       \type real
+  N4 , \field Vertex 1 Z-coordinate
+       \required-field
+       \units m
+       \type real
+  N5,  \field Vertex 2 X-coordinate
+       \required-field
+       \units m
+       \type real
+  N6,  \field Vertex 2 Y-coordinate
+       \required-field
+       \units m
+       \type real
+  N7, \field Vertex 2 Z-coordinate
+       \required-field
+       \units m
+       \type real
+  N8, \field Vertex 3 X-coordinate
+       \required-field
+       \units m
+       \type real
+  N9,  \field Vertex 3 Y-coordinate
+       \required-field
+       \units m

@@ -1,0 +1,179 @@
+Door:Interzone,
+       \memo Allows for simplified entry of interzone (opaque interior) doors (adjacent to
+       \memo other zones).
+  A1 , \field Name
+       \required-field
+       \type alpha
+       \reference SubSurfNames
+       \reference SurfAndSubSurfNames
+       \reference AllHeatTranSurfNames
+       \reference OutFaceEnvNames
+       \reference AllHeatTranAngFacNames
+       \reference RadiantSurfaceNames
+       \reference AllShadingAndHTSurfNames
+  A2 , \field Construction Name
+       \required-field
+       \note To be matched with a construction in this input file
+       \type object-list
+       \object-list ConstructionNames
+  A3 , \field Building Surface Name
+       \note Name of Surface (Wall, usually) the Door is on (i.e., Base Surface)
+       \note Door assumes the azimuth and tilt angles of the surface it is on.
+       \required-field
+       \type object-list
+       \object-list SurfaceNames
+  A4,  \field Outside Boundary Condition Object
+       \type object-list
+       \object-list OutFaceEnvNames
+       \note Specify a surface name in an adjacent zone for known interior doors.
+       \note Specify a zone name of an adjacent zone to automatically generate
+       \note the interior door in the adjacent zone.
+       \note a blank field will set up a Window in an adjacent zone
+       \note (same zone as adjacent to base surface)
+  N1 , \field Multiplier
+       \note Used only for Surface Type = WINDOW, GLASSDOOR or DOOR
+       \note Non-integer values will be truncated to integer
+       \default 1.0
+       \minimum 1.0
+  N2,  \field Starting X Coordinate
+       \note Door starting coordinate is specified relative to the Base Surface origin.
+       \units m
+  N3,  \field Starting Z Coordinate
+       \note How far up the wall the Door starts. (in 2-d, this would be a Y Coordinate)
+       \units m
+  N4,  \field Length
+       \units m
+  N5;  \field Height
+       \units m
+
+GlazedDoor:Interzone,
+       \memo Allows for simplified entry of interzone (glass interior) doors (adjacent to
+       \memo other zones).
+  A1 , \field Name
+       \required-field
+       \type alpha
+       \reference SubSurfNames
+       \reference SurfAndSubSurfNames
+       \reference AllHeatTranSurfNames
+       \reference OutFaceEnvNames
+       \reference AllHeatTranAngFacNames
+       \reference AllShadingAndHTSurfNames
+  A2 , \field Construction Name
+       \required-field
+       \note To be matched with a construction in this input file
+       \type object-list
+       \object-list ConstructionNames
+  A3 , \field Building Surface Name
+       \note Name of Surface (Wall, usually) the Door is on (i.e., Base Surface)
+       \note Door assumes the azimuth and tilt angles of the surface it is on.
+       \required-field
+       \type object-list
+       \object-list SurfaceNames
+  A4,  \field Outside Boundary Condition Object
+       \type object-list
+       \object-list OutFaceEnvNames
+       \note Specify a surface name in an adjacent zone for known interior doors.
+       \note Specify a zone name of an adjacent zone to automatically generate
+       \note the interior door in the adjacent zone.
+       \note a blank field will set up a Window in an adjacent zone
+       \note (same zone as adjacent to base surface)
+  N1 , \field Multiplier
+       \note Used only for Surface Type = WINDOW, GLASSDOOR or DOOR
+       \note Non-integer values will be truncated to integer
+       \default 1.0
+       \minimum 1.0
+  N2,  \field Starting X Coordinate
+       \note Door starting coordinate is specified relative to the Base Surface origin.
+       \units m
+  N3,  \field Starting Z Coordinate
+       \note How far up the wall the Door starts. (in 2-d, this would be a Y Coordinate)
+       \units m
+  N4,  \field Length
+       \units m
+  N5;  \field Height
+       \units m
+
+WindowShadingControl,
+       \memo Specifies the type, location, and controls for window shades, window blinds, and
+       \memo switchable glazing. Referencing the surface objects for exterior windows and glass
+       \memo doors (ref: FenestrationSurface:Detailed, Window, and GlazedDoor).
+       \extensible:1
+  A1 , \field Name
+       \required-field
+       \type alpha
+       \reference WindowShadeControlNames
+       \note Referenced by surfaces that are exterior windows
+       \note Not used by interzone windows
+  A2 , \field Zone Name
+       \required-field
+       \type object-list
+       \object-list ZoneNames
+  N1 , \field Shading Control Sequence Number
+       \type integer
+       \minimum 1
+       \default 1
+       \note If multiple WindowShadingControl objects are used than the order that they deploy the window shades
+       \note can be set with this field. The first WindowShadingControl should be 1 and subsequent
+       \note WindowShadingControl should 2 or 3 or higher. This is usually used when the Multiple Surface Control Type
+       \note field is set to Group and groups of windows are being controlled in a certain order.
+  A3 , \field Shading Type
+       \required-field
+       \type choice
+       \key InteriorShade
+       \key ExteriorShade
+       \key ExteriorScreen
+       \key InteriorBlind
+       \key ExteriorBlind
+       \key BetweenGlassShade
+       \key BetweenGlassBlind
+       \key SwitchableGlazing
+  A4 , \field Construction with Shading Name
+       \type object-list
+       \object-list ConstructionNames
+       \note Required if Shading Type = SwitchableGlazing
+       \note Required if Shading Type = interior or exterior shade or blind, or exterior screen, and
+       \note "Shading Device Material Name" is not specified.
+       \note If both "Construction with Shading Name" and "Shading Device Material Name" are entered,
+       \note the former takes precedence.
+  A5 , \field Shading Control Type
+       \required-field
+       \type choice
+       \key AlwaysOn
+       \key AlwaysOff
+       \key OnIfScheduleAllows
+       \note OnIfScheduleAllows requires that Schedule Name be specified and
+       \note Shading Control Is Scheduled = Yes.
+       \note AlwaysOn, AlwaysOff and OnIfScheduleAllows are the only valid control types for ExteriorScreen.
+       \note The following six control types are used primarily to reduce
+       \note zone cooling load due to window solar gain
+       \key OnIfHighSolarOnWindow
+       \key OnIfHighHorizontalSolar
+       \key OnIfHighOutdoorAirTemperature
+       \key OnIfHighZoneAirTemperature
+       \key OnIfHighZoneCooling
+       \key OnIfHighGlare
+       \note Following entry should be used only if Shading Type = SwitchableGlazing
+       \note and window is in a daylit zone
+       \key MeetDaylightIlluminanceSetpoint
+       \note The following three control types are used to reduce zone Heating load. They can be
+       \note used with any Shading Type but are most appropriate for opaque interior or exterior
+       \note shades with high insulating value ("opaque movable insulation")
+       \key OnNightIfLowOutdoorTempAndOffDay
+       \key OnNightIfLowInsideTempAndOffDay
+       \key OnNightIfHeatingAndOffDay
+       \note The following two control types are used to reduce zone heating and cooling load.
+       \note They can be used with any Shading Type but are most appropriate for translucent interior
+       \note or exterior shades with high insulating value ("translucent movable insulation")
+       \key OnNightIfLowOutdoorTempAndOnDayIfCooling
+       \key OnNightIfHeatingAndOnDayIfCooling
+       \note The following two control types are used to reduce zone Cooling load.
+       \note They can be used with any Shading Type but are most appropriate for interior
+       \note or exterior blinds,interior or exterior shades with low insulating value, or
+       \note switchable glazing
+       \key OffNightAndOnDayIfCoolingAndHighSolarOnWindow
+       \key OnNightAndOnDayIfCoolingAndHighSolarOnWindow
+       \note The following four control types require that both Setpoint and Setpoint2 be specified
+       \note Setpoint will correspond to outdoor air temp or zone air temp (deg C)
+       \note Setpoint2 will correspond to solar on window or horizontal solar (W/m2)
+       \key OnIfHighOutdoorAirTempAndHighSolarOnWindow
+       \key OnIfHighOutdoorAirTempAndHighHorizontalSolar

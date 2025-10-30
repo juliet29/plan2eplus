@@ -1,0 +1,21 @@
+/Applications/EnergyPlus-22-2-0/Energy+.idd
+Starting to idd
+first arg: Shading:Site
+Shading:Site,
+\field Name
+\type alpha
+\field Azimuth Angle
+\units deg
+\field Tilt Angle
+\default 90
+\units deg
+\field Starting X Coordinate
+\units m
+\field Starting Y Coordinate
+\units m
+\field Starting Z Coordinate
+\units m
+\field Length
+\units m
+\field Height
+\units m

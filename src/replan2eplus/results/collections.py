@@ -7,8 +7,7 @@ import numpy as np
 import xarray as xr
 import datetime
 
-from replan2eplus.idfobjects.idf import AnalysisPeriod
-
+from ladybug.analysisperiod import AnalysisPeriod
 
 SpaceTuple = NamedTuple("SpaceTuple", [("name", str), ("space_type", str)])
 

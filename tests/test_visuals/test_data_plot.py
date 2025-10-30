@@ -7,7 +7,7 @@ from replan2eplus.results.sql import create_result_for_qoi, get_sql_results
 from replan2eplus.visuals.data.data_plot import DataPlot, filter_data_arr
 from pathlib import Path
 
-from replan2eplus.examples.plots.data_plot import plot_zones_and_connections
+from replan2eplus.ex.make import make_data_plot
 
 
 def get_qoi(qoi: OutputVariables, path: Path = TWO_ROOM_RESULTS):
@@ -84,7 +84,7 @@ def test_get_afn_values():
 
 
 if __name__ == "__main__":
-    dp = plot_zones_and_connections(TWO_ROOM_RESULTS)
+    dp = make_data_plot(TWO_ROOM_RESULTS)
     dp.show()
     # get_afn_values()
     pass

@@ -1,0 +1,9 @@
+Shading:Site,Name:str=""
+Azimuth_Angle:float=0.0
+Tilt_Angle\default90
+Starting_X_Coordinate:float=0.0
+Starting_Y_Coordinate:float=0.0
+Starting_Z_Coordinate:float=0.0
+Length:float=0.0
+Height:float=0.0
+
