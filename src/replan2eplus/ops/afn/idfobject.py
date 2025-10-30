@@ -2,7 +2,7 @@ from replan2eplus.idfobjects.base import IDFObject
 from dataclasses import dataclass
 from typing import Literal
 
-
+# TODO => should be in a config?
 DEFAULT_DISCHARGE_COEFF = 1
 DEFAULT_AIR_MASS_FLOW_COEFF = 0.001  # 10E-2  kg/s-m
 DEFAULT_MIN_DENSITY_DIFFERENCE = 0.0001  # 10E^-3 kg/m3
@@ -10,17 +10,38 @@ DEFAULT_MIN_DENSITY_DIFFERENCE = 0.0001  # 10E^-3 kg/m3
 
 @dataclass
 class IDFAFNSimulationControl(IDFObject):
+    """
+    Wind Pressure Coefficient Type ---
+    - SurfaceAverageCalculation: then AFN assumes a rectangular boundary and computes coefficients accordingly
+    - Input: then AFN expects External Nodes, WPC Array, and WPC Values
+
+    Height Selection for Local Wind Pressure Calculation -----
+    - ExternalNode: Height given in ExternalNode object will be used
+    - OpeningHeight: Opening height of the relevant surface will be used
+
+    Building Type ----
+    **Used only if Wind Pressure Coefficient Type == SurfaceAverageCalculation**
+
+    Azimuth_Angle_of_Long_Axis_of_Building ---
+    **Used only if Wind Pressure Coefficient Type == SurfaceAverageCalculation**
+    - Indicates if the building is rotated when the pressure coefficients are calculated
+
+
+    """
+
     Name: str = "Default"
     AirflowNetwork_Control: Literal["MultizoneWithoutDistribution"] = (
-        "MultizoneWithoutDistribution"
+        "MultizoneWithoutDistribution"  # only relevant option for this package..
     )
-    Building_Type: Literal["LowRise", "HighRise"] = "LowRise"
-    Azimuth_Angle_of_Long_Axis_of_Building: float = 0
-    Ratio_of_Building_Width_Along_Short_Axis_to_Width_Along_Long_Axis: float = 1  # 1 => square aspect ratio  # TODO this should be calculated! -> but do experiment to see how much it matters...
-    Wind_Pressure_Coefficient_Type: str = ""
+    Wind_Pressure_Coefficient_Type: Literal["Input", "SurfaceAverageCalculation"] = (
+        "SurfaceAverageCalculation"
+    )
     Height_Selection_for_Local_Wind_Pressure_Calculation: Literal[
         "ExternalNode", "OpeningHeight"
     ] = "OpeningHeight"
+    Building_Type: Literal["LowRise", "HighRise"] = "LowRise"
+    Azimuth_Angle_of_Long_Axis_of_Building: float = 0
+    Ratio_of_Building_Width_Along_Short_Axis_to_Width_Along_Long_Axis: float = 1  # 1 => square aspect ratio  # TODO this should be calculated! -> but do experiment to see how much it matters...
 
     @property
     def key(self):
@@ -207,4 +228,4 @@ class IDFAFNWindPressureCoefficientArray(IDFObject):
 
     @property
     def key(self):
-        return "AIRFLOWNETWORK:MULTIZONE:WINDPRESSURECOEFFICIENTVALUES"
+        return "AIRFLOWNETWORK:MULTIZONE:WINDPRESSURECOEFFICIENTARRAY"
