@@ -1,0 +1,426 @@
+AirflowNetwork:MultiZone:WindPressureCoefficientValues,
+      \min-fields 4
+      \memo Used only if Wind Pressure Coefficient (WPC) Type = INPUT in the AirflowNetwork:SimulationControl
+      \memo object. The number of WPC numeric inputs must correspond to the number of wind direction
+      \memo inputs in the AirflowNetwork:Multizone:WindPressureCoefficientArray object.
+ A1 , \field Name
+      \required-field
+      \type alpha
+      \reference WPCValueNames
+      \note Enter a unique name for this object.
+ A2 , \field AirflowNetwork:MultiZone:WindPressureCoefficientArray Name
+      \required-field
+      \type object-list
+      \object-list WPCSetNames
+      \note Enter the name of the AirflowNetwork:Multizone:WindPressureCoefficientArray object.
+ N1 , \field Wind Pressure Coefficient Value 1
+      \required-field
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 1st wind direction.
+ N2 , \field Wind Pressure Coefficient Value 2
+      \required-field
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 2nd wind direction.
+ N3 , \field Wind Pressure Coefficient Value 3
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 3rd wind direction.
+ N4 , \field Wind Pressure Coefficient Value 4
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 4th wind direction.
+ N5 , \field Wind Pressure Coefficient Value 5
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 5th wind direction.
+ N6 , \field Wind Pressure Coefficient Value 6
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 6th wind direction.
+ N7 , \field Wind Pressure Coefficient Value 7
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 7th wind direction.
+ N8 , \field Wind Pressure Coefficient Value 8
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 8th wind direction.
+ N9 , \field Wind Pressure Coefficient Value 9
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 9th wind direction.
+ N10, \field Wind Pressure Coefficient Value 10
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 10th wind direction.
+ N11, \field Wind Pressure Coefficient Value 11
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 11th wind direction.
+ N12, \field Wind Pressure Coefficient Value 12
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 12th wind direction.
+ N13, \field Wind Pressure Coefficient Value 13
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 13th wind direction.
+ N14, \field Wind Pressure Coefficient Value 14
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 14th wind direction.
+ N15, \field Wind Pressure Coefficient Value 15
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 15th wind direction.
+ N16, \field Wind Pressure Coefficient Value 16
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 16th wind direction.
+ N17, \field Wind Pressure Coefficient Value 17
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 17th wind direction.
+ N18, \field Wind Pressure Coefficient Value 18
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 18th wind direction.
+ N19, \field Wind Pressure Coefficient Value 19
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 19th wind direction.
+ N20, \field Wind Pressure Coefficient Value 20
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 20th wind direction.
+ N21, \field Wind Pressure Coefficient Value 21
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 21st wind direction.
+ N22, \field Wind Pressure Coefficient Value 22
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 22nd wind direction.
+ N23, \field Wind Pressure Coefficient Value 23
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 23rd wind direction.
+ N24, \field Wind Pressure Coefficient Value 24
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 24th wind direction.
+ N25, \field Wind Pressure Coefficient Value 25
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 25th wind direction.
+ N26, \field Wind Pressure Coefficient Value 26
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 26th wind direction.
+ N27, \field Wind Pressure Coefficient Value 27
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 27th wind direction.
+ N28, \field Wind Pressure Coefficient Value 28
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 28th wind direction.
+ N29, \field Wind Pressure Coefficient Value 29
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 29th wind direction.
+ N30, \field Wind Pressure Coefficient Value 30
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 30th wind direction.
+ N31, \field Wind Pressure Coefficient Value 31
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 31st wind direction.
+ N32, \field Wind Pressure Coefficient Value 32
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 32nd wind direction.
+ N33, \field Wind Pressure Coefficient Value 33
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 33rd wind direction.
+ N34, \field Wind Pressure Coefficient Value 34
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 34th wind direction.
+ N35, \field Wind Pressure Coefficient Value 35
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 35th wind direction.
+ N36; \field Wind Pressure Coefficient Value 36
+      \type real
+      \units dimensionless
+      \note Enter the WPC Value corresponding to the 36th wind direction.
+AirflowNetwork:MultiZone:WindPressureCoefficientArray,
+      \min-fields 3
+      \memo Used only if Wind Pressure Coefficient (WPC) Type = Input in the AirflowNetwork:SimulationControl
+      \memo object. Number of WPC Values in the corresponding AirflowNetwork:MultiZone:WindPressureCoefficientValues
+      \memo object must be the same as the number of wind directions specified for
+      \memo this AirflowNetwork:MultiZone:WindPressureCoefficientArray object.
+ A1 , \field Name
+      \required-field
+      \reference WPCSetNames
+      \type alpha
+      \note Enter a unique name for the object.
+ N1 , \field Wind Direction 1
+      \required-field
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 1st WPC Array value.
+ N2 , \field Wind Direction 2
+      \required-field
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 2nd WPC Array value.
+ N3 , \field Wind Direction 3
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 3rd WPC Array value.
+ N4 , \field Wind Direction 4
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 4th WPC Array value.
+ N5 , \field Wind Direction 5
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 5th WPC Array value.
+ N6 , \field Wind Direction 6
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 6th WPC Array value.
+ N7 , \field Wind Direction 7
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 7th WPC Array value.
+ N8 , \field Wind Direction 8
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 8th WPC Array value.
+ N9 , \field Wind Direction 9
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 9th WPC Array value.
+ N10, \field Wind Direction 10
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 10th WPC Array value.
+ N11, \field Wind Direction 11
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 11th WPC Array value.
+ N12, \field Wind Direction 12
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 12th WPC Array value.
+ N13, \field Wind Direction 13
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 13th WPC Array value.
+ N14, \field Wind Direction 14
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 14th WPC Array value.
+ N15, \field Wind Direction 15
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 15th WPC Array value.
+ N16, \field Wind Direction 16
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 16th WPC Array value.
+ N17, \field Wind Direction 17
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 17th WPC Array value.
+ N18, \field Wind Direction 18
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 18th WPC Array value.
+ N19, \field Wind Direction 19
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 19th WPC Array value.
+ N20, \field Wind Direction 20
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 20th WPC Array value.
+ N21, \field Wind Direction 21
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 21st WPC Array value.
+ N22, \field Wind Direction 22
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 22nd WPC Array value.
+ N23, \field Wind Direction 23
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 23rd WPC Array value.
+ N24, \field Wind Direction 24
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 24th WPC Array value.
+ N25, \field Wind Direction 25
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 25th WPC Array value.
+ N26, \field Wind Direction 26
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 26th WPC Array value.
+ N27, \field Wind Direction 27
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 27th WPC Array value.
+ N28, \field Wind Direction 28
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 28th WPC Array value.
+ N29, \field Wind Direction 29
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 29th WPC Array value.
+ N30, \field Wind Direction 30
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 30th WPC Array value.
+ N31, \field Wind Direction 31
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 31st WPC Array value.
+ N32, \field Wind Direction 32
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 32nd WPC Array value.
+ N33, \field Wind Direction 33
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 33rd WPC Array value.
+ N34, \field Wind Direction 34
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 34th WPC Array value.
+ N35, \field Wind Direction 35
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 35th WPC Array value.
+ N36; \field Wind Direction 36
+      \type real
+      \units deg
+      \minimum 0.0
+      \maximum 360.0
+      \note Enter the wind direction corresponding to the 36th WPC Array value.
+AirflowNetwork:MultiZone:ExternalNode,
+      \min-fields 3
+      \memo This object defines outdoor environmental conditions outside of the building.
+ A1 , \field Name
+      \required-field
+      \type alpha
+      \reference ExternalNodeNames
+      \note Enter a unique name for this object.
+      \note This node name will be referenced by a particular building facade.
+ N1 , \field External Node Height
+      \type real
+      \units m
+      \default 0.0
+      \note Designates the reference height used to calculate relative pressure.
+ A2 , \field Wind Pressure Coefficient Curve Name
+      \required-field
+      \type object-list
+      \object-list WPCValueNames
+      \object-list UnivariateFunctions
+      \note The name of the AirflowNetwork:MultiZone:WindPressureCoefficientValues, curve, or table object specifying the wind pressure coefficient.
+ A3 , \field Symmetric Wind Pressure Coefficient Curve
+      \type choice
+      \key Yes
+      \key No
+      \default No
+      \note Specify whether the pressure curve is symmetric or not.
+      \note Specify Yes for curves that should be evaluated from 0 to 180 degrees
+      \note Specify No for curves that should be evaluated from 0 to 360 degrees
+ A4 ; \field Wind Angle Type
+      \type choice
+      \key Absolute
+      \key Relative
+      \default Absolute
+      \note Specify whether the angle used to compute the wind pressure coefficient is absolute or relative
+      \note Specify Relative to compute the angle between the wind direction and the surface azimuth
+      \note Specify Absolute to use the wind direction angle directly
