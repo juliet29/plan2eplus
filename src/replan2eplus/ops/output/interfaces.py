@@ -1,4 +1,4 @@
-from typing import Literal, get_args
+from typing import Literal
 
 Site_Variables = Literal[
     "Site Wind Speed",
@@ -25,7 +25,3 @@ Surface_Variables = Literal[
 
 
 OutputVariables = Site_Variables | Zone_Variables | Surface_Variables
-
-default_variables = list(
-    get_args(Site_Variables) + get_args(Zone_Variables) + get_args(Surface_Variables)
-)

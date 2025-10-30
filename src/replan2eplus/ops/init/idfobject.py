@@ -13,10 +13,6 @@ class Version(IDFObject):
     def key(self):
         return "VERSION"
 
-    # @property
-    # def values(self):
-    #     return self._asdict()
-
 
 @dataclass
 class Timestep(IDFObject):
@@ -68,33 +64,3 @@ class SimulationControl(IDFObject):
     def key(self):
         return "SIMULATIONCONTROL"
 
-
-def add_base_objects(
-    idf: IDF,
-    version=Version(),
-    timestep=Timestep(),
-    building=Building(),
-    global_geometry_rules=GlobalGeometryRules(),
-    simulation_control=SimulationControl(),
-):
-    return add_new_objects(
-        idf, [version, timestep, building, global_geometry_rules, simulation_control]
-    )
-
-
-def add_init_objects(
-    idf: IDF,
-    base_objects: list[IDFObject] = [
-        Version(),
-        Timestep(),
-        Building(),
-        GlobalGeometryRules(),
-        SimulationControl(),
-    ],
-):
-    for obj in base_objects:
-        obj.write(idf)
-    return idf
-    # return add_new_objects(
-    #     idf, [version, timestep, building, global_geometry_rules, simulation_control]
-    # )

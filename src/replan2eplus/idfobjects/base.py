@@ -78,7 +78,7 @@ class IDFObject:
 
     # TODO turn these all into class methods..
     def get_one_idf_object(self, idf: IDF, name: str) -> EpBunch:
-        check_has_name_attribute(self)
+        check_has_name_attribute(self) # TODO: the way to extend this is to pass in a lambda function, but just have the Name parameter be the default.. can use ___eq___ dunder method.. 
         try:
             object = get_unique_one(self.get_idf_objects(idf), lambda x: x.Name == name)
         except AssertionError:

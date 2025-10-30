@@ -3,7 +3,7 @@ from pathlib import Path
 from ladybug.datacollection import BaseCollection
 from ladybug.sql import SQLiteResult
 
-from replan2eplus.idfobjects.variables import OutputVariables
+from replan2eplus.ops.output.interfaces import OutputVariables
 from replan2eplus.results.collections import QOIResult, SQLCollection
 from replan2eplus.results.config import PATH_TO_SQL_SUBPATH
 

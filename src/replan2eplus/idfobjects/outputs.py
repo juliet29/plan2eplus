@@ -16,14 +16,6 @@ def check_existing_variable(idf: geomeppyIDF, new_var_name):
         return True
 
 
-def is_surface_or_zone_wind(name):
-    if (
-        "Wind" in name
-    ):  # Wind variables only report hourly? how about other variables? # TODO check if this is needed..
-        if "Zone" in name or "Surace" in name:
-            return True
-
-
 def add_output_variable(idf: geomeppyIDF, name: str, reporting_frequency="Timestep"):
     if check_existing_variable(idf, name):
         return idf
