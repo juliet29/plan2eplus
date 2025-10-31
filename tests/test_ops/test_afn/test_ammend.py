@@ -1,7 +1,5 @@
-from replan2eplus.ex.afn import AFNExampleCases, AFNCaseDefinition
-from rich import print
+from replan2eplus.ex.afn import AFNExampleCases
 from replan2eplus.ops.afn.create import create_afn_objects
-from replan2eplus.ezcase.ez import EZ, ep_paths
 from replan2eplus.ops.afn.idfobject import IDFAFNSurface
 
 
