@@ -5,6 +5,10 @@
 # TODO: whats the difference between error and an exception?
 
 
+class NonExistentEpBunchTypeError(Exception):
+    pass
+
+
 class IDFMisunderstandingError(Exception):
     pass
 
@@ -21,3 +25,15 @@ class InvalidEpBunchError(Exception):
 
     def __str__(self):
         return f"Expected an EpBunch with key `{self.expected_key}`, but instead got one with key `{self.actual_key}`!"
+
+
+class InvalidObjectError(Exception):
+    def __init__(self, object_: object, name: str, param_name) -> None:
+        self.object_ = object_
+        self.name = name
+        self.param_name = param_name
+
+    def message(self):
+        return (
+            f"No object found for type {self.object_} and {self.param_name} {self.name}"
+        )

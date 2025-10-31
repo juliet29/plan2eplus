@@ -1,25 +1,22 @@
 from geomeppy import IDF
-from utils4plans.sets import set_equality
+from rich import print
 from utils4plans.lists import chain_flatten
+from utils4plans.sets import set_equality
 
 from replan2eplus.ex.main import Cases, EpAFNCase, Interfaces
-
+from replan2eplus.ex.materials import SAMPLE_CONSTRUCTION_SET
+from replan2eplus.ezcase.ez import EZ
 from replan2eplus.ops.base import get_names_of_idf_objects
+from replan2eplus.ops.constructions.create import create_constructions
 from replan2eplus.ops.constructions.idfobject import IDFConstruction
 from replan2eplus.ops.constructions.utils import (
+    read_constructions_and_assoc_materials,
     read_constructions_by_name_from_many_idfs,
     read_materials_for_construction,
-    read_constructions_and_assoc_materials,
 )
-from replan2eplus.ops.constructions.create import create_constructions
 from replan2eplus.ops.subsurfaces.create import read_subsurfaces
-from replan2eplus.paths import ep_paths
-from rich import print
-from replan2eplus.ex.materials import SAMPLE_CONSTRUCTION_SET
-from replan2eplus.ops.subsurfaces.idfobject import IDFSubsurfaceBase
 from replan2eplus.ops.surfaces.idfobject import IDFSurface
-from rich import print
-from replan2eplus.ezcase.ez import EZ
+from replan2eplus.paths import ep_paths
 
 
 def test_read_constructions():

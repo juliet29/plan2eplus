@@ -1,20 +1,12 @@
-# TODO read some of these from config..
-
-from tkinter import E
-from typing import Any, Sequence
+from typing import Any, Literal, Sequence
 from geomeppy import IDF
 from eppy.bunch_subclass import EpBunch
 from dataclasses import dataclass
 from utils4plans.lists import get_unique_one
 
+from replan2eplus.errors import InvalidObjectError, NonExistentEpBunchTypeError
 
-class InvalidObjectError(Exception):
-    def __init__(self, object_: object, name: str) -> None:
-        self.object_ = object_
-        self.name = name
-
-    def message(self):
-        return f"No object found for type {self.object_} and name {self.name}"
+Identifiers = Literal["Name", "Surface_Name"]
 
 
 def get_object_description(object: EpBunch):
@@ -36,7 +28,6 @@ class IDFObject:
     def values(self):
         return self.__dict__
 
-    # TODO delete -> think the read by name is replaces this ..
     @classmethod
     def read(cls, idf: IDF, *args, **kwargs):
         objects = idf.idfobjects[cls().key]
@@ -67,51 +58,53 @@ class IDFObject:
         assert len(res) == 1, f"Expected to get only one item, insted got {res}"
         return res[0]
 
-    def write(self, idf: IDF):
-        idf.newidfobject(self.key, **self.values)
-        return idf
-
-    # @classmethod
-    # def read(cls, idf: IDF) -> list: ...
     def get_idf_objects(self, idf: IDF) -> list[EpBunch]:
         return idf.idfobjects[self.key]
 
-    # TODO turn these all into class methods..
-    def get_one_idf_object(self, idf: IDF, name: str) -> EpBunch:
-        check_has_name_attribute(self) # TODO: the way to extend this is to pass in a lambda function, but just have the Name parameter be the default.. can use ___eq___ dunder method.. 
+    def get_one_idf_object(
+        self, idf: IDF, name: str, param_name: Identifiers = "Name"
+    ) -> EpBunch:
+        objects = self.get_idf_objects(idf)
+        if not objects:
+            raise NonExistentEpBunchTypeError(f"No objects with key {self.key} in IDF")
+
+        check_has_parameter(objects[0], param_name)
         try:
-            object = get_unique_one(self.get_idf_objects(idf), lambda x: x.Name == name)
+            object = get_unique_one(
+                objects,
+                lambda x: x[param_name] == name,
+            )
         except AssertionError:
-            raise InvalidObjectError(self, name)
+            raise InvalidObjectError(self, name, param_name)
         return object
 
     def update(self, idf: IDF, object_name: str, param: str, new_value: str):
         object = self.get_one_idf_object(idf, object_name)
-        assert param in [k for k in self.values.keys()]
+        # TODO are fieldnames a better fit here?
+        assert param in [k for k in self.values.keys()] 
         object[param] = new_value
 
-    def create_ezobject(self, *args, **kwargs) -> Any: ...
+    def write(self, idf: IDF):
+        idf.newidfobject(self.key, **self.values)
+        return idf
 
     def overwrite(self, idf: IDF):
         existing_idf_objects = idf.idfobjects[self.key]
         for o in existing_idf_objects:
             idf.removeidfobject(o)
-
         self.write(idf)
 
-
-# TODO -> delete dont think this is being used anywher
-def add_new_objects(idf: IDF, objects: list[IDFObject]):
-    for object in objects:
-        idf.newidfobject(object.key, **object.values)
-    return idf
+    def create_ezobject(self, *args, **kwargs) -> Any: ...
 
 
-def check_has_name_attribute(obj: IDFObject):
+def check_has_parameter(obj: EpBunch, param_name: Identifiers):
     try:
-        obj.__getattribute__("Name")
-    except AttributeError:
-        f"No attribute Name for objects of type: {type(object)}"
+        assert param_name in obj.fieldnames
+        return True
+    except AssertionError:
+        raise Exception(
+            f"No attribute of {param_name} for objects of type: {type(object)}"
+        )
 
 
 def get_names_of_idf_objects(objects: Sequence[IDFObject]):

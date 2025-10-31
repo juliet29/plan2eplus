@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import get_args
 
 from replan2eplus.errors import BadlyFormatedIDFError
-from replan2eplus.helpers.name import decompose_idf_name
+from replan2eplus.ops.name import decompose_idf_name
 from replan2eplus.geometry.coords import Coordinate3D
 from replan2eplus.geometry.directions import WallNormal
 from replan2eplus.geometry.domain import Domain

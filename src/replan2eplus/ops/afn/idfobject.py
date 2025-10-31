@@ -1,6 +1,7 @@
 from replan2eplus.ops.base import IDFObject
 from dataclasses import dataclass
 from typing import Literal
+from geomeppy import IDF
 
 # TODO => should be in a config?
 DEFAULT_DISCHARGE_COEFF = 1
@@ -50,13 +51,15 @@ class IDFAFNSimulationControl(IDFObject):
 
 @dataclass
 class IDFAFNZone(IDFObject):
+    """
+    Ventilation Control Mode ----
+    - ZoneLevel: Zone controls
+    - Constant: Uses the ventilation availability schedule
+    """
+
     Zone_Name: str = ""
-    Ventilation_Control_Mode: Literal["Constant", "NoVent"] = (
-        "Constant"  # Constant -> depends on venting availability schedule
-    )
-    Venting_Availability_Schedule_Name: str = (
-        ""  # TODO dont add if its none..  #TODO add venting availability schedules..
-    )
+    Ventilation_Control_Mode: Literal["Constant", "NoVent"] = "Constant"
+    Venting_Availability_Schedule_Name: str = ""
 
     @property
     def key(self):
@@ -65,7 +68,7 @@ class IDFAFNZone(IDFObject):
 
 @dataclass
 class IDFAFNSimpleOpening(IDFObject):
-    # NOTE: this is one of many types of leakage components -> gets linked to the afn surface
+    # NOTE: this is one of many types of "Leakage Components" -> gets linked to the afn surface. # TODO: does its geometry matter?
     Name: str = ""
     Discharge_Coefficient: float = 1
     Air_Mass_Flow_Coefficient_When_Opening_is_Closed: float = (
@@ -80,31 +83,46 @@ class IDFAFNSimpleOpening(IDFObject):
 
 @dataclass
 class IDFAFNSurface(IDFObject):
+    """
+    Surface Name ---- 
+    - Refers to an existing surface or subsurface 
+
+    Ventilation Control Mode ----
+    - ZoneLevel: Zone controls
+    - Constant: This is needed to set venting availability on a zone by zone level
+    """
+
     Surface_Name: str = ""
     Leakage_Component_Name: str = ""
     Ventilation_Control_Mode: Literal["ZoneLevel", "NoVent", "Constant"] = "ZoneLevel"
-    # needs to be `Constant` when setting a venting availabily schedule on a per surface basis.. -> this is most applicable for doors.. q
     External_Node_Name: str = ""
     Venting_Availability_Schedule_Name = ""
-
-    # NOTE -> can do temperature / enthalpy based controls..
-    # here is where can add schedule
 
     @property
     def key(self):
         return "AIRFLOWNETWORK:MULTIZONE:SURFACE"
+
+    def update_afn_surface(
+        self,
+        idf: IDF,
+        object_name: str,
+        param: Literal["External_Node_Name", "Venting_Availability_Schedule_Name"],
+        new_value: str,
+    ):
+        self.update(idf, object_name, param, new_value)
 
 
 @dataclass
 class IDFAFNExternalNode(IDFObject):
     """
     Wind angle is considered to be the absolute wind angle. Not the relative angle between the listed direction and any given surface.
+
+    External Node Height -----
+    - By default, relative pressure is calculated at the zone height
     """
 
     Name: str = ""
-    External_Node_Height: float = (
-        0.0  # by default, relative pressure is calculated at the zone height
-    )
+    External_Node_Height: float = 0.0
     Wind_Pressure_Coefficient_Curve_Name = ""
 
     @property

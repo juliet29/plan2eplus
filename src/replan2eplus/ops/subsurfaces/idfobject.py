@@ -4,14 +4,11 @@ from expression.collections import Seq
 from geomeppy import IDF
 from utils4plans.lists import chain_flatten, get_unique_one
 
-from replan2eplus.ops.base import (
-    IDFObject,
-    InvalidObjectError,
-)
+from replan2eplus.errors import InvalidObjectError, NonExistentEpBunchTypeError
+from replan2eplus.ops.base import IDFObject
 from replan2eplus.ops.subsurfaces.ezobject import Subsurface
 from replan2eplus.ops.subsurfaces.interfaces import SubsurfaceType
 from replan2eplus.ops.surfaces.ezobject import Surface
-from rich import print
 
 
 @dataclass
@@ -133,7 +130,7 @@ def update_subsurface(idf: IDF, name: str, param: str, new_value: str):
             # TODO check this when reading in ..
             obj().update(idf, name, param, new_value)
             return
-        except InvalidObjectError:
+        except (InvalidObjectError, NonExistentEpBunchTypeError):
             pass
     # if we get here then not objects matched.
     raise Exception(

@@ -1,8 +1,6 @@
-from typing import NamedTuple
-from geomeppy import IDF
 from dataclasses import dataclass
 
-from replan2eplus.ops.base import IDFObject, add_new_objects
+from replan2eplus.ops.base import IDFObject
 
 
 @dataclass
