@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from replan2eplus.idfobjects.base import IDFObject
+from replan2eplus.ops.base import IDFObject
 from replan2eplus.ops.airboundary.interfaces import DEFAULT_AIRBOUNDARY_NAME
 
 

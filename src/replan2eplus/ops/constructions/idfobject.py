@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from geomeppy import IDF
-from replan2eplus.idfobjects.base import IDFObject
+from replan2eplus.ops.base import IDFObject
 
 
 @dataclass

@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 
+from replan2eplus.ops.output.create import add_output_variables
 from replan2eplus.ops.run_settings.defaults import default_analysis_period
 from replan2eplus.ops.run_settings.user_interfaces import (
     AnalysisPeriod,
@@ -90,6 +91,7 @@ class EZ:
         output_path: Path | None = None,
         epw_path: Path | None = None,
         analysis_period: AnalysisPeriod | None = default_analysis_period,
+        additional_variables: list[str] = [],
         run=False,
     ):
         if not self.output_path:
@@ -110,6 +112,8 @@ class EZ:
         results_path = self.output_path / ep_paths.results_path
 
         write_run_period_and_location(self.idf, self.analysis_period, self.epw_path)
+
+        add_output_variables(self.idf, additional_variables)
 
         self.idf.save(idf_path)
 

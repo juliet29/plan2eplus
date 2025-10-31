@@ -1,6 +1,6 @@
 from replan2eplus.ex.subsurfaces import details, e0
 from replan2eplus.ezcase.ez import EZ
-from replan2eplus.idfobjects.base import get_names_of_idf_objects
+from replan2eplus.ops.base import get_names_of_idf_objects
 from replan2eplus.ops.subsurfaces.idfobject import IDFSubsurfaceBase, read_subsurfaces
 from replan2eplus.ops.subsurfaces.logic.prepare import create_ss_name
 from replan2eplus.ops.subsurfaces.user_interfaces import EdgeGroup, SubsurfaceInputs

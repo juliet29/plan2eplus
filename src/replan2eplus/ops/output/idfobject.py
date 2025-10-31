@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from geomeppy import IDF
-from replan2eplus.idfobjects.base import IDFObject
+from replan2eplus.ops.base import IDFObject
 from typing import Literal
 
 
@@ -31,7 +31,9 @@ class IDFOutputVariable(IDFObject):
             self.Reporting_Frequency = "Hourly"
 
     def check_and_write(self, idf: IDF):
+        f"checking if var {self.Variable_Name} exists..."
         if self.Variable_Name not in self.get_existing_output_variable_names(idf):
+            f"{self.Variable_Name} exists"
             self.correct_timestep_for_wind_variables()
             self.write(idf)
 
@@ -46,5 +48,5 @@ class IDFOutputSQL(IDFObject):
 
     def check_and_write(self, idf: IDF):
         existing = self.get_idf_objects(idf)
-        if existing:
+        if not existing:
             self.write(idf)

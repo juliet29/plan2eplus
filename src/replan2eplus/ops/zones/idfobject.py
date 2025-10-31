@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 from geomeppy import IDF
 
-from replan2eplus.idfobjects.base import IDFObject
+from replan2eplus.ops.base import IDFObject
 from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.ops.zones.ezobject import Zone
 from utils4plans.lists import chain_flatten

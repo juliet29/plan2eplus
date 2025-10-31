@@ -1,4 +1,4 @@
-from replan2eplus.examples.ortho_domain import ortho_room
+from replan2eplus.ex.ortho_domain import ortho_room
 from replan2eplus.geometry.ortho_domain import OrthoDomain
 from replan2eplus.geometry.shapely_bounds import ShapelyBounds
 

@@ -4,7 +4,7 @@ from expression.collections import Seq
 from geomeppy import IDF
 from utils4plans.lists import chain_flatten, get_unique_one
 
-from replan2eplus.idfobjects.base import (
+from replan2eplus.ops.base import (
     IDFObject,
     InvalidObjectError,
 )
@@ -42,8 +42,6 @@ class IDFSubsurfaceBase(IDFObject):
         return ""
 
     def create_ezobject(self, surfaces: list[Surface]) -> Subsurface:
-        print(
-        )
         return Subsurface(
             self.Name,
             self.Construction_Name,

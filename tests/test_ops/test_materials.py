@@ -1,101 +1,63 @@
-from pathlib import Path
-import pytest
-from replan2eplus.errors import IDFMisunderstandingError
-from replan2eplus.examples.mat_and_const import (
-    PATH_TO_MAT_AND_CONST_IDF,
-    PATH_TO_WINDOW_GLASS_IDF,
-    PATH_TO_WINDOW_GAS_IDF,
+from geomeppy import IDF
+from utils4plans.sets import set_equality
+
+from replan2eplus.ex.main import Cases, EpAFNCase, Interfaces
+from replan2eplus.ezcase.ez import EZ
+from replan2eplus.ops.base import get_names_of_idf_objects
+from replan2eplus.ops.materials.idfobject import IDFMaterial
+from replan2eplus.ops.materials.utils import (
+    read_materials,
+    read_materials_from_many_idf,
 )
-from replan2eplus.examples.cases.existing import get_example_idf
-from replan2eplus.examples.paths import PATH_TO_IDD
-from replan2eplus.ops.materials.presentation import (
-    add_materials,
-    create_materials_from_other_idfs,
-)
-from utils4plans.sets import set_intersection, set_difference
+from replan2eplus.paths import ep_paths
 
 
-material_groups: list[tuple[Path, list[str]]] = [
-    (PATH_TO_MAT_AND_CONST_IDF, ["F12 Asphalt shingles", "F13 Built-up roofing"]),
-    (
-        PATH_TO_MAT_AND_CONST_IDF,
-        ["F12 Asphalt shingles", "F04 Wall air space resistance"],
-    ),
-    (PATH_TO_WINDOW_GLASS_IDF, ["COATED POLY-33", "ECREF-2 COLORED 6MM"]),
-    (PATH_TO_WINDOW_GAS_IDF, ["KRYPTON 3MM", "XENON 13MM"]),
-]
+def test_read_material_of_type_a_from_idf():
+    case = EZ(Cases().ep_afn.path)  # TODO replace with own example once get materials working
+    materials = IDFMaterial.read(case.idf)
+    found_material_names = [i.Name for i in materials]
+    assert set_equality(found_material_names, EpAFNCase.basic_material_names)
 
 
-@pytest.mark.parametrize("idf, material_names", material_groups)
-def test_material_copy_and_convert(idf, material_names):
-    material_pairs = create_materials_from_other_idfs(
-        [idf],
-        PATH_TO_IDD,
-        material_names,
+def test_read_materials_from_idf_by_name():
+    case = EZ(Cases().ep_afn.path)
+    found_materials = read_materials(case.idf, EpAFNCase.mixed_subset_materials)
+    assert set_equality(
+        get_names_of_idf_objects(found_materials), EpAFNCase.mixed_subset_materials
     )
-    assert len(material_pairs) == 2
+    # TODO test reading bad materials -> at least create a log..
 
 
-def test_warns_for_bad_material():
-    with pytest.warns(UserWarning):
-        create_materials_from_other_idfs(
-            [PATH_TO_MAT_AND_CONST_IDF],
-            PATH_TO_IDD,
-            ["My bad material hehe"],
-        )
-
-
-def test_succeeds_if_at_least_one_good_mat():
-    with pytest.warns(UserWarning):
-        material_pairs = create_materials_from_other_idfs(
-            [PATH_TO_MAT_AND_CONST_IDF],
-            PATH_TO_IDD,
-            [
-                "My bad material hehe",
-                "F12 Asphalt shingles",
-                "F04 Wall air space resistance",
-            ],
-        )
-        assert len(material_pairs) == 2
-
-
-def test_different_material_types_copy_and_convert():
-    material_pairs = create_materials_from_other_idfs(
-        [PATH_TO_MAT_AND_CONST_IDF],
-        PATH_TO_IDD,
-        ["F12 Asphalt shingles", "F04 Wall air space resistance"],
+def test_read_many_materials_from_many_idfs():
+    materials = Interfaces.materials.materials_across_idfs
+    found_materials = read_materials_from_many_idf(
+        ep_paths.construction_paths.material_idfs, materials
     )
-    assert len(material_pairs) == 2
+    assert set_equality(get_names_of_idf_objects(found_materials), materials)
 
 
-def test_adding_material_to_idf(get_pytest_minimal_idf):
-    material_names = ["F12 Asphalt shingles", "F04 Wall air space resistance"]
-    material_pairs = create_materials_from_other_idfs(
-        [PATH_TO_MAT_AND_CONST_IDF],
-        PATH_TO_IDD,
-        material_names,
+def test_write_material():
+    source_case = EZ(Cases().ep_afn.path)
+    source_materials = IDFMaterial.read(source_case.idf)
+    destination_case = Cases().base
+    new_idf = source_materials[0].write(destination_case.idf)
+    new_materials = IDFMaterial.read(new_idf)
+    assert new_materials[0].Name == source_materials[0].Name
+
+
+def test_write_materials():
+    source_case = EZ(Cases().ep_afn.path)
+    source_materials = IDFMaterial.read(source_case.idf)
+    destination_case = Cases().base
+    new_idf = IDF()
+    for material in source_materials:
+        new_idf = material.write(destination_case.idf)
+    new_materials = IDFMaterial.read(new_idf)
+    assert set_equality(
+        get_names_of_idf_objects(new_materials),
+        get_names_of_idf_objects(source_materials),
     )
-    idf = get_pytest_minimal_idf
-
-    add_materials(idf, material_pairs)
-
-    idf_materials = idf.get_materials()
-    assert set([i.Name for i in idf_materials]) == set(material_names)
-
-
-def test_set_diff():
-    # TODO put this test in utils4plans
-    la = [123, 456]
-    lb = [5, 4, 1, 34, 2, 8, 9, 3]
-    assert set_difference(lb, la)
 
 
 if __name__ == "__main__":
-    materials = create_materials_from_other_idfs(
-        [PATH_TO_WINDOW_GAS_IDF],
-        PATH_TO_IDD,
-        ["KRYPTON 3MM", "XENON 13MM"],
-    )
-    print(materials[0])
-
-    # test_material_copy_and_convert()
+    test_read_material_of_type_a_from_idf()

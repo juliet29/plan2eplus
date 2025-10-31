@@ -3,7 +3,7 @@ import pytest
 from replan2eplus.ex.main import Cases
 from replan2eplus.ex.main import Interfaces as UI
 
-from replan2eplus.idfobjects.base import get_names_of_idf_objects
+from replan2eplus.ops.base import get_names_of_idf_objects
 from replan2eplus.ops.zones.create import create_zones
 from replan2eplus.ops.zones.idfobject import IDFZone
 from replan2eplus.ezcase.ez import EZ

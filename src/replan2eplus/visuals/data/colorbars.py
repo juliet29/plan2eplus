@@ -1,3 +1,4 @@
+import math
 from typing import Callable
 
 import matplotlib as mpl
@@ -14,6 +15,10 @@ ColorBarFx = Callable[
 ]
 
 
+def is_greater_than_zero(num: float):
+    return True if num > 0 else False
+
+
 def pressure_colorbar(data: list[float] | np.ndarray, ax: Axes):
     expansion = 1.3
     if len(data) == 1:
@@ -23,15 +28,23 @@ def pressure_colorbar(data: list[float] | np.ndarray, ax: Axes):
 
     else:
         min_, max_ = (
-            min(data) * expansion,
-            max(data) * expansion,
+            min(data),  # * expansion,
+            max(data),  # * expansion,
         )  # TODO come up with a better way of doing this expansion thing / figuring out the limits of data to show..
         # TODO reverse colors for pressure!
+        # sign_min = math.copysign(1, min_)
+        # sign_max = math.copysign(1, max_)
+
+        same_sign = is_greater_than_zero(min_) and is_greater_than_zero(max_)
 
         if max_ <= 0:
             norm = Normalize(vmin=min_, vmax=max_)
             cmap = mpl.colormaps["YlOrRd_r"]
+        elif same_sign:
+            norm = Normalize(vmin=min_, vmax=max_)
+            cmap = mpl.colormaps["YlOrRd_r"]
         else:
+            print(min_, max_)
             center = 0
 
             norm = TwoSlopeNorm(vmin=min_, vcenter=center, vmax=max_)

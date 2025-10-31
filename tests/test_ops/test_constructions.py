@@ -4,7 +4,7 @@ from utils4plans.lists import chain_flatten
 
 from replan2eplus.ex.main import Cases, EpAFNCase, Interfaces
 
-from replan2eplus.idfobjects.base import get_names_of_idf_objects
+from replan2eplus.ops.base import get_names_of_idf_objects
 from replan2eplus.ops.constructions.idfobject import IDFConstruction
 from replan2eplus.ops.constructions.utils import (
     read_constructions_by_name_from_many_idfs,

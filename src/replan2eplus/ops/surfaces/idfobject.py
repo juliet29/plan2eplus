@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from replan2eplus.idfobjects.base import (
+from replan2eplus.ops.base import (
     IDFObject,
     filter_relevant_values,
     get_object_description,

@@ -9,7 +9,6 @@ from replan2eplus.ops.afn.ezobject import AirflowNetwork
 # from expression.collections import Seq
 
 
-
 def select_afn_objects(
     zones: list[Zone],
     subsurfaces: list[Subsurface],
@@ -36,6 +35,7 @@ def create_afn_objects(
             airflow_network, afn_writer = select_afn_objects(
                 zones, subsurfaces, airboundaries
             )
-            afn_writer.write(idf)
+            if afn_writer.zone_names:  # TODO: potentially put this under test -> don't init the AFN if didnt find any AFN objects, also add a warning if the afn flag was true.. -> wont be able to access certain output variables
+                afn_writer.write(idf)
             return airflow_network
     return AirflowNetwork([], [])

@@ -60,7 +60,6 @@ def make_base_plot(case: EZ):
     return bp
 
 
-
 def make_data_plot(
     path: Path,
     hour: int = 12,
@@ -69,10 +68,12 @@ def make_data_plot(
 
     pressure = get_qoi("AFN Node Total Pressure", path)
     data_at_noon = pressure.select_time(hour)
+    # print(data_at_noon)
 
     flow_12 = get_qoi("AFN Linkage Node 1 to Node 2 Volume Flow Rate", path)
     flow_21 = get_qoi("AFN Linkage Node 2 to Node 1 Volume Flow Rate", path)
     combined_flow = flow_12.select_time(hour) - flow_21.select_time(hour)
+    # print(combined_flow)
 
     dp = DataPlot(case.objects.zones)
     dp.plot_zones_with_data(data_at_noon)
