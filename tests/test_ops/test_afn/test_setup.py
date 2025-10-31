@@ -2,7 +2,6 @@ from replan2eplus.ex.afn import AFNExampleCases, AFNCaseDefinition
 from replan2eplus.ezcase.ez import EZ, ep_paths
 from replan2eplus.paths import DynamicPaths
 
-# from replan2eplus.ezcase.ez import EZ
 from replan2eplus.ex.main import Interfaces
 from replan2eplus.ops.afn.logic import (
     check_surfaces_for_nbs,
@@ -54,17 +53,17 @@ def test_get_afn_objects(case_: AFNCaseDefinition):
 def test_selecting_afn_zones():
     case_ = AFNExampleCases().B_ne
     case = case_.case_with_subsurfaces
-    afn_holder, _ = select_afn_objects(case.objects.zones, case.objects.subsurfaces, [])
-    assert len(afn_holder.zones) == case_.n_zones_in_afn
-    assert afn_holder.zones[0].room_name == Interfaces.rooms.r1.name
+    afn = select_afn_objects(case.objects.zones, case.objects.subsurfaces, [])
+    assert len(afn.zones) == case_.n_zones_in_afn
+    assert afn.zones[0].room_name == Interfaces.rooms.r1.name
 
 
 @pytest.mark.xfail()  #
 def test_selecting_afn_surfaces():
     case_ = AFNExampleCases().B_ne
     case = case_.case_with_subsurfaces
-    afn_holder, _ = select_afn_objects(case.objects.zones, case.objects.subsurfaces, [])
-    assert len(afn_holder.subsurfaces) == case_.n_surfs_in_afn
+    afn = select_afn_objects(case.objects.zones, case.objects.subsurfaces, [])
+    assert len(afn.subsurfaces) == case_.n_surfs_in_afn
 
 
 def test_adding_afn_objects():

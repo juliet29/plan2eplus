@@ -16,12 +16,7 @@ def select_afn_objects(
 ):
     afn_zones, afn_surfaces = determine_afn_objects(zones, airboundaries + subsurfaces)
 
-    zone_names = [i.zone_name for i in afn_zones]
-    sub_and_surface_names = [i.name for i in afn_surfaces]
-
-    return AirflowNetwork(afn_zones, afn_surfaces), AFNWriter(
-        zone_names, sub_and_surface_names
-    )
+    return AirflowNetwork(afn_zones, afn_surfaces)
 
 
 def create_afn_objects(
@@ -32,10 +27,12 @@ def create_afn_objects(
 ):
     if zones:
         if subsurfaces or airboundaries:
-            airflow_network, afn_writer = select_afn_objects(
-                zones, subsurfaces, airboundaries
-            )
-            if afn_writer.zone_names:  # TODO: potentially put this under test -> don't init the AFN if didnt find any AFN objects, also add a warning if the afn flag was true.. -> wont be able to access certain output variables
-                afn_writer.write(idf)
-            return airflow_network
+            afn = select_afn_objects(zones, subsurfaces, airboundaries)
+            zone_names = [i.zone_name for i in afn.zones]
+            sub_and_surface_names = [i.name for i in afn.afn_surfaces]
+            if afn.zones:
+                # TODO: potentially put this under test -> don't init the AFN if didnt find any AFN objects, also add a warning if the afn flag was true.. -> wont be able to access certain output variables
+                AFNWriter(zone_names, sub_and_surface_names).write(idf)
+
+            return afn
     return AirflowNetwork([], [])
