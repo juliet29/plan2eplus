@@ -84,8 +84,8 @@ class IDFAFNSimpleOpening(IDFObject):
 @dataclass
 class IDFAFNSurface(IDFObject):
     """
-    Surface Name ---- 
-    - Refers to an existing surface or subsurface 
+    Surface Name ----
+    - Refers to an existing surface or subsurface
 
     Ventilation Control Mode ----
     - ZoneLevel: Zone controls
@@ -102,14 +102,15 @@ class IDFAFNSurface(IDFObject):
     def key(self):
         return "AIRFLOWNETWORK:MULTIZONE:SURFACE"
 
+    @classmethod
     def update_afn_surface(
-        self,
+        cls,
         idf: IDF,
         object_name: str,
         param: Literal["External_Node_Name", "Venting_Availability_Schedule_Name"],
         new_value: str,
     ):
-        self.update(idf, object_name, param, new_value)
+        cls().update(idf, object_name, param, new_value, identifier="Surface_Name")
 
 
 @dataclass

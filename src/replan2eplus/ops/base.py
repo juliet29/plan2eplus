@@ -62,26 +62,33 @@ class IDFObject:
         return idf.idfobjects[self.key]
 
     def get_one_idf_object(
-        self, idf: IDF, name: str, param_name: Identifiers = "Name"
+        self, idf: IDF, name: str, identifier_name: Identifiers = "Name"
     ) -> EpBunch:
         objects = self.get_idf_objects(idf)
         if not objects:
             raise NonExistentEpBunchTypeError(f"No objects with key {self.key} in IDF")
 
-        check_has_parameter(objects[0], param_name)
+        check_has_identifier(objects[0], identifier_name)
         try:
             object = get_unique_one(
                 objects,
-                lambda x: x[param_name] == name,
+                lambda x: x[identifier_name] == name,
             )
         except AssertionError:
-            raise InvalidObjectError(self, name, param_name)
+            raise InvalidObjectError(self, name, identifier_name)
         return object
 
-    def update(self, idf: IDF, object_name: str, param: str, new_value: str):
-        object = self.get_one_idf_object(idf, object_name)
+    def update(
+        self,
+        idf: IDF,
+        object_name: str,
+        param: str,
+        new_value: str,
+        identifier: Identifiers = "Name",
+    ):
+        object = self.get_one_idf_object(idf, object_name, identifier)
         # TODO are fieldnames a better fit here?
-        assert param in [k for k in self.values.keys()] 
+        assert param in [k for k in self.values.keys()]
         object[param] = new_value
 
     def write(self, idf: IDF):
@@ -97,14 +104,12 @@ class IDFObject:
     def create_ezobject(self, *args, **kwargs) -> Any: ...
 
 
-def check_has_parameter(obj: EpBunch, param_name: Identifiers):
+def check_has_identifier(obj: EpBunch, param_name: Identifiers):
     try:
         assert param_name in obj.fieldnames
         return True
     except AssertionError:
-        raise Exception(
-            f"No attribute of {param_name} for objects of type: {type(object)}"
-        )
+        raise Exception(f"No attribute of {param_name} for epbunch with key {obj.key}")
 
 
 def get_names_of_idf_objects(objects: Sequence[IDFObject]):
