@@ -1,5 +1,6 @@
-from replan2eplus.ops.afn.idfobject import IDFAFNSurface, IDFAFNZone
+from replan2eplus.ops.afn.utils import handle_venting_inputs
 from replan2eplus.ops.afn.logic import determine_afn_objects
+from replan2eplus.ops.afn.user_interface import AFNInput
 from replan2eplus.ops.airboundary.ezobject import Airboundary
 from replan2eplus.ops.afn.interfaces import AFNWriter
 from replan2eplus.ops.subsurfaces.ezobject import Subsurface
@@ -24,15 +25,24 @@ def create_afn_objects(
     zones: list[Zone],
     subsurfaces: list[Subsurface],
     airboundaries: list[Airboundary],
+    afn_inputs: AFNInput | None = None,
 ):
-    if zones:
-        if subsurfaces or airboundaries:
-            afn = select_afn_objects(zones, subsurfaces, airboundaries)
-            zone_names = [i.zone_name for i in afn.zones]
-            sub_and_surface_names = [i.name for i in afn.afn_surfaces]
-            if afn.zones:
-                # TODO: potentially put this under test -> don't init the AFN if didnt find any AFN objects, also add a warning if the afn flag was true.. -> wont be able to access certain output variables
-                AFNWriter(zone_names, sub_and_surface_names).write(idf)
+    if zones and (subsurfaces or airboundaries):
+        afn = select_afn_objects(zones, subsurfaces, airboundaries)
+        if not afn.zones:
+            return AirflowNetwork([], [])
 
-            return afn
+        zone_names = [i.zone_name for i in afn.zones]
+        sub_and_surface_names = [i.name for i in afn.afn_surfaces]
+        AFNWriter(zone_names, sub_and_surface_names).write(idf)
+
+        if afn_inputs and afn_inputs.venting_inputs:
+            handle_venting_inputs(idf, subsurfaces, afn_inputs.venting_inputs)
+            afn.schedules = [i.schedule_input for i in afn_inputs.venting_inputs]
+
+        return afn
+
     return AirflowNetwork([], [])
+
+
+# TODO: potentially put this under test -> don't init the AFN if didnt find any AFN objects, also add a warning if the afn flag was true.. -> wont be able to access certain output variables

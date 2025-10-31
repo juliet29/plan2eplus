@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
 from replan2eplus.ops.airboundary.ezobject import Airboundary
+from replan2eplus.ops.schedules.user_interface import ScheduleInput
 from replan2eplus.ops.subsurfaces.ezobject import Subsurface
 from replan2eplus.ops.zones.ezobject import Zone
 
@@ -9,6 +10,7 @@ from replan2eplus.ops.zones.ezobject import Zone
 class AirflowNetwork:
     zones: list[Zone]
     afn_surfaces: list[Subsurface | Airboundary]
+    schedules: list[ScheduleInput] | None = None
 
     def __rich_repr__(self):
         yield "zones", [i.zone_name for i in self.zones]

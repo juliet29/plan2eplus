@@ -1,16 +1,19 @@
 # TODO -> year -> schedule file object / interface -> schedule file object..
+from pathlib import Path
+from replan2eplus.ops.schedules.user_interface import ScheduleInput
+from replan2eplus.ops.schedules.idfobject import IDFScheduleFile
+from geomeppy import IDF
+# from replan2eplus.ops.afn.utils import ScheduleInput
 
-from replan2eplus.idfobjects.idf import IDF
-from replan2eplus.ops.afn.utils import ScheduleInput
 
+def create_schedule(idf: IDF, schedule_inputs: ScheduleInput, folder_path: Path):
+    name, type_limits, year = schedule_inputs
+    file_path = folder_path / name 
+    idf_sched = IDFScheduleFile(name, type_limits, Path(file_path))
+    year.write(folder_path)
+    idf_sched.write(idf)
 
-def create_schedule(idf: IDF, vent_schedule: ScheduleInput):
-    existing_schedules = idf.get_schedules()
-    if existing_schedules:
-        if vent_schedule.name not in existing_schedules:
-            vent_schedule.write_schedule_to_path()
-            idf.add_schedule(
-                vent_schedule.schedule_idf_object
-            )  # TODO really schould be case. add schedule??
-
-    # TODO meant to return the Schedule EZObject, if such exists..
+# def save_schedules(idf: IDF, folder_path: Path):
+#     idf_schedules = IDFScheduleFile().read(idf)
+#     for idf_sched in idf_schedules:
+#         idf_sched.update_file_name(idf, folder_path)

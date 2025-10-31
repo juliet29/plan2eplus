@@ -25,6 +25,8 @@ class DayEntry(NamedTuple):
 # NOTE: there are many ways to define a year.. at the end of the day what is most important is that we have a csv with the correct number of values.. 
 # so mybe the below is a function .. 
 
+
+
 @dataclass
 class Year: # TODO -> turn this into a fx, first variable is the default day.. 
     default_day: Day 
