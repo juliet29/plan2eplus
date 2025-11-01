@@ -1,5 +1,17 @@
 from datetime import date, time, timedelta, datetime
-from replan2eplus.prob_door.interfaces import GeometricDisribution
+import pytest
+from html import entities
+from rich import print
+import test
+from replan2eplus.prob_door.interfaces import (
+    DefaultDistributions,
+    Distributions,
+    GeometricDisribution,
+    VentingState,
+    create_time_entries,
+    create_day_entries,
+    is_crossing_midnight,
+)
 
 
 def test_datetime_addition():
@@ -18,5 +30,37 @@ def test_sampling_geom_dist():
     assert type(res) is int
 
 
+def show_geom_dist():
+    X = GeometricDisribution(0.99)
+    X.probability_mass_function
+    # X.stats
+    X.show_summary()
+
+
+def test_create_time_entries():
+    start_value = VentingState.CLOSE
+    start_time = time(18, 0)
+    end_time = time(23, 59)
+    dist = DefaultDistributions.night
+    entries = create_time_entries(start_value, start_time, end_time, dist)
+    assert len(entries.values) > 2
+    assert entries.values[1].value == VentingState.OPEN
+    print(entries)
+
+
+time_test: list[tuple[time, time, bool]] = [
+    (time(23, 37), time(0, 53), True),
+    (time(23, 37), time(23, 53), False),
+]
+
+
+@pytest.mark.parametrize("tprev, tnext, exp", time_test)
+def test_is_crossing_midnight(tprev, tnext, exp):
+    res = is_crossing_midnight(tprev, tnext)
+    assert res == exp
+
+
 if __name__ == "__main__":
-    test_sampling_geom_dist()
+    create_day_entries()
+    #test_create_time_entries()
+    # show_geom_dist()
