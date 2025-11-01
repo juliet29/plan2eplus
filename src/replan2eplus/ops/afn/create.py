@@ -1,5 +1,5 @@
 from replan2eplus.ops.afn.utils.coefficients import (
-    create_pressure_objects,
+    create_pressure_data,
     assign_external_nodes,
 )
 from replan2eplus.ops.afn.utils.venting import handle_venting_inputs
@@ -44,10 +44,11 @@ def create_afn_objects(
             handle_venting_inputs(idf, subsurfaces, afn_inputs.venting)
             afn.schedules = [i.schedule_input for i in afn_inputs.venting]
         if afn_inputs and afn_inputs.pressure_coefficients:
-            relevant_directions = assign_external_nodes(idf, afn.subsurfaces)
-            create_pressure_objects(
-                idf, afn_inputs.pressure_coefficients, relevant_directions
+            create_pressure_data(
+                idf,
+                afn_inputs.pressure_coefficients,
             )
+            assign_external_nodes(idf, afn.subsurfaces)
 
         return afn
 

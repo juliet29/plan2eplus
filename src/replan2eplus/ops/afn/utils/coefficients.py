@@ -29,16 +29,15 @@ def make_coefficient_entry_object_name(ix: int):
     return f"Wind_Pressure_Coefficient_Value_{ix + 1}"
 
 
-def make_external_node_object_name(direction: WallNormalLiteral):
-    return f"AFN_Pressure_Coefficient_Values_{direction}"
+def make_external_node_object_name(direction: WallNormalLiteral, room_name: str):
+    return f"AFN_Pressure_Coefficient_Values_{direction}_{room_name}"
 
 
-def create_pressure_objects(
-    idf: IDF, input: PressureCoefficientInput, directions: list[WallNormalLiteral]
+def create_pressure_data(
+    idf: IDF,
+    input: PressureCoefficientInput,
 ):
-    print(directions)
-
-    def make_external_nodes_and_coefficients(
+    def make_coefficients(
         values: list[float],
         direction: WallNormalLiteral,
         wind_directions_object_name: str,
@@ -49,10 +48,6 @@ def create_pressure_objects(
         coefficient_object_name = make_coefficient_value_object_name(direction)
         IDFAFNWindPressureCoefficientValues(
             coefficient_object_name, wind_directions_object_name, **value_dict
-        ).write(idf)
-        IDFAFNExternalNode(
-            make_external_node_object_name(direction),
-            Wind_Pressure_Coefficient_Curve_Name=coefficient_object_name,
         ).write(idf)
 
     wind_directions = {
@@ -66,10 +61,21 @@ def create_pressure_objects(
     ).write(idf)
 
     for direction, values in input.coefficient_values.items():
-        if direction in directions:
-            make_external_nodes_and_coefficients(
-                values, direction, wind_direction_object_name
-            )  # pyright: ignore[reportArgumentType]
+        make_coefficients(
+            values,  # type: ignore
+            direction,  # type: ignore
+            wind_direction_object_name,  # type: ignore
+        )  # pyright: ignore[reportArgumentType]
+
+
+def create_external_node(idf: IDF, direction: WallNormalLiteral, room_name: str):
+    coefficient_object_name = make_coefficient_value_object_name(direction)
+    obj = IDFAFNExternalNode(
+        make_external_node_object_name(direction, room_name),
+        Wind_Pressure_Coefficient_Curve_Name=coefficient_object_name,
+    )
+    obj.write(idf)
+    return obj
 
 
 def assign_external_nodes(idf: IDF, afn_subsurfaces: list[Subsurface]):
@@ -77,18 +83,27 @@ def assign_external_nodes(idf: IDF, afn_subsurfaces: list[Subsurface]):
         Seq(afn_subsurfaces).filter(lambda x: not x.neighbor_name).to_list()
     )
 
-    groups: dict[WallNormalLiteral, list[Subsurface]] = sort_and_group_objects_dict(
-        external_subsurfaces, lambda x: x.surface.direction.name
-    )
+    for surf in external_subsurfaces:
+        direction = surf.surface.direction.name
+        obj = create_external_node(idf, direction, surf.surface.room_name)
+        IDFAFNSurface.update_afn_surface(
+            idf,
+            surf.subsurface_name,
+            "External_Node_Name",
+            obj.Name,
+        )
 
-    # print(groups)
-    for k, v in groups.items():
-        external_node_name = make_external_node_object_name(k)
-        for subsurface in v:
-            IDFAFNSurface.update_afn_surface(
-                idf,
-                subsurface.subsurface_name,
-                "External_Node_Name",
-                external_node_name,
-            )
-    return list(groups.keys())
+    # groups: dict[WallNormalLiteral, list[Subsurface]] = sort_and_group_objects_dict(
+    #     external_subsurfaces, lambda x: x.surface.direction.name
+    # )
+
+    # # print(groups)
+    # for k, v in groups.items():
+    #     for subsurface in v:
+    #         IDFAFNSurface.update_afn_surface(
+    #             idf,
+    #             subsurface.subsurface_name,
+    #             "External_Node_Name",
+    #             external_node_name,
+    #         )
+    # return list(groups.keys())

@@ -127,7 +127,7 @@ class IDFAFNExternalNode(IDFObject):
     Wind_Pressure_Coefficient_Curve_Name: str = ""
 
     @property
-    de key(self):
+    def key(self):
         return "AIRFLOWNETWORK:MULTIZONE:EXTERNALNODE"
 
 

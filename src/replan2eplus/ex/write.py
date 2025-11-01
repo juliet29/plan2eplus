@@ -38,4 +38,4 @@ if __name__ == "__main__":
     #     run_case: bool = bool(sys.argv[1])
     # else:
     #     run_case = False
-    write_afn_cases_to_file(run=False)
+    write_afn_cases_to_file(run=True)
