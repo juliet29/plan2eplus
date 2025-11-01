@@ -44,8 +44,10 @@ def create_afn_objects(
             handle_venting_inputs(idf, subsurfaces, afn_inputs.venting)
             afn.schedules = [i.schedule_input for i in afn_inputs.venting]
         if afn_inputs and afn_inputs.pressure_coefficients:
-            create_pressure_objects(idf, afn_inputs.pressure_coefficients)
-            assign_external_nodes(idf, afn.subsurfaces)
+            relevant_directions = assign_external_nodes(idf, afn.subsurfaces)
+            create_pressure_objects(
+                idf, afn_inputs.pressure_coefficients, relevant_directions
+            )
 
         return afn
 

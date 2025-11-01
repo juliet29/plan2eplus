@@ -556,7 +556,7 @@ DOOR,
 AIRFLOWNETWORK:SIMULATIONCONTROL,
     Default,                  !- Name
     MultizoneWithoutDistribution,    !- AirflowNetwork Control
-    SurfaceAverageCalculation,    !- Wind Pressure Coefficient Type
+    Input,                    !- Wind Pressure Coefficient Type
     OpeningHeight,            !- Height Selection for Local Wind Pressure Calculation
     LowRise,                  !- Building Type
     500,                      !- Maximum Number of Iterations
@@ -600,7 +600,7 @@ AIRFLOWNETWORK:MULTIZONE:ZONE,
 AIRFLOWNETWORK:MULTIZONE:SURFACE,
     Door__Block `room1` Storey 0 Wall 0001,    !- Surface Name
     SimpleOpening__Door__Block `room1` Storey 0 Wall 0001,    !- Leakage Component Name
-    ,                         !- External Node Name
+    AFN_Pressure_Coefficient_Values_NORTH,    !- External Node Name
     1,                        !- WindowDoor Opening Factor or Crack Factor
     ZoneLevel,                !- Ventilation Control Mode
     ,                         !- Ventilation Control Zone Temperature Setpoint Schedule Name
@@ -617,7 +617,7 @@ AIRFLOWNETWORK:MULTIZONE:SURFACE,
 AIRFLOWNETWORK:MULTIZONE:SURFACE,
     Door__Block `room1` Storey 0 Wall 0003,    !- Surface Name
     SimpleOpening__Door__Block `room1` Storey 0 Wall 0003,    !- Leakage Component Name
-    ,                         !- External Node Name
+    AFN_Pressure_Coefficient_Values_SOUTH,    !- External Node Name
     1,                        !- WindowDoor Opening Factor or Crack Factor
     ZoneLevel,                !- Ventilation Control Mode
     ,                         !- Ventilation Control Zone Temperature Setpoint Schedule Name
@@ -634,7 +634,7 @@ AIRFLOWNETWORK:MULTIZONE:SURFACE,
 AIRFLOWNETWORK:MULTIZONE:SURFACE,
     Door__Block `room2` Storey 0 Wall 0001,    !- Surface Name
     SimpleOpening__Door__Block `room2` Storey 0 Wall 0001,    !- Leakage Component Name
-    ,                         !- External Node Name
+    AFN_Pressure_Coefficient_Values_NORTH,    !- External Node Name
     1,                        !- WindowDoor Opening Factor or Crack Factor
     ZoneLevel,                !- Ventilation Control Mode
     ,                         !- Ventilation Control Zone Temperature Setpoint Schedule Name
@@ -651,7 +651,7 @@ AIRFLOWNETWORK:MULTIZONE:SURFACE,
 AIRFLOWNETWORK:MULTIZONE:SURFACE,
     Door__Block `room2` Storey 0 Wall 0003,    !- Surface Name
     SimpleOpening__Door__Block `room2` Storey 0 Wall 0003,    !- Leakage Component Name
-    ,                         !- External Node Name
+    AFN_Pressure_Coefficient_Values_SOUTH,    !- External Node Name
     1,                        !- WindowDoor Opening Factor or Crack Factor
     ZoneLevel,                !- Ventilation Control Mode
     ,                         !- Ventilation Control Zone Temperature Setpoint Schedule Name
@@ -692,6 +692,67 @@ AIRFLOWNETWORK:MULTIZONE:COMPONENT:SIMPLEOPENING,
     0.65,                     !- Air Mass Flow Exponent When Opening is Closed
     0.0001,                   !- Minimum Density Difference for TwoWay Flow
     1;                        !- Discharge Coefficient
+
+AIRFLOWNETWORK:MULTIZONE:EXTERNALNODE,
+    AFN_Pressure_Coefficient_Values_NORTH,    !- Name
+    0,                        !- External Node Height
+    AFN_Pressure_Coefficient_Values_NORTH,    !- Wind Pressure Coefficient Curve Name
+    No,                       !- Symmetric Wind Pressure Coefficient Curve
+    Absolute;                 !- Wind Angle Type
+
+AIRFLOWNETWORK:MULTIZONE:EXTERNALNODE,
+    AFN_Pressure_Coefficient_Values_SOUTH,    !- Name
+    0,                        !- External Node Height
+    AFN_Pressure_Coefficient_Values_SOUTH,    !- Wind Pressure Coefficient Curve Name
+    No,                       !- Symmetric Wind Pressure Coefficient Curve
+    Absolute;                 !- Wind Angle Type
+
+AIRFLOWNETWORK:MULTIZONE:WINDPRESSURECOEFFICIENTARRAY,
+    AFN_Wind_Directions_0,    !- Name
+    0,                        !- Wind Direction 1
+    30,                       !- Wind Direction 2
+    60,                       !- Wind Direction 3
+    90,                       !- Wind Direction 4
+    120,                      !- Wind Direction 5
+    150,                      !- Wind Direction 6
+    180,                      !- Wind Direction 7
+    210,                      !- Wind Direction 8
+    240,                      !- Wind Direction 9
+    270,                      !- Wind Direction 10
+    300,                      !- Wind Direction 11
+    330;                      !- Wind Direction 12
+
+AIRFLOWNETWORK:MULTIZONE:WINDPRESSURECOEFFICIENTVALUES,
+    AFN_Pressure_Coefficient_Values_NORTH,    !- Name
+    AFN_Wind_Directions_0,    !- AirflowNetworkMultiZoneWindPressureCoefficientArray Name
+    0.6,                      !- Wind Pressure Coefficient Value 1
+    0.48,                     !- Wind Pressure Coefficient Value 2
+    0.04,                     !- Wind Pressure Coefficient Value 3
+    -0.56,                    !- Wind Pressure Coefficient Value 4
+    -0.56,                    !- Wind Pressure Coefficient Value 5
+    -0.42,                    !- Wind Pressure Coefficient Value 6
+    -0.37,                    !- Wind Pressure Coefficient Value 7
+    -0.42,                    !- Wind Pressure Coefficient Value 8
+    -0.56,                    !- Wind Pressure Coefficient Value 9
+    -0.56,                    !- Wind Pressure Coefficient Value 10
+    0.04,                     !- Wind Pressure Coefficient Value 11
+    0.48;                     !- Wind Pressure Coefficient Value 12
+
+AIRFLOWNETWORK:MULTIZONE:WINDPRESSURECOEFFICIENTVALUES,
+    AFN_Pressure_Coefficient_Values_SOUTH,    !- Name
+    AFN_Wind_Directions_0,    !- AirflowNetworkMultiZoneWindPressureCoefficientArray Name
+    -0.37,                    !- Wind Pressure Coefficient Value 1
+    -0.42,                    !- Wind Pressure Coefficient Value 2
+    -0.56,                    !- Wind Pressure Coefficient Value 3
+    -0.56,                    !- Wind Pressure Coefficient Value 4
+    0.04,                     !- Wind Pressure Coefficient Value 5
+    0.48,                     !- Wind Pressure Coefficient Value 6
+    0.6,                      !- Wind Pressure Coefficient Value 7
+    0.48,                     !- Wind Pressure Coefficient Value 8
+    0.04,                     !- Wind Pressure Coefficient Value 9
+    -0.56,                    !- Wind Pressure Coefficient Value 10
+    -0.56,                    !- Wind Pressure Coefficient Value 11
+    -0.42;                    !- Wind Pressure Coefficient Value 12
 
 OUTPUT:VARIABLE,
     *,                        !- Key Value

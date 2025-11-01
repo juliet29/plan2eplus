@@ -14,11 +14,11 @@ class IDFAFNSimulationControl(IDFObject):
     """
     Wind Pressure Coefficient Type ---
     - SurfaceAverageCalculation: then AFN assumes a rectangular boundary and computes coefficients accordingly
-    - Input: then AFN expects External Nodes, WPC Array, and WPC Values
+    - Input: then AFN expects External Nodes, WPC Array, and WPC Values [DEFAULT, defaults are given]
 
     Height Selection for Local Wind Pressure Calculation -----
     - ExternalNode: Height given in ExternalNode object will be used
-    - OpeningHeight: Opening height of the relevant surface will be used
+    - OpeningHeight: Opening height of the relevant surface will be used [DEFAULT]
 
     Building Type ----
     **Used only if Wind Pressure Coefficient Type == SurfaceAverageCalculation**
@@ -35,7 +35,7 @@ class IDFAFNSimulationControl(IDFObject):
         "MultizoneWithoutDistribution"  # only relevant option for this package..
     )
     Wind_Pressure_Coefficient_Type: Literal["Input", "SurfaceAverageCalculation"] = (
-        "SurfaceAverageCalculation"
+        "Input"
     )
     Height_Selection_for_Local_Wind_Pressure_Calculation: Literal[
         "ExternalNode", "OpeningHeight"
@@ -127,8 +127,11 @@ class IDFAFNExternalNode(IDFObject):
     Wind_Pressure_Coefficient_Curve_Name: str = ""
 
     @property
-    def key(self):
+    de key(self):
         return "AIRFLOWNETWORK:MULTIZONE:EXTERNALNODE"
+
+
+FALSE_VALUE = -1000
 
 
 @dataclass
@@ -140,55 +143,63 @@ class IDFAFNWindPressureCoefficientValues(IDFObject):
     """
 
     Name: str = ""
-    AirflowNetwork_MultiZone_WindPressureCoefficientArray_Name: str = ""  # TODO see how eppy handles this name, because originally is separated by colons.. not allowed in Pthon
-    Wind_Pressure_Coefficient_Value_1: float = 0.0
-    Wind_Pressure_Coefficient_Value_2: float = 0.0
-    Wind_Pressure_Coefficient_Value_3: float = 0.0
-    Wind_Pressure_Coefficient_Value_4: float = 0.0
+    AirflowNetworkMultiZoneWindPressureCoefficientArray_Name: str = ""  # TODO see how eppy handles this name, because originally is separated by colons.. not allowed in Pthon
+    Wind_Pressure_Coefficient_Value_1: float = FALSE_VALUE
+    Wind_Pressure_Coefficient_Value_2: float = FALSE_VALUE
+    Wind_Pressure_Coefficient_Value_3: float = FALSE_VALUE
+    Wind_Pressure_Coefficient_Value_4: float = FALSE_VALUE
 
-    Wind_Pressure_Coefficient_Value_5: float = 0.0
-    Wind_Pressure_Coefficient_Value_6: float = 0.0
-    Wind_Pressure_Coefficient_Value_7: float = 0.0
-    Wind_Pressure_Coefficient_Value_8: float = 0.0
+    Wind_Pressure_Coefficient_Value_5: float = FALSE_VALUE
+    Wind_Pressure_Coefficient_Value_6: float = FALSE_VALUE
+    Wind_Pressure_Coefficient_Value_7: float = FALSE_VALUE
+    Wind_Pressure_Coefficient_Value_8: float = FALSE_VALUE
 
-    Wind_Pressure_Coefficient_Value_9: float = 0.0
-    Wind_Pressure_Coefficient_Value_10: float = 0.0
-    Wind_Pressure_Coefficient_Value_11: float = 0.0
-    Wind_Pressure_Coefficient_Value_12: float = 0.0
+    Wind_Pressure_Coefficient_Value_9: float = FALSE_VALUE
+    Wind_Pressure_Coefficient_Value_10: float = FALSE_VALUE
+    Wind_Pressure_Coefficient_Value_11: float = FALSE_VALUE
+    Wind_Pressure_Coefficient_Value_12: float = FALSE_VALUE
 
-    Wind_Pressure_Coefficient_Value_13: float = 0.0
-    Wind_Pressure_Coefficient_Value_14: float = 0.0
-    Wind_Pressure_Coefficient_Value_15: float = 0.0
-    Wind_Pressure_Coefficient_Value_16: float = 0.0
+    Wind_Pressure_Coefficient_Value_13: float = FALSE_VALUE
+    Wind_Pressure_Coefficient_Value_14: float = FALSE_VALUE
+    Wind_Pressure_Coefficient_Value_15: float = FALSE_VALUE
+    Wind_Pressure_Coefficient_Value_16: float = FALSE_VALUE
 
-    Wind_Pressure_Coefficient_Value_17: float = 0.0
-    Wind_Pressure_Coefficient_Value_18: float = 0.0
-    Wind_Pressure_Coefficient_Value_19: float = 0.0
-    Wind_Pressure_Coefficient_Value_20: float = 0.0
+    Wind_Pressure_Coefficient_Value_17: float = FALSE_VALUE
+    Wind_Pressure_Coefficient_Value_18: float = FALSE_VALUE
+    Wind_Pressure_Coefficient_Value_19: float = FALSE_VALUE
+    Wind_Pressure_Coefficient_Value_20: float = FALSE_VALUE
 
-    Wind_Pressure_Coefficient_Value_21: float = 0.0
-    Wind_Pressure_Coefficient_Value_22: float = 0.0
-    Wind_Pressure_Coefficient_Value_23: float = 0.0
-    Wind_Pressure_Coefficient_Value_24: float = 0.0
+    Wind_Pressure_Coefficient_Value_21: float = FALSE_VALUE
+    Wind_Pressure_Coefficient_Value_22: float = FALSE_VALUE
+    Wind_Pressure_Coefficient_Value_23: float = FALSE_VALUE
+    Wind_Pressure_Coefficient_Value_24: float = FALSE_VALUE
 
-    Wind_Pressure_Coefficient_Value_25: float = 0.0
-    Wind_Pressure_Coefficient_Value_26: float = 0.0
-    Wind_Pressure_Coefficient_Value_27: float = 0.0
-    Wind_Pressure_Coefficient_Value_28: float = 0.0
+    Wind_Pressure_Coefficient_Value_25: float = FALSE_VALUE
+    Wind_Pressure_Coefficient_Value_26: float = FALSE_VALUE
+    Wind_Pressure_Coefficient_Value_27: float = FALSE_VALUE
+    Wind_Pressure_Coefficient_Value_28: float = FALSE_VALUE
 
-    Wind_Pressure_Coefficient_Value_29: float = 0.0
-    Wind_Pressure_Coefficient_Value_30: float = 0.0
-    Wind_Pressure_Coefficient_Value_31: float = 0.0
-    Wind_Pressure_Coefficient_Value_32: float = 0.0
+    Wind_Pressure_Coefficient_Value_29: float = FALSE_VALUE
+    Wind_Pressure_Coefficient_Value_30: float = FALSE_VALUE
+    Wind_Pressure_Coefficient_Value_31: float = FALSE_VALUE
+    Wind_Pressure_Coefficient_Value_32: float = FALSE_VALUE
 
-    Wind_Pressure_Coefficient_Value_33: float = 0.0
-    Wind_Pressure_Coefficient_Value_34: float = 0.0
-    Wind_Pressure_Coefficient_Value_35: float = 0.0
-    Wind_Pressure_Coefficient_Value_36: float = 0.0
+    Wind_Pressure_Coefficient_Value_33: float = FALSE_VALUE
+    Wind_Pressure_Coefficient_Value_34: float = FALSE_VALUE
+    Wind_Pressure_Coefficient_Value_35: float = FALSE_VALUE
+    Wind_Pressure_Coefficient_Value_36: float = FALSE_VALUE
 
     @property
     def key(self):
         return "AIRFLOWNETWORK:MULTIZONE:WINDPRESSURECOEFFICIENTVALUES"
+
+    @property
+    def values(self):
+        return {
+            k: v
+            for k, v in self.__dict__.items()
+            if isinstance(v, str) or v > FALSE_VALUE
+        }
 
 
 @dataclass
@@ -200,51 +211,59 @@ class IDFAFNWindPressureCoefficientArray(IDFObject):
     """
 
     Name: str = ""
-    Wind_Direction_1: float = 0.0
-    Wind_Direction_2: float = 0.0
-    Wind_Direction_3: float = 0.0
-    Wind_Direction_4: float = 0.0
+    Wind_Direction_1: float = FALSE_VALUE
+    Wind_Direction_2: float = FALSE_VALUE
+    Wind_Direction_3: float = FALSE_VALUE
+    Wind_Direction_4: float = FALSE_VALUE
 
-    Wind_Direction_5: float = 0.0
-    Wind_Direction_6: float = 0.0
-    Wind_Direction_7: float = 0.0
-    Wind_Direction_8: float = 0.0
+    Wind_Direction_5: float = FALSE_VALUE
+    Wind_Direction_6: float = FALSE_VALUE
+    Wind_Direction_7: float = FALSE_VALUE
+    Wind_Direction_8: float = FALSE_VALUE
 
-    Wind_Direction_9: float = 0.0
-    Wind_Direction_10: float = 0.0
-    Wind_Direction_11: float = 0.0
-    Wind_Direction_12: float = 0.0
+    Wind_Direction_9: float = FALSE_VALUE
+    Wind_Direction_10: float = FALSE_VALUE
+    Wind_Direction_11: float = FALSE_VALUE
+    Wind_Direction_12: float = FALSE_VALUE
 
-    Wind_Direction_13: float = 0.0
-    Wind_Direction_14: float = 0.0
-    Wind_Direction_15: float = 0.0
-    Wind_Direction_16: float = 0.0
+    Wind_Direction_13: float = FALSE_VALUE
+    Wind_Direction_14: float = FALSE_VALUE
+    Wind_Direction_15: float = FALSE_VALUE
+    Wind_Direction_16: float = FALSE_VALUE
 
-    Wind_Direction_17: float = 0.0
-    Wind_Direction_18: float = 0.0
-    Wind_Direction_19: float = 0.0
-    Wind_Direction_20: float = 0.0
+    Wind_Direction_17: float = FALSE_VALUE
+    Wind_Direction_18: float = FALSE_VALUE
+    Wind_Direction_19: float = FALSE_VALUE
+    Wind_Direction_20: float = FALSE_VALUE
 
-    Wind_Direction_21: float = 0.0
-    Wind_Direction_22: float = 0.0
-    Wind_Direction_23: float = 0.0
-    Wind_Direction_24: float = 0.0
+    Wind_Direction_21: float = FALSE_VALUE
+    Wind_Direction_22: float = FALSE_VALUE
+    Wind_Direction_23: float = FALSE_VALUE
+    Wind_Direction_24: float = FALSE_VALUE
 
-    Wind_Direction_25: float = 0.0
-    Wind_Direction_26: float = 0.0
-    Wind_Direction_27: float = 0.0
-    Wind_Direction_28: float = 0.0
+    Wind_Direction_25: float = FALSE_VALUE
+    Wind_Direction_26: float = FALSE_VALUE
+    Wind_Direction_27: float = FALSE_VALUE
+    Wind_Direction_28: float = FALSE_VALUE
 
-    Wind_Direction_29: float = 0.0
-    Wind_Direction_30: float = 0.0
-    Wind_Direction_31: float = 0.0
-    Wind_Direction_32: float = 0.0
+    Wind_Direction_29: float = FALSE_VALUE
+    Wind_Direction_30: float = FALSE_VALUE
+    Wind_Direction_31: float = FALSE_VALUE
+    Wind_Direction_32: float = FALSE_VALUE
 
-    Wind_Direction_33: float = 0.0
-    Wind_Direction_34: float = 0.0
-    Wind_Direction_35: float = 0.0
-    Wind_Direction_36: float = 0.0
+    Wind_Direction_33: float = FALSE_VALUE
+    Wind_Direction_34: float = FALSE_VALUE
+    Wind_Direction_35: float = FALSE_VALUE
+    Wind_Direction_36: float = FALSE_VALUE
 
     @property
     def key(self):
         return "AIRFLOWNETWORK:MULTIZONE:WINDPRESSURECOEFFICIENTARRAY"
+
+    @property
+    def values(self):
+        return {
+            k: v
+            for k, v in self.__dict__.items()
+            if isinstance(v, str) or v > FALSE_VALUE
+        }
