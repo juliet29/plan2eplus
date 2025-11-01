@@ -1,4 +1,4 @@
-from replan2eplus.ops.afn.utils import handle_venting_inputs
+from replan2eplus.ops.afn.utils.venting import handle_venting_inputs
 from replan2eplus.ops.afn.logic import determine_afn_objects
 from replan2eplus.ops.afn.user_interface import AFNInput
 from replan2eplus.ops.airboundary.ezobject import Airboundary

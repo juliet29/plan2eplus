@@ -124,7 +124,7 @@ class IDFAFNExternalNode(IDFObject):
 
     Name: str = ""
     External_Node_Height: float = 0.0
-    Wind_Pressure_Coefficient_Curve_Name = ""
+    Wind_Pressure_Coefficient_Curve_Name: str = ""
 
     @property
     def key(self):
@@ -140,7 +140,7 @@ class IDFAFNWindPressureCoefficientValues(IDFObject):
     """
 
     Name: str = ""
-    AirflowNetwork_MultiZone_WindPressureCoefficientArray_Name = ""  # TODO see how eppy handles this name, because originally is separated by colons.. not allowed in Pthon
+    AirflowNetwork_MultiZone_WindPressureCoefficientArray_Name: str = ""  # TODO see how eppy handles this name, because originally is separated by colons.. not allowed in Pthon
     Wind_Pressure_Coefficient_Value_1: float = 0.0
     Wind_Pressure_Coefficient_Value_2: float = 0.0
     Wind_Pressure_Coefficient_Value_3: float = 0.0

@@ -1,5 +1,5 @@
 from enum import IntEnum
-from typing import Literal
+from typing import Literal, get_args
 
 
 class WallNormal(IntEnum):
@@ -24,4 +24,5 @@ class WallNormal(IntEnum):
 
 
 WallNormalLiteral = Literal["NORTH", "EAST", "SOUTH", "WEST", "UP", "DOWN"]
-WallNormalNamesList = ["NORTH", "EAST", "SOUTH", "WEST", "UP", "DOWN"]
+# WallNormalNamesList = get_args(WallNormalLiteral)
+WallNormalNamesList = ["NORTH", "EAST", "SOUTH", "WEST", "UP", "DOWN"] # TODO replace and test 
