@@ -25,7 +25,7 @@ def validate_request(sql: SQLiteResult, var: str):
         return False
 
 
-def create_result_for_qoi(sql: SQLiteResult, var: str):
+def create_result_for_qoi(sql: SQLiteResult, var: OutputVariables):
     """Returns a collection for each space"""
     if validate_request(sql, var):
         collections: list[BaseCollection] = sql.data_collections_by_output_name(var)

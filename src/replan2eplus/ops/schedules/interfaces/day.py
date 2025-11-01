@@ -42,24 +42,3 @@ class Day:
 # NOTE: skipping weeks interface, assuming things are constant or just a few days..
 # if had to do a week inteface, would expect different behavior..
 
-
-# class ScheduleInput(NamedTuple):
-#     name: str
-#     year: Year
-#     case_save_folder: Path
-#     type_limit: UsefulScheduleTypeLimits
-
-#     @property
-#     def path_to_schedule(self):
-#         return self.case_save_folder / f"{self.name}.csv"
-
-#     def write_schedule_to_path(self):
-#         self.year.write_to_file(self.path_to_schedule)
-
-#     @property
-#     def schedule_idf_object(self):
-#         return ScheduleFileObject(
-#             self.name,
-#             self.type_limit.value.Name,
-#             self.path_to_schedule,
-#         )
