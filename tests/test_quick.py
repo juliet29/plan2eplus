@@ -1,5 +1,5 @@
 # for trouble shooting eppy
-# uv run bpython -i replan2eplus/tests/test_quick.py
+# uv run bpython -i /Users/julietnwagwuume-ezeoke/_UILCode/gqe-phd/fpopt/replan2eplus/tests/test_quick.py
 from replan2eplus.ex.main import Cases
 
 

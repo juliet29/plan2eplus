@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 
+from replan2eplus.ops.afn.user_interface import AFNInput
 from replan2eplus.ops.output.create import add_output_variables
 from replan2eplus.ops.run_settings.defaults import default_analysis_period
 from replan2eplus.ops.run_settings.user_interfaces import (
@@ -59,18 +60,19 @@ class EZ:
         )
         return self
 
-    def add_airflow_network(self):
+    def add_airflow_network(self, afn_input: AFNInput = AFNInput()):
         self.objects.airflow_network = create_afn_objects(
             self.idf,
             self.objects.zones,
             self.objects.subsurfaces,
             self.objects.airboundaries,
+            afn_input,
         )
         return self
 
     def add_constructions(
         self,
-        construction_inputs: ConstructionInput = default_construction_input,  # TODO decide if the name will be singular or plural, also should the defaults be this high up?
+        construction_inputs: ConstructionInput = default_construction_input,  # TODO decide if the name will be singular or plural, also should the defaults be this high up? -> BUILD CONSTRUCTIONS INTO THE OBJECT!
     ):
         # TODO have a default construction set
         cpaths, mpaths, cset = (
@@ -90,7 +92,8 @@ class EZ:
         self,
         output_path: Path | None = None,
         epw_path: Path | None = None,
-        analysis_period: AnalysisPeriod | None = default_analysis_period,
+        analysis_period: AnalysisPeriod
+        | None = default_analysis_period,  # TODO  -> BUILD CONSTRUCTIONS INTO THE OBJECT!
         additional_variables: list[str] = [],
         run=False,
     ):

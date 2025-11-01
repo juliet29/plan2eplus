@@ -5,6 +5,7 @@ from replan2eplus.ex.subsurfaces import (
     SubsurfaceInputOutputExamples,
 )
 from replan2eplus.paths import DynamicPaths
+import sys
 
 
 def write_subsurface_cases_to_file(example: SubsurfaceInputOutput):
@@ -33,4 +34,8 @@ def write_airboundary_case_to_file():
 
 
 if __name__ == "__main__":
-    write_afn_cases_to_file(run=True)
+    # if len(sys.argv) > 1:
+    #     run_case: bool = bool(sys.argv[1])
+    # else:
+    #     run_case = False
+    write_afn_cases_to_file(run=False)

@@ -18,7 +18,7 @@ def make_wind_direction_object_name(ix: int = 0):
 
 
 def make_wind_direction_entry_name(ix: int):
-    return f"AFN_Wind_Directions_{ix}"
+    return f"Wind_Direction_{ix + 1}"
 
 
 def make_coefficient_value_object_name(direction: WallNormalLiteral):
@@ -26,7 +26,7 @@ def make_coefficient_value_object_name(direction: WallNormalLiteral):
 
 
 def make_coefficient_entry_object_name(ix: int):
-    return f"Wind_Pressure_Coefficient_Value_{ix}"
+    return f"Wind_Pressure_Coefficient_Value_{ix + 1}"
 
 
 def make_external_node_object_name(direction: WallNormalLiteral):
@@ -65,7 +65,7 @@ def create_pressure_objects(idf: IDF, input: PressureCoefficientInput):
         make_external_nodes_and_coefficients(v, k, wind_direction_object_name)
 
 
-def match_external_nodes(idf: IDF, afn_subsurfaces: list[Subsurface]):
+def assign_external_nodes(idf: IDF, afn_subsurfaces: list[Subsurface]):
     external_subsurfaces = (
         Seq(afn_subsurfaces).filter(lambda x: not x.neighbor_name).to_list()
     )
