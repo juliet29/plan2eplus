@@ -1,4 +1,4 @@
-from replan2eplus.ops.schedules.interfaces.day import Day, TimeEntry
+from replan2eplus.ops.schedules.interfaces.day import Day, TimeEntryHours
 from rich import print
 import pytest
 import numpy as np
@@ -8,7 +8,7 @@ from replan2eplus.ops.schedules.interfaces.year import DayEntry
 
 
 def test_create_day():
-    time_entries = [TimeEntry(6, 0), TimeEntry(9, 1), TimeEntry(24, 0)]
+    time_entries = [TimeEntryHours(6, 0), TimeEntryHours(9, 1), TimeEntryHours(24, 0)]
     day = Day(time_entries)
     print(day.array)
 
@@ -18,10 +18,13 @@ def test_create_day_from_single_value():
     print(day.array)
 
 
-test_days: list[tuple[list[TimeEntry], np.ndarray]] = [
-    ([TimeEntry(12, 1), TimeEntry(24, 0)], np.concat([np.ones(12), np.zeros(12)])),
+test_days: list[tuple[list[TimeEntryHours], np.ndarray]] = [
     (
-        [TimeEntry(6, 1), TimeEntry(12, 0), TimeEntry(24, 1)],
+        [TimeEntryHours(12, 1), TimeEntryHours(24, 0)],
+        np.concat([np.ones(12), np.zeros(12)]),
+    ),
+    (
+        [TimeEntryHours(6, 1), TimeEntryHours(12, 0), TimeEntryHours(24, 1)],
         np.concat([np.ones(6), np.zeros(6), np.ones(12)]),
     ),
 ]

@@ -1,4 +1,7 @@
 from dataclasses import dataclass
+from expression.collections import Seq
+from replan2eplus.geometry.directions import WallNormalLiteral
+from typing import get_args
 
 import numpy as np
 from xarray import DataArray
@@ -8,6 +11,9 @@ from replan2eplus.ops.subsurfaces.ezobject import Subsurface
 from replan2eplus.ops.zones.ezobject import Zone
 from replan2eplus.geometry.contact_points import calculate_cardinal_points
 from replan2eplus.visuals.axes import (
+    AnnotationPair,
+    AnnotationStyles,
+    add_annotations,
     add_connection_lines,
     add_polygons,
 )
@@ -43,6 +49,46 @@ def filter_data_arr(data_arr: DataArray, geom_names: list[str]):
     return data_arr
 
 
+def get_matching_direction(name: str):
+    for i in get_args(WallNormalLiteral):
+        if i in name:
+            return i
+
+
+def contains_direction(name: str):
+    for i in get_args(WallNormalLiteral):
+        if i in name:
+            return True
+    return False
+
+
+def handle_external_node_data(data_arr_: DataArray):
+    # HERE, assuming have already selected the hour!
+
+    da = data_arr_
+
+    # filter array to only contain space_names that are directions, ie, contain directions.. => TODO better to filter on External Node Name, but right noe has wrong name...
+    existing_space_names = da.space_names.data.tolist()
+
+    cardinal_spaces = (
+        Seq(existing_space_names).filter(lambda x: contains_direction(x)).to_list()
+    )
+    cardinal_da = da.sel(space_names=cardinal_spaces)
+
+    # transform the space names to just be directions
+    true_card_da = (
+        cardinal_da.assign_coords(
+            space_names=Seq(cardinal_da.space_names.data)
+            .map(lambda x: get_matching_direction(x))
+            .to_list()
+        )
+        .groupby("space_names")
+        .mean()
+    )
+
+    return true_card_da
+
+
 @dataclass
 class DataPlot(BasePlot):
     zones: list[Zone]
@@ -53,19 +99,28 @@ class DataPlot(BasePlot):
         super().__post_init__()
         self.zone_dict = {i.zone_name.upper(): i for i in self.zones}
         self.zone_names = [i.zone_name.upper() for i in self.zones]
+        self.geom_cmap = None
+        self.geom_norm = None
 
-    def plot_zones_with_data(
+    def set_geometry_color_maps(
         self, data_arr_: DataArray, colorbar_fx: ColorBarFx = pressure_colorbar
     ):
-        data_arr = filter_data_arr(data_arr_, self.zone_names)
-        bar, cmap, norm = colorbar_fx(data_arr.values, self.axes)
+        self.data_array = data_arr_
+        bar, self.geom_cmap, self.geom_norm = colorbar_fx(data_arr_.values, self.axes)
+
+    def plot_zones_with_data(self):
+        assert self.geom_cmap and self.geom_norm
+        data_arr = filter_data_arr(self.data_array, self.zone_names)
+        print(data_arr)
         styles = [
-            PolygonStyles(fill=True, color=cmap(norm(i))) for i in data_arr.values
+            PolygonStyles(fill=True, color=self.geom_cmap(self.geom_norm(i)))
+            for i in data_arr.values
         ]
         domains = [self.zone_dict[i].domain for i in data_arr.space_names.values]
 
         add_polygons(domains, styles, self.axes)
-        # grey for zones not included..
+
+        # grey for zones not included in the data
         non_included_zones = set_difference(
             self.zone_names, data_arr.space_names.values
         )
@@ -76,6 +131,34 @@ class DataPlot(BasePlot):
         )
 
         return self
+
+    def plot_cardinal_names_with_data(self):
+        assert self.geom_cmap and self.geom_norm
+        data_arr = handle_external_node_data(self.data_array)
+        cardinal_points = calculate_cardinal_points(self.cardinal_domain)
+        existing_space_names = data_arr.space_names.values
+
+        inputs = []
+        for name, location in cardinal_points.dict_.items():
+            style = AnnotationStyles()
+            if name in existing_space_names:
+                value = data_arr.sel(space_names=name).values
+                assert not value.shape  # should be individual number
+                style.update_bbox_color(
+                    color=self.geom_cmap(self.geom_norm(float(value)))
+                )
+            inputs.append((name, location, style))
+
+        add_annotations(
+            [AnnotationPair(location, name) for name, location, _ in inputs],
+            [style for _, _, style in inputs],
+            self.axes,
+        )
+        return self
+
+        # some cardinal points will not be part of the afn
+        # data arr, will expect to have one variable for each thats in a typical cardinal points dict..
+        # for the things that is missing, will have no color..
 
     def plot_connections_with_data(
         self,

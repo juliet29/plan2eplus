@@ -2,6 +2,7 @@ import numpy as np
 import xarray as xr
 from rich import print as rprint
 import polars as pl
+from replan2eplus.ops.schedules.interfaces.day import xarray_day
 
 data = np.array([[10.0, 0.0], [11.0, 1.0], [12.0, 2.0]])
 rooms = ["room1", "room2"]
@@ -44,9 +45,9 @@ def adding_two_arrays_attrs():
     xarr1 = xr.DataArray(data, coords=coords, dims=dims, attrs=attrs1)
     xarr2 = xr.DataArray(data * 2, coords=coords, dims=dims, attrs=attrs2)
     with xr.set_options(keep_attrs=True):
-      xarr3 = xarr1 + xarr2
-      rprint(xarr1)
-      rprint(xarr3)
+        xarr3 = xarr1 + xarr2
+        rprint(xarr1)
+        rprint(xarr3)
 
 
 def adding_two_arrays():
@@ -85,4 +86,5 @@ def access():
 
 
 if __name__ == "__main__":
-    adding_two_arrays_attrs()
+    # adding_two_arrays_attrs()
+    res = xarray_day()

@@ -20,6 +20,7 @@ class CardinalPoints:
 
     @property
     def dict_(self):
+        # TODO make this consistent => values or something else.. 
         return {
             "NORTH": self.NORTH,
             "EAST": self.EAST,

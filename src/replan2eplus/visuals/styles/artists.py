@@ -19,6 +19,7 @@ class PlotStyles:
 
 @dataclass
 class AnnotationStyles(PlotStyles):
+    # face_color: Color = "white"
     bbox: BoundingBox = field(
         default_factory=lambda: {
             "boxstyle": "round,pad=0.2",
@@ -32,6 +33,9 @@ class AnnotationStyles(PlotStyles):
     verticalalignment: Literal["top", "center", "baseline", "bottom"] = "center"
     rotation: Literal["vertical"] | None = None
     zorder = 10
+
+    def update_bbox_color(self, color: Color):
+        self.bbox["fc"] = color
 
 
 @dataclass

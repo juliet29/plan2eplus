@@ -550,6 +550,11 @@ OUTPUT:VARIABLE,
 
 OUTPUT:VARIABLE,
     *,                        !- Key Value
+    AFN Node Wind Pressure,    !- Variable Name
+    Timestep;                 !- Reporting Frequency
+
+OUTPUT:VARIABLE,
+    *,                        !- Key Value
     AFN Zone Mixing Sensible Heat Gain Rate,    !- Variable Name
     Timestep;                 !- Reporting Frequency
 

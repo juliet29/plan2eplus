@@ -19,6 +19,7 @@ def prep_test_read_total_pressure(example: AFNCaseDefinition):
     qoi_result = create_result_for_qoi(sql, "AFN Node Total Pressure")
     print(qoi_result)
     print(create_result_for_qoi(sql, "Site Wind Direction"))
+    print(create_result_for_qoi(sql, "AFN Node Wind Pressure"))
     return qoi_result
     # qoi_result = Q
 

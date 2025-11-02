@@ -101,10 +101,17 @@ class AnnotationPair(NamedTuple):
 
 
 def add_annotations(
-    annotation_pair: list[AnnotationPair],
-    style: AnnotationStyles,
+    annotation_pairs: list[AnnotationPair],
+    styles: AnnotationStyles | list[AnnotationStyles],
     axes: Axes,
 ):
-    for coord, name in annotation_pair:
-        axes.text(*coord.as_tuple, s=name, **style.values)
-    return axes
+    if not isinstance(styles, list):
+        for coord, name in annotation_pairs:
+            axes.text(*coord.as_tuple, s=name, **styles.values)
+        return axes
+    else:
+        assert len(styles) == len(annotation_pairs)
+        for pair, style in zip(annotation_pairs, styles):
+            coord, name = pair
+            axes.text(*coord.as_tuple, s=name, **style.values)
+        return axes

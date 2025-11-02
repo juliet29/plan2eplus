@@ -65,7 +65,6 @@ def make_data_plot(
     hour: int = 12,
 ):
     case = EZ(idf_path=path / ep_paths.idf_name)
-
     pressure = get_qoi("AFN Node Total Pressure", path)
     data_at_noon = pressure.select_time(hour)
     # print(data_at_noon)
@@ -75,10 +74,11 @@ def make_data_plot(
     combined_flow = flow_12.select_time(hour) - flow_21.select_time(hour)
     # print(combined_flow)
 
-    dp = DataPlot(case.objects.zones)
-    dp.plot_zones_with_data(data_at_noon)
+    dp = DataPlot(case.objects.zones, cardinal_expansion_factor=2)
+    dp.set_geometry_color_maps(data_at_noon)
     dp.plot_zone_names()
-    dp.plot_cardinal_names()
+    dp.plot_zones_with_data()
+    dp.plot_cardinal_names_with_data()
     dp.plot_subsurfaces_and_surfaces(
         case.objects.airflow_network,
         case.objects.airboundaries,

@@ -1,5 +1,5 @@
 import math
-from typing import Callable
+from typing import Callable, Literal
 
 import matplotlib as mpl
 import matplotlib.cm as cm
@@ -9,22 +9,30 @@ from matplotlib.axes import Axes
 from matplotlib.colorbar import Colorbar
 from matplotlib.colors import Colormap, Normalize, TwoSlopeNorm
 
+PotentialColorMaps = Literal["YlOrRd_r", "RdYlBu", "RdYlBu_r" "vanimo", "managua"]
+
 ColorBarFx = Callable[
-    [list[float] | np.ndarray, Axes],
+    [list[float] | np.ndarray, Axes, PotentialColorMaps, PotentialColorMaps],
     tuple[tuple[Colorbar], Colormap, Normalize | TwoSlopeNorm],
 ]
+
 
 
 def is_greater_than_zero(num: float):
     return True if num > 0 else False
 
 
-def pressure_colorbar(data: list[float] | np.ndarray, ax: Axes):
+def pressure_colorbar(
+    data: list[float] | np.ndarray,
+    ax: Axes,
+    single_colormap: PotentialColorMaps = "YlOrRd_r",
+    diverging_colormap: PotentialColorMaps = "RdYlBu_r",
+):
     expansion = 1.3
     if len(data) == 1:
         res = data[0]
         norm = Normalize(vmin=res - expansion, vmax=res + expansion)
-        cmap = mpl.colormaps["YlOrRd_r"]
+        cmap = mpl.colormaps[single_colormap]
 
     else:
         min_, max_ = (
@@ -39,17 +47,17 @@ def pressure_colorbar(data: list[float] | np.ndarray, ax: Axes):
 
         if max_ <= 0:
             norm = Normalize(vmin=min_, vmax=max_)
-            cmap = mpl.colormaps["YlOrRd_r"]
+            cmap = mpl.colormaps[single_colormap]
         elif same_sign:
             norm = Normalize(vmin=min_, vmax=max_)
-            cmap = mpl.colormaps["YlOrRd_r"]
+            cmap = mpl.colormaps[single_colormap]
         else:
             print(min_, max_)
             center = 0
 
             norm = TwoSlopeNorm(vmin=min_, vcenter=center, vmax=max_)
 
-            cmap = mpl.colormaps["RdYlBu"]
+            cmap = mpl.colormaps[diverging_colormap]
 
     bar = (
         plt.colorbar(
