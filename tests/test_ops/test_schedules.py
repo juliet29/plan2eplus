@@ -1,5 +1,6 @@
 from datetime import time
-from rich import print 
+from rich import print
+from replan2eplus.ops.schedules.interfaces.constants import START_DATE
 from replan2eplus.ops.schedules.interfaces.day import (
     DAY_END_TIME,
     DAY_START_TIME,
@@ -9,9 +10,16 @@ from replan2eplus.ops.schedules.interfaces.day import (
     update_arr,
     create_day_from_time_entries,
 )
-from replan2eplus.ops.schedules.interfaces.year import initialize_year_array
+from replan2eplus.ops.schedules.interfaces.year import (
+    DayEntry,
+    create_year_from_day_entries,
+    initialize_year_array,
+    Date,
+    update_year_arr,
+)
 
 
+# TODO put into a class as well?
 def create_expected_day():
     arr = initialize_array(DAY_START_TIME, DAY_END_TIME)
     t1, t2, t3, t4 = [DAY_START_TIME, time(6, 0), time(9, 15), time(23, 59)]
@@ -40,6 +48,52 @@ def test_create_day_from_single_value():
     assert (res.arr == value).all()
 
 
+class TestYear:
+    dates = [
+        Date.from_date(START_DATE),
+        Date(7, 2),
+        Date(7, 3),
+        Date(7, 4),
+        Date(12, 31),
+    ]
+    basic_day = create_day_from_single_value(100)
+    v1 = create_day_from_time_entries(
+        [
+            TimeEntry(time(7), 0),
+            TimeEntry(time(23, 59), 1),
+        ]
+    )
+    v2 = create_day_from_time_entries(
+        [
+            TimeEntry(time(8), 1),
+            TimeEntry(time(23, 59), 0),
+        ]
+    )
+
+    def create_expected_year(self):
+        arr = initialize_year_array()
+        d1, d2, d3, d4, d5 = self.dates
+        arr = update_year_arr(arr, d1, d2, self.basic_day)
+        arr = update_year_arr(arr, d2, d3, self.v1)
+        arr = update_year_arr(arr, d3, d4, self.v2)
+        arr = update_year_arr(arr, d4, d5, self.basic_day)
+        return arr
+
+    def test_create_year(self):
+        d1, d2, d3, d4, d5 = self.dates
+        day_entries = [
+            DayEntry(d2, self.basic_day),
+            DayEntry(d3, self.v1),
+            DayEntry(d4, self.v2),
+            DayEntry(d5, self.basic_day),
+        ]
+        res = create_year_from_day_entries(day_entries)
+        exp = self.create_expected_year()
+        # print(f"{res=}")
+        # print(f"{exp=}")
+        assert (res.arr == exp).all()
+
+
 # class TestYear:
 #     default_day = Day.from_single_value(0)
 #     special_day = Day.from_single_value(10)
@@ -58,5 +112,8 @@ def test_create_day_from_single_value():
 
 
 if __name__ == "__main__":
-    res = initialize_year_array()
-    print(res)
+    ty = TestYear()
+    ty.test_create_year()
+    # print(ty.create_expected_year())
+    # res = initialize_year_array()
+    # print(res)

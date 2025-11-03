@@ -25,9 +25,9 @@ class TimeEntry(NamedTuple):
 class Day:
     arr: xr.DataArray
 
-    def __post_init___(self):
+    def __post_init__(self):
         schema = DataArraySchema(
-            dtype=np.integer, shape=(MINUTES_PER_DAY,), dims=(("datetime",))
+            dtype=np.float64, shape=(MINUTES_PER_DAY,), dims=(("datetime",))
         )
         schema.validate(self.arr)
 
