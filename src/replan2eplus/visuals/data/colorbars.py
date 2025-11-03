@@ -9,13 +9,12 @@ from matplotlib.axes import Axes
 from matplotlib.colorbar import Colorbar
 from matplotlib.colors import Colormap, Normalize, TwoSlopeNorm
 
-PotentialColorMaps = Literal["YlOrRd_r", "RdYlBu", "RdYlBu_r" "vanimo", "managua"]
+PotentialColorMaps = Literal["YlOrRd_r", "RdYlBu", "RdYlBu_r", "managua"]
 
 ColorBarFx = Callable[
-    [list[float] | np.ndarray, Axes, PotentialColorMaps, PotentialColorMaps],
+    [list[float] | np.ndarray, Axes],
     tuple[tuple[Colorbar], Colormap, Normalize | TwoSlopeNorm],
 ]
-
 
 
 def is_greater_than_zero(num: float):

@@ -103,10 +103,11 @@ class DataPlot(BasePlot):
         self.geom_norm = None
 
     def set_geometry_color_maps(
-        self, data_arr_: DataArray, colorbar_fx: ColorBarFx = pressure_colorbar
+        self, data_arr_: DataArray, colorbar_fx: ColorBarFx = pressure_colorbar # pyright: ignore[reportArgumentType]
     ):
         self.data_array = data_arr_
         bar, self.geom_cmap, self.geom_norm = colorbar_fx(data_arr_.values, self.axes)
+        return self 
 
     def plot_zones_with_data(self):
         assert self.geom_cmap and self.geom_norm
