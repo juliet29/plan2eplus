@@ -1,20 +1,16 @@
 from datetime import date, time, timedelta, datetime
 import pytest
-from html import entities
 from rich import print
-import test
-from replan2eplus.prob_door.interfaces import (
-    DefaultDistributions,
-    Distributions,
-    GeometricDisribution,
-    VentingState,
+from replan2eplus.prob_door.functions import (
     create_time_entries,
-    create_day_entries,
     create_venting_year,
     is_crossing_midnight,
 )
-from replan2eplus.ops.schedules.interfaces.day import Day, create_day_from_single_value
-from replan2eplus.ops.schedules.interfaces.year import DayEntry, Date
+from replan2eplus.prob_door.interfaces import (
+    GeometricDisribution,
+    SingleDayVentingAssignment,
+    VentingState,
+)
 
 
 def test_datetime_addition():
@@ -43,9 +39,8 @@ def show_geom_dist():
 def test_create_time_entries():
     start_value = VentingState.CLOSE
     start_time = time(18, 0)
-    end_time = time(23, 59)
-    dist = DefaultDistributions.night
-    entries = create_time_entries(start_value, start_time, end_time, dist)
+    assn = SingleDayVentingAssignment(seed=0)
+    entries = create_time_entries(start_value, start_time, assn.night)
     assert len(entries.values) > 2
     assert entries.values[1].value == VentingState.OPEN
     print(entries)
@@ -61,6 +56,11 @@ midnight_test: list[tuple[time, time, bool]] = [
 def test_is_crossing_midnight(tprev, tnext, exp):
     res = is_crossing_midnight(tprev, tnext)
     assert res == exp
+
+
+def test_create_venting_year():
+    year = create_venting_year()
+    assert 1
 
 
 if __name__ == "__main__":

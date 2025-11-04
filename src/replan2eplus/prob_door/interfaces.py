@@ -1,29 +1,16 @@
 from dataclasses import dataclass
-from utils4plans.lists import pairwise
-from typing import NamedTuple
+from datetime import date, time, timedelta
 from enum import Enum
-from datetime import time, timedelta, datetime, date
-from scipy.stats import geom
+from typing import NamedTuple
+
 import numpy as np
 from rich import print
+from numpy.random import Generator, PCG64
+from scipy.stats import geom
 from tabulate import tabulate
-from replan2eplus.ops.schedules.interfaces.day import TimeEntry as BaseTimeEntry
 
-from replan2eplus.ops.schedules.interfaces.day import (
-    Day,
-    create_day_from_single_value,
-    create_day_from_time_entries,
-)
-from replan2eplus.ops.schedules.interfaces.year import (
-    DayEntry,
-    Date,
-    create_year_from_day_entries_and_defaults,
-    plot_year,
-)
-from replan2eplus.ops.schedules.interfaces.utils import create_datetime
-import xarray as xr
-from replan2eplus.ops.schedules.interfaces.constants import DAY_END_TIME, DAY_START_TIME
-import numpy as np
+from replan2eplus.ops.schedules.interfaces.constants import DAY_END_TIME
+from replan2eplus.ops.schedules.interfaces.day import TimeEntry as BaseTimeEntry
 
 # TODO CONNECT TO CONFIG RELATED TO NUMBER OF TIMESTEPS
 LEN_INTERVAL = timedelta(minutes=15)
@@ -76,10 +63,14 @@ class TimeEntryList:
 
 class GeometricDisribution(NamedTuple):
     probability_of_success: float
+    seed: int = 0
     # TODO here can possibly add seed.. -> maybe want a different seed for each day?, and each interval.., so somewhere high up, when are creating the year...
 
     @property
     def distribution(self):
+        scipy_random_generator = geom
+        np_random_generator = Generator(PCG64(self.seed))
+        scipy_random_generator.random_state = np_random_generator
         return geom(self.probability_of_success)
 
     def sample(self) -> int:
@@ -117,161 +108,100 @@ class GeometricDisribution(NamedTuple):
 class Distributions(NamedTuple):
     p_open: float
     p_close: float
+    seed: int = 0
 
     @property
     def X_open(self):
-        return GeometricDisribution(self.p_open)
+        return GeometricDisribution(self.p_open, self.seed)
 
     @property
     def X_close(self):
-        return GeometricDisribution(self.p_close)
-
-
-def get_next_time(
-    init_time_: time, dist: GeometricDisribution, len_interval: timedelta = LEN_INTERVAL
-) -> time:
-    init_time = datetime.combine(DEFAULT_FAKE_DATE, init_time_)
-
-    n_intervals = dist.sample()
-    next_datetime = init_time + n_intervals * len_interval
-    return next_datetime.time()
+        return GeometricDisribution(self.p_close, self.seed)
 
 
 # TODO test this!
 
 
-def is_crossing_midnight(tprev: time, tnext: time):
-    if tprev > tnext:
-        return True
-    return False
+class VentingInput(NamedTuple):
+    day_p_open: float
+    day_p_close: float
+
+    night_p_open: float
+    night_p_close: float
+
+    early_morning_end: time
+    night_start: time
 
 
-def create_time_entries(
-    start_value: VentingState,
-    start_time: time,  # TOOD could be a time entry ..
-    end_time: time,
-    distributions: Distributions,
-):
-    entries = TimeEntryList([TimeEntry(start_time, start_value)])
-    count = 0
-    MAX_COUNT = 100
-
-    # create disctr
-
-    while entries.last.time < end_time:
-        match entries.last.value:
-            case VentingState.OPEN:
-                next_time = get_next_time(
-                    entries.last.time,
-                    distributions.X_close,
-                )
-                next_entry = TimeEntry(next_time, VentingState.CLOSE)
-
-            case VentingState.CLOSE:
-                next_time = get_next_time(entries.last.time, distributions.X_open)
-                next_entry = TimeEntry(next_time, VentingState.OPEN)
-
-            case _:
-                raise Exception(f"Invalid Venting State: {entries.last.value}")
-
-        if next_entry.time > end_time or is_crossing_midnight(
-            entries.last.time, next_entry.time
-        ):
-            next_entry = TimeEntry(end_time, next_entry.value)
-            entries.append(next_entry)
-            break
-
-        entries.append(next_entry)
-
-        count += 1
-        if count > MAX_COUNT:
-            raise Exception(f"Exceeded max count: current entries {entries.values}")
-    return entries
+default_venting_input = VentingInput(
+    # NOTE: could imagine having different distributions for different kinds of rooms,
+    # NOTE: limitation in that the minimum interval here is 15 minutes
+    # More likely to open the door during the day, and likely to leave it open for a longer period of time
+    day_p_open=0.5,
+    day_p_close=0.7,
+    # Unlikely to open door, but if do, likely to close again within a short interval
+    night_p_open=0.1,
+    night_p_close=0.99,
+    early_morning_end=time(6, 0),
+    night_start=time(21, 0),
+)
 
 
-class DefaultDistributions:
-    # TODO should also have some info about the times?
-    day: Distributions = Distributions(
-        p_open=0.5, p_close=0.7
-    )  # more likely to open the door during the day, and likely to leave it open for a longer period of time
-    night: Distributions = Distributions(
-        p_open=0.1, p_close=0.99
-    )  # Unlikely to open door, but if do, likely to close again within a short interval
-    # could imagine having different distributions for different kinds of rooms,
-    # limitation in that the minimum interval here is 15 minutes
-
-
-class Times(NamedTuple):
+class DistributionAndTime(NamedTuple):
     distribution: Distributions
-    end: time
+    end_time: time
 
 
-class TimesAssign:
-    early_morning = Times(DefaultDistributions.night, time(6, 0))
-    day = Times(DefaultDistributions.day, time(21, 0))
-    night = Times(DefaultDistributions.night, time(23, 59))
+@dataclass
+class SingleDayVentingAssignment:
+    seed: int
+    input: VentingInput = default_venting_input
+
+    @property
+    def daytime_distribution(self):
+        return Distributions(self.input.day_p_open, self.input.day_p_close, self.seed)
+
+    @property
+    def nightime_distribution(self):
+        return Distributions(
+            self.input.night_p_open, self.input.night_p_close, self.seed
+        )
+
+    @property
+    def early_morning(self):
+        return DistributionAndTime(
+            self.nightime_distribution, self.input.early_morning_end
+        )
+
+    @property
+    def day(self):
+        return DistributionAndTime(self.daytime_distribution, self.input.night_start)
+
+    @property
+    def night(self):
+        return DistributionAndTime(self.nightime_distribution, DAY_END_TIME)
 
 
-def create_day_entries(start_value=VentingState.CLOSE, assn=TimesAssign()):
-    start_time = time(0, 0)
-    early_morning = create_time_entries(
-        start_value, start_time, assn.early_morning.end, assn.early_morning.distribution
-    )
-    day = create_time_entries(
-        early_morning.last.value,
-        early_morning.last.time,
-        assn.day.end,
-        assn.day.distribution,
-    )
-
-    night = create_time_entries(
-        day.last.value,
-        day.last.time,
-        assn.night.end,
-        assn.night.distribution,
-    )
-
-    combined = TimeEntryList(
-        early_morning.values + day.values + night.values
-    ).unique_and_sorted
-
-    assert combined[0].time == time(0, 0)
-    assert combined[-1].time == time(23, 59)
-
-    base_time_entries = [i.base_time_entry for i in combined]
-
-    # print(sum([i.value for i in base_time_entries]))
-    return base_time_entries
-
-    # print(f"{base_time_entries=}\n")
-    # print(f"{day=}\n")
-    # print(f"{night=}\n")
-    # print(f"{nice_combo=}\n")
+# class DefaultDistributions:
+#     # TODO should also have some info about the times?
+#     day: Distributions = Distributions(
+#         p_open=0.5, p_close=0.7
+#     )  # more likely to open the door during the day, and likely to leave it open for a longer period of time
+#     night: Distributions = Distributions(
+#         p_open=0.1, p_close=0.99
+#     )  # Unlikely to open door, but if do, likely to close again within a short interval
+#     # could imagine having different distributions for different kinds of rooms,
+#     # limitation in that the minimum interval here is 15 minutes
 
 
-def create_venting_year(
-    operation_start: Date = Date(5, 1), operation_end: Date = Date(8, 1)
-):
-    default_day = create_day_from_single_value(VentingState.CLOSE.value)
+# class TimesAssign:
+#     early_morning = DistributionAndTime(DefaultDistributions.night, time(6, 0))
+#     day = DistributionAndTime(DefaultDistributions.day, time(21, 0))
+#     night = DistributionAndTime(DefaultDistributions.night, time(23, 59))
 
-    operating_range = xr.date_range(
-        create_datetime(DAY_START_TIME, operation_start.python_date),
-        create_datetime(DAY_END_TIME, operation_end.python_date),
-        freq="D",
-    )
-    operating_entries: list[DayEntry] = []
-    start_value = VentingState.CLOSE
+# print(f"{base_time_entries=}\n")
+# print(f"{day=}\n")
+# print(f"{night=}\n")
+# print(f"{nice_combo=}\n")
 
-    for i in operating_range.date:  # pyright: ignore[reportAttributeAccessIssue]
-        entries = create_day_entries(start_value)
-        day = create_day_from_time_entries(entries)
-        operating_entries.append(DayEntry(Date.from_date(i), day))
-        start_value = VentingState(entries[-1].value)
-
-    year = create_year_from_day_entries_and_defaults(operating_entries, default_day)
-
-    # print(year)
-    # plot_year(year, operation_start, Date(5, 2))
-    return year
-
-    # print(operating_entries)
+# print(operating_entries)
