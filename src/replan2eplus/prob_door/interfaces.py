@@ -2,15 +2,15 @@ from dataclasses import dataclass
 from datetime import date, time, timedelta
 from enum import Enum
 from typing import NamedTuple
-
+from numpy.random import Generator, PCG64
 import numpy as np
 from rich import print
-from numpy.random import Generator, PCG64
 from scipy.stats import geom
 from tabulate import tabulate
 
 from replan2eplus.ops.schedules.interfaces.constants import DAY_END_TIME
 from replan2eplus.ops.schedules.interfaces.day import TimeEntry as BaseTimeEntry
+from replan2eplus.paths import SEED
 
 # TODO CONNECT TO CONFIG RELATED TO NUMBER OF TIMESTEPS
 LEN_INTERVAL = timedelta(minutes=15)
@@ -63,14 +63,13 @@ class TimeEntryList:
 
 class GeometricDisribution(NamedTuple):
     probability_of_success: float
-    seed: int = 0
+    generator: Generator = np.random.default_rng(SEED)
     # TODO here can possibly add seed.. -> maybe want a different seed for each day?, and each interval.., so somewhere high up, when are creating the year...
 
     @property
     def distribution(self):
         scipy_random_generator = geom
-        np_random_generator = Generator(PCG64(self.seed))
-        scipy_random_generator.random_state = np_random_generator
+        scipy_random_generator.random_state = self.generator
         return geom(self.probability_of_success)
 
     def sample(self) -> int:
@@ -108,15 +107,15 @@ class GeometricDisribution(NamedTuple):
 class Distributions(NamedTuple):
     p_open: float
     p_close: float
-    seed: int = 0
+    generator: Generator
 
     @property
     def X_open(self):
-        return GeometricDisribution(self.p_open, self.seed)
+        return GeometricDisribution(self.p_open, self.generator)
 
     @property
     def X_close(self):
-        return GeometricDisribution(self.p_close, self.seed)
+        return GeometricDisribution(self.p_close, self.generator)
 
 
 # TODO test this!
@@ -154,17 +153,19 @@ class DistributionAndTime(NamedTuple):
 
 @dataclass
 class SingleDayVentingAssignment:
-    seed: int
+    generator: Generator
     input: VentingInput = default_venting_input
 
     @property
     def daytime_distribution(self):
-        return Distributions(self.input.day_p_open, self.input.day_p_close, self.seed)
+        return Distributions(
+            self.input.day_p_open, self.input.day_p_close, self.generator
+        )
 
     @property
     def nightime_distribution(self):
         return Distributions(
-            self.input.night_p_open, self.input.night_p_close, self.seed
+            self.input.night_p_open, self.input.night_p_close, self.generator
         )
 
     @property

@@ -156,3 +156,6 @@ class DynamicPaths:
     subsurface_examples = results_for_tests / "subsurface_examples"
     afn_examples = results_for_tests / "afn_examples"
     airboundary_examples = results_for_tests / "airboundary_examples"
+
+
+SEED = 1234

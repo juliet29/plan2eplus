@@ -1,6 +1,10 @@
 from datetime import datetime, time, timedelta
+from tabulate import tabulate
+from rich import print
 
+from numpy.random import Generator, PCG64
 import xarray as xr
+import numpy as np
 
 from replan2eplus.ops.schedules.interfaces.constants import DAY_END_TIME, DAY_START_TIME
 from replan2eplus.ops.schedules.interfaces.day import (
@@ -13,9 +17,11 @@ from replan2eplus.ops.schedules.interfaces.year import (
     DayEntry,
     create_year_from_day_entries_and_defaults,
 )
+from replan2eplus.paths import SEED
 from replan2eplus.prob_door.interfaces import (
     DEFAULT_FAKE_DATE,
     LEN_INTERVAL,
+    BaseTimeEntry,
     DistributionAndTime,
     GeometricDisribution,
     SingleDayVentingAssignment,
@@ -84,8 +90,8 @@ def create_time_entries(
     return entries
 
 
-def create_day_entries(start_value: VentingState, seed: int):
-    assn = SingleDayVentingAssignment(seed)
+def create_day_entries(start_value: VentingState, generator: Generator):
+    assn = SingleDayVentingAssignment(generator)
     start_time = DAY_START_TIME
     early_morning = create_time_entries(
         start_value,
@@ -102,17 +108,24 @@ def create_day_entries(start_value: VentingState, seed: int):
         early_morning.values + day.values + night.values
     ).unique_and_sorted
 
-    assert combined[0].time == time(0, 0)
-    assert combined[-1].time == time(23, 59)
+    assert combined[0].time == DAY_START_TIME
+    assert combined[-1].time == DAY_END_TIME
+
+    # TODO: chek that the length og the range is the same..
 
     base_time_entries = [i.base_time_entry for i in combined]
 
-    # print(sum([i.value for i in base_time_entries]))
     return base_time_entries
 
 
+def sum_entries(entries: list[BaseTimeEntry]):
+    return sum([i.value for i in entries])
+
+
 def create_venting_year(
-    operation_start: Date = Date(5, 1), operation_end: Date = Date(8, 1)
+    seed: int = SEED,
+    operation_start: Date = Date(5, 1),
+    operation_end: Date = Date(8, 1),
 ):
     default_day = create_day_from_single_value(VentingState.CLOSE.value)
 
@@ -124,13 +137,27 @@ def create_venting_year(
     operating_entries: list[DayEntry] = []
     start_value = VentingState.CLOSE
 
-    for ix, i in enumerate(operating_range.date):  # pyright: ignore[reportAttributeAccessIssue]
-        entries = create_day_entries(start_value, seed=ix)
+    np_random_generator = np.random.default_rng(seed)
+    res = np_random_generator.normal(1)
+    print(res)
+    children_rng = np_random_generator.spawn(operating_range.size)
+
+    tracker: list[float] = []
+    for ix, (curr_date, generator) in enumerate(
+        zip(operating_range.date, children_rng)  # pyright: ignore[reportAttributeAccessIssue]
+    ):
+        entries = create_day_entries(start_value, generator)
         day = create_day_from_time_entries(entries)
-        operating_entries.append(DayEntry(Date.from_date(i), day))
+        operating_entries.append(DayEntry(Date.from_date(curr_date), day))
         start_value = VentingState(entries[-1].value)
 
+        tracker.append(sum_entries(entries))
+
     year = create_year_from_day_entries_and_defaults(operating_entries, default_day)
+
+    txarr = xr.DataArray(data=tracker, coords={"datetime": operating_range})
+
+    print(f"{txarr.mean().values=}, {txarr.std().values=}")
 
     # print(year)
     # plot_year(year, operation_start, Date(5, 2))

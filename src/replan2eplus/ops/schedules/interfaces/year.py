@@ -26,6 +26,9 @@ class Date(NamedTuple):
     day: int
     year: int = YEAR
 
+    def __str__(self) -> str:
+        return self.python_date.strftime("%m-%d")
+
     @property
     def python_date(self):
         return date(self.year, self.month, self.day)
@@ -83,6 +86,7 @@ def plot_year(
     slice_ = slice(d1.python_date, d2.python_date)
     year.arr.sel(datetime=slice_).plot.line(ax=ax1)
     plt.show()
+
 
 def initialize_year_array():
     start_datetime = create_datetime(DAY_START_TIME, YEAR_START_DATE)
