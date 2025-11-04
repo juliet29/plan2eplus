@@ -10,8 +10,11 @@ from replan2eplus.prob_door.interfaces import (
     VentingState,
     create_time_entries,
     create_day_entries,
+    create_year,
     is_crossing_midnight,
 )
+from replan2eplus.ops.schedules.interfaces.day import Day, create_day_from_single_value
+from replan2eplus.ops.schedules.interfaces.year import DayEntry, Date
 
 
 def test_datetime_addition():
@@ -48,19 +51,20 @@ def test_create_time_entries():
     print(entries)
 
 
-time_test: list[tuple[time, time, bool]] = [
+midnight_test: list[tuple[time, time, bool]] = [
     (time(23, 37), time(0, 53), True),
     (time(23, 37), time(23, 53), False),
 ]
 
 
-@pytest.mark.parametrize("tprev, tnext, exp", time_test)
+@pytest.mark.parametrize("tprev, tnext, exp", midnight_test)
 def test_is_crossing_midnight(tprev, tnext, exp):
     res = is_crossing_midnight(tprev, tnext)
     assert res == exp
 
 
 if __name__ == "__main__":
-    create_day_entries()
-    #test_create_time_entries()
+    create_year()
+
+    # test_create_time_entries()
     # show_geom_dist()

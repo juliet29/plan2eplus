@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from utils4plans.lists import pairwise
 from typing import NamedTuple
 from enum import Enum
 from datetime import time, timedelta, datetime, date
@@ -6,6 +7,18 @@ from scipy.stats import geom
 import numpy as np
 from rich import print
 from tabulate import tabulate
+from replan2eplus.ops.schedules.interfaces.day import TimeEntry as BaseTimeEntry
+
+from replan2eplus.ops.schedules.interfaces.day import (
+    Day,
+    create_day_from_single_value,
+    create_day_from_time_entries,
+)
+from replan2eplus.ops.schedules.interfaces.year import DayEntry, Date
+from replan2eplus.ops.schedules.interfaces.utils import create_datetime
+import xarray as xr
+from replan2eplus.ops.schedules.interfaces.constants import DAY_END_TIME, DAY_START_TIME
+import numpy as np 
 
 # TODO CONNECT TO CONFIG RELATED TO NUMBER OF TIMESTEPS
 LEN_INTERVAL = timedelta(minutes=15)
@@ -23,6 +36,18 @@ class TimeEntry(
     time: time
     value: VentingState
 
+    def __eq__(self, other: object) -> bool:
+        if isinstance(other, TimeEntry):
+            return (self.time == other.time) and (self.value == other.value)
+        raise Exception  # TODO make a repo wide error for this
+
+    def __hash__(self) -> int:
+        return hash(self.time) + hash(self.value)
+
+    @property
+    def base_time_entry(self):
+        return BaseTimeEntry(self.time, self.value.value)
+
 
 @dataclass
 class TimeEntryList:
@@ -34,6 +59,10 @@ class TimeEntryList:
 
     def append(self, entry: TimeEntry):
         self.values.append(entry)
+
+    @property
+    def unique_and_sorted(self):
+        return sorted(set(self.values), key=lambda x: x.time)
 
     # @property
     # def last_time(self):
@@ -139,12 +168,13 @@ def create_time_entries(
 
             case _:
                 raise Exception(f"Invalid Venting State: {entries.last.value}")
-            
-        if next_entry.time > end_time or is_crossing_midnight(entries.last.time, next_entry.time):
+
+        if next_entry.time > end_time or is_crossing_midnight(
+            entries.last.time, next_entry.time
+        ):
             next_entry = TimeEntry(end_time, next_entry.value)
             entries.append(next_entry)
-            break 
-
+            break
 
         entries.append(next_entry)
 
@@ -196,6 +226,40 @@ def create_day_entries(start_value=VentingState.CLOSE, assn=TimesAssign()):
         assn.night.distribution,
     )
 
-    print(f"{early_morning=}\n")
-    print(f"{day=}\n")
-    print(f"{night=}\n")
+    combined = TimeEntryList(
+        early_morning.values + day.values + night.values
+    ).unique_and_sorted
+
+    assert combined[0].time == time(0, 0)
+    assert combined[-1].time == time(23, 59)
+
+    base_time_entries = [i.base_time_entry for i in combined]
+
+    # print(sum([i.value for i in base_time_entries]))
+    return base_time_entries
+
+    # print(f"{base_time_entries=}\n")
+    # print(f"{day=}\n")
+    # print(f"{night=}\n")
+    # print(f"{nice_combo=}\n")
+
+
+def create_year():
+    closed_day = create_day_from_single_value(VentingState.CLOSE.value)
+    pre_range = xr.date_range()
+    operating_range = xr.date_range(
+        create_datetime(DAY_START_TIME, Date(5, 1).python_date),
+        create_datetime(DAY_END_TIME, Date(8, 1).python_date),
+        freq="D",
+    )
+    operating_entries = []
+
+    start_value = VentingState.CLOSE
+
+    for i in operating_range.date:  # pyright: ignore[reportAttributeAccessIssue]
+        entries = create_day_entries(start_value)
+        day = create_day_from_time_entries(entries)
+        operating_entries.append(DayEntry(Date.from_date(i), day))
+        start_value = VentingState(entries[-1].value)
+
+    # print(operating_entries)

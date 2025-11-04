@@ -15,8 +15,8 @@ from xarray_schema import DataArraySchema
 
 from replan2eplus.ops.schedules.interfaces.utils import create_datetime
 
-
-class TimeEntry(NamedTuple):
+@dataclass
+class TimeEntry():
     end_time: time
     value: float
 

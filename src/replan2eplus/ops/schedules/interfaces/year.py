@@ -92,3 +92,5 @@ def create_year_from_day_entries(day_entries: list[DayEntry]):
         arr = update_year_arr(arr, i.end_date, j.end_date, j.value)
 
     return Year(arr)
+
+
