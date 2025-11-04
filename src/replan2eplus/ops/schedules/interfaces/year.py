@@ -1,5 +1,6 @@
 from dataclasses import dataclass
-from datetime import date
+import matplotlib.pyplot as plt
+from datetime import date, timedelta
 from pathlib import Path
 from typing import NamedTuple
 
@@ -11,12 +12,13 @@ from xarray_schema import DataArraySchema
 from replan2eplus.ops.schedules.interfaces.constants import (
     DAY_END_TIME,
     DAY_START_TIME,
-    END_DATE,
+    YEAR_END_DATE,
     MINUTES_PER_YEAR,
-    START_DATE,
+    YEAR_START_DATE,
     YEAR,
 )
 from replan2eplus.ops.schedules.interfaces.day import Day, create_datetime
+from replan2eplus.ops.schedules.interfaces.utils import create_datetime_from_date
 
 
 class Date(NamedTuple):
@@ -31,6 +33,18 @@ class Date(NamedTuple):
     @classmethod
     def from_date(cls, date_: date):
         return cls(date_.month, date_.day)
+
+    @property
+    def minus_one(self):
+        dt = create_datetime_from_date(self.python_date)
+        td = timedelta(days=1)
+        return Date.from_date(dt - td)
+
+    @property
+    def plus_one(self):
+        dt = create_datetime_from_date(self.python_date)
+        td = timedelta(days=1)
+        return Date.from_date(dt + td)
 
 
 class DayEntry(NamedTuple):
@@ -61,8 +75,8 @@ class Year:
 
 
 def initialize_year_array():
-    start_datetime = create_datetime(DAY_START_TIME, START_DATE)
-    end_datetime = create_datetime(DAY_END_TIME, END_DATE)
+    start_datetime = create_datetime(DAY_START_TIME, YEAR_START_DATE)
+    end_datetime = create_datetime(DAY_END_TIME, YEAR_END_DATE)
 
     tix = xr.date_range(start_datetime, end_datetime, freq="min")
 
@@ -82,15 +96,40 @@ def update_year_arr(arr: xr.DataArray, day1: Date, day2: Date, value: Day):
     return arr
 
 
-def create_year_from_day_entries(day_entries: list[DayEntry]):
-    # TODO to ensure that last entry is 12/31...
+def create_year_from_day_entries(day_entries: list[DayEntry], fill_whole_year=True):
+    # TODO to ensure that last entry is 12/31 and first day is 1/1 -> for the user ..
     arr = initialize_year_array()
-    for ix, (i, j) in enumerate(pairwise(day_entries)):
-        if ix == 0:
-            arr = update_year_arr(arr, Date.from_date(START_DATE), i.end_date, i.value)
+    days = [i.end_date for i in day_entries] + [day_entries[-1].end_date.plus_one]
+    for ix, (i, j) in enumerate(pairwise(days)):
+        print(f"{ix=}, {i=}, {j=}\n")
+        # if ix == 0 and fill_whole_year:
+        #     arr = update_year_arr(
+        #         arr, Date.from_date(YEAR_START_DATE), i.end_date, i.value
+        #     )
 
-        arr = update_year_arr(arr, i.end_date, j.end_date, j.value)
+        arr = update_year_arr(arr, i, j, day_entries[ix].value)
 
     return Year(arr)
 
 
+def create_year_from_day_entries_and_defaults(
+    day_entries: list[DayEntry], default_day: Day
+):
+    # assuming just ONE list of entries
+    init_day = day_entries[0].end_date
+    final_day = day_entries[-1].end_date
+
+    starting_range = (Date.from_date(YEAR_START_DATE), init_day.minus_one)
+    ending_range = (final_day.plus_one, (Date.from_date(YEAR_END_DATE)))
+
+    year = create_year_from_day_entries(day_entries, fill_whole_year=False)
+
+
+    slice_ = slice(init_day.minus_one.python_date, final_day.plus_one.python_date)
+    fig, (ax1, ax2) = plt.subplots(figsize=(12, 8), ncols=2)
+    year.arr.sel(datetime=slice_).plot.line(ax=ax1)
+
+    year.arr = update_year_arr(year.arr, *starting_range, default_day)
+    year.arr = update_year_arr(year.arr, *ending_range, default_day)
+
+    return year

@@ -253,7 +253,6 @@ def create_year():
         freq="D",
     )
     operating_entries = []
-
     start_value = VentingState.CLOSE
 
     for i in operating_range.date:  # pyright: ignore[reportAttributeAccessIssue]

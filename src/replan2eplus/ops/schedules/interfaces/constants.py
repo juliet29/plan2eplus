@@ -3,8 +3,8 @@ from datetime import time, date
 
 YEAR = 2025
 
-START_DATE = date(YEAR, 1, 1)
-END_DATE = date(YEAR, 12, 31)
+YEAR_START_DATE = date(YEAR, 1, 1)
+YEAR_END_DATE = date(YEAR, 12, 31)
 
 DAY_START_TIME = time(0, 0)
 DAY_END_TIME = time(23, 59)
