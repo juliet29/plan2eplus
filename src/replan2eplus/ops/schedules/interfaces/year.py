@@ -74,6 +74,16 @@ class Year:
         )
 
 
+def plot_year(
+    year: Year,
+    d1: Date = Date.from_date(YEAR_START_DATE),
+    d2: Date = Date.from_date(YEAR_END_DATE),
+):
+    fig, (ax1, ax2) = plt.subplots(figsize=(12, 8), ncols=2)
+    slice_ = slice(d1.python_date, d2.python_date)
+    year.arr.sel(datetime=slice_).plot.line(ax=ax1)
+    plt.show()
+
 def initialize_year_array():
     start_datetime = create_datetime(DAY_START_TIME, YEAR_START_DATE)
     end_datetime = create_datetime(DAY_END_TIME, YEAR_END_DATE)
@@ -109,7 +119,9 @@ def create_year_from_day_entries_and_defaults(
     day_entries: list[DayEntry], default_day: Day
 ):
     # assuming just ONE list of entries
-    init_day = day_entries[0].end_date # TODO -> similar to prob, implement get last and get first to clean this up, ie a class for list of DayEntries
+    init_day = day_entries[
+        0
+    ].end_date  # TODO -> similar to prob, implement get last and get first to clean this up, ie a class for list of DayEntries
     final_day = day_entries[-1].end_date
 
     starting_range = (Date.from_date(YEAR_START_DATE), init_day.minus_one)

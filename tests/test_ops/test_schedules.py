@@ -86,6 +86,7 @@ class TestYear:
         return arr
 
 
+
     def test_create_year_with_defaults(self):
         dstart, d1, d2, d3, dend = self.dates
         day_entries = [
@@ -96,15 +97,12 @@ class TestYear:
         res = create_year_from_day_entries_and_defaults(day_entries, self.basic_day)
         exp = self.create_expected_year()
 
-        # fig, (ax1, ax2) = plt.subplots(figsize=(12, 8), ncols=2)
-        # slice_ = slice(d1.minus_one.python_date, d2.plus_one.python_date)
-        # res.arr.sel(datetime=slice_).plot.line(ax=ax1)
-        # exp.sel(datetime=slice_).plot.line(ax=ax2)
-        # plt.show()
 
         # print(f"{res=}")
         # print(f"{exp=}")
         assert (res.arr == exp).all()
+
+
 
 
 if __name__ == "__main__":

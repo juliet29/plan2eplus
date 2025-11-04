@@ -14,11 +14,16 @@ from replan2eplus.ops.schedules.interfaces.day import (
     create_day_from_single_value,
     create_day_from_time_entries,
 )
-from replan2eplus.ops.schedules.interfaces.year import DayEntry, Date
+from replan2eplus.ops.schedules.interfaces.year import (
+    DayEntry,
+    Date,
+    create_year_from_day_entries_and_defaults,
+    plot_year,
+)
 from replan2eplus.ops.schedules.interfaces.utils import create_datetime
 import xarray as xr
 from replan2eplus.ops.schedules.interfaces.constants import DAY_END_TIME, DAY_START_TIME
-import numpy as np 
+import numpy as np
 
 # TODO CONNECT TO CONFIG RELATED TO NUMBER OF TIMESTEPS
 LEN_INTERVAL = timedelta(minutes=15)
@@ -244,15 +249,17 @@ def create_day_entries(start_value=VentingState.CLOSE, assn=TimesAssign()):
     # print(f"{nice_combo=}\n")
 
 
-def create_year():
-    closed_day = create_day_from_single_value(VentingState.CLOSE.value)
-    pre_range = xr.date_range()
+def create_venting_year(
+    operation_start: Date = Date(5, 1), operation_end: Date = Date(8, 1)
+):
+    default_day = create_day_from_single_value(VentingState.CLOSE.value)
+
     operating_range = xr.date_range(
-        create_datetime(DAY_START_TIME, Date(5, 1).python_date),
-        create_datetime(DAY_END_TIME, Date(8, 1).python_date),
+        create_datetime(DAY_START_TIME, operation_start.python_date),
+        create_datetime(DAY_END_TIME, operation_end.python_date),
         freq="D",
     )
-    operating_entries = []
+    operating_entries: list[DayEntry] = []
     start_value = VentingState.CLOSE
 
     for i in operating_range.date:  # pyright: ignore[reportAttributeAccessIssue]
@@ -260,5 +267,11 @@ def create_year():
         day = create_day_from_time_entries(entries)
         operating_entries.append(DayEntry(Date.from_date(i), day))
         start_value = VentingState(entries[-1].value)
+
+    year = create_year_from_day_entries_and_defaults(operating_entries, default_day)
+
+    # print(year)
+    # plot_year(year, operation_start, Date(5, 2))
+    return year
 
     # print(operating_entries)

@@ -10,7 +10,7 @@ from replan2eplus.prob_door.interfaces import (
     VentingState,
     create_time_entries,
     create_day_entries,
-    create_year,
+    create_venting_year,
     is_crossing_midnight,
 )
 from replan2eplus.ops.schedules.interfaces.day import Day, create_day_from_single_value
@@ -64,7 +64,7 @@ def test_is_crossing_midnight(tprev, tnext, exp):
 
 
 if __name__ == "__main__":
-    create_year()
+    create_venting_year()
 
     # test_create_time_entries()
     # show_geom_dist()
