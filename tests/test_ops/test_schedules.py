@@ -12,7 +12,7 @@ from replan2eplus.ops.schedules.interfaces.day import (
 )
 from replan2eplus.ops.schedules.interfaces.year import (
     DayEntry,
-    create_year_from_day_entries,
+    create_partial_year_from_day_entries,
     create_year_from_day_entries_and_defaults,
     initialize_year_array,
     Date,
@@ -85,19 +85,6 @@ class TestYear:
         arr = update_year_arr(arr, d3, dend, self.basic_day)
         return arr
 
-    def test_create_year(self):
-        d1, d2, d3, d4, d5 = self.dates
-        day_entries = [
-            DayEntry(d2, self.basic_day),
-            DayEntry(d3, self.v1),
-            DayEntry(d4, self.v2),
-            DayEntry(d5, self.basic_day),
-        ]
-        res = create_year_from_day_entries(day_entries)
-        exp = self.create_expected_year()
-        # print(f"{res=}")
-        # print(f"{exp=}")
-        assert (res.arr == exp).all()
 
     def test_create_year_with_defaults(self):
         dstart, d1, d2, d3, dend = self.dates
@@ -108,11 +95,12 @@ class TestYear:
         ]
         res = create_year_from_day_entries_and_defaults(day_entries, self.basic_day)
         exp = self.create_expected_year()
-        fig, (ax1, ax2) = plt.subplots(figsize=(12, 8), ncols=2)
-        slice_ = slice(d1.minus_one.python_date, d2.plus_one.python_date)
-        res.arr.sel(datetime=slice_).plot.line(ax=ax1)
-        exp.sel(datetime=slice_).plot.line(ax=ax2)
-        plt.show()
+
+        # fig, (ax1, ax2) = plt.subplots(figsize=(12, 8), ncols=2)
+        # slice_ = slice(d1.minus_one.python_date, d2.plus_one.python_date)
+        # res.arr.sel(datetime=slice_).plot.line(ax=ax1)
+        # exp.sel(datetime=slice_).plot.line(ax=ax2)
+        # plt.show()
 
         # print(f"{res=}")
         # print(f"{exp=}")

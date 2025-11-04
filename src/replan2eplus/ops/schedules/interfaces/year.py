@@ -96,17 +96,10 @@ def update_year_arr(arr: xr.DataArray, day1: Date, day2: Date, value: Day):
     return arr
 
 
-def create_year_from_day_entries(day_entries: list[DayEntry], fill_whole_year=True):
-    # TODO to ensure that last entry is 12/31 and first day is 1/1 -> for the user ..
+def create_partial_year_from_day_entries(day_entries: list[DayEntry]):
     arr = initialize_year_array()
     days = [i.end_date for i in day_entries] + [day_entries[-1].end_date.plus_one]
     for ix, (i, j) in enumerate(pairwise(days)):
-        print(f"{ix=}, {i=}, {j=}\n")
-        # if ix == 0 and fill_whole_year:
-        #     arr = update_year_arr(
-        #         arr, Date.from_date(YEAR_START_DATE), i.end_date, i.value
-        #     )
-
         arr = update_year_arr(arr, i, j, day_entries[ix].value)
 
     return Year(arr)
@@ -116,18 +109,13 @@ def create_year_from_day_entries_and_defaults(
     day_entries: list[DayEntry], default_day: Day
 ):
     # assuming just ONE list of entries
-    init_day = day_entries[0].end_date
+    init_day = day_entries[0].end_date # TODO -> similar to prob, implement get last and get first to clean this up, ie a class for list of DayEntries
     final_day = day_entries[-1].end_date
 
     starting_range = (Date.from_date(YEAR_START_DATE), init_day.minus_one)
     ending_range = (final_day.plus_one, (Date.from_date(YEAR_END_DATE)))
 
-    year = create_year_from_day_entries(day_entries, fill_whole_year=False)
-
-
-    slice_ = slice(init_day.minus_one.python_date, final_day.plus_one.python_date)
-    fig, (ax1, ax2) = plt.subplots(figsize=(12, 8), ncols=2)
-    year.arr.sel(datetime=slice_).plot.line(ax=ax1)
+    year = create_partial_year_from_day_entries(day_entries)
 
     year.arr = update_year_arr(year.arr, *starting_range, default_day)
     year.arr = update_year_arr(year.arr, *ending_range, default_day)
