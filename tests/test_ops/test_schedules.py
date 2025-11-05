@@ -14,10 +14,12 @@ from replan2eplus.ops.schedules.interfaces.year import (
     Date,
     DayEntry,
     create_year_from_day_entries_and_defaults,
+    create_year_from_single_value,
     initialize_year_array,
     update_year_arr,
 )
 from replan2eplus.ex.schedule import ExampleYear
+
 
 # TODO put into a class as well?
 def create_expected_day():
@@ -48,10 +50,7 @@ def test_create_day_from_single_value():
     assert (res.arr == value).all()
 
 
-
-
 class TestYear(ExampleYear):
-
     def create_expected_year(self):
         arr = initialize_year_array()
         dstart, d1, d2, d3, dend = self.dates
@@ -61,13 +60,14 @@ class TestYear(ExampleYear):
         arr = update_year_arr(arr, d3, dend, self.basic_day)
         return arr
 
-
-
     def test_create_year_with_defaults(self):
         exp = self.create_expected_year()
         assert (self.year.arr == exp).all()
 
 
+def test_create_year_from_single_value():
+    year = create_year_from_single_value(1)
+    assert (year.arr).all()
 
 
 if __name__ == "__main__":

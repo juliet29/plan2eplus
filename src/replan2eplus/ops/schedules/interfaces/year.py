@@ -2,7 +2,7 @@ from dataclasses import dataclass
 import matplotlib.pyplot as plt
 from datetime import date, timedelta
 from pathlib import Path
-from typing import NamedTuple
+from typing import Any, NamedTuple
 
 import numpy as np
 import xarray as xr
@@ -17,7 +17,11 @@ from replan2eplus.ops.schedules.interfaces.constants import (
     YEAR_START_DATE,
     YEAR,
 )
-from replan2eplus.ops.schedules.interfaces.day import Day, create_datetime
+from replan2eplus.ops.schedules.interfaces.day import (
+    Day,
+    create_datetime,
+    create_day_from_single_value,
+)
 from replan2eplus.ops.schedules.interfaces.utils import create_datetime_from_date
 
 
@@ -142,3 +146,12 @@ def create_year_from_day_entries_and_defaults(
     year.arr = update_year_arr(year.arr, *ending_range, default_day)
 
     return year
+
+
+def create_year_from_single_value(value: Any):
+    day = create_day_from_single_value(value)
+    arr = initialize_year_array()
+    arr = update_year_arr(
+        arr, Date.from_date(YEAR_START_DATE), Date.from_date(YEAR_END_DATE), day
+    )
+    return Year(arr)
