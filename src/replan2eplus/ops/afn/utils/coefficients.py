@@ -30,7 +30,7 @@ def make_coefficient_entry_object_name(ix: int):
 
 
 def make_external_node_object_name(direction: WallNormalLiteral, room_name: str):
-    return f"AFN_Pressure_Coefficient_Values_{direction}_{room_name}"
+    return f"AFN_External_Node_{direction}_{room_name}"
 
 
 def create_pressure_data(

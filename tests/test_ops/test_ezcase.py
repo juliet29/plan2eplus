@@ -45,6 +45,7 @@ def test_case_with_afn_venting():
         AFNEdgeGroups.A_ns, afn=True, afn_input=AFNInput([venting_input])
     )
     case.save_and_run(run=True)
+    assert 1
 
 
 # TODO!
