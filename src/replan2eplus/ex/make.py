@@ -1,13 +1,14 @@
+from pathlib import Path
+
 from replan2eplus.ex.rooms import Rooms
 from replan2eplus.ex.subsurfaces import details
-from replan2eplus.ezcase.ez import EZ, ep_paths
+from replan2eplus.ezcase.ez import EZ
+from replan2eplus.ops.afn.user_interface import AFNInput
 from replan2eplus.ops.subsurfaces.interfaces import Edge
 from replan2eplus.ops.subsurfaces.user_interfaces import EdgeGroup, SubsurfaceInputs
 from replan2eplus.paths import DynamicPaths, ep_paths
 from replan2eplus.results.sql import get_qoi
 from replan2eplus.visuals.base.base_plot import BasePlot
-from pathlib import Path
-
 from replan2eplus.visuals.data.data_plot import DataPlot
 
 r1, r2 = Rooms().two_room_list
@@ -20,6 +21,7 @@ def make_test_case(
     output_path: Path | None = None,
     afn: bool = False,
     rooms=Rooms().two_room_list,
+    afn_input: AFNInput = AFNInput(),
 ):
     case = (
         EZ()
@@ -28,7 +30,7 @@ def make_test_case(
         .add_constructions()
     )
     if afn:
-        case.add_airflow_network()
+        case.add_airflow_network(afn_input)
     if output_path:
         case.output_path = output_path
     else:

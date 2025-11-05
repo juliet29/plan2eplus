@@ -11,6 +11,7 @@ from replan2eplus.prob_door.interfaces import (
     SingleDayVentingAssignment,
     VentingState,
 )
+import numpy as np
 
 
 def test_datetime_addition():
@@ -39,7 +40,7 @@ def show_geom_dist():
 def test_create_time_entries():
     start_value = VentingState.CLOSE
     start_time = time(18, 0)
-    assn = SingleDayVentingAssignment(seed=0)
+    assn = SingleDayVentingAssignment(np.random.default_rng())
     entries = create_time_entries(start_value, start_time, assn.night)
     assert len(entries.values) > 2
     assert entries.values[1].value == VentingState.OPEN

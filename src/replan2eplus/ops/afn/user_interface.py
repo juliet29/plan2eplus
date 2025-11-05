@@ -13,13 +13,13 @@ from replan2eplus.ops.afn.defaults.pressure_coefficients import (
 )
 
 
-class VentingInput(NamedTuple):
+class AFNVentingInput(NamedTuple):
     selection: Literal["Doors", "Windows"]
     year: Year
 
     @property
     def schedule_name(self):
-        return f"AFN_Venting_Schedule_for_{self.selection}"
+        return f"AFN_Venting_Schedule_for_{self.selection}.csv"
 
     @property
     def schedule_input(self):
@@ -50,7 +50,7 @@ class PressureCoefficientInput(NamedTuple):
 
 
 class AFNInput(NamedTuple):
-    venting: list[VentingInput] = []
+    venting: list[AFNVentingInput] = []
     pressure_coefficients: PressureCoefficientInput = (
         PressureCoefficientInput()
     )  # assume one for now, single story, later may change with height?

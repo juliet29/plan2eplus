@@ -8,6 +8,7 @@ from replan2eplus.ops.run_settings.user_interfaces import (
     AnalysisPeriod,
     write_run_period_and_location,
 )
+from replan2eplus.ops.schedules.create import create_schedules
 from replan2eplus.paths import ep_paths
 from replan2eplus.ezcase.objects import read_existing_objects
 
@@ -117,6 +118,9 @@ class EZ:
         write_run_period_and_location(self.idf, self.analysis_period, self.epw_path)
 
         add_output_variables(self.idf, additional_variables)
+
+        if self.objects.schedules:
+            create_schedules(self.idf, self.objects.schedules, self.output_path)
 
         self.idf.save(idf_path)
 

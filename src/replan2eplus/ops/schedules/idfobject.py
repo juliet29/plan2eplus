@@ -53,7 +53,7 @@ class IDFScheduleFile(IDFObject):
 
     @property
     def values(self):
-        d = self.values
+        d = self.__dict__
         d.pop("year")
         d["File_Name"] = str(self.File_Name)
         return d

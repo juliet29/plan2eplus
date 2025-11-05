@@ -88,7 +88,10 @@ class IDFObject:
     ):
         object = self.get_one_idf_object(idf, object_name, identifier)
         # TODO are fieldnames a better fit here?
-        assert param in [k for k in self.values.keys()]
+        keys = list(self.values.keys())
+        assert param in keys, (
+            f"{param} does not exist in {keys} for object named '{object_name} with type {type(self)}"
+        )
         object[param] = new_value
 
     def write(self, idf: IDF):
@@ -105,11 +108,10 @@ class IDFObject:
 
 
 def check_has_identifier(obj: EpBunch, param_name: Identifiers):
-    try:
-        assert param_name in obj.fieldnames
-        return True
-    except AssertionError:
-        raise Exception(f"No attribute of {param_name} for epbunch with key {obj.key}")
+    assert param_name in obj.fieldnames, (
+        f"No attribute of {param_name} for epbunch with key {obj.key}"
+    )
+    return True
 
 
 def get_names_of_idf_objects(objects: Sequence[IDFObject]):

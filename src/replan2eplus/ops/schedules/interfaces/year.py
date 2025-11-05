@@ -66,7 +66,9 @@ class Year:
         schema.validate(self.arr)
 
     def write_to_file(self, path: Path):
-        # TODO should end in .csv? config for identifiable name..
+        assert path.suffix == ".csv"
+        # if path.suffix != ".csv":
+        #     path = path.parent / f"{path.stem}.csv"
         np.savetxt(
             path,
             self.arr,
@@ -75,6 +77,9 @@ class Year:
             fmt="%.2f",
             header="values",
         )
+
+    def length(self):
+        return self.arr.size
 
 
 def plot_year(

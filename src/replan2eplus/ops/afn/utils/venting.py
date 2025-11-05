@@ -2,13 +2,13 @@ from geomeppy import IDF
 from expression.collections import Seq
 from replan2eplus.ops.afn.idfobject import IDFAFNSurface
 from replan2eplus.ops.subsurfaces.ezobject import Subsurface
-from replan2eplus.ops.afn.user_interface import VentingInput
+from replan2eplus.ops.afn.user_interface import AFNVentingInput
 
 
 def handle_venting_inputs(
-    idf: IDF, subsurfaces: list[Subsurface], venting_inputs: list[VentingInput]
+    idf: IDF, subsurfaces: list[Subsurface], venting_inputs: list[AFNVentingInput]
 ):
-    def handle(venting_input: VentingInput):
+    def handle(venting_input: AFNVentingInput):
         match venting_input.selection:
             case "Doors":
                 surfaces = (

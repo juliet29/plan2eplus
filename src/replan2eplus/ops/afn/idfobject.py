@@ -96,7 +96,7 @@ class IDFAFNSurface(IDFObject):
     Leakage_Component_Name: str = ""
     Ventilation_Control_Mode: Literal["ZoneLevel", "NoVent", "Constant"] = "ZoneLevel"
     External_Node_Name: str = ""
-    Venting_Availability_Schedule_Name = ""
+    Venting_Availability_Schedule_Name: str = ""
 
     @property
     def key(self):

@@ -63,7 +63,7 @@ class TimeEntryList:
 
 class GeometricDisribution(NamedTuple):
     probability_of_success: float
-    generator: Generator = np.random.default_rng(SEED)
+    generator: Generator = Generator(PCG64(SEED))
     # TODO here can possibly add seed.. -> maybe want a different seed for each day?, and each interval.., so somewhere high up, when are creating the year...
 
     @property
@@ -158,9 +158,7 @@ class SingleDayVentingAssignment:
 
     @property
     def daytime_distribution(self):
-        return Distributions(
-            self.input.day_p_open, self.input.day_p_close, self.generator
-        )
+        return Distributions(self.input.day_p_open, self.input.day_p_close, self.generator)
 
     @property
     def nightime_distribution(self):

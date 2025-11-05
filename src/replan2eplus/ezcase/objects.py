@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from utils4plans.lists import chain_flatten
 
 from geomeppy import IDF
 
@@ -6,6 +7,7 @@ from replan2eplus.ops.afn.create import create_afn_objects
 from replan2eplus.ops.afn.ezobject import AirflowNetwork
 from replan2eplus.ops.airboundary.create import update_airboundary_constructions
 from replan2eplus.ops.airboundary.ezobject import Airboundary
+from replan2eplus.ops.schedules.user_interface import ScheduleInput
 from replan2eplus.ops.subsurfaces.ezobject import Subsurface
 from replan2eplus.ops.subsurfaces.create import create_subsurfaces
 from replan2eplus.ops.surfaces.ezobject import Surface
@@ -20,6 +22,14 @@ class EzObjects:
     subsurfaces: list[Subsurface]
     airboundaries: list[Airboundary]
     airflow_network: AirflowNetwork
+
+    @property
+    def schedules(self):
+        scheds: list[ScheduleInput] = []
+        # TODO register all schedules here..
+        if self.airflow_network.schedules:
+            scheds.extend(self.airflow_network.schedules)
+        return scheds
 
     # airboundaries: list[Airboundary] = []
     # subsurfaces: list[Subsurface] = []

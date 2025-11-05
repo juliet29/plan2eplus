@@ -1,25 +1,23 @@
 from datetime import time
-from rich import print
+
 from replan2eplus.ops.schedules.interfaces.constants import YEAR_START_DATE
 from replan2eplus.ops.schedules.interfaces.day import (
     DAY_END_TIME,
     DAY_START_TIME,
     TimeEntry,
     create_day_from_single_value,
+    create_day_from_time_entries,
     initialize_array,
     update_arr,
-    create_day_from_time_entries,
 )
 from replan2eplus.ops.schedules.interfaces.year import (
+    Date,
     DayEntry,
-    create_partial_year_from_day_entries,
     create_year_from_day_entries_and_defaults,
     initialize_year_array,
-    Date,
     update_year_arr,
 )
-import matplotlib.pyplot as plt
-
+from replan2eplus.ex.schedule import ExampleYear
 
 # TODO put into a class as well?
 def create_expected_day():
@@ -50,31 +48,9 @@ def test_create_day_from_single_value():
     assert (res.arr == value).all()
 
 
-zero = -1
 
 
-class TestYear:
-    dates = [
-        Date.from_date(YEAR_START_DATE),
-        Date(7, 3),
-        Date(7, 4),
-        Date(7, 5),
-        Date(12, 31),
-    ]
-
-    basic_day = create_day_from_single_value(0)
-    v1 = create_day_from_time_entries(
-        [
-            TimeEntry(time(7), zero),
-            TimeEntry(time(23, 59), 1),
-        ]
-    )
-    v2 = create_day_from_time_entries(
-        [
-            TimeEntry(time(8), 1),
-            TimeEntry(time(23, 59), zero),
-        ]
-    )
+class TestYear(ExampleYear):
 
     def create_expected_year(self):
         arr = initialize_year_array()
@@ -88,19 +64,8 @@ class TestYear:
 
 
     def test_create_year_with_defaults(self):
-        dstart, d1, d2, d3, dend = self.dates
-        day_entries = [
-            # DayEntry(d2, self.v1),
-            DayEntry(d1, self.v1),
-            DayEntry(d2, self.v2),
-        ]
-        res = create_year_from_day_entries_and_defaults(day_entries, self.basic_day)
         exp = self.create_expected_year()
-
-
-        # print(f"{res=}")
-        # print(f"{exp=}")
-        assert (res.arr == exp).all()
+        assert (self.year.arr == exp).all()
 
 
 
