@@ -11,12 +11,13 @@ from replan2eplus.ops.schedules.interfaces.constants import (
     MINUTES_PER_DAY,
 )
 import xarray as xr
-from xarray_schema import DataArraySchema
+# from xarray_schema import DataArraySchema
 
 from replan2eplus.ops.schedules.interfaces.utils import create_datetime
 
+
 @dataclass
-class TimeEntry():
+class TimeEntry:
     end_time: time
     value: float
 
@@ -26,10 +27,11 @@ class Day:
     arr: xr.DataArray
 
     def __post_init__(self):
-        schema = DataArraySchema(
-            dtype=np.float64, shape=(MINUTES_PER_DAY,), dims=(("datetime",))
-        )
-        schema.validate(self.arr)
+        assert self.arr.shape == (MINUTES_PER_DAY,)
+        # schema = DataArraySchema(
+        #     dtype=np.float64, shape=(MINUTES_PER_DAY,), dims=(("datetime",))
+        # )
+        # schema.validate(self.arr)
 
 
 # TODO => this can possibly be integrated into the next function

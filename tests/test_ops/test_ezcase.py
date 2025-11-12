@@ -8,6 +8,7 @@ from replan2eplus.ex.make import airboundary_edges
 from replan2eplus.ezcase.ez import EZ, ep_paths
 from replan2eplus.ops.afn.create import AFNInput
 from replan2eplus.ops.afn.utils.venting import AFNVentingInput
+from replan2eplus.ops.schedules.interfaces.year import create_year_from_single_value
 from replan2eplus.paths import DynamicPaths
 from replan2eplus.ex.schedule import ExampleYear
 
@@ -48,6 +49,15 @@ def test_case_with_afn_venting():
     assert 1
 
 
+def test_case_with_afn_no_venting():
+    closed_year = create_year_from_single_value(0)
+    venting_input = AFNVentingInput("Doors", closed_year)
+    case = make_test_case(
+        AFNEdgeGroups.A_ns, afn=True, afn_input=AFNInput([venting_input])
+    )
+    case.save_and_run(run=False)
+    # assert 1
+
 # TODO!
 # ortho domains..
 # running from an existing idf -> to run don't need to read an idf really, that is just needed for graphing.. so maybe reading existing objects is a flag that can get turned on or off.. if adding new things, should read ..
@@ -55,5 +65,5 @@ def test_case_with_afn_venting():
 
 if __name__ == "__main__":
     # case = make_test_case(AFNEdgeGroups.A_ns, airboundary_edges, afn=True)
-    test_case_with_afn_venting()
+    test_case_with_afn_no_venting()
     # case.save_and_run(run=True)

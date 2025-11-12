@@ -90,7 +90,8 @@ class Subsurface:
 
         horz_min = surface_min_horz + float(self.starting_x_coordinate)
         width = float(self.length)
-
+        if not self.starting_z_coordinate:
+            self.starting_z_coordinate = 0  # TODO: make better solution! !, ie also check if it is a str, or for both, make sure that empty string is read in as 0..
         vert_min = surface_min_vert + float(self.starting_z_coordinate)
         height = float(self.height)
 

@@ -19,6 +19,7 @@ class AFNVentingInput(NamedTuple):
 
     @property
     def schedule_name(self):
+        # TODO this is not very descriptive in the event there is more than one schdeule that applies to doors / windows.. 
         return f"AFN_Venting_Schedule_for_{self.selection}.csv"
 
     @property

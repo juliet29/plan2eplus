@@ -93,10 +93,12 @@ class EZ:
         self,
         output_path: Path | None = None,
         epw_path: Path | None = None,
-        analysis_period: AnalysisPeriod
-        | None = default_analysis_period,  # TODO  -> BUILD CONSTRUCTIONS INTO THE OBJECT!
+        analysis_period: (
+            AnalysisPeriod | None
+        ) = default_analysis_period,  # TODO  -> BUILD CONSTRUCTIONS INTO THE OBJECT!
         additional_variables: list[str] = [],
         run=False,
+        save=True,
     ):
         if not self.output_path:
             assert output_path
@@ -106,6 +108,9 @@ class EZ:
             self.epw_path = epw_path
         if not self.analysis_period:
             assert analysis_period
+            self.analysis_period = analysis_period
+
+        if analysis_period:
             self.analysis_period = analysis_period
 
         self.output_path = get_or_make_folder_path(
@@ -122,7 +127,8 @@ class EZ:
         if self.objects.schedules:
             create_schedules(self.idf, self.objects.schedules, self.output_path)
 
-        self.idf.save(idf_path)
+        if save:
+            self.idf.save(idf_path)
 
         if run:
             if not self.idf_path:

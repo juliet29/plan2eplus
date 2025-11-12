@@ -26,6 +26,9 @@ def pressure_colorbar(
     ax: Axes,
     single_colormap: PotentialColorMaps = "YlOrRd_r",
     diverging_colormap: PotentialColorMaps = "RdYlBu_r",
+    min_: float | None = None,
+    max_: float | None = None,
+    show_bar=True,
 ):
     expansion = 1.3
     if len(data) == 1:
@@ -34,13 +37,14 @@ def pressure_colorbar(
         cmap = mpl.colormaps[single_colormap]
 
     else:
-        min_, max_ = (
-            min(data),  # * expansion,
-            max(data),  # * expansion,
-        )  # TODO come up with a better way of doing this expansion thing / figuring out the limits of data to show..
-        # TODO reverse colors for pressure!
-        # sign_min = math.copysign(1, min_)
-        # sign_max = math.copysign(1, max_)
+        if not (min_ and max_):
+            min_, max_ = (
+                min(data),  # * expansion,
+                max(data),  # * expansion,
+            )  # TODO come up with a better way of doing this expansion thing / figuring out the limits of data to show..
+            # TODO reverse colors for pressure!
+            # sign_min = math.copysign(1, min_)
+            # sign_max = math.copysign(1, max_)
 
         same_sign = is_greater_than_zero(min_) and is_greater_than_zero(max_)
 
@@ -51,12 +55,14 @@ def pressure_colorbar(
             norm = Normalize(vmin=min_, vmax=max_)
             cmap = mpl.colormaps[single_colormap]
         else:
-            print(min_, max_)
             center = 0
 
             norm = TwoSlopeNorm(vmin=min_, vcenter=center, vmax=max_)
 
             cmap = mpl.colormaps[diverging_colormap]
+
+    if not show_bar:
+        return "", cmap, norm
 
     bar = (
         plt.colorbar(

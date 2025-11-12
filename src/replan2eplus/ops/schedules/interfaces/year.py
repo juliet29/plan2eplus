@@ -7,7 +7,7 @@ from typing import Any, NamedTuple
 import numpy as np
 import xarray as xr
 from utils4plans.lists import pairwise
-from xarray_schema import DataArraySchema
+# from xarray_schema import DataArraySchema
 
 from replan2eplus.ops.schedules.interfaces.constants import (
     DAY_END_TIME,
@@ -64,10 +64,13 @@ class Year:
     arr: xr.DataArray
 
     def __post_init__(self):
-        schema = DataArraySchema(
-            dtype=np.float64, shape=(MINUTES_PER_YEAR,), dims=(("datetime",))
-        )
-        schema.validate(self.arr)
+        assert self.arr.shape == (MINUTES_PER_YEAR,)
+        # assert self.arr.dims == ()
+
+        # schema = DataArraySchema(
+        #     dtype=np.float64, shape=(MINUTES_PER_YEAR,), dims=(("datetime",))
+        # )
+        # schema.validate(self.arr)
 
     def write_to_file(self, path: Path):
         assert path.suffix == ".csv"

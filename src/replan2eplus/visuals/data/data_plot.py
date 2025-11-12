@@ -103,16 +103,29 @@ class DataPlot(BasePlot):
         self.geom_norm = None
 
     def set_geometry_color_maps(
-        self, data_arr_: DataArray, colorbar_fx: ColorBarFx = pressure_colorbar # pyright: ignore[reportArgumentType]
+        self,
+        data_arr_: DataArray,
+        colorbar_fx: ColorBarFx = pressure_colorbar,  # pyright: ignore[reportArgumentType]
+        min_: float | None = None,
+        max_: float | None = None,
     ):
         self.data_array = data_arr_
-        bar, self.geom_cmap, self.geom_norm = colorbar_fx(data_arr_.values, self.axes)
-        return self 
+        self.geom_bar, self.geom_cmap, self.geom_norm = pressure_colorbar(
+            data_arr_.values, self.axes, min_=min_, max_=max_, show_bar=False
+        )
+        return self
+
+    # def set_flow_color_maps(
+    #     self,
+    #     data_arr_: DataArray,
+    #     colorbar_fx: ColorBarFx = pressure_colorbar,  # pyright: ignore[reportArgumentType]
+    # ):
+    #     return self
 
     def plot_zones_with_data(self):
         assert self.geom_cmap and self.geom_norm
         data_arr = filter_data_arr(self.data_array, self.zone_names)
-        print(data_arr)
+
         styles = [
             PolygonStyles(fill=True, color=self.geom_cmap(self.geom_norm(i)))
             for i in data_arr.values
@@ -182,18 +195,26 @@ class DataPlot(BasePlot):
             self.subsurface_or_airboundary_dict.keys()
         )
 
-        data_arr = filter_data_arr(data_arr_, self.subsurface_or_airboundary_names)
-
-        bar, cmap, norm = flow_colorbar(abs(data_arr.values), self.axes)
-        normalized_absolute_values = [norm(abs(i)) for i in data_arr.values]
-        value_signs = [int(math.copysign(1, i)) for i in data_arr.values]
+        self.flow_data_array = filter_data_arr(
+            data_arr_, self.subsurface_or_airboundary_names
+        )
+        self.flow_bar, self.flow_cmap, self.flow_norm = flow_colorbar(
+            abs(self.flow_data_array.values), self.axes
+        )
+        normalized_absolute_values = [
+            self.flow_norm(abs(i)) for i in self.flow_data_array.values
+        ]
+        value_signs = [int(math.copysign(1, i)) for i in self.flow_data_array.values]
         styles = [
-            ConnectionStyles().afn_with_data(color=cmap(i), linewidth=i * WIDTH_FACTOR)
+            ConnectionStyles().afn_with_data(
+                color=self.flow_cmap(i), linewidth=i * WIDTH_FACTOR
+            )
             for i in normalized_absolute_values
         ]
 
         subsurfaces_or_airboundaries = [
-            self.subsurface_or_airboundary_dict[i] for i in data_arr.space_names.values
+            self.subsurface_or_airboundary_dict[i]
+            for i in self.flow_data_array.space_names.values
         ]
 
         _, lines = add_connection_lines(
@@ -209,8 +230,13 @@ class DataPlot(BasePlot):
             value_signs,
             np.array(normalized_absolute_values) / ARROW_FACTOR,
             self.axes,
-            colors=[cmap(i) for i in normalized_absolute_values],
+            colors=[self.flow_cmap(i) for i in normalized_absolute_values],
         )
 
         # print(subsurfaces)
+        return self
+
+    def set_limits(self):
+        self.axes.set_xlim(self.extents.horz_range.as_tuple)
+        self.axes.set_ylim(self.extents.vert_range.as_tuple)
         return self

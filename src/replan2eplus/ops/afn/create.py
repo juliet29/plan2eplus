@@ -41,7 +41,7 @@ def create_afn_objects(
         AFNWriter(zone_names, sub_and_surface_names).write(idf)
 
         if afn_inputs and afn_inputs.venting:
-            handle_venting_inputs(idf, subsurfaces, afn_inputs.venting)
+            handle_venting_inputs(idf, afn.subsurfaces, afn_inputs.venting)
             afn.schedules = [i.schedule_input for i in afn_inputs.venting]
         if afn_inputs and afn_inputs.pressure_coefficients:
             create_pressure_data(
