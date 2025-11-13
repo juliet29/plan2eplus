@@ -11,6 +11,8 @@ from replan2eplus.ops.afn.utils.venting import AFNVentingInput
 from replan2eplus.ops.schedules.interfaces.year import create_year_from_single_value
 from replan2eplus.paths import DynamicPaths
 from replan2eplus.ex.schedule import ExampleYear
+from replan2eplus.results.sql import get_qoi
+import numpy as np
 
 
 @pytest.mark.slow
@@ -40,23 +42,66 @@ def test_run_case_without_reading():
     assert 1
 
 
+QUANTILES = [0.1, 0.25, 0.75, 0.9]
+
+
+def test_case_with_default_venting():
+    opath = DynamicPaths.ts_open
+    case = make_test_case(AFNEdgeGroups.A_ns, afn=True, output_path=opath)
+    case.save_and_run(run=True, output_path=opath)
+    res = get_qoi("AFN Zone Ventilation Volume", opath)
+
+    res2 = get_qoi("AFN Surface Venting Availability Status", opath)
+
+    return (
+        res.data_arr.mean("space_names").mean().data,
+        res2.data_arr.mean("space_names").quantile(q=QUANTILES),
+    )
+    assert 1
+
+
 def test_case_with_afn_venting():
+    opath = DynamicPaths.ts_dynamic
     venting_input = AFNVentingInput("Doors", ExampleYear().year)
     case = make_test_case(
-        AFNEdgeGroups.A_ns, afn=True, afn_input=AFNInput([venting_input])
+        AFNEdgeGroups.A_ns,
+        afn=True,
+        output_path=opath,
+        afn_input=AFNInput([venting_input]),
     )
-    case.save_and_run(run=True)
+    case.save_and_run(run=True, output_path=opath)
+    res = get_qoi("AFN Zone Ventilation Volume", opath)
+    res2 = get_qoi("AFN Surface Venting Availability Status", opath)
+
+    return (
+        res.data_arr.mean("space_names").mean().data,
+        res2.data_arr.mean("space_names").quantile(q=QUANTILES),
+        res2,
+    )
+
     assert 1
 
 
 def test_case_with_afn_no_venting():
+    opath = DynamicPaths.ts_closed
     closed_year = create_year_from_single_value(0)
     venting_input = AFNVentingInput("Doors", closed_year)
     case = make_test_case(
-        AFNEdgeGroups.A_ns, afn=True, afn_input=AFNInput([venting_input])
+        AFNEdgeGroups.A_ns,
+        afn=True,
+        output_path=opath,
+        afn_input=AFNInput([venting_input]),
     )
-    case.save_and_run(run=False)
+    case.save_and_run(run=True, output_path=opath)
+    res = get_qoi("AFN Zone Ventilation Volume", opath)
+    res2 = get_qoi("AFN Surface Venting Availability Status", opath)
+
+    return (
+        res.data_arr.mean("space_names").mean().data,
+        res2.data_arr.mean("space_names").quantile(q=QUANTILES),
+    )
     # assert 1
+
 
 # TODO!
 # ortho domains..
@@ -64,6 +109,13 @@ def test_case_with_afn_no_venting():
 
 
 if __name__ == "__main__":
+
     # case = make_test_case(AFNEdgeGroups.A_ns, airboundary_edges, afn=True)
-    test_case_with_afn_no_venting()
+    r = test_case_with_default_venting()
+    t = test_case_with_afn_venting()
+    y = test_case_with_afn_no_venting()
+    print(r, t[0], t[1], y)
+    arr = t[2].data_arr
+    print(np.unique(arr.data))
+
     # case.save_and_run(run=True)

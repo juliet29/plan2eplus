@@ -4,6 +4,7 @@ from typing import Literal
 from geomeppy import IDF
 
 # TODO => should be in a config?
+# TODO these are things that should be in paper as well
 DEFAULT_DISCHARGE_COEFF = 1
 DEFAULT_AIR_MASS_FLOW_COEFF = 0.001  # 10E-2  kg/s-m
 DEFAULT_MIN_DENSITY_DIFFERENCE = 0.0001  # 10E^-3 kg/m3
@@ -42,7 +43,9 @@ class IDFAFNSimulationControl(IDFObject):
     ] = "OpeningHeight"
     Building_Type: Literal["LowRise", "HighRise"] = "LowRise"
     Azimuth_Angle_of_Long_Axis_of_Building: float = 0
-    Ratio_of_Building_Width_Along_Short_Axis_to_Width_Along_Long_Axis: float = 1  # 1 => square aspect ratio  # TODO this should be calculated! -> but do experiment to see how much it matters...
+    Ratio_of_Building_Width_Along_Short_Axis_to_Width_Along_Long_Axis: float = (
+        1  # 1 => square aspect ratio  # TODO this should be calculated! -> but do experiment to see how much it matters...
+    )
 
     @property
     def key(self):
@@ -70,9 +73,9 @@ class IDFAFNZone(IDFObject):
 class IDFAFNSimpleOpening(IDFObject):
     # NOTE: this is one of many types of "Leakage Components" -> gets linked to the afn surface. # TODO: does its geometry matter?
     Name: str = ""
-    Discharge_Coefficient: float = 1
+    Discharge_Coefficient: float = DEFAULT_DISCHARGE_COEFF
     Air_Mass_Flow_Coefficient_When_Opening_is_Closed: float = (
-        DEFAULT_DISCHARGE_COEFF  # how does this influence?
+        DEFAULT_AIR_MASS_FLOW_COEFF  # how does this influence?
     )
     Minimum_Density_Difference_for_TwoWay_Flow: float = DEFAULT_MIN_DENSITY_DIFFERENCE
 
@@ -94,7 +97,7 @@ class IDFAFNSurface(IDFObject):
 
     Surface_Name: str = ""
     Leakage_Component_Name: str = ""
-    Ventilation_Control_Mode: Literal["ZoneLevel", "NoVent", "Constant"] = "ZoneLevel"
+    Ventilation_Control_Mode: Literal["ZoneLevel", "NoVent", "Constant"] = "Constant"
     External_Node_Name: str = ""
     Venting_Availability_Schedule_Name: str = ""
 
@@ -143,7 +146,9 @@ class IDFAFNWindPressureCoefficientValues(IDFObject):
     """
 
     Name: str = ""
-    AirflowNetworkMultiZoneWindPressureCoefficientArray_Name: str = ""  # TODO see how eppy handles this name, because originally is separated by colons.. not allowed in Pthon
+    AirflowNetworkMultiZoneWindPressureCoefficientArray_Name: str = (
+        ""  # TODO see how eppy handles this name, because originally is separated by colons.. not allowed in Pthon
+    )
     Wind_Pressure_Coefficient_Value_1: float = FALSE_VALUE
     Wind_Pressure_Coefficient_Value_2: float = FALSE_VALUE
     Wind_Pressure_Coefficient_Value_3: float = FALSE_VALUE

@@ -18,26 +18,26 @@ from replan2eplus.ops.schedules.interfaces.year import (
 
 
 class ExampleYear:
-    neg_1 = -1
+    other_val = 0
     dates = [
         Date.from_date(YEAR_START_DATE),
+        Date(7, 1),
+        Date(7, 2),
         Date(7, 3),
-        Date(7, 4),
-        Date(7, 5),
         Date.from_date(YEAR_END_DATE),
     ]
 
     basic_day = create_day_from_single_value(0)
     v1 = create_day_from_time_entries(
         [
-            TimeEntry(time(7), neg_1),
+            TimeEntry(time(7), other_val),
             TimeEntry(DAY_END_TIME, 1),
         ]
     )
     v2 = create_day_from_time_entries(
         [
             TimeEntry(time(8), 1),
-            TimeEntry(DAY_END_TIME, neg_1),
+            TimeEntry(DAY_END_TIME, other_val),
         ]
     )
 

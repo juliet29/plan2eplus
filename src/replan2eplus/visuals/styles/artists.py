@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import TypedDict, Literal, NamedTuple
+from typing import Literal, NamedTuple
 
 from replan2eplus.visuals.styles.interfaces import (
     FontSize,
@@ -28,7 +28,7 @@ class AnnotationStyles(PlotStyles):
             "alpha": 1,
         }
     )
-    fontsize: FontSize = "medium"
+    fontsize: FontSize = "x-small"
     horizontalalignment: Literal["left", "center", "right"] = "center"
     verticalalignment: Literal["top", "center", "baseline", "bottom"] = "center"
     rotation: Literal["vertical"] | None = None

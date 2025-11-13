@@ -1,10 +1,11 @@
 from geomeppy import IDF
 from replan2eplus.ops.base import IDFObject
 from dataclasses import dataclass
-from typing import NamedTuple, Literal
+from typing import Literal
 
 from pathlib import Path
 
+from replan2eplus.ops.schedules.interfaces.constants import DAYS_PER_YEAR, HOURS_PER_DAY
 from replan2eplus.ops.schedules.interfaces.year import Year
 
 
@@ -41,9 +42,10 @@ class IDFScheduleFile(IDFObject):
     Schedule_Type_Limits_Name: str = ""
     File_Name: Path = Path("")
     Column_Number: int = 1
-    Number_of_Hours_of_Data: int = 8760
+    Number_of_Hours_of_Data: int = HOURS_PER_DAY * DAYS_PER_YEAR
     Rows_to_Skip_at_Top: int = 1
     year: Year | None = None
+    Minutes_per_Item: int = 1  # Assuming one minute per file # TODO update this
 
     # TODO validate path? and file? # entries = Numbe of Hours or ecven set?
 

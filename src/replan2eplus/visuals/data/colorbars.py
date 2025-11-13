@@ -1,4 +1,3 @@
-import math
 from typing import Callable, Literal
 
 import matplotlib as mpl
@@ -105,3 +104,7 @@ def flow_colorbar(data: list[float] | np.ndarray, ax: Axes):
         ),
     )
     return bar, cmap, norm
+
+
+def assemble_components():
+    pass

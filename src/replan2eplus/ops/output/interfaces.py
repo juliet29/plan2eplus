@@ -2,9 +2,9 @@ from typing import Literal
 
 Site_Variables = Literal[
     "Site Wind Speed",
-    "Site Wind Direction", # (N = 0, E = 90, S = 180, W = 270).
+    "Site Wind Direction",  # (N = 0, E = 90, S = 180, W = 270).
     "Site Outdoor Air Drybulb Temperature",
-    "Site Outdoor Air Barometric Pressure"
+    "Site Outdoor Air Barometric Pressure",
 ]
 
 Zone_Variables = Literal[
@@ -23,6 +23,7 @@ Zone_Variables = Literal[
 Surface_Variables = Literal[
     "AFN Linkage Node 1 to Node 2 Volume Flow Rate",
     "AFN Linkage Node 2 to Node 1 Volume Flow Rate",
+    "AFN Surface Venting Availability Status",
 ]
 
 

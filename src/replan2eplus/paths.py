@@ -2,16 +2,12 @@ import pyprojroot
 from utils4plans.paths import StaticPaths
 from dataclasses import dataclass
 
-from rich import print
 from pathlib import Path
 from typing import NamedTuple
 
 
 from pydantic_settings import (
-    PydanticBaseSettingsSource,
-    SettingsConfigDict,
     BaseSettings,
-    TomlConfigSettingsSource,
 )
 from pydantic import BaseModel
 
@@ -156,6 +152,10 @@ class DynamicPaths:
     subsurface_examples = results_for_tests / "subsurface_examples"
     afn_examples = results_for_tests / "afn_examples"
     airboundary_examples = results_for_tests / "airboundary_examples"
+    test_scheds = static_paths.temp / "test_scheds"
+    ts_open = test_scheds / "open"
+    ts_dynamic = test_scheds / "dynamic"
+    ts_closed = test_scheds / "closed"
 
 
 SEED = 1234
