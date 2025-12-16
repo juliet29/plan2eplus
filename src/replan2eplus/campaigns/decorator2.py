@@ -2,9 +2,11 @@ from pathlib import Path
 from typing import Any, Callable, NamedTuple
 from dataclasses import dataclass
 from itertools import product
+from loguru import logger
 from rich import print
 from utils4plans.lists import chain_flatten
 from utils4plans.io import create_date_string, get_or_make_folder_path, write_toml
+from rich.pretty import pretty_repr
 
 
 class Option:
@@ -118,9 +120,9 @@ class DataDict:
     mods: dict[str, dict[str, Any]]  # really will be list
 
     def verify_match_defn_dict(self, defn_dict: DefinitionDict):
-        assert set(self.case.keys()) == set(defn_dict.case_variables), (
-            "Case Variables do not match"
-        )
+        assert set(self.case.keys()) == set(
+            defn_dict.case_variables
+        ), "Case Variables do not match"
         # TODO!
         # check case names  -> A, B, C
         # check modification variable name + options.. -> some typing here for sure..
@@ -155,6 +157,18 @@ DATA_TOML_NAME = "data"
 DEFN_TOML_NAME = "defn"
 
 
+class ExperimentGenerationError(Exception):
+    def __init__(self, ix: int, exp: ExperimentDef, reason: str) -> None:
+        self.ix = ix
+        self.exp = exp
+        self.reason = reason
+
+        self.message()
+
+    def message(self):
+        print(f"Error generating exp {self.ix}: {self.exp.case_name}")
+
+
 def prepare_experiment(
     ix: int,
     exp: ExperimentDef,
@@ -165,15 +179,19 @@ def prepare_experiment(
 ):
     print(f"\nExp {ix} | {exp}")
     exp_name = f"{ix:03}"
-    exp_path = get_or_make_folder_path(campaign_path, exp_name)
+    exp_path = get_or_make_folder_path(campaign_path / exp_name)
     write_toml(exp.toml, exp_path, EXP_TOML_NAME)
 
     # write metadata.toml to path
     # return path to case so that out.idf can be saved..
 
     case_values, mod_values = create_func_params(exp, data_dict, defn_dict)
+    try:
+        case = func(**case_values, **mod_values, out_path=exp_path)
+    except (AssertionError, IndexError, ValueError) as e:
+        logger.error(e)
+        raise ExperimentGenerationError(ix, exp, str(e)) from e
 
-    case = func(**case_values, **mod_values, out_path=exp_path)
     return case
 
 
@@ -199,15 +217,33 @@ def make_experimental_campaign(
     def decorator_experimental_campaign(func):
         def wrapper(*args, **kwargs):
             campaign_full_name = f"{create_date_string()}_{campaign_name}"
-            campaign_path = get_or_make_folder_path(root_path, campaign_full_name)
+            campaign_path = get_or_make_folder_path(root_path / campaign_full_name)
             write_campaign_toml(data_dict, defn_dict, campaign_name, campaign_path)
 
             experiments = defn_dict.experiments
-            print("Have created experiments!")
+            logger.success(f"Have initialized {len(experiments)} experiments!")
+            failed_experiments = []
+            success_expeiments = []
             for ix, exp in enumerate(experiments):
-                case = prepare_experiment(
-                    ix, exp, data_dict, defn_dict, func, campaign_path
-                )
+                try:
+                    prepare_experiment(
+                        ix, exp, data_dict, defn_dict, func, campaign_path
+                    )
+                except ExperimentGenerationError as e:
+                    logger.error(
+                        f"Faied to create experiment for {exp.case_name}... Moving on.."
+                    )
+
+                    failed_experiments.append((ix, exp.case_name, e.reason))
+                    continue
+                success_expeiments.append((ix, exp.case_name))
+
+            logger.info(f"Failed expeiment details: {pretty_repr(failed_experiments)}")
+            logger.info(f"Failed case names:{[i[1] for i in failed_experiments]}")
+            logger.info(f"Success case names:{[i[1] for i in success_expeiments]}")
+            logger.success(
+                f"Failed: {len(failed_experiments)}. Success: {len(success_expeiments)}"
+            )
 
             return
 

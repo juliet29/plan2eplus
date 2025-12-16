@@ -1,7 +1,7 @@
 from geomeppy import IDF
 
+from replan2eplus.errors import BadlyFormatedIDFError, IDFWritingError
 from replan2eplus.geometry import domain
-from replan2eplus.ops.subsurfaces.interfaces import Edge
 from replan2eplus.ops.subsurfaces.interfaces import ZoneDirectionEdge
 from replan2eplus.ops.subsurfaces.logic.placement import place_domain
 from replan2eplus.ops.subsurfaces.logic.prepare import (
@@ -24,7 +24,10 @@ def create_subsurface_for_exterior_edge(
     surfaces: list[Surface],
     idf: IDF,
 ):
-    surface = get_surface_between_zone_and_direction(edge, zones)
+    try:
+        surface = get_surface_between_zone_and_direction(edge, zones)
+    except BadlyFormatedIDFError as e:
+        raise e
 
     # TODO check is not air boundary! -> maybe larger check when placing airboundaires to ensure the surface is internal
     assert isinstance(surface.domain, domain.Domain)
@@ -36,7 +39,8 @@ def create_subsurface_for_exterior_edge(
     )
     try:
         obj.write(idf)
-    except AttributeError:
-        print(obj.values)
-        raise Exception("Problem writing Subusrface Object!")
+    except AttributeError as e:
+        raise IDFWritingError(
+            f"Problem writing Subusrface Object! with values: {obj.values}"
+        ) from e
     return obj.create_ezobject(surfaces)

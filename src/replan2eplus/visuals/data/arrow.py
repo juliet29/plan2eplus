@@ -1,10 +1,8 @@
-from typing import Literal
 from matplotlib.lines import Line2D
 from replan2eplus.geometry.coords import Coord
 import shapely
 from matplotlib.patches import Polygon
 from matplotlib.collections import PatchCollection
-import math
 from matplotlib.axes import Axes
 import numpy as np
 
@@ -35,7 +33,8 @@ def create_triangle_patch(
         dist_along *= -1
     p0 = line.interpolate(dist_along)
 
-    actual_dist_along = line.centroid.distance(p0)
+    actual_dist_along = 0.1  # line.centroid.distance(p0)
+    # print(f"{actual_dist_along=}")
 
     p1 = line.parallel_offset(
         actual_dist_along, "right"

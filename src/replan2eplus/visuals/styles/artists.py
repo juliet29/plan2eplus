@@ -28,7 +28,7 @@ class AnnotationStyles(PlotStyles):
             "alpha": 1,
         }
     )
-    fontsize: FontSize = "x-small"
+    fontsize: FontSize = "medium"
     horizontalalignment: Literal["left", "center", "right"] = "center"
     verticalalignment: Literal["top", "center", "baseline", "bottom"] = "center"
     rotation: Literal["vertical"] | None = None

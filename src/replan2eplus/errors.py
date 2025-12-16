@@ -2,7 +2,11 @@
 
 # NotImplementedError() -> also a possibility
 
+
 # TODO: whats the difference between error and an exception?
+#
+class IDFWritingError(Exception):
+    pass
 
 
 class NonExistentEpBunchTypeError(Exception):

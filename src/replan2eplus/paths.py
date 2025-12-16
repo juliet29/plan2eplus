@@ -147,6 +147,7 @@ ep_paths = load_ep_paths()
 class DynamicPaths:
     THROWAWAY_PATH = BASE_PATH / "throwaway"
     results_for_tests = static_paths.models / "results_for_tests"
+    trials = static_paths.models / "trials"
     ORTHO_CASE_RESULTS = results_for_tests / "ortho"
     CAMPAIGN_TESTS = results_for_tests / "campaigns"
     subsurface_examples = results_for_tests / "subsurface_examples"

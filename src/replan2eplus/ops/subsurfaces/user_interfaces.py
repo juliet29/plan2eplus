@@ -1,6 +1,8 @@
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Literal, NamedTuple
 
+from utils4plans.io import write_json
 from utils4plans.sets import set_intersection
 
 from replan2eplus.ops.subsurfaces.interfaces import Edge
@@ -16,6 +18,8 @@ from replan2eplus.ops.subsurfaces.interfaces import (
     SubsurfaceType,
 )
 
+EdgeGroupType = Literal["Zone_Direction", "Zone_Zone"]
+
 
 class Detail(NamedTuple):
     dimension: Dimension
@@ -27,7 +31,7 @@ class Detail(NamedTuple):
 class EdgeGroup:
     edges: list[Edge]
     detail: str | Detail
-    type_: Literal["Zone_Direction", "Zone_Zone"]
+    type_: EdgeGroupType
 
     def __post_init__(self):
         self.edges_match_type_()
@@ -37,7 +41,7 @@ class EdgeGroup:
         cls,
         edges_: list[tuple[str, str]],
         detail: str | Detail,
-        type_: Literal["Zone_Direction", "Zone_Zone"],
+        type_: EdgeGroupType,
     ):
         edges = [Edge(*i) for i in edges_]
         return cls(edges, detail, type_)
@@ -46,13 +50,19 @@ class EdgeGroup:
     def edges_match_type_(self):
         for edge in self.edges:
             if self.type_ == "Zone_Direction":
-                assert len(set_intersection(edge.as_tuple, WallNormalNamesList)) == 1, (
-                    f"Invalid `Zone_Direction` Edge: {edge}"
-                )
+                assert (
+                    len(set_intersection(edge.as_tuple, WallNormalNamesList)) == 1
+                ), f"Invalid `Zone_Direction` Edge: {edge}"
             else:
-                assert len(set_intersection(edge.as_tuple, WallNormalNamesList)) == 0, (
-                    f"Invalid `Zone_Zone` Edge: {edge}"
-                )
+                assert (
+                    len(set_intersection(edge.as_tuple, WallNormalNamesList)) == 0
+                ), f"Invalid `Zone_Zone` Edge: {edge}"
+
+    def write(self, path: Path):
+        assert isinstance(self.detail, str)
+        edges = list(map(lambda x: x.as_tuple, self.edges))
+        data = {"edges": edges, "detail": self.detail, "type_": self.type_}
+        write_json(data, path, OVERWRITE=True)
 
 
 @dataclass

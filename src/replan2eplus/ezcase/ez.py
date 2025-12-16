@@ -114,10 +114,10 @@ class EZ:
             self.analysis_period = analysis_period
 
         self.output_path = get_or_make_folder_path(
-            self.output_path.parent, self.output_path.name
+            self.output_path.parent / self.output_path.name
         )
 
-        idf_path = self.output_path / ep_paths.idf_name
+        idf_path = self.output_path / "run.idf"  # ep_paths.idf_name
         results_path = self.output_path / ep_paths.results_path
 
         write_run_period_and_location(self.idf, self.analysis_period, self.epw_path)
@@ -128,7 +128,7 @@ class EZ:
             create_schedules(self.idf, self.objects.schedules, self.output_path)
 
         if save:
-            self.idf.save(idf_path)
+            self.idf.saveas(idf_path)
 
         if run:
             if not self.idf_path:

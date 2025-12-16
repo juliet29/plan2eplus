@@ -104,7 +104,11 @@ class Surface:
     @property
     def is_airboundary(self):
         return self.construction_name == DEFAULT_AIRBOUNDARY_NAME
-        # TODO: when reading in, the name of the construction for the airboundary may be different from the name that has been assigned as the "Default" -> better way to do this? -> do we need construction ezobjects? 
+        # TODO: when reading in, the name of the construction for the airboundary may be different from the name that has been assigned as the "Default" -> better way to do this? -> do we need construction ezobjects?
+
+    @property
+    def is_external(self):
+        return self.boundary_condition == "outdoors"
 
     ## :********** Geometry **********
 

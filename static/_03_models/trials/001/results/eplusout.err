@@ -1,0 +1,320 @@
+Program Version,EnergyPlus, Version 22.2.0-c249759bad, YMD=2025.12.15 13:44,
+   ** Warning ** Weather file location will be used rather than entered (IDF) Location object.
+   **   ~~~   ** ..Location object=SAN FRANCISCO INTL AP
+   **   ~~~   ** ..Weather File Location=San Francisco Intl Ap CA USA TMY3 WMO#=724940
+   **   ~~~   ** ..due to location differences, Latitude difference=[0.00] degrees, Longitude difference=[114.40] degrees.
+   **   ~~~   ** ..Time Zone difference=[10.0] hour(s), Elevation difference=[200.00] percent, [2.00] meters.
+   ** Warning ** GetHTSurfaceData: Surfaces with interface to Ground found but no "Ground Temperatures" were input.
+   **   ~~~   ** Found first in surface=BLOCK `BEDROOM_1` STOREY 0 FLOOR 0001
+   **   ~~~   ** Defaults, constant throughout the year of (18.0) will be used.
+   ** Warning ** GetVertices: Floor is upside down! Tilt angle=[0.0], should be near 180, Surface="BLOCK `BEDROOM_1` STOREY 0 FLOOR 0001", in Zone="BLOCK `BEDROOM_1` STOREY 0".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Roof/Ceiling is upside down! Tilt angle=[180.0], should be near 0, Surface="BLOCK `BEDROOM_1` STOREY 0 ROOF 0001", in Zone="BLOCK `BEDROOM_1` STOREY 0".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Floor is upside down! Tilt angle=[0.0], should be near 180, Surface="BLOCK `BATHROOM_2` STOREY 0 FLOOR 0001", in Zone="BLOCK `BATHROOM_2` STOREY 0".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Roof/Ceiling is upside down! Tilt angle=[180.0], should be near 0, Surface="BLOCK `BATHROOM_2` STOREY 0 ROOF 0001", in Zone="BLOCK `BATHROOM_2` STOREY 0".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Floor is upside down! Tilt angle=[0.0], should be near 180, Surface="BLOCK `BATHROOM_3` STOREY 0 FLOOR 0001", in Zone="BLOCK `BATHROOM_3` STOREY 0".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Roof/Ceiling is upside down! Tilt angle=[180.0], should be near 0, Surface="BLOCK `BATHROOM_3` STOREY 0 ROOF 0001", in Zone="BLOCK `BATHROOM_3` STOREY 0".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Floor is upside down! Tilt angle=[0.0], should be near 180, Surface="BLOCK `BEDROOM_0` STOREY 0 FLOOR 0001", in Zone="BLOCK `BEDROOM_0` STOREY 0".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Roof/Ceiling is upside down! Tilt angle=[180.0], should be near 0, Surface="BLOCK `BEDROOM_0` STOREY 0 ROOF 0001", in Zone="BLOCK `BEDROOM_0` STOREY 0".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Floor is upside down! Tilt angle=[0.0], should be near 180, Surface="BLOCK `LIVING_0` STOREY 0 FLOOR 0001", in Zone="BLOCK `LIVING_0` STOREY 0".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Roof/Ceiling is upside down! Tilt angle=[180.0], should be near 0, Surface="BLOCK `LIVING_0` STOREY 0 ROOF 0001", in Zone="BLOCK `LIVING_0` STOREY 0".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Floor is upside down! Tilt angle=[0.0], should be near 180, Surface="BLOCK `BATHROOM_1` STOREY 0 FLOOR 0001_1", in Zone="BLOCK `BATHROOM_1` STOREY 0".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Floor is upside down! Tilt angle=[0.0], should be near 180, Surface="BLOCK `BATHROOM_1` STOREY 0 FLOOR 0001_2", in Zone="BLOCK `BATHROOM_1` STOREY 0".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Floor is upside down! Tilt angle=[0.0], should be near 180, Surface="BLOCK `BEDROOM_2` STOREY 0 FLOOR 0001_1", in Zone="BLOCK `BEDROOM_2` STOREY 0".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Floor is upside down! Tilt angle=[0.0], should be near 180, Surface="BLOCK `BEDROOM_2` STOREY 0 FLOOR 0001_2", in Zone="BLOCK `BEDROOM_2` STOREY 0".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Roof/Ceiling is upside down! Tilt angle=[180.0], should be near 0, Surface="BLOCK `BATHROOM_1` STOREY 0 ROOF 0001_1", in Zone="BLOCK `BATHROOM_1` STOREY 0".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Roof/Ceiling is upside down! Tilt angle=[180.0], should be near 0, Surface="BLOCK `BATHROOM_1` STOREY 0 ROOF 0001_2", in Zone="BLOCK `BATHROOM_1` STOREY 0".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Roof/Ceiling is upside down! Tilt angle=[180.0], should be near 0, Surface="BLOCK `BEDROOM_2` STOREY 0 ROOF 0001_1", in Zone="BLOCK `BEDROOM_2` STOREY 0".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Roof/Ceiling is upside down! Tilt angle=[180.0], should be near 0, Surface="BLOCK `BEDROOM_2` STOREY 0 ROOF 0001_2", in Zone="BLOCK `BEDROOM_2` STOREY 0".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetSurfaceData: InterZone Surface Areas do not match as expected and might not satisfy conservation of energy:
+   **   ~~~   ** ...use Output:Diagnostics,DisplayExtraWarnings; to show more details on individual mismatches.
+   ** Warning ** Indicated Zone Volume <= 0.0 for Zone=BLOCK `BEDROOM_1` STOREY 0
+   **   ~~~   ** The calculated Zone Volume was=-23945.46
+   **   ~~~   ** The simulation will continue with the Zone Volume set to 10.0 m3. 
+   **   ~~~   ** ...use Output:Diagnostics,DisplayExtraWarnings; to show more details on individual zones.
+   ** Warning ** Indicated Zone Volume <= 0.0 for Zone=BLOCK `BATHROOM_2` STOREY 0
+   **   ~~~   ** The calculated Zone Volume was=-6453.17
+   **   ~~~   ** The simulation will continue with the Zone Volume set to 10.0 m3. 
+   **   ~~~   ** ...use Output:Diagnostics,DisplayExtraWarnings; to show more details on individual zones.
+   ** Warning ** Indicated Zone Volume <= 0.0 for Zone=BLOCK `BATHROOM_3` STOREY 0
+   **   ~~~   ** The calculated Zone Volume was=-5716.66
+   **   ~~~   ** The simulation will continue with the Zone Volume set to 10.0 m3. 
+   **   ~~~   ** ...use Output:Diagnostics,DisplayExtraWarnings; to show more details on individual zones.
+   ** Warning ** Indicated Zone Volume <= 0.0 for Zone=BLOCK `BEDROOM_0` STOREY 0
+   **   ~~~   ** The calculated Zone Volume was=-18920.12
+   **   ~~~   ** The simulation will continue with the Zone Volume set to 10.0 m3. 
+   **   ~~~   ** ...use Output:Diagnostics,DisplayExtraWarnings; to show more details on individual zones.
+   ** Warning ** Indicated Zone Volume <= 0.0 for Zone=BLOCK `BEDROOM_2` STOREY 0
+   **   ~~~   ** The calculated Zone Volume was=-27293.50
+   **   ~~~   ** The simulation will continue with the Zone Volume set to 10.0 m3. 
+   **   ~~~   ** ...use Output:Diagnostics,DisplayExtraWarnings; to show more details on individual zones.
+   ** Warning ** Indicated Zone Volume <= 0.0 for Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   ** The calculated Zone Volume was=-75096.15
+   **   ~~~   ** The simulation will continue with the Zone Volume set to 10.0 m3. 
+   **   ~~~   ** ...use Output:Diagnostics,DisplayExtraWarnings; to show more details on individual zones.
+   ** Warning ** CalculateZoneVolume: 1 zone is not fully enclosed. For more details use:  Output:Diagnostics,DisplayExtrawarnings; 
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `BEDROOM_2` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 3 of back surface=BLOCK `BEDROOM_2` STOREY 0 WALL 0004, is in front of receiving surface=BLOCK `BEDROOM_2` STOREY 0 WALL 0003
+   **   ~~~   **    (Dot Product indicator=          40940.2551)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `BEDROOM_2` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `BEDROOM_2` STOREY 0 WALL 0001_1, is in front of receiving surface=BLOCK `BEDROOM_2` STOREY 0 WALL 0003
+   **   ~~~   **    (Dot Product indicator=          40940.2551)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `BEDROOM_2` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `BEDROOM_2` STOREY 0 WALL 0001_2, is in front of receiving surface=BLOCK `BEDROOM_2` STOREY 0 WALL 0003
+   **   ~~~   **    (Dot Product indicator=          40940.2551)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `BEDROOM_2` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `BEDROOM_2` STOREY 0 WALL 0002_1, is in front of receiving surface=BLOCK `BEDROOM_2` STOREY 0 WALL 0003
+   **   ~~~   **    (Dot Product indicator=          40940.2551)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `BEDROOM_2` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `BEDROOM_2` STOREY 0 WALL 0002_2, is in front of receiving surface=BLOCK `BEDROOM_2` STOREY 0 WALL 0003
+   **   ~~~   **    (Dot Product indicator=          27140.1691)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `BEDROOM_2` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `BEDROOM_2` STOREY 0 FLOOR 0001_1, is in front of receiving surface=BLOCK `BEDROOM_2` STOREY 0 WALL 0003
+   **   ~~~   **    (Dot Product indicator=          27140.1691)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `BEDROOM_2` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 2 of back surface=BLOCK `BEDROOM_2` STOREY 0 FLOOR 0001_2, is in front of receiving surface=BLOCK `BEDROOM_2` STOREY 0 WALL 0003
+   **   ~~~   **    (Dot Product indicator=          40940.2551)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `BEDROOM_2` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `BEDROOM_2` STOREY 0 ROOF 0001_1, is in front of receiving surface=BLOCK `BEDROOM_2` STOREY 0 WALL 0003
+   **   ~~~   **    (Dot Product indicator=          40940.2551)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `BEDROOM_2` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `BEDROOM_2` STOREY 0 ROOF 0001_2, is in front of receiving surface=BLOCK `BEDROOM_2` STOREY 0 WALL 0003
+   **   ~~~   **    (Dot Product indicator=          27140.1691)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `BEDROOM_2` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=DOOR__BLOCK `BEDROOM_2` STOREY 0 WALL 0002_1, is in front of receiving surface=BLOCK `BEDROOM_2` STOREY 0 WALL 0003
+   **   ~~~   **    (Dot Product indicator=          35913.0501)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `LIVING_0` STOREY 0 WALL 0004, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0005
+   **   ~~~   **    (Dot Product indicator=          47705.0645)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `LIVING_0` STOREY 0 WALL 0010, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0005
+   **   ~~~   **    (Dot Product indicator=          23627.8805)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `LIVING_0` STOREY 0 WALL 0003_1, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0005
+   **   ~~~   **    (Dot Product indicator=          47705.0645)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `LIVING_0` STOREY 0 WALL 0002_1, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0005
+   **   ~~~   **    (Dot Product indicator=          54619.5379)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `LIVING_0` STOREY 0 WALL 0001_1, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0005
+   **   ~~~   **    (Dot Product indicator=          54619.5379)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `LIVING_0` STOREY 0 WALL 0001_2, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0005
+   **   ~~~   **    (Dot Product indicator=          54619.5379)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `LIVING_0` STOREY 0 WALL 0001_3, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0005
+   **   ~~~   **    (Dot Product indicator=          54619.5379)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `LIVING_0` STOREY 0 WALL 0007_1, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0005
+   **   ~~~   **    (Dot Product indicator=          15849.0979)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 3 of back surface=BLOCK `LIVING_0` STOREY 0 WALL 0006_1, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0005
+   **   ~~~   **    (Dot Product indicator=          15849.0979)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `LIVING_0` STOREY 0 WALL 0009_1, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0005
+   **   ~~~   **    (Dot Product indicator=          23627.8805)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `LIVING_0` STOREY 0 WALL 0008_1, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0005
+   **   ~~~   **    (Dot Product indicator=          15849.0979)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `LIVING_0` STOREY 0 FLOOR 0001, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0005
+   **   ~~~   **    (Dot Product indicator=          54619.5379)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `LIVING_0` STOREY 0 ROOF 0001, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0005
+   **   ~~~   **    (Dot Product indicator=          47705.0645)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=DOOR__BLOCK `LIVING_0` STOREY 0 WALL 0003_1, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0005
+   **   ~~~   **    (Dot Product indicator=          47705.0645)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=DOOR__BLOCK `LIVING_0` STOREY 0 WALL 0007_1, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0005
+   **   ~~~   **    (Dot Product indicator=          15849.0979)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=DOOR__BLOCK `LIVING_0` STOREY 0 WALL 0009_1, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0005
+   **   ~~~   **    (Dot Product indicator=          23627.8805)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=DOOR__BLOCK `LIVING_0` STOREY 0 WALL 0001_1, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0005
+   **   ~~~   **    (Dot Product indicator=          54619.5379)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=WINDOW__BLOCK `LIVING_0` STOREY 0 WALL 0010, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0005
+   **   ~~~   **    (Dot Product indicator=          37615.6028)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `LIVING_0` STOREY 0 WALL 0004, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0010
+   **   ~~~   **    (Dot Product indicator=          87144.6850)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `LIVING_0` STOREY 0 WALL 0005, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0010
+   **   ~~~   **    (Dot Product indicator=          87144.6850)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `LIVING_0` STOREY 0 WALL 0003_1, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0010
+   **   ~~~   **    (Dot Product indicator=          74239.7705)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `LIVING_0` STOREY 0 WALL 0002_1, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0010
+   **   ~~~   **    (Dot Product indicator=          74239.7705)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `LIVING_0` STOREY 0 WALL 0001_1, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0010
+   **   ~~~   **    (Dot Product indicator=          37225.0407)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 3 of back surface=BLOCK `LIVING_0` STOREY 0 WALL 0001_2, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0010
+   **   ~~~   **    (Dot Product indicator=          37225.0407)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `LIVING_0` STOREY 0 WALL 0001_3, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0010
+   **   ~~~   **    (Dot Product indicator=          56153.0275)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `LIVING_0` STOREY 0 WALL 0007_1, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0010
+   **   ~~~   **    (Dot Product indicator=          56153.0275)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `LIVING_0` STOREY 0 WALL 0006_1, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0010
+   **   ~~~   **    (Dot Product indicator=          56153.0275)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `LIVING_0` STOREY 0 WALL 0009_1, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0010
+   **   ~~~   **    (Dot Product indicator=          37225.0407)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `LIVING_0` STOREY 0 WALL 0008_1, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0010
+   **   ~~~   **    (Dot Product indicator=          37225.0407)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 2 of back surface=BLOCK `LIVING_0` STOREY 0 FLOOR 0001, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0010
+   **   ~~~   **    (Dot Product indicator=          74239.7705)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=BLOCK `LIVING_0` STOREY 0 ROOF 0001, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0010
+   **   ~~~   **    (Dot Product indicator=          87144.6850)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=DOOR__BLOCK `LIVING_0` STOREY 0 WALL 0003_1, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0010
+   **   ~~~   **    (Dot Product indicator=          78123.4719)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=DOOR__BLOCK `LIVING_0` STOREY 0 WALL 0007_1, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0010
+   **   ~~~   **    (Dot Product indicator=          49257.7900)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=DOOR__BLOCK `LIVING_0` STOREY 0 WALL 0009_1, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0010
+   **   ~~~   **    (Dot Product indicator=          21181.2762)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=DOOR__BLOCK `LIVING_0` STOREY 0 WALL 0001_1, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0010
+   **   ~~~   **    (Dot Product indicator=          44120.2783)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** Problem in interior solar distribution calculation (CHKBKS)
+   **   ~~~   **    Solar Distribution = FullInteriorExterior will not work in Zone=BLOCK `LIVING_0` STOREY 0
+   **   ~~~   **    because one or more of vertices, such as Vertex 1 of back surface=WINDOW__BLOCK `LIVING_0` STOREY 0 WALL 0005, is in front of receiving surface=BLOCK `LIVING_0` STOREY 0 WALL 0010
+   **   ~~~   **    (Dot Product indicator=          74217.6121)
+   **   ~~~   **    Check surface geometry; if OK, use Solar Distribution = FullExterior instead. Use Output:Diagnostics, DisplayExtraWarnings; for more details.
+   ** Severe  ** AirflowNetwork::Solver::get_input: AirflowNetwork:MultiZone:Surface object, Surface Name = DOOR__BLOCK `LIVING_0` STOREY 0 WALL 0003_1
+   **   ~~~   ** ..Zone for outside surface must be defined in a AirflowNetwork:MultiZone:Zone object.  Could not find Zone = BLOCK `LIVING_0` STOREY 0
+   **  Fatal  ** AirflowNetwork::Solver::get_input: Errors found getting inputs. Previous error(s) cause program termination.
+   ...Summary of Errors that led to program termination:
+   ..... Reference severe error count=47
+   ..... Last severe error=AirflowNetwork::Solver::get_input: AirflowNetwork:MultiZone:Surface object, Surface Name = DOOR__BLOCK `LIVING_0` STOREY 0 WALL 0003_1
+   ************* Warning:  Node connection errors not checked - most system input has not been read (see previous warning).
+   ************* Fatal error -- final processing.  Program exited before simulations began.  See previous error messages.
+   *************
+   ************* ===== Final Error Summary =====
+   ************* The following error categories occurred.  Consider correcting or noting.
+   ************* InterZone Surface Areas -- mismatch
+   ************* ..Area mismatch errors happen when the interzone surface in zone A is
+   ************* ..not the same size as it's companion in zone B.
+   *************
+   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.
+   ************* EnergyPlus Sizing Error Summary. During Sizing: 0 Warning; 0 Severe Errors.
+   ************* EnergyPlus Terminated--Fatal Error Detected. 28 Warning; 47 Severe Errors; Elapsed Time=00hr 00min  0.10sec

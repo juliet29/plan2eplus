@@ -10,12 +10,20 @@ class ZoneDirectionEdge(NamedTuple):
     space_a: str
     space_b: WallNormal
 
+    @property
+    def as_tuple(self):
+        return (self.space_a, self.space_b)
+
 
 class ZoneEdge(NamedTuple):
     """for convenience, spaces are described using room names, not the idf names"""
 
     space_a: str
     space_b: str
+
+    @property
+    def as_tuple(self):
+        return (self.space_a, self.space_b)
 
 
 class Dimension(NamedTuple):

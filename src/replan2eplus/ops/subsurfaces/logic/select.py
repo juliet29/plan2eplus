@@ -3,8 +3,15 @@ from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.ops.subsurfaces.interfaces import ZoneDirectionEdge
 from replan2eplus.ops.zones.ezobject import Zone
 from replan2eplus.ops.subsurfaces.interfaces import ZoneEdge
+from loguru import logger
+import rich
 
-    # TODO : use get unique here... 
+
+def keep_rich():
+    rich.print("hi")
+
+
+# TODO : use get unique here...
 def get_zones_by_plan_name(room_name: str, zones: list[Zone]):
     candidates = [i for i in zones if i.room_name == room_name]
     assert len(candidates) == 1, BadlyFormatedIDFError(
@@ -27,11 +34,12 @@ def get_surface_between_zones(edge: ZoneEdge, zones: list[Zone]):
     # TODO this is a repeating pattern -> can just pass the messages!
     if len(candidates) == 0:
         raise IDFMisunderstandingError(
-            f"Could not find any surfaces  between zones. {zone_a.zone_name} and {zone_b.zone_name} may not be neighbors!"
+            f"Could not find any surfaces between zones. {zone_a.zone_name} and {zone_b.zone_name} may not be neighbors!"
         )
     if len(candidates) > 1:
-        raise BadlyFormatedIDFError(
-            f"Should not have more than one shared wall between zones. Between {zone_a.zone_name} and {zone_b.zone_name}, have {len(candidates)} walls: `{candidates}` "
+        candidate_names = [i.surface_name for i in candidates]
+        logger.warning(
+            f"Should not have more than one shared wall between zones. Between {zone_a.zone_name} and {zone_b.zone_name}, have {len(candidates)} shared walls: `{candidate_names}`. Choosing {candidate_names[0]}"
         )
     surf = candidates[0]
     assert surf.neighbor_name
@@ -44,15 +52,28 @@ def get_surface_between_zone_and_direction(edge: ZoneDirectionEdge, zones: list[
     zone_a = get_zones_by_plan_name(edge.space_a, zones)
     direction = edge.space_b.name
 
-    candidates = zone_a.directed_surfaces[direction]
+    directed_surfaces = zone_a.directed_surfaces[direction]
+
+    candidates = list(filter(lambda x: x.is_external, directed_surfaces))
 
     if len(candidates) == 0:
+        for i in directed_surfaces:
+            logger.debug(
+                (
+                    i.display_name,
+                    i.direction.name,
+                    i.boundary_condition,
+                    i.boundary_condition_object,
+                )
+            )
         raise BadlyFormatedIDFError(
-            f"Could not find any surfaces on the `{direction}` side of the zone `{zone_a.zone_name}`"
+            f"Could not find any surfaces on the `{direction}` side of the zone `{zone_a.zone_name}` with external boundary condition."
         )
+
     if len(candidates) > 1:
-        raise NotImplementedError(
-            f"For now, assuming that edges between a zone and a direction are for placing external subsurfaces. There should only be one external subsurface on each facade. Instead found {len(candidates)} surfaces on the {direction} facade of {zone_a.zone_name} "
+        candidate_names = [i.surface_name for i in candidates]
+        logger.warning(
+            f"For now, assuming that edges between a zone and a direction are for placing external subsurfaces. There should only be one external subsurface on each facade. Instead found {len(candidates)} surfaces on the {direction} facade of {zone_a.zone_name}: Choosing {candidate_names[0]}.... "
         )
     surf = candidates[0]
     assert not surf.neighbor_name

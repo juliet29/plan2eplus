@@ -1,6 +1,7 @@
 from geomeppy import IDF
-from utils4plans.lists import chain_flatten
+from loguru import logger
 
+from replan2eplus.errors import BadlyFormatedIDFError, IDFMisunderstandingError
 from replan2eplus.ops.surfaces.utils import update_surface_relations
 from replan2eplus.ops.subsurfaces.logic.exterior import (
     create_subsurface_for_exterior_edge,
@@ -11,8 +12,7 @@ from replan2eplus.ops.subsurfaces.logic.interior import (
 from replan2eplus.ops.subsurfaces.user_interfaces import SubsurfaceInputs
 from replan2eplus.ops.surfaces.ezobject import Surface
 from replan2eplus.ops.zones.ezobject import Zone
-from replan2eplus.ops.subsurfaces.idfobject import IDFSubsurfaceBase, read_subsurfaces
-from rich import print
+from replan2eplus.ops.subsurfaces.idfobject import read_subsurfaces
 
 
 def create_subsurfaces(
@@ -33,16 +33,43 @@ def create_subsurfaces(
     # NOTE: dont have to update surface subsurface here bc idf already knows the relations
 
     if inputs:
-        interior_subsurfaces = chain_flatten(
-            [
-                create_subsurface_for_interior_edge(edge, detail, zones, surfaces, idf)
-                for edge, detail in inputs.zone_pairs
-            ]
-        )
-        exterior_subsurfaces = [
-            create_subsurface_for_exterior_edge(edge, detail, zones, surfaces, idf)
-            for edge, detail in inputs.zone_drn_pairs
-        ]
+        # interior_subsurfaces = chain_flatten(
+        #     [
+        #         create_subsurface_for_interior_edge(edge, detail, zones, surfaces, idf)
+        #         for edge, detail in inputs.zone_pairs
+        #     ]
+        # )
+
+        interior_subsurfaces = []
+        for edge, detail in inputs.zone_pairs:
+            try:
+                res = create_subsurface_for_interior_edge(
+                    edge, detail, zones, surfaces, idf
+                )
+            except IDFMisunderstandingError as e:
+                logger.warning(
+                    f"Could not make intereior surfaces for {edge.as_tuple} due to {e}"
+                )
+                continue
+            interior_subsurfaces.extend(res)
+
+        exterior_subsurfaces = []
+        for edge, detail in inputs.zone_drn_pairs:
+            try:
+                res = create_subsurface_for_exterior_edge(
+                    edge, detail, zones, surfaces, idf
+                )
+            except BadlyFormatedIDFError as e:
+                logger.warning(
+                    f"Could not make exterior surface for {edge.as_tuple} due to {e}"
+                )
+                continue
+            exterior_subsurfaces.append(res)
+
+        # exterior_subsurfaces =
+        #     create_subsurface_for_exterior_edge(edge, detail, zones, surfaces, idf)
+        #     for edge, detail in inputs.zone_drn_pairs
+        # ]
 
         for surf in surfaces:
             # print(f"checking surf: {surf.surface_name}")

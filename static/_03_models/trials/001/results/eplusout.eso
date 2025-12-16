@@ -1,0 +1,18 @@
+Program Version,EnergyPlus, Version 22.2.0-c249759bad, YMD=2025.12.15 13:44
+1,5,Environment Title[],Latitude[deg],Longitude[deg],Time Zone[],Elevation[m]
+2,8,Day of Simulation[],Month[],Day of Month[],DST Indicator[1=yes 0=no],Hour[],StartMinute[],EndMinute[],DayType
+3,5,Cumulative Day of Simulation[],Month[],Day of Month[],DST Indicator[1=yes 0=no],DayType  ! When Daily Report Variables Requested
+4,2,Cumulative Days of Simulation[],Month[]  ! When Monthly Report Variables Requested
+5,1,Cumulative Days of Simulation[] ! When Run Period Report Variables Requested
+6,1,Calendar Year of Simulation[] ! When Annual Report Variables Requested
+7,1,Environment,Site Outdoor Air Drybulb Temperature [C] !TimeStep
+8,1,Environment,Site Outdoor Air Barometric Pressure [Pa] !TimeStep
+9,1,Environment,Site Wind Speed [m/s] !TimeStep
+10,1,Environment,Site Wind Direction [deg] !TimeStep
+11,1,BLOCK `BEDROOM_1` STOREY 0,Zone Mean Air Temperature [C] !TimeStep
+12,1,BLOCK `BATHROOM_1` STOREY 0,Zone Mean Air Temperature [C] !TimeStep
+13,1,BLOCK `BATHROOM_2` STOREY 0,Zone Mean Air Temperature [C] !TimeStep
+14,1,BLOCK `BATHROOM_3` STOREY 0,Zone Mean Air Temperature [C] !TimeStep
+15,1,BLOCK `BEDROOM_0` STOREY 0,Zone Mean Air Temperature [C] !TimeStep
+16,1,BLOCK `BEDROOM_2` STOREY 0,Zone Mean Air Temperature [C] !TimeStep
+17,1,BLOCK `LIVING_0` STOREY 0,Zone Mean Air Temperature [C] !TimeStep
