@@ -39,7 +39,7 @@ class Building(IDFObject):
 
 @dataclass
 class GlobalGeometryRules(IDFObject):
-    Starting_Vertex_Position: str = "UpperLeftCorner"
+    Starting_Vertex_Position: str = "LowerLeftCorner"
     Vertex_Entry_Direction: str = "CounterClockwise"
     Coordinate_System: str = "World"
 
@@ -61,4 +61,3 @@ class SimulationControl(IDFObject):
     @property
     def key(self):
         return "SIMULATIONCONTROL"
-
