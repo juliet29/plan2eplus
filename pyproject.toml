@@ -4,33 +4,34 @@ version = "0.1.9"
 description = "Add your description here"
 readme = "README.md"
 authors = [
-    { name = "Juliet Nwagwu Ume-Ezeoke", email = "jnwagwu@stanford.edu" },
+  { name = "Juliet Nwagwu Ume-Ezeoke", email = "jnwagwu@stanford.edu" },
 ]
 requires-python = ">=3.13"
 dependencies = [
-    "bpython>=0.25",
-    "eppy>=0.5.63",
-    "expression>=5.6.0",
-    "geomeppy>=0.11.8",
-    "ladybug-core>=0.44.19",
-    "loguru>=0.7.3",
-    "pipe>=2.2",
-    "polars>=1.33.1",
-    "pooch>=1.8.2",
-    "pyarrow>=21.0.0",
-    "pydantic-settings>=2.11.0",
-    "pyprojroot>=0.3.0",
-    "pytest-cov>=6.2.1",
-    "pytest-skip-slow>=0.0.5",
-    "rich>=14.1.0",
-    "scipy>=1.16.2",
-    "shapely>=2.1.1",
-    "tabulate>=0.9.0",
-    "tomli-w>=1.2.0",
-    "utils4plans",
-    "whenever>=0.9.2",
-    "xarray>=2025.9.0",
-    "xarray-schema>=0.0.3",
+  "bpython>=0.25",
+  "cyclopts>=4.4.6",
+  "eppy>=0.5.63",
+  "expression>=5.6.0",
+  "geomeppy>=0.11.8",
+  "ladybug-core>=0.44.19",
+  "loguru>=0.7.3",
+  "pipe>=2.2",
+  "polars>=1.33.1",
+  "pooch>=1.8.2",
+  "pyarrow>=21.0.0",
+  "pydantic-settings>=2.11.0",
+  "pyprojroot>=0.3.0",
+  "pytest-cov>=6.2.1",
+  "pytest-skip-slow>=0.0.5",
+  "rich>=14.1.0",
+  "scipy>=1.16.2",
+  "shapely>=2.1.1",
+  "tabulate>=0.9.0",
+  "tomli-w>=1.2.0",
+  "utils4plans",
+  "whenever>=0.9.2",
+  "xarray>=2025.9.0",
+  "xarray-schema>=0.0.3",
 ]
 
 [build-system]
@@ -41,8 +42,5 @@ build-backend = "uv_build"
 [tool.uv.sources]
 utils4plans = { path = "../utils4plans" }
 
-
-
-
-
-
+[project.scripts]
+replan = "replan2eplus.cli.main:main"

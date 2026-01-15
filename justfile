@@ -11,6 +11,4 @@ test-ops:
   uv run pytest tests/test_ops
 
 
-test-and-commit message: test-ops
-  git commit -m {{message}}
   
