@@ -39,7 +39,7 @@ class Building(IDFObject):
 
 @dataclass
 class GlobalGeometryRules(IDFObject):
-    Starting_Vertex_Position: str = "LowerLeftCorner"
+    Starting_Vertex_Position: str = "UpperLeftCorner"
     Vertex_Entry_Direction: str = "CounterClockwise"
     Coordinate_System: str = "World"
 

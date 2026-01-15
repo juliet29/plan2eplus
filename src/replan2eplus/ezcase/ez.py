@@ -29,7 +29,6 @@ from replan2eplus.ops.afn.create import create_afn_objects
 from replan2eplus.ops.zones.create import create_zones
 from replan2eplus.ops.zones.user_interface import Room
 from utils4plans.io import get_or_make_folder_path
-from rich import print
 
 
 @dataclass
@@ -46,8 +45,6 @@ class EZ:
         self.objects = read_existing_objects(self.idf, self.read_existing)
 
     def add_zones(self, rooms: list[Room]):
-        ggr = self.idf.idfobjects["GLOBALGEOMETRYRULES"][0]
-        print(f"{ggr=}")
 
         self.objects.zones, self.objects.surfaces = create_zones(self.idf, rooms)
         return self
