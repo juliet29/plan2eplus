@@ -4,7 +4,8 @@ push:
 
 
 update-deps:
-  uv add /Users/julietnwagwuume-ezeoke/_UILCode/gqe-phd/fpopt/utils4plans
+  uv add ~/_UILCode/gqe-phd/fpopt/utils4plans
+  uv add ~/_UILCode/gqe-phd/fpopt/geomeppy
 
 
 test-ops:

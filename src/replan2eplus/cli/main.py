@@ -1,6 +1,6 @@
 from cyclopts import App
 from utils4plans.logconfig import logset
-from replan2eplus.cli.trials import studies_app
+from replan2eplus.cli.studies import studies_app
 
 app = App()
 app.command(studies_app)

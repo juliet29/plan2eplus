@@ -12,9 +12,10 @@ dependencies = [
   "cyclopts>=4.4.6",
   "eppy>=0.5.63",
   "expression>=5.6.0",
-  "geomeppy>=0.11.8",
+  "geomeppy",
   "ladybug-core>=0.44.19",
   "loguru>=0.7.3",
+  "matplotlib>=3.10.8",
   "pipe>=2.2",
   "polars>=1.33.1",
   "pooch>=1.8.2",
@@ -41,6 +42,7 @@ build-backend = "uv_build"
 
 [tool.uv.sources]
 utils4plans = { path = "../utils4plans" }
+geomeppy = { path = "../geomeppy" }
 
 [project.scripts]
 replan = "replan2eplus.cli.main:main"
