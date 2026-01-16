@@ -8,6 +8,7 @@ app.command(studies_app)
 
 @app.command()
 def welcome():
+    # logset()
     print("Welcome to replan2eplus")
 
 

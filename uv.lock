@@ -340,6 +340,12 @@ wheels = [
 ]
 
 [[package]]
+name = "esoreader"
+version = "1.2.3"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/95/75/6ea27fc986eeb63835e0c19a3b151a6f845bbff6b75ec22b302a713fb11d/esoreader-1.2.3.tar.gz", hash = "sha256:6b7a554cde36c90f8eea45273df5cec3a27072d433c9ce56c72a55e13b69407d", size = 3929, upload-time = "2018-01-23T15:52:37.134Z" }
+
+[[package]]
 name = "expression"
 version = "5.6.0"
 source = { registry = "https://pypi.org/simple" }
@@ -399,6 +405,8 @@ version = "0.1.0"
 source = { directory = "../geomeppy" }
 dependencies = [
     { name = "eppy" },
+    { name = "esoreader" },
+    { name = "loguru" },
     { name = "matplotlib" },
     { name = "pyclipper" },
     { name = "pypoly2tri" },
@@ -410,6 +418,8 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "eppy", specifier = ">=0.5.63" },
+    { name = "esoreader", specifier = ">=1.2.3" },
+    { name = "loguru", specifier = ">=0.7.3" },
     { name = "matplotlib", specifier = ">=3.10.8" },
     { name = "pyclipper", specifier = ">=1.4.0" },
     { name = "pypoly2tri", specifier = ">=0.0.3" },
