@@ -2,9 +2,9 @@
 
 ## plan2eplus makes it easy to translate floor plan geometry into building energy models
 
-Plan2eplus is a Python library designed for authoring building energy models, with the aim of helping designers better understand the energy consumption and thermal performance of proposed building during the early stages of design. plan2eplus is designed for [EnergyPlus](https://energyplus.net/), a popular software for creating building energy models.
+plan2eplus is a Python library designed for authoring building energy models, with the aim of helping designers better understand the energy consumption and thermal performance of proposed building during the early stages of design. plan2eplus is designed for [EnergyPlus](https://energyplus.net/), a popular software for creating building energy models.
 
-Plan2eplus provides support for:
+plan2eplus provides support for:
 
 - Translating validated geometric information into EnergyPlus models
 - Studying the impact of natural ventilation on thermal performance using EnergyPlus's AirflowNetwork
@@ -13,9 +13,9 @@ Plan2eplus provides support for:
 
 ## About
 
-Typical methods for creating an energy model for a given floor plan can be slow and error-prone. In a typical workflow, one might obtain the dimensions of the geometries of the components of their floorplan, redraw the geometry based on these dimensions, and then have another program generate the energy model. Plan2eplus relieves the need to redraw geometries, making it possible for users to go directly from dimensions of the plan to energy models. The package exposes a series of user friendly objects that can either be defined in Python or in JSON files, making it easy bring geometric information from a variety of venues.
+Typical methods for creating an energy model for a given floor plan can be slow and error-prone. In a typical workflow, one might obtain the dimensions of the geometries of the components of their floorplan, redraw the geometry based on these dimensions, and then have another program generate the energy model. plan2eplus relieves the need to redraw geometries, making it possible for users to go directly from dimensions of the plan to energy models. The package exposes a series of user friendly objects that can either be defined in Python or in JSON files, making it easy bring geometric information from a variety of venues.
 
-Plan2eplus is designed for early-stage, climate-aware architecture. As such, support for EnergyPlus's AirflowNetwork, which enables users to understand the potential benefits of using natural ventilation, is a first-order consideration. Plan2eplus also provides methods for visualizing floor plans and various quantities of interest, enabling designers to quickly understand how their chosen design affects thermal performance. As part of this goal, plan2eplus also provides functionality to quickly generate a series of different designs and study the impact of changes.
+plan2eplus is designed for early-stage, climate-aware architecture. As such, support for EnergyPlus's AirflowNetwork, which enables users to understand the potential benefits of using natural ventilation, is a first-order consideration. plan2eplus also provides methods for visualizing floor plans and various quantities of interest, enabling designers to quickly understand how their chosen design affects thermal performance. As part of this goal, plan2eplus also provides functionality to quickly generate a series of different designs and study the impact of changes.
 
 ## Install
 
@@ -29,7 +29,7 @@ uv install plan2eplus
 pip install plan2eplus
 ```
 
-Plan2eplus provides an interface to EnergyPlus, making it easy to author EnergyPlus models. In order to _run_ energy models on your device, you will need a local installation on EnergyPlus. You can download EnergyPlus [here](https://energyplus.net/downloads). Note: currently, plan2eplus has only been tested using EnergyPlus 22.1.
+plan2eplus provides an interface to EnergyPlus, making it easy to author EnergyPlus models. In order to _run_ energy models on your device, you will need a local installation on EnergyPlus. You can download EnergyPlus [here](https://energyplus.net/downloads). Note: currently, plan2eplus has only been tested using EnergyPlus 22.1.
 
 ## Usage
 
