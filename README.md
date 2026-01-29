@@ -19,7 +19,7 @@ Plan2eplus is designed for early-stage, climate-aware architecture. As such, sup
 
 ## Install
 
-plan2eplus is hosted on pypi. It can easily be installed using traditional methods for Python package installation.
+plan2eplus **will soon** hosted on pypi. It **will** be easy to install using traditional methods for Python package installation.
 
 ```bash
 # with uv
