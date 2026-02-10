@@ -5,6 +5,7 @@ from plan2eplus.ezcase.ez import EZ
 from plan2eplus.paths import ep_paths
 
 
+# hellpp//
 class Interfaces:
     rooms = Rooms()
     subsurfaces = SubsurfaceInputExamples()
@@ -84,3 +85,7 @@ class Cases:
         case = self.two_room
         case.add_subsurfaces(Interfaces.subsurfaces.simple)
         return case
+
+    @property
+    def sample(self):
+        pass
