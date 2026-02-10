@@ -42,6 +42,7 @@ build-backend = "uv_build"
 
 
 [tool.uv.sources]
+geomeppy = { git = "https://github.com/BuildingAtlas/geomeppy" }
 # utils4plans = { path = "../utils4plans" }
 # geomeppy = { path = "../geomeppy" }
 
