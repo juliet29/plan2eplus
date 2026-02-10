@@ -19,6 +19,7 @@ class SpaceTypes(StrEnum):
 
 
 SpaceTypesLiteral = Literal["System", "Zone", "Surface", "Site"]
+# test pre-commit hook
 
 
 def get_name_for_spatial_data(dataset: BaseCollection):
