@@ -1,9 +1,9 @@
-from replan2eplus.ex.afn import AFNExampleCases, AFNCaseDefinition
-from replan2eplus.ezcase.ez import EZ, ep_paths
-from replan2eplus.paths import DynamicPaths
+from plan2eplus.ex.afn import AFNExampleCases, AFNCaseDefinition
+from plan2eplus.ezcase.ez import EZ, ep_paths
+from plan2eplus.paths import DynamicPaths
 
-from replan2eplus.ex.main import Interfaces
-from replan2eplus.ops.afn.logic import (
+from plan2eplus.ex.main import Interfaces
+from plan2eplus.ops.afn.logic import (
     check_surfaces_for_nbs,
     determine_afn_objects,
     get_avail_surfaces,
@@ -12,8 +12,8 @@ from replan2eplus.ops.afn.logic import (
 import pytest
 from rich import print
 
-from replan2eplus.ops.afn.create import create_afn_objects, select_afn_objects
-from replan2eplus.ops.afn.interfaces import IDFAFNSurface, IDFAFNZone
+from plan2eplus.ops.afn.create import create_afn_objects, select_afn_objects
+from plan2eplus.ops.afn.interfaces import IDFAFNSurface, IDFAFNZone
 
 
 @pytest.mark.parametrize("case", AFNExampleCases().list)

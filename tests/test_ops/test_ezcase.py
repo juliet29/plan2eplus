@@ -1,16 +1,16 @@
 import pytest
 
-from replan2eplus.ex.afn import AFNEdgeGroups as AFNEdgeGroups, AFNExampleCases
-from replan2eplus.ex.make import make_test_case
-from replan2eplus.ex.make import airboundary_edges
+from plan2eplus.ex.afn import AFNEdgeGroups as AFNEdgeGroups, AFNExampleCases
+from plan2eplus.ex.make import make_test_case
+from plan2eplus.ex.make import airboundary_edges
 
-from replan2eplus.ezcase.ez import EZ, ep_paths
-from replan2eplus.ops.afn.create import AFNInput
-from replan2eplus.ops.afn.utils.venting import AFNVentingInput
-from replan2eplus.ops.schedules.interfaces.year import create_year_from_single_value
-from replan2eplus.paths import DynamicPaths
-from replan2eplus.ex.schedule import ExampleYear
-from replan2eplus.results.sql import get_qoi
+from plan2eplus.ezcase.ez import EZ, ep_paths
+from plan2eplus.ops.afn.create import AFNInput
+from plan2eplus.ops.afn.utils.venting import AFNVentingInput
+from plan2eplus.ops.schedules.interfaces.year import create_year_from_single_value
+from plan2eplus.paths import DynamicPaths
+from plan2eplus.ex.schedule import ExampleYear
+from plan2eplus.results.sql import get_qoi
 import numpy as np
 
 

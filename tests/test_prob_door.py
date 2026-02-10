@@ -1,12 +1,12 @@
 from datetime import date, time, timedelta, datetime
 import pytest
 from rich import print
-from replan2eplus.prob_door.functions import (
+from plan2eplus.prob_door.functions import (
     create_time_entries,
     create_venting_year,
     is_crossing_midnight,
 )
-from replan2eplus.prob_door.interfaces import (
+from plan2eplus.prob_door.interfaces import (
     GeometricDisribution,
     SingleDayVentingAssignment,
     VentingState,

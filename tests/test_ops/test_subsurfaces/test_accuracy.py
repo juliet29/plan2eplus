@@ -1,22 +1,22 @@
 import pytest
 from rich import print
 
-from replan2eplus.ex.main import Cases
-from replan2eplus.ex.rooms import Rooms
-from replan2eplus.geometry.directions import WallNormalLiteral
-from replan2eplus.geometry.domain import Domain
-from replan2eplus.geometry.plane import Plane
-from replan2eplus.geometry.range import Range
+from plan2eplus.ex.main import Cases
+from plan2eplus.ex.rooms import Rooms
+from plan2eplus.geometry.directions import WallNormalLiteral
+from plan2eplus.geometry.domain import Domain
+from plan2eplus.geometry.plane import Plane
+from plan2eplus.geometry.range import Range
 
-# from replan2eplus.examples.cases.minimal import get_minimal_case_with_rooms
-# from replan2eplus.ex.subsurfaces import (
+# from plan2eplus.examples.cases.minimal import get_minimal_case_with_rooms
+# from plan2eplus.ex.subsurfaces import (
 #     Rooms.r1,
 #     Rooms.r2,
 # )
-from replan2eplus.ops.subsurfaces.interfaces import Edge
-from replan2eplus.ops.subsurfaces.interfaces import Dimension, Location
-from replan2eplus.ops.subsurfaces.create import create_subsurfaces
-from replan2eplus.ops.subsurfaces.user_interfaces import (
+from plan2eplus.ops.subsurfaces.interfaces import Edge
+from plan2eplus.ops.subsurfaces.interfaces import Dimension, Location
+from plan2eplus.ops.subsurfaces.create import create_subsurfaces
+from plan2eplus.ops.subsurfaces.user_interfaces import (
     Detail,
     EdgeGroup,
     SubsurfaceInputs,

@@ -1,8 +1,8 @@
 import pytest
-from replan2eplus.ezcase.ez import EZ, ep_paths
-from replan2eplus.ops.subsurfaces.idfobject import read_subsurfaces
-from replan2eplus.paths import DynamicPaths
-from replan2eplus.ex.subsurfaces import (
+from plan2eplus.ezcase.ez import EZ, ep_paths
+from plan2eplus.ops.subsurfaces.idfobject import read_subsurfaces
+from plan2eplus.paths import DynamicPaths
+from plan2eplus.ex.subsurfaces import (
     SubsurfaceInputOutput,
     SubsurfaceInputOutputExamples,
 )

@@ -4,11 +4,11 @@ push:
 
 
 update-deps:
-  uv add ~/_UILCode/gqe-phd/fpopt/utils4plans
-  uv add ~/_UILCode/gqe-phd/fpopt/geomeppy
+  uv add ~/_UILCode/gqe-phd/fpopt/utils4plans/
+  uv add ~/_UILCode/gqe-phd/fpopt/geomeppy/
 
 update-geomeppy:
-  uv add ~/_UILCode/gqe-phd/fpopt/geomeppy
+  uv add ~/_UILCode/gqe-phd/fpopt/geomeppy/
 
 
 test-ops:
@@ -18,7 +18,6 @@ test-ops:
 ################### 
 ################### 
 # TRIALS
-################### 
 ################### 
 
 study-case:

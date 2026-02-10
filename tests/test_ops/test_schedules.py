@@ -1,7 +1,7 @@
 from datetime import time
 
-from replan2eplus.ops.schedules.interfaces.constants import YEAR_START_DATE
-from replan2eplus.ops.schedules.interfaces.day import (
+from plan2eplus.ops.schedules.interfaces.constants import YEAR_START_DATE
+from plan2eplus.ops.schedules.interfaces.day import (
     DAY_END_TIME,
     DAY_START_TIME,
     TimeEntry,
@@ -10,7 +10,7 @@ from replan2eplus.ops.schedules.interfaces.day import (
     initialize_array,
     update_arr,
 )
-from replan2eplus.ops.schedules.interfaces.year import (
+from plan2eplus.ops.schedules.interfaces.year import (
     Date,
     DayEntry,
     create_year_from_day_entries_and_defaults,
@@ -18,7 +18,7 @@ from replan2eplus.ops.schedules.interfaces.year import (
     initialize_year_array,
     update_year_arr,
 )
-from replan2eplus.ex.schedule import ExampleYear
+from plan2eplus.ex.schedule import ExampleYear
 
 
 # TODO put into a class as well?

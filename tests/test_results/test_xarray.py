@@ -1,8 +1,8 @@
 import numpy as np
 import xarray as xr
 from rich import print as rprint
-import polars as pl
-from replan2eplus.ops.schedules.interfaces.day import xarray_day
+
+# from plan2eplus.ops.schedules.interfaces.day import xarray_day
 
 data = np.array([[10.0, 0.0], [11.0, 1.0], [12.0, 2.0]])
 rooms = ["room1", "room2"]
@@ -87,4 +87,4 @@ def access():
 
 if __name__ == "__main__":
     # adding_two_arrays_attrs()
-    res = xarray_day()
+    pass

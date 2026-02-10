@@ -1,6 +1,6 @@
 from itertools import product
 
-from replan2eplus.campaigns.inputs.defn import SampleDef
+from plan2eplus.campaigns.inputs.defn import SampleDef
 import pytest
 
 

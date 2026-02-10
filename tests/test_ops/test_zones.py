@@ -1,12 +1,12 @@
 import pytest
 
-from replan2eplus.ex.main import Cases
-from replan2eplus.ex.main import Interfaces as UI
+from plan2eplus.ex.main import Cases
+from plan2eplus.ex.main import Interfaces as UI
 
-from replan2eplus.ops.base import get_names_of_idf_objects
-from replan2eplus.ops.zones.create import create_zones
-from replan2eplus.ops.zones.idfobject import IDFZone
-from replan2eplus.ezcase.ez import EZ
+from plan2eplus.ops.base import get_names_of_idf_objects
+from plan2eplus.ops.zones.create import create_zones
+from plan2eplus.ops.zones.idfobject import IDFZone
+from plan2eplus.ezcase.ez import EZ
 
 N_SURFACES_PER_CUBE = 6
 

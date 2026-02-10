@@ -1,14 +1,14 @@
 import pytest
-from replan2eplus.results.sql import create_result_for_qoi, get_sql_results
-from replan2eplus.ezcase.ez import EZ, ep_paths
-from replan2eplus.ops.subsurfaces.idfobject import read_subsurfaces
-from replan2eplus.paths import DynamicPaths
-from replan2eplus.ex.subsurfaces import (
+from plan2eplus.results.sql import create_result_for_qoi, get_sql_results
+from plan2eplus.ezcase.ez import EZ, ep_paths
+from plan2eplus.ops.subsurfaces.idfobject import read_subsurfaces
+from plan2eplus.paths import DynamicPaths
+from plan2eplus.ex.subsurfaces import (
     SubsurfaceInputOutput,
     SubsurfaceInputOutputExamples,
 )
 from rich import print
-from replan2eplus.ex.afn import AFNExampleCases, AFNCaseDefinition
+from plan2eplus.ex.afn import AFNExampleCases, AFNCaseDefinition
 
 
 def prep_test_read_total_pressure(example: AFNCaseDefinition):

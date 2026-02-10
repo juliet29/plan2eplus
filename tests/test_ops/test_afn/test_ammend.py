@@ -1,6 +1,6 @@
-from replan2eplus.ex.afn import AFNExampleCases
-from replan2eplus.ops.afn.create import create_afn_objects
-from replan2eplus.ops.afn.idfobject import IDFAFNSurface
+from plan2eplus.ex.afn import AFNExampleCases
+from plan2eplus.ops.afn.create import create_afn_objects
+from plan2eplus.ops.afn.idfobject import IDFAFNSurface
 
 
 def test_ammend_afn_surface():

@@ -1,15 +1,15 @@
 from geomeppy import IDF
 from utils4plans.sets import set_equality
 
-from replan2eplus.ex.main import Cases, EpAFNCase, Interfaces
-from replan2eplus.ezcase.ez import EZ
-from replan2eplus.ops.base import get_names_of_idf_objects
-from replan2eplus.ops.materials.idfobject import IDFMaterial
-from replan2eplus.ops.materials.utils import (
+from plan2eplus.ex.main import Cases, EpAFNCase, Interfaces
+from plan2eplus.ezcase.ez import EZ
+from plan2eplus.ops.base import get_names_of_idf_objects
+from plan2eplus.ops.materials.idfobject import IDFMaterial
+from plan2eplus.ops.materials.utils import (
     read_materials,
     read_materials_from_many_idf,
 )
-from replan2eplus.paths import ep_paths
+from plan2eplus.paths import ep_paths
 
 
 def test_read_material_of_type_a_from_idf():

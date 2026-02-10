@@ -1,33 +1,33 @@
 import pytest
 
-from replan2eplus.ex.main import Cases, Interfaces
-from replan2eplus.ex.subsurfaces import (
+from plan2eplus.ex.main import Cases, Interfaces
+from plan2eplus.ex.subsurfaces import (
     door_details,
     window_details,
     zone_drn_edge,
     zone_edge,
 )
-from replan2eplus.geometry.directions import WallNormal
-from replan2eplus.geometry.domain import Domain
-from replan2eplus.geometry.range import Range
-from replan2eplus.ops.subsurfaces.interfaces import Edge
-from replan2eplus.ops.subsurfaces.interfaces import Dimension
-from replan2eplus.ops.subsurfaces.logic.exterior import (
+from plan2eplus.geometry.directions import WallNormal
+from plan2eplus.geometry.domain import Domain
+from plan2eplus.geometry.range import Range
+from plan2eplus.ops.subsurfaces.interfaces import Edge
+from plan2eplus.ops.subsurfaces.interfaces import Dimension
+from plan2eplus.ops.subsurfaces.logic.exterior import (
     create_subsurface_for_exterior_edge,
 )
-from replan2eplus.ops.subsurfaces.logic.interior import (
+from plan2eplus.ops.subsurfaces.logic.interior import (
     create_subsurface_for_interior_edge,
 )
-from replan2eplus.ops.subsurfaces.logic.prepare import (
+from plan2eplus.ops.subsurfaces.logic.prepare import (
     compare_and_maybe_change_dimensions,
     compare_domain,
 )
-from replan2eplus.ops.subsurfaces.logic.select import (
+from plan2eplus.ops.subsurfaces.logic.select import (
     get_surface_between_zone_and_direction,
     get_surface_between_zones,
 )
-from replan2eplus.ops.subsurfaces.config import DOMAIN_SHRINK_FACTOR
-from replan2eplus.ops.subsurfaces.user_interfaces import (
+from plan2eplus.ops.subsurfaces.config import DOMAIN_SHRINK_FACTOR
+from plan2eplus.ops.subsurfaces.user_interfaces import (
     Detail,
 )
 

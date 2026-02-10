@@ -1,14 +1,14 @@
 import pytest
-from replan2eplus.errors import IDFMisunderstandingError
-from replan2eplus.ex.subsurfaces import SubsurfaceInputOutputExamples, e0, zone_edge
-from replan2eplus.ezcase.ez import EZ, ep_paths
-from replan2eplus.ops.airboundary.create import update_airboundary_constructions
-from replan2eplus.ops.subsurfaces.logic.interior import (
+from plan2eplus.errors import IDFMisunderstandingError
+from plan2eplus.ex.subsurfaces import SubsurfaceInputOutputExamples, e0, zone_edge
+from plan2eplus.ezcase.ez import EZ, ep_paths
+from plan2eplus.ops.airboundary.create import update_airboundary_constructions
+from plan2eplus.ops.subsurfaces.logic.interior import (
     create_subsurface_for_interior_edge,
 )
-from replan2eplus.ex.subsurfaces import door_details
-from replan2eplus.ex.main import Cases
-from replan2eplus.paths import DynamicPaths
+from plan2eplus.ex.subsurfaces import door_details
+from plan2eplus.ex.main import Cases
+from plan2eplus.paths import DynamicPaths
 
 
 def test_add_airboundary():

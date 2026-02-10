@@ -1,13 +1,13 @@
 from typing import Callable
-from replan2eplus.geometry.coords import Coordinate3D
-from replan2eplus.geometry.plane import AXIS
-from replan2eplus.geometry.plane import Plane
-from replan2eplus.geometry.range import Range
-from replan2eplus.geometry.domain import Domain
+from plan2eplus.geometry.coords import Coordinate3D
+from plan2eplus.geometry.plane import AXIS
+from plan2eplus.geometry.plane import Plane
+from plan2eplus.geometry.range import Range
+from plan2eplus.geometry.domain import Domain
 from dataclasses import dataclass
 import pytest
-from replan2eplus.geometry.ezobject_domain import create_domain_from_coords
-from replan2eplus.geometry.ezobject_domain import compute_unit_normal
+from plan2eplus.geometry.ezobject_domain import create_domain_from_coords
+from plan2eplus.geometry.ezobject_domain import compute_unit_normal
 
 # TODO revise these tests?
 

@@ -1,6 +1,6 @@
 [project]
-name = "replan2eplus"
-version = "0.1.9"
+name = "plan2eplus"
+version = "0.1.1"
 description = "Add your description here"
 readme = "README.md"
 authors = [
@@ -41,8 +41,8 @@ build-backend = "uv_build"
 
 
 [tool.uv.sources]
-utils4plans = { path = "../utils4plans" }
-geomeppy = { path = "../geomeppy" }
+# utils4plans = { path = "../utils4plans" }
+# geomeppy = { path = "../geomeppy" }
 
 [project.scripts]
-replan = "replan2eplus.cli.main:main"
+plan2eplus = "plan2eplus.cli.main:main"

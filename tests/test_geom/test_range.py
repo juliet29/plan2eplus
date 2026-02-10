@@ -1,4 +1,4 @@
-from replan2eplus.geometry.range import Range, expand_range
+from plan2eplus.geometry.range import Range, expand_range
 
 FACTOR = 1.5
 

@@ -1,5 +1,5 @@
 # import pytest
-# from replan2eplus.ops.schedules.interfaces import (
+# from plan2eplus.ops.schedules.interfaces import (
 #     Day,
 #     TimeEntry,
 #     HOURS_PER_DAY,
@@ -7,7 +7,7 @@
 #     Year,
 # )
 # import numpy as np
-# # from replan2eplus.ops.schedules.idfobject import ScheduleFileObject, ScheduleTypeLimits
+# # from plan2eplus.ops.schedules.idfobject import ScheduleFileObject, ScheduleTypeLimits
 
 
 # test_days: list[tuple[list[TimeEntry], np.ndarray]] = [

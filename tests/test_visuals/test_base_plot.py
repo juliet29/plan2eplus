@@ -1,9 +1,9 @@
-from replan2eplus.ex.afn import AFNEdgeGroups as AFNEdgeGroups
+from plan2eplus.ex.afn import AFNEdgeGroups as AFNEdgeGroups
 
-# from replan2eplus.examples.ortho_domain import (
+# from plan2eplus.examples.ortho_domain import (
 #     create_ortho_case,
 # )
-from replan2eplus.ex.make import airboundary_edges, make_base_plot, make_test_case
+from plan2eplus.ex.make import airboundary_edges, make_base_plot, make_test_case
 
 
 def test_make_base_plot():

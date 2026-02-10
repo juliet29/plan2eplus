@@ -1,0 +1,142 @@
+from dataclasses import dataclass
+from typing import get_args
+
+from plan2eplus.errors import BadlyFormatedIDFError
+from plan2eplus.ops.name import decompose_idf_name
+from plan2eplus.geometry.coords import Coordinate3D
+from plan2eplus.geometry.directions import ExtendWallNormal, WallNormal
+from plan2eplus.geometry.domain import Domain
+from plan2eplus.geometry.ezobject_domain import (
+    compute_unit_normal,
+    create_domain_from_coords,
+)
+
+# from plan2eplus.ops.airboundary.idfobject
+from plan2eplus.ops.airboundary.interfaces import DEFAULT_AIRBOUNDARY_NAME
+from plan2eplus.ops.subsurfaces.interfaces import Edge
+from plan2eplus.ops.surfaces.interfaces import (
+    SurfaceCoords,
+    SurfaceType,
+    OutsideBoundaryCondition,
+)
+
+
+def get_surface_domain(name: str, surface_coords: SurfaceCoords):
+    coords = [Coordinate3D(*i) for i in surface_coords]
+    try:
+        unit_normal_drn = compute_unit_normal(
+            [coord.as_three_tuple for coord in coords]
+        )
+    except KeyError:
+        raise BadlyFormatedIDFError(
+            f"Invalid unit normal -> are the coords alright for {name}?: {coords}"
+        )
+    return create_domain_from_coords(unit_normal_drn, coords)
+
+
+@dataclass
+class Surface:
+    surface_name: str
+    surface_type: SurfaceType
+    zone_name: str
+    construction_name: str
+
+    boundary_condition: OutsideBoundaryCondition
+    boundary_condition_object: str
+
+    original_azimuth: float
+    coords: SurfaceCoords
+    subsurfaces: list[str]
+
+    def __post_int__(self):
+        pass
+        # self.surface_type = self.surface_type.lower() # pyright: ignore[reportAttributeAccessIssue]
+        # self.boundary_condition = self.boundary_condition.lower() # pyright: ignore[reportAttributeAccessIssue]
+
+    ## :**********   Representation **********
+
+    def __rich_repr__(self):
+        yield "display_name", self.display_name
+        yield "surface_name", self.surface_name
+        yield "zone_name", self.zone_name
+        # yield "domain", self.domain # TODO put back when done fixing EpFourCase..
+        yield "surface_type", self.surface_type
+        yield "construction", self.construction_name
+        yield "neighbor", self.neighbor_name
+        yield "subsurfaces", self.subsurfaces
+
+    def __str__(self):
+        idf_name = decompose_idf_name(self.surface_name)
+        # num = idf_name.full_number
+        return f"{idf_name.plan_name}_{self.direction.name}"
+
+    @property
+    def display_name(self):
+        idf_name = decompose_idf_name(self.surface_name)
+        # num = idf_name.full_number
+        return f"{idf_name.plan_name}\n{self.direction.name}"  # + num
+
+    ## :********** Associations **********
+
+    @property
+    def neighbor_name(self):
+        if self.boundary_condition.casefold() == "surface":
+            return str(self.boundary_condition_object)  #
+        else:
+            return None
+
+    @property
+    def room_name(self):
+        return decompose_idf_name(self.surface_name).plan_name
+
+    @property
+    def room_name_of_neighbor(self):
+        if self.neighbor_name:
+            return decompose_idf_name(self.neighbor_name).plan_name
+        return None
+
+    @property
+    def edge(self):
+        if self.room_name_of_neighbor:
+            return Edge(self.room_name, self.room_name_of_neighbor)
+        raise Exception("No neighbor!, Cant be an airboundry edge")
+
+    @property
+    def is_airboundary(self):
+        return self.construction_name == DEFAULT_AIRBOUNDARY_NAME
+        # TODO: when reading in, the name of the construction for the airboundary may be different from the name that has been assigned as the "Default" -> better way to do this? -> do we need construction ezobjects?
+
+    @property
+    def is_external(self):
+        return self.boundary_condition == "outdoors"
+
+    ## :********** Geometry **********
+
+    @property
+    def domain(self):
+        domain = get_surface_domain(self.surface_name, self.coords)
+        # NOTE: ASSUMING THAT ALL SUBSURFACES / SURFACES ARE WALLS. then will not have an ortho domain
+        if self.surface_type == "wall":
+            assert isinstance(domain, Domain)
+        return domain
+
+    @property
+    def azimuth(self):
+        return round(float(self.original_azimuth))
+
+    @property
+    def direction(self):
+        match self.surface_type.casefold():
+            case "floor":
+                return WallNormal.DOWN
+            case "roof":
+                return WallNormal.UP
+            case "wall":
+                try:
+                    return WallNormal(self.azimuth)
+                except ValueError:
+                    return ExtendWallNormal(self.azimuth)
+            case _:
+                raise BadlyFormatedIDFError(
+                    f"Invalid surface type: recieved: {self.surface_type}. Expected {get_args(SurfaceType)}"
+                )

@@ -1,4 +1,4 @@
-from replan2eplus.paths import Settings, EpPaths
+from plan2eplus.paths import Settings, EpPaths
 from rich import print
 
 if __name__ == "__main__":

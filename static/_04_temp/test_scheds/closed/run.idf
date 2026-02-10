@@ -52,7 +52,7 @@ RUNPERIOD,
 SCHEDULE:FILE,
     AFN_Venting_Schedule_for_Doors.csv,    !- Name
     Venting,                  !- Schedule Type Limits Name
-    /Users/julietnwagwuume-ezeoke/_UILCode/gqe-phd/fpopt/replan2eplus/static/_04_temp/test_scheds/closed/AFN_Venting_Schedule_for_Doors.csv,    !- File Name
+    /Users/julietnwagwuume-ezeoke/_UILCode/gqe-phd/fpopt/plan2eplus/static/_04_temp/test_scheds/closed/AFN_Venting_Schedule_for_Doors.csv,    !- File Name
     1,                        !- Column Number
     1,                        !- Rows to Skip at Top
     8760,                     !- Number of Hours of Data

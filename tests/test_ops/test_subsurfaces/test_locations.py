@@ -1,23 +1,23 @@
 import pytest
-from replan2eplus.geometry.contact_points import calculate_corner_points
-from replan2eplus.geometry.nonant import NonantEntries
-from replan2eplus.geometry.range import Range
-from replan2eplus.geometry.domain import Domain
-from replan2eplus.geometry.contact_points import (
+from plan2eplus.geometry.contact_points import calculate_corner_points
+from plan2eplus.geometry.nonant import NonantEntries
+from plan2eplus.geometry.range import Range
+from plan2eplus.geometry.domain import Domain
+from plan2eplus.geometry.contact_points import (
     CornerEntries,
     CardinalEntries,
 )
-from replan2eplus.ops.subsurfaces.interfaces import Dimension
-from replan2eplus.ops.subsurfaces.interfaces import ContactEntries
-from replan2eplus.ops.subsurfaces.logic.placement import (
+from plan2eplus.ops.subsurfaces.interfaces import Dimension
+from plan2eplus.ops.subsurfaces.interfaces import ContactEntries
+from plan2eplus.ops.subsurfaces.logic.placement import (
     create_domain_for_nonant,
     create_nonant_from_domain,
     create_domain_from_contact_point_and_dimensions,
     place_domain,
 )
-from replan2eplus.geometry.contact_points import calculate_cardinal_points
+from plan2eplus.geometry.contact_points import calculate_cardinal_points
 
-from replan2eplus.geometry.coords import Coord
+from plan2eplus.geometry.coords import Coord
 
 
 @pytest.fixture()
