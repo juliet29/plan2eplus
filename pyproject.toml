@@ -19,6 +19,7 @@ dependencies = [
   "pipe>=2.2",
   "polars>=1.33.1",
   "pooch>=1.8.2",
+  "pre-commit>=4.5.1",
   "pyarrow>=21.0.0",
   "pydantic-settings>=2.11.0",
   "pyprojroot>=0.3.0",

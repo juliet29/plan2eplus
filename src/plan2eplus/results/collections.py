@@ -9,7 +9,6 @@ import datetime
 from ladybug.analysisperiod import AnalysisPeriod
 
 SpaceTuple = NamedTuple("SpaceTuple", [("name", str), ("space_type", str)])
-# lets go . is github tracking us?
 
 
 class SpaceTypes(StrEnum):
