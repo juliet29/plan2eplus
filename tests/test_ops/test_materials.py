@@ -9,7 +9,7 @@ from plan2eplus.ops.materials.utils import (
     read_materials,
     read_materials_from_many_idf,
 )
-from plan2eplus.paths2 import ep_paths
+from plan2eplus.ep_paths import ep_paths
 
 
 def test_read_material_of_type_a_from_idf():

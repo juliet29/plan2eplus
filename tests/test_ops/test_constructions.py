@@ -16,7 +16,7 @@ from plan2eplus.ops.constructions.utils import (
 )
 from plan2eplus.ops.subsurfaces.create import read_subsurfaces
 from plan2eplus.ops.surfaces.idfobject import IDFSurface
-from plan2eplus.paths2 import ep_paths
+from plan2eplus.ep_paths import ep_paths
 
 
 def test_read_constructions():

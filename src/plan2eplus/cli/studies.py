@@ -5,7 +5,7 @@ from omegaconf import OmegaConf
 from plan2eplus.ex.make import make_test_case
 from plan2eplus.ex.afn import AFNEdgeGroups as AFNEdgeGroups
 from plan2eplus.paths import BASE_PATH
-from plan2eplus.paths2 import EpConfig, EpPaths
+from plan2eplus.ep_paths import EpConfig, EpPaths
 
 studies_app = App(name="studies")
 

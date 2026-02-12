@@ -2,7 +2,7 @@ from plan2eplus.ex.materials import ConstructionExamples, MaterialExamples
 from plan2eplus.ex.rooms import Rooms
 from plan2eplus.ex.subsurfaces import SubsurfaceInputExamples
 from plan2eplus.ezcase.ez import EZ
-from plan2eplus.paths2 import ep_paths
+from plan2eplus.ep_paths import ep_paths
 
 
 # hellpp//

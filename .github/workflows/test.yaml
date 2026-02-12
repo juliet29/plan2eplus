@@ -2,6 +2,9 @@ name: Run Tests
 
 on: [push]
 
+env:
+  APP_ENV: "prod"
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -25,5 +28,5 @@ jobs:
 
       - name: Test with pytest
         run: |
-          uv run pytest tests --cov=polymap
+          uv run pytest tests --cov=plan2eplus
           echo "tests finished"

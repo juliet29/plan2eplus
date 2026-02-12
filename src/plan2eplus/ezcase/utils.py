@@ -12,7 +12,7 @@ from plan2eplus.ops.init.create import add_init_objects
 from plan2eplus.ops.run_settings.defaults import default_analysis_period
 from plan2eplus.ops.run_settings.user_interfaces import AnalysisPeriod
 from plan2eplus.paths import Constants
-from plan2eplus.paths2 import ep_paths
+from plan2eplus.ep_paths import ep_paths
 
 
 def open_idf(idf_path: Path | None = None):

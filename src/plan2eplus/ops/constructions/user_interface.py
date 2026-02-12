@@ -4,7 +4,7 @@ from plan2eplus.ops.constructions.interfaces import (
     BaseConstructionSet,
     EPConstructionSet,
 )
-from plan2eplus.paths2 import ep_paths
+from plan2eplus.ep_paths import ep_paths
 
 
 class ConstructionInput(NamedTuple):

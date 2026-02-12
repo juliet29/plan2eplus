@@ -1,7 +1,0 @@
-path_to_ep_install: ""
-
-ep_dir:
-  idd: "Energy+.idd"
-  example_files: "ExampleFiles"
-  weather_files: "WeatherData"
-  data_sets: "DataSets"

@@ -8,7 +8,7 @@ static_paths = StaticPaths("", base_path=BASE_PATH)
 
 class DynamicPaths:
     # TODO: call this somthing ep speciifc, like ep_config
-    config = BASE_PATH / "config"
+    config = BASE_PATH / "epconfig"
 
     THROWAWAY_PATH = BASE_PATH / "throwaway"
     results_for_tests = static_paths.models / "results_for_tests"
