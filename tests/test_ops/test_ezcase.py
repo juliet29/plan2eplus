@@ -30,12 +30,14 @@ def test_case_airboudary():
     assert 1
 
 
+@pytest.mark.slow
 def test_case_airboundary_afn():
     case = make_test_case(AFNEdgeGroups.A_ns, airboundary_edges, afn=True)
     case.save_and_run(run=True)
     assert 1
 
 
+@pytest.mark.slow
 def test_run_case_without_reading():
     output_path = DynamicPaths.THROWAWAY_PATH  # TODO: move this to static
     path = DynamicPaths.afn_examples / AFNExampleCases.A_ew.name / Constants.idf_name
