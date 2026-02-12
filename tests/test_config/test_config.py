@@ -2,7 +2,7 @@ from plan2eplus.ep_paths import EpPaths
 from pathlib import Path
 
 DEV_PATH = Path("/Applications/EnergyPlus-22-2-0")
-PROD_PATH = Path("././../static/_01_inputs/local_ep_files/")
+PROD_PATH = Path("./static/_01_inputs/local_ep_files/")
 
 
 def test_dev_ep_paths(monkeypatch):
