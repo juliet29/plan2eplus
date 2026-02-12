@@ -7,6 +7,7 @@ from typing import Any, NamedTuple
 import numpy as np
 import xarray as xr
 from utils4plans.lists import pairwise
+
 # from xarray_schema import DataArraySchema
 
 from plan2eplus.ops.schedules.interfaces.constants import (
@@ -73,9 +74,10 @@ class Year:
         # schema.validate(self.arr)
 
     def write_to_file(self, path: Path):
-        assert path.suffix == ".csv"
+        assert path.suffix == ".csv"  # TODO: test that this is failing..
         # if path.suffix != ".csv":
         #     path = path.parent / f"{path.stem}.csv"
+        assert path.parent.exists(), f"Parent path: {path.parent} does not exist!"
         np.savetxt(
             path,
             self.arr,

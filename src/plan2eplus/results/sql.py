@@ -5,15 +5,14 @@ from ladybug.sql import SQLiteResult
 
 from plan2eplus.ops.output.interfaces import OutputVariables
 from plan2eplus.results.collections import QOIResult, SQLCollection
-from plan2eplus.results.config import PATH_TO_SQL_SUBPATH
 
 
-def get_sql_results(path_to_outputs: Path):
-    SQL_PATH = path_to_outputs / PATH_TO_SQL_SUBPATH  # TODO make this a config option!
-    assert SQL_PATH.exists(), (
-        "Invalid folder organization, looking for subpath called `results/eplusout.sql`"
-    )
-    return SQLiteResult(str(SQL_PATH))
+def get_sql_results(path_to_sql: Path):
+    assert path_to_sql.exists(), f"Path {path_to_sql} does not exist"
+    assert (
+        path_to_sql.suffix == ".sql"
+    ), f"Path {path_to_sql} has incorrect suffix, expected a '.sql' file"
+    return SQLiteResult(str(path_to_sql))
 
 
 def validate_request(sql: SQLiteResult, var: str):

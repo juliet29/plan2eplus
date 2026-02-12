@@ -1,17 +1,17 @@
 import pytest
-from plan2eplus.ezcase.ez import EZ, ep_paths
+from plan2eplus.ezcase.ez import EZ
 from plan2eplus.ops.subsurfaces.idfobject import read_subsurfaces
 from plan2eplus.paths import DynamicPaths
 from plan2eplus.ex.subsurfaces import (
     SubsurfaceInputOutput,
     SubsurfaceInputOutputExamples,
 )
-from rich import print
+from plan2eplus.paths import Constants
 
 
 def prep_test_read_subsurfaces(example: SubsurfaceInputOutput):
     input_path = DynamicPaths.subsurface_examples / example.info.name
-    case = EZ(input_path / ep_paths.idf_name)
+    case = EZ(input_path / Constants.idf_name)
     subsurfs = read_subsurfaces(case.idf)
     assert len(subsurfs) == example.info.sum_subsurfaces
 
@@ -23,7 +23,7 @@ def test_read_subsurfaces(example):
 
 def prep_test_autoread_subsurfaces(example: SubsurfaceInputOutput):
     input_path = DynamicPaths.subsurface_examples / example.info.name
-    case = EZ(input_path / ep_paths.idf_name)
+    case = EZ(input_path / Constants.idf_name)
     assert len(case.objects.subsurfaces) == example.info.sum_subsurfaces
 
 

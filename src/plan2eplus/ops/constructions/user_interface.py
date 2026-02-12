@@ -4,7 +4,7 @@ from plan2eplus.ops.constructions.interfaces import (
     BaseConstructionSet,
     EPConstructionSet,
 )
-from plan2eplus.paths import ep_paths
+from plan2eplus.paths2 import ep_paths
 
 
 class ConstructionInput(NamedTuple):
@@ -24,7 +24,7 @@ default_construction_set = EPConstructionSet(
 )  # TODO -> could one quicly change the names of these?
 
 default_construction_input = ConstructionInput(
-    ep_paths.construction_paths.constructiin_idfs,
-    ep_paths.construction_paths.material_idfs,
+    ep_paths.construction_idfs,
+    ep_paths.material_idfs,
     default_construction_set,
 )

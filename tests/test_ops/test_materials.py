@@ -9,11 +9,13 @@ from plan2eplus.ops.materials.utils import (
     read_materials,
     read_materials_from_many_idf,
 )
-from plan2eplus.paths import ep_paths
+from plan2eplus.paths2 import ep_paths
 
 
 def test_read_material_of_type_a_from_idf():
-    case = EZ(Cases().ep_afn.path)  # TODO replace with own example once get materials working
+    case = EZ(
+        Cases().ep_afn.path
+    )  # TODO replace with own example once get materials working
     materials = IDFMaterial.read(case.idf)
     found_material_names = [i.Name for i in materials]
     assert set_equality(found_material_names, EpAFNCase.basic_material_names)
@@ -30,9 +32,7 @@ def test_read_materials_from_idf_by_name():
 
 def test_read_many_materials_from_many_idfs():
     materials = Interfaces.materials.materials_across_idfs
-    found_materials = read_materials_from_many_idf(
-        ep_paths.construction_paths.material_idfs, materials
-    )
+    found_materials = read_materials_from_many_idf(ep_paths.material_idfs, materials)
     assert set_equality(get_names_of_idf_objects(found_materials), materials)
 
 

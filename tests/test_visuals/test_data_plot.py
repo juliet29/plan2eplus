@@ -1,15 +1,17 @@
 from plan2eplus.ex.make import make_data_plot
 from plan2eplus.visuals.data.data_plot import handle_external_node_data
-from plan2eplus.paths import DynamicPaths, ep_paths
+from plan2eplus.paths import DynamicPaths, Constants
 from plan2eplus.ex.afn import AFNExampleCases
 
 from plan2eplus.results.sql import get_qoi
-from plan2eplus.ezcase.ez import EZ, ep_paths
+
+
+# TODO: are these studies or actual tests?
 
 
 def test_make_data_plot():
     path = DynamicPaths.afn_examples / AFNExampleCases.A_ew.name
-    dp = make_data_plot(path, hour=1)
+    dp = make_data_plot(path / Constants.idf_name, path / Constants.sql_path, hour=1)
     # dp.show()
 
 
@@ -17,8 +19,8 @@ def test_handle_external_node_data():
     path = DynamicPaths.afn_examples / AFNExampleCases.A_ns.name
     # dp.show()
     hour = 12
-    case = EZ(idf_path=path / ep_paths.idf_name)
-    pressure = get_qoi("AFN Node Total Pressure", path)
+    # case = EZ(path / Constants.idf_name)
+    pressure = get_qoi("AFN Node Total Pressure", path / Constants.sql_path)
     data_at_noon = pressure.select_time(hour)
     handle_external_node_data(data_at_noon)
 

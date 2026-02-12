@@ -1,6 +1,6 @@
 from plan2eplus.ex.afn import AFNExampleCases, AFNCaseDefinition
-from plan2eplus.ezcase.ez import EZ, ep_paths
-from plan2eplus.paths import DynamicPaths
+from plan2eplus.ezcase.ez import EZ
+from plan2eplus.paths import Constants, DynamicPaths
 
 from plan2eplus.ex.main import Interfaces
 from plan2eplus.ops.afn.logic import (
@@ -84,7 +84,7 @@ def test_reading_existing_afn():
 
     case_ = AFNExampleCases().B_ne
     output_path = DynamicPaths.afn_examples / case_.name
-    case = EZ(idf_path=output_path / ep_paths.idf_name)
+    case = EZ(idf_path=output_path / Constants.idf_name)
 
     assert len(case.objects.airflow_network.afn_surfaces) == case_.n_surfs_in_afn
 

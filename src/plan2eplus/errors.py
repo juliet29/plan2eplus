@@ -21,6 +21,11 @@ class BadlyFormatedIDFError(Exception):
     pass
 
 
+class InvalidPathError(Exception):
+    def __init__(self, name, path):
+        self.message = f"Invalid `{name}`: {path} does not exist"
+
+
 # TODO add rich styling?
 class InvalidEpBunchError(Exception):
     def __init__(self, expected_key, actual_key):

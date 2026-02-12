@@ -16,7 +16,7 @@ from plan2eplus.ops.constructions.utils import (
 )
 from plan2eplus.ops.subsurfaces.create import read_subsurfaces
 from plan2eplus.ops.surfaces.idfobject import IDFSurface
-from plan2eplus.paths import ep_paths
+from plan2eplus.paths2 import ep_paths
 
 
 def test_read_constructions():
@@ -52,7 +52,7 @@ def test_read_material_based_on_construction():
 def test_read_construction_across_idfs():
     names = Interfaces.constructions.constructions_across_idfs
     found_constructions = read_constructions_by_name_from_many_idfs(
-        ep_paths.construction_paths.constructiin_idfs, names
+        ep_paths.construction_idfs, names
     )
     print(chain_flatten([i.materials for i in found_constructions]))
     assert set_equality(get_names_of_idf_objects(found_constructions), names)
@@ -60,9 +60,8 @@ def test_read_construction_across_idfs():
 
 def test_read_constructions_and_materials_across_idfs():
     const_names = Interfaces.constructions.constructions_across_idfs
-    cpaths = ep_paths.construction_paths
     results = read_constructions_and_assoc_materials(
-        cpaths.constructiin_idfs, cpaths.material_idfs, const_names
+        ep_paths.construction_idfs, ep_paths.material_idfs, const_names
     )
     result_names = get_names_of_idf_objects(results.constructions + results.materials)
     mat_names = Interfaces.constructions.materials_for_const_across_idfs
@@ -89,11 +88,10 @@ def test_write_constructions():
 
 def test_write_ep_construction_set():
     case = Cases().subsurfaces_simple
-    cpaths = ep_paths.construction_paths
     create_constructions(
         case.idf,
-        cpaths.constructiin_idfs,
-        cpaths.material_idfs,
+        ep_paths.construction_idfs,
+        ep_paths.material_idfs,
         SAMPLE_CONSTRUCTION_SET,
         case.objects.surfaces,
         case.objects.subsurfaces,

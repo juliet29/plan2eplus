@@ -1,14 +1,14 @@
 import pytest
 from plan2eplus.errors import IDFMisunderstandingError
 from plan2eplus.ex.subsurfaces import SubsurfaceInputOutputExamples, e0, zone_edge
-from plan2eplus.ezcase.ez import EZ, ep_paths
+from plan2eplus.ezcase.ez import EZ
 from plan2eplus.ops.airboundary.create import update_airboundary_constructions
 from plan2eplus.ops.subsurfaces.logic.interior import (
     create_subsurface_for_interior_edge,
 )
 from plan2eplus.ex.subsurfaces import door_details
 from plan2eplus.ex.main import Cases
-from plan2eplus.paths import DynamicPaths
+from plan2eplus.paths import DynamicPaths, Constants
 
 
 def test_add_airboundary():
@@ -25,7 +25,7 @@ def test_add_airboundary():
     # ab = airboundaries[0]
 
 
-# TODO -> test update construction set after airboudnaries are added.. -> make sure that they dont get overwritten.. 
+# TODO -> test update construction set after airboudnaries are added.. -> make sure that they dont get overwritten..
 
 
 def test_cant_add_subsurfacae_on_airboundary():
@@ -42,8 +42,8 @@ def test_cant_add_subsurfacae_on_airboundary():
 def test_read_airboundary_from_existing_case():
     example = SubsurfaceInputOutputExamples.airboundary
     output_path = DynamicPaths.airboundary_examples / example.info.name
-    case = EZ(idf_path=output_path / ep_paths.idf_name)
-    assert len(case.objects.airboundaries) == 1*2
+    case = EZ(idf_path=output_path / Constants.idf_name)
+    assert len(case.objects.airboundaries) == 1 * 2
 
 
 if __name__ == "__main__":

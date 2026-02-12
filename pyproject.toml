@@ -16,6 +16,7 @@ dependencies = [
   "ladybug-core>=0.44.19",
   "loguru>=0.7.3",
   "matplotlib>=3.10.8",
+  "omegaconf>=2.3.0",
   "pipe>=2.2",
   "polars>=1.33.1",
   "pooch>=1.8.2",
@@ -47,4 +48,4 @@ geomeppy = { git = "https://github.com/BuildingAtlas/geomeppy" }
 # geomeppy = { path = "../geomeppy" }
 
 [project.scripts]
-plan2eplus = "plan2eplus.cli.main:main"
+p2ep = "plan2eplus.cli.main:main"

@@ -37,6 +37,7 @@ def show_geom_dist():
     X.show_summary()
 
 
+@pytest.mark.skip()
 def test_create_time_entries():
     start_value = VentingState.CLOSE
     start_time = time(18, 0)

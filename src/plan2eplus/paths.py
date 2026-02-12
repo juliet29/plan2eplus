@@ -67,7 +67,7 @@ class ConstructionPaths(NamedTuple):
         return [self.mat_and_const_idf, self.window_glass_idf, self.window_gas_idf]
 
     @property
-    def constructiin_idfs(self):
+    def construction_idfs(self):
         return [self.mat_and_const_idf, self.window_const_idf]
 
 
@@ -78,6 +78,7 @@ class EpPaths:
     defaults: Defaults
     construction_names: ConstructionNames
     minimal_case: Path | None = None
+    # TODO: all paths should be just passed in as names..should let other modules decide on this structure..
     idf_name = "out.idf"
     results_path = "results"
     sql_name = "eplusout.sql"
@@ -129,9 +130,6 @@ class EpPaths:
             self.data_sets / self.construction_names.window_gas_idf,
         )
 
-    def reset_minimal_case(self, path: Path):
-        self.minimal_case = path
-
 
 def load_ep_paths():
     s = Settings()
@@ -145,6 +143,8 @@ ep_paths = load_ep_paths()
 
 
 class DynamicPaths:
+    config = BASE_PATH / "config"
+
     THROWAWAY_PATH = BASE_PATH / "throwaway"
     results_for_tests = static_paths.models / "results_for_tests"
     trials = static_paths.models / "trials"
@@ -157,6 +157,14 @@ class DynamicPaths:
     ts_open = test_scheds / "open"
     ts_dynamic = test_scheds / "dynamic"
     ts_closed = test_scheds / "closed"
+
+
+class Constants:
+    # NOTE: these are just for testing, modules that call will have their own names
+    idf_name = "out.idf"
+    results_location = "results"
+    sql_path = "results/eplusout.sql"
+    schedule_location = "schedules"
 
 
 SEED = 1234
