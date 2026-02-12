@@ -19,4 +19,10 @@ ROADMAP_files/**
 
 throwaway
 
-results_for_tests/
+results_for_tests/airboundary_examples
+results_for_tests/campaigns
+results_for_tests/ortho
+results_for_tests/subsurface_examples
+results_for_tests/two_room
+
+results_for_tests/two_room_airboundary
