@@ -19,11 +19,11 @@ plan2eplus is designed for early-stage, climate-aware architecture. As such, sup
 
 ## Install
 
-plan2eplus **will soon** hosted on pypi. It **will** be easy to install using traditional methods for Python package installation.
+You can install plan2eplus using uv or pip:
 
 ```bash
 # with uv
-uv install plan2eplus
+uv add plan2eplus
 
 # with pip
 pip install plan2eplus
@@ -57,12 +57,11 @@ rooms = [room1, room2]
 case = (
     EZ()
     .add_zones(rooms)
-    .add_subsurfaces(SubsurfaceInputs(edge_groups, details), airboundary_edges)
     .add_constructions()
 )
 
 # run the case
-case.save_and_run()
+case.save_and_run(run=True)
 
 ```
 
