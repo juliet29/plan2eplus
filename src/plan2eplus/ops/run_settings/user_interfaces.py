@@ -1,5 +1,5 @@
 from pathlib import Path
-from geomeppy import IDF
+from geomeppyupdated import IDF
 from ladybug.epw import EPW as LBEPW
 from dataclasses import dataclass
 

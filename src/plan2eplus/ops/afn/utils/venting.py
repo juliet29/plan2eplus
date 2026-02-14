@@ -1,4 +1,4 @@
-from geomeppy import IDF
+from geomeppyupdated import IDF
 from expression.collections import Seq
 from plan2eplus.ops.afn.idfobject import IDFAFNSurface
 from plan2eplus.ops.subsurfaces.ezobject import Subsurface

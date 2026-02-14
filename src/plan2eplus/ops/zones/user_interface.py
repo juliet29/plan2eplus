@@ -34,8 +34,8 @@ class Room:
         return f"`{self.name}`"
 
     @property
-    def geomeppy_block(self):
+    def geomeppyupdated_block(self):
         return GeomeppyBlock(self.room_name, self.coords, self.height)
 
-    # TODO -> geomeppy expects points in a certain way by default, and need to confirm these are there..
+    # TODO -> geomeppyupdated expects points in a certain way by default, and need to confirm these are there..
     # TODO see normalize function in shapely

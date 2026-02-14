@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from expression.collections import Seq
-from geomeppy import IDF
+from geomeppyupdated import IDF
 from utils4plans.lists import chain_flatten
 
 from plan2eplus.ezcase.utils import open_idf

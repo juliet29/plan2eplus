@@ -9,7 +9,7 @@ from plan2eplus.ops.airboundary.ezobject import Airboundary
 from plan2eplus.ops.afn.interfaces import AFNWriter
 from plan2eplus.ops.subsurfaces.ezobject import Subsurface
 from plan2eplus.ops.zones.ezobject import Zone
-from geomeppy import IDF
+from geomeppyupdated import IDF
 from plan2eplus.ops.afn.ezobject import AirflowNetwork
 # from expression.collections import Seq
 

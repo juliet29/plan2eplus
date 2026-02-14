@@ -1,6 +1,6 @@
 from plan2eplus.ops.base import IDFObject
 from dataclasses import dataclass
-from geomeppy import IDF
+from geomeppyupdated import IDF
 
 
 @dataclass

@@ -1,4 +1,4 @@
-from geomeppy import IDF
+from geomeppyupdated import IDF
 from plan2eplus.ops.output.idfobject import IDFOutputSQL, IDFOutputVariable
 from plan2eplus.ops.output.defaults import default_variables
 

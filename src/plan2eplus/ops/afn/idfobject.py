@@ -1,7 +1,7 @@
 from plan2eplus.ops.base import IDFObject
 from dataclasses import dataclass
 from typing import Literal
-from geomeppy import IDF
+from geomeppyupdated import IDF
 
 # TODO => should be in a config?
 # TODO these are things that should be in paper as well

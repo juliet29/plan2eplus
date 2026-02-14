@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from utils4plans.lists import chain_flatten
 
-from geomeppy import IDF
+from geomeppyupdated import IDF
 
 from plan2eplus.ops.afn.create import create_afn_objects
 from plan2eplus.ops.afn.ezobject import AirflowNetwork

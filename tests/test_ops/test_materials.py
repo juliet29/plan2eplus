@@ -1,4 +1,4 @@
-from geomeppy import IDF
+from geomeppyupdated import IDF
 from utils4plans.sets import set_equality
 
 from plan2eplus.ex.main import Cases, EpAFNCase, Interfaces

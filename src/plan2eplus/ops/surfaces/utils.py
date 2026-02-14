@@ -1,4 +1,4 @@
-from geomeppy import IDF
+from geomeppyupdated import IDF
 
 from plan2eplus.ops.surfaces.ezobject import Surface
 from plan2eplus.ops.surfaces.idfobject import IDFSurface

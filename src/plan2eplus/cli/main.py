@@ -15,7 +15,7 @@ def welcome():
 
 def main():
     logset(to_stderr=True)
-    logger.enable("geomeppy")
+    logger.enable("geomeppyupdated")
     app()
 
 

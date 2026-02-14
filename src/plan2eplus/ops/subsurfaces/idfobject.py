@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from expression.collections import Seq
-from geomeppy import IDF
+from geomeppyupdated import IDF
 from utils4plans.lists import chain_flatten, get_unique_one
 
 from plan2eplus.errors import InvalidObjectError, NonExistentEpBunchTypeError

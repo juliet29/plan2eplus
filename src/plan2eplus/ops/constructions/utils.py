@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import NamedTuple
 
 from expression.collections import Seq
-from geomeppy import IDF
+from geomeppyupdated import IDF
 from utils4plans.lists import chain_flatten
 
 from plan2eplus.errors import IDFMisunderstandingError

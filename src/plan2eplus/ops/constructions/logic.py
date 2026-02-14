@@ -1,7 +1,7 @@
 from plan2eplus.ops.constructions.interfaces import EPConstructionSet
 from plan2eplus.ops.surfaces.ezobject import Surface
 from plan2eplus.ops.subsurfaces.ezobject import Subsurface
-from geomeppy import IDF
+from geomeppyupdated import IDF
 from plan2eplus.ops.constructions.utils import (
     update_surface_construction,
     update_subsurface_construction,

@@ -2,7 +2,7 @@
 from pathlib import Path
 from plan2eplus.ops.schedules.user_interface import ScheduleInput
 from plan2eplus.ops.schedules.idfobject import IDFScheduleFile
-from geomeppy import IDF
+from geomeppyupdated import IDF
 # from plan2eplus.ops.afn.utils import ScheduleInput
 
 

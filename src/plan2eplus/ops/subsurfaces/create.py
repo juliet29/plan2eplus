@@ -1,4 +1,4 @@
-from geomeppy import IDF
+from geomeppyupdated import IDF
 from rich.pretty import pretty_repr
 from loguru import logger
 

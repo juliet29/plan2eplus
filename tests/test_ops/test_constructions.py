@@ -1,4 +1,4 @@
-from geomeppy import IDF
+from geomeppyupdated import IDF
 from rich import print
 from utils4plans.lists import chain_flatten
 from utils4plans.sets import set_equality

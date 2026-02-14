@@ -1,4 +1,4 @@
-from geomeppy.geom.polygons import Polygon3D
+from geomeppyupdated.geom.polygons import Polygon3D
 from plan2eplus.geometry.coords import Coord, Coordinate3D
 from plan2eplus.geometry.domain import Domain
 from plan2eplus.geometry.ortho_domain import OrthoDomain

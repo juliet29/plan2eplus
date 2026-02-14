@@ -8,7 +8,7 @@ from plan2eplus.ops.init.idfobject import (
 )
 
 
-from geomeppy import IDF
+from geomeppyupdated import IDF
 
 
 def add_init_objects(

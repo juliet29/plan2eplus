@@ -1,5 +1,5 @@
 from typing import Any, Literal, Sequence
-from geomeppy import IDF
+from geomeppyupdated import IDF
 from eppy.bunch_subclass import EpBunch
 from dataclasses import dataclass
 from utils4plans.lists import get_unique_one

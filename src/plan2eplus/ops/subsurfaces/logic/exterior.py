@@ -1,4 +1,4 @@
-from geomeppy import IDF
+from geomeppyupdated import IDF
 
 from plan2eplus.errors import BadlyFormatedIDFError, IDFWritingError
 from plan2eplus.geometry import domain

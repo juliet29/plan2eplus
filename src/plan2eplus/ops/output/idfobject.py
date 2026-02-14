@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from geomeppy import IDF
+from geomeppyupdated import IDF
 from plan2eplus.ops.base import IDFObject
 from typing import Literal
 

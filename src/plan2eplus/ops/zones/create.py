@@ -3,7 +3,7 @@ from plan2eplus.ops.zones.user_interface import Room
 from eppy.bunch_subclass import EpBunch
 
 from plan2eplus.ops.zones.idfobject import IDFZone
-from geomeppy import IDF
+from geomeppyupdated import IDF
 
 from utils4plans.lists import chain_flatten
 
@@ -29,7 +29,7 @@ def create_zones(idf: IDF, rooms: list[Room] = []):
     if rooms:
         check_valid_room_geom()
         for room in rooms:
-            idf = room.geomeppy_block.write(idf)
+            idf = room.geomeppyupdated_block.write(idf)
         idf.intersect_match()
 
     zone_objects = IDFZone().get_idf_objects(idf)

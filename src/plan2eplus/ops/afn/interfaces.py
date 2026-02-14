@@ -1,4 +1,4 @@
-from geomeppy import IDF
+from geomeppyupdated import IDF
 from plan2eplus.ops.afn.idfobject import (
     IDFAFNSimpleOpening,
     IDFAFNSimulationControl,

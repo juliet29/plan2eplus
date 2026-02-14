@@ -7,7 +7,7 @@ from plan2eplus.ops.base import (
 
 # from eppy.bunch_subclass import EpBunch
 from plan2eplus.ops.surfaces.ezobject import Surface
-from geomeppy import IDF
+from geomeppyupdated import IDF
 from plan2eplus.ops.surfaces.interfaces import (
     SurfaceCoords,
     SurfaceType,

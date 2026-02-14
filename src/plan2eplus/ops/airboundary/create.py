@@ -1,4 +1,4 @@
-from geomeppy import IDF
+from geomeppyupdated import IDF
 
 from plan2eplus.ops.airboundary.ezobject import Airboundary
 from plan2eplus.ops.airboundary.idfobject import (

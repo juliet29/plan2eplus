@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from geomeppy import IDF
+from geomeppyupdated import IDF
 
 from plan2eplus.ops.constructions.interfaces import EPConstructionSet
 from plan2eplus.ops.constructions.logic import (
