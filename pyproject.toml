@@ -1,6 +1,6 @@
 [project]
 name = "plan2eplus"
-version = "0.1.4"
+version = "0.1.5"
 description = "Translate floor plan geometry into building energy models"
 readme = "README.md"
 authors = [
