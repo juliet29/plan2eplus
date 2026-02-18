@@ -128,3 +128,4 @@ class EZ:
             self.idf.run(
                 output_directory=vars.output_results_path, weather=vars.epw_path
             )
+            # touch the schedules path..

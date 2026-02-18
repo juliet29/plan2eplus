@@ -2,8 +2,8 @@ from dataclasses import dataclass, field
 from omegaconf import MISSING, OmegaConf
 from pathlib import Path
 
-from plan2eplus.paths import DynamicPaths
 from plan2eplus.errors import InvalidPathError
+from plan2eplus.paths import CONFIG_PATH
 import os
 
 
@@ -45,17 +45,21 @@ class EpPaths:
     def __post_init__(self):
         # TODO: the path should be very unique path... like epconfig, so it doesnt clash with other configs...
         # TODO: check that project will know to look for these configs in the root ... -> instructions for this should be very clear in the readme..
-        user_config_path = DynamicPaths.config / "user.yaml"
+        user_config_path = CONFIG_PATH / "user.yaml"
         user_config = (
             OmegaConf.load(user_config_path) if user_config_path.exists() else {}
         )
         # this will depend on the environment..
         current_env = os.environ.get("APP_ENV")
-        print(f"Current environment: {current_env}")
+        # print(f"Current environment: {current_env}")
+        #
+        # TODO: should not user.config and dev/prod.config -> really should just be looking for an object to be in epconfig
 
         if not current_env:
             current_env = "dev"
-        local_config = OmegaConf.load(DynamicPaths.config / f"{current_env}.yaml")
+        local_config = OmegaConf.load(
+            CONFIG_PATH / f"{current_env}.yaml"
+        )  # TODO: this is ok for now because will expect the inheriting modeuls to have an epconfig such as this.
 
         schema = OmegaConf.structured(EpConfig)
 

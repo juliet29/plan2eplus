@@ -6,7 +6,6 @@ from plan2eplus.ezcase.ez import EZ
 from plan2eplus.ops.afn.user_interface import AFNInput
 from plan2eplus.ops.subsurfaces.interfaces import Edge
 from plan2eplus.ops.subsurfaces.user_interfaces import EdgeGroup, SubsurfaceInputs
-from plan2eplus.paths import DynamicPaths
 from plan2eplus.ep_paths import ep_paths
 from plan2eplus.results.sql import get_qoi
 from plan2eplus.visuals.base.base_plot import BasePlot
@@ -34,8 +33,6 @@ def make_test_case(
         case.add_airflow_network(afn_input)
     if output_path:
         case.output_path = output_path
-    else:
-        case.output_path = DynamicPaths.THROWAWAY_PATH
     case.epw_path = ep_paths.default_weather
 
     return case

@@ -1,4 +1,4 @@
-from geomeppyupdated import IDF
+from geomeppyupdated.idf import IDF
 
 from plan2eplus.ops.airboundary.ezobject import Airboundary
 from plan2eplus.ops.airboundary.idfobject import (
@@ -17,7 +17,9 @@ def check_for_existing_airboundaries(idf: IDF, surfaces: list[Surface]):
     if not existing_airboundary_objects:
         return []
 
-    airboundary_construction_names = list(map(lambda x: x.Name, existing_airboundary_objects))
+    airboundary_construction_names = list(
+        map(lambda x: x.Name, existing_airboundary_objects)
+    )
     res = map(
         lambda x: Airboundary(x, x.edge),
         filter(
@@ -34,9 +36,9 @@ def update_airboundary_constructions(
 
     if edges:
         zone_edges = [ZoneEdge(*i) for i in edges if not i.is_directed_edge]
-        assert len(edges) == len(zone_edges), (
-            f"All airboundary edges need to be between zones! Instead have {edges}"
-        )
+        assert len(edges) == len(
+            zone_edges
+        ), f"All airboundary edges need to be between zones! Instead have {edges}"
 
         const = IDFAirboundaryConstruction()
         const.write(idf)

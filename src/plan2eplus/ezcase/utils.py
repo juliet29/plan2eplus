@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from eppy.modeleditor import IDDAlreadySetError
-from geomeppyupdated import IDF
+from geomeppyupdated.idf import IDF
 
 
 from pathlib import Path

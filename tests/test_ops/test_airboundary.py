@@ -8,7 +8,8 @@ from plan2eplus.ops.subsurfaces.logic.interior import (
 )
 from plan2eplus.ex.subsurfaces import door_details
 from plan2eplus.ex.main import Cases
-from plan2eplus.paths import DynamicPaths, Constants
+from plan2eplus.ex.paths import ExamplePaths
+from plan2eplus.paths import Constants
 
 
 def test_add_airboundary():
@@ -41,7 +42,7 @@ def test_cant_add_subsurfacae_on_airboundary():
 
 def test_read_airboundary_from_existing_case():
     example = SubsurfaceInputOutputExamples.airboundary
-    output_path = DynamicPaths.airboundary_examples / example.info.name
+    output_path = ExamplePaths.airboundary_examples / example.info.name
     case = EZ(idf_path=output_path / Constants.idf_name)
     assert len(case.objects.airboundaries) == 1 * 2
 

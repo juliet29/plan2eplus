@@ -8,7 +8,7 @@ from plan2eplus.ezcase.ez import EZ
 from plan2eplus.ops.afn.create import AFNInput
 from plan2eplus.ops.afn.utils.venting import AFNVentingInput
 from plan2eplus.ops.schedules.interfaces.year import create_year_from_single_value
-from plan2eplus.paths import DynamicPaths
+from plan2eplus.ex.paths import ExamplePaths
 from plan2eplus.ex.schedule import ExampleYear
 from plan2eplus.results.sql import get_qoi
 import numpy as np
@@ -39,8 +39,8 @@ def test_case_airboundary_afn():
 
 @pytest.mark.slow
 def test_run_case_without_reading():
-    output_path = DynamicPaths.THROWAWAY_PATH  # TODO: move this to static
-    path = DynamicPaths.afn_examples / AFNExampleCases.A_ew.name / Constants.idf_name
+    output_path = ExamplePaths.THROWAWAY_PATH  # TODO: move this to static
+    path = ExamplePaths.afn_examples / AFNExampleCases.A_ew.name / Constants.idf_name
     case = EZ(path, read_existing=False)
     case.save_and_run(output_path=output_path, run=True)
     assert 1
@@ -52,7 +52,7 @@ QUANTILES = [0.1, 0.25, 0.75, 0.9]
 
 
 def test_case_with_default_venting():
-    opath = DynamicPaths.ts_open
+    opath = ExamplePaths.ts_open
     case = make_test_case(AFNEdgeGroups.A_ns, afn=True, output_path=opath)
     # TODO: this is getting stale qoi data because not being run again?
     case.save_and_run(run=False)
@@ -66,7 +66,7 @@ def test_case_with_default_venting():
 
 
 def test_case_with_afn_venting():
-    opath = DynamicPaths.ts_dynamic
+    opath = ExamplePaths.ts_dynamic
     venting_input = AFNVentingInput("Doors", ExampleYear().year)
     case = make_test_case(
         AFNEdgeGroups.A_ns,
@@ -84,7 +84,7 @@ def test_case_with_afn_venting():
 
 
 def test_case_with_afn_no_venting():
-    opath = DynamicPaths.ts_closed
+    opath = ExamplePaths.ts_closed
     closed_year = create_year_from_single_value(0)
     venting_input = AFNVentingInput("Doors", closed_year)
     case = make_test_case(

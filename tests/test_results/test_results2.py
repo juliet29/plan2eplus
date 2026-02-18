@@ -1,13 +1,13 @@
 from plan2eplus.results.sql import create_result_for_qoi, get_sql_results
 from plan2eplus.ezcase.ez import EZ
-from plan2eplus.paths import DynamicPaths
+from plan2eplus.ex.paths import ExamplePaths
 from rich import print
 from plan2eplus.ex.afn import AFNExampleCases, AFNCaseDefinition
 from plan2eplus.paths import Constants
 
 
 def prep_test_read_total_pressure(example: AFNCaseDefinition):
-    input_path = DynamicPaths.afn_examples / example.name
+    input_path = ExamplePaths.afn_examples / example.name
     case = EZ(input_path / Constants.idf_name)
 
     sql = get_sql_results(input_path)
