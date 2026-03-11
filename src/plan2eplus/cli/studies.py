@@ -2,10 +2,12 @@ from cyclopts import App
 from loguru import logger
 from omegaconf import OmegaConf
 
+from plan2eplus.cli.pretest.surfaces import test_surface_types
 from plan2eplus.ex.make import make_test_case
 from plan2eplus.ex.afn import AFNEdgeGroups as AFNEdgeGroups
 from plan2eplus.paths import BASE_PATH
-from plan2eplus.ep_paths import EpConfig, EpPaths
+from plan2eplus.ep_paths import EpConfig
+from utils4plans.logconfig import logset
 
 studies_app = App(name="studies")
 
@@ -31,6 +33,14 @@ def try_config():
 
 
 @studies_app.command()
-def try_epath():
-    epath = EpPaths()
-    print(epath.material_idfs)
+def curr():
+    test_surface_types()
+
+
+def main():
+    logset(to_stderr=True)
+    studies_app()
+
+
+if __name__ == "__main__":
+    main()

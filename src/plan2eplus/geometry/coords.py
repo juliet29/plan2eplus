@@ -28,7 +28,7 @@ class Coordinate3D(Coord):
     z: float
 
     def __str__(self):
-        res = [str(round(i, 2)) for i in self.as_three_tuple]
+        res = [str(round(i, 14)) for i in self.as_three_tuple]
         return f"({(",").join(res)})"
 
     def get_pair(self, l1, l2):

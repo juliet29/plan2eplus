@@ -127,9 +127,12 @@ class Surface:
     @property
     def direction(self):
         match self.surface_type.casefold():
+
             case "floor":
                 return WallNormal.DOWN
             case "roof":
+                return WallNormal.UP
+            case "ceiling":
                 return WallNormal.UP
             case "wall":
                 try:
@@ -138,5 +141,5 @@ class Surface:
                     return ExtendWallNormal(self.azimuth)
             case _:
                 raise BadlyFormatedIDFError(
-                    f"Invalid surface type: recieved: {self.surface_type}. Expected {get_args(SurfaceType)}"
+                    f"Invalid surface type: recieved: {self.surface_type.casefold()}. Expected {get_args(SurfaceType)}"
                 )
