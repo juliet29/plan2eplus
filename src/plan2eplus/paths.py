@@ -33,6 +33,7 @@ class StaticPaths:
 class InputConfigPaths:
     base = StaticPaths.inputs / "test_configs"
     edges = base / "edges.yaml"
+    details = base / "details.yaml"
 
 
 class ProjectPaths:

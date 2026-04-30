@@ -1,0 +1,58 @@
+from pathlib import Path
+
+from plan2eplus.ezcase.ez import EZ
+from plan2eplus.results.sql import get_qoi
+from plan2eplus.visuals.base.base_plot import BasePlot
+from plan2eplus.visuals.data.data_plot import DataPlot
+
+
+def make_base_plot(case: EZ):
+    bp = (
+        BasePlot(case.objects.zones, cardinal_expansion_factor=1.8)
+        .plot_zones()
+        .plot_zone_names()
+        .plot_cardinal_names()
+        .plot_subsurfaces_and_surfaces(
+            case.objects.airflow_network,
+            case.objects.airboundaries,
+            case.objects.subsurfaces,
+        )
+        .plot_connections(
+            case.objects.airflow_network,
+            case.objects.airboundaries,
+            case.objects.subsurfaces,
+        )
+        # uniqueness matters if want to label the windows and doors, but think the legend takes care of this?
+    )
+
+    return bp
+
+
+def make_pressure_plot(
+    idf_path: Path,
+    sql_path: Path,
+    hour: int = 12,
+):
+    case = EZ(idf_path)
+    pressure = get_qoi("AFN Node Total Pressure", sql_path)
+    data_at_noon = pressure.select_time(hour)
+
+    flow_12 = get_qoi("AFN Linkage Node 1 to Node 2 Volume Flow Rate", sql_path)
+    flow_21 = get_qoi("AFN Linkage Node 2 to Node 1 Volume Flow Rate", sql_path)
+    combined_flow = flow_12.select_time(hour) - flow_21.select_time(hour)
+
+    dp = DataPlot(case.objects.zones, cardinal_expansion_factor=2)
+    dp.set_geometry_color_maps(data_at_noon)
+    dp.plot_zone_names()
+    dp.plot_zones_with_data()
+    dp.plot_cardinal_names_with_data()
+    dp.plot_subsurfaces_and_surfaces(
+        case.objects.airflow_network,
+        case.objects.airboundaries,
+        case.objects.subsurfaces,
+    )
+    dp.plot_connections_with_data(
+        combined_flow, case.objects.subsurfaces, case.objects.airboundaries
+    )
+
+    return dp

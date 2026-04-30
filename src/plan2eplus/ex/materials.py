@@ -1,6 +1,9 @@
 from typing import NamedTuple
 
-from plan2eplus.ops.constructions.interfaces import BaseConstructionSet, EPConstructionSet
+from plan2eplus.ops.constructions.interfaces import (
+    BaseConstructionSet,
+    EPConstructionSet,
+)
 
 
 class MaterialExamples(NamedTuple):

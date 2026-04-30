@@ -1,0 +1,22 @@
+0:
+  type_: "airboundary"
+
+1:
+  type_: "door"
+  dimension:
+    width: 2 # m
+    height: 2.5
+  location:
+    nonant_loc: "bm"
+    nonant_contact_loc: "SOUTH"
+    subsurface_contact_loc: "SOUTH"
+
+2:
+  type_: "window"
+  dimension:
+    width: 2 # m
+    height: 2
+  location:
+    nonant_loc: "mm"
+    nonant_contact_loc: "CENTROID"
+    subsurface_contact_loc: "CENTROID"

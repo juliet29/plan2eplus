@@ -1,4 +1,4 @@
-from plan2eplus.ex.make import make_data_plot
+from plan2eplus.visuals.simple_plots import make_pressure_plot
 from plan2eplus.visuals.data.data_plot import handle_external_node_data
 from plan2eplus.ex.paths import ExamplePaths
 
@@ -13,7 +13,9 @@ from plan2eplus.results.sql import get_qoi
 
 def test_make_data_plot():
     path = ExamplePaths.afn_examples / AFNExampleCases.A_ew.name
-    dp = make_data_plot(path / Constants.idf_name, path / Constants.sql_path, hour=1)
+    dp = make_pressure_plot(
+        path / Constants.idf_name, path / Constants.sql_path, hour=1
+    )
     # dp.show()
 
 
