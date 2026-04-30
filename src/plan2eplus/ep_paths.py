@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from omegaconf import MISSING, OmegaConf
+from omegaconf import OmegaConf
 from pathlib import Path
 
 from plan2eplus.errors import InvalidPathError
@@ -33,7 +33,7 @@ class ConstructionNames:
 
 @dataclass
 class EpConfig:
-    path_to_ep_install: Path = MISSING
+    path_to_ep_install: Path = Path("")
     ep_dir: FileStructure = field(default_factory=FileStructure)
     default_weather: str = "USA_CA_San.Francisco.Intl.AP.724940_TMY3.epw"
     default_constructions: ConstructionNames = field(default_factory=ConstructionNames)
@@ -59,16 +59,25 @@ class EpPaths:
             current_env = os.environ.get("APP_ENV")
             if not current_env:
                 current_env = "dev"
-            local_config = OmegaConf.load(CONFIG_PATH / f"{current_env}.yaml")
-            config = OmegaConf.merge(schema, local_config)
+            try:
+                local_config = OmegaConf.load(CONFIG_PATH / f"{current_env}.yaml")
+                config = OmegaConf.merge(schema, local_config)
+            except FileNotFoundError:
+                # no config file yet, just use default
+                # Anything looking for the IDD will fail!
+                config = OmegaConf.merge(schema)
 
         self.config: EpConfig = OmegaConf.to_object(
             config
         )  # pyright: ignore[reportAttributeAccessIssue]
 
     def get_path(self, name: str | Path):
+        if not self.config.path_to_ep_install.exists():
+            raise Exception(
+                "No config file has been set, so the `path_to_ep_install` is unknown! - Don't know where to look for EnergyPlus!"
+            )
         path = self.config.path_to_ep_install / name
-        if not path:  # TODO: change to path.exists()
+        if not path:
             raise InvalidPathError(name, path)
         return path
 

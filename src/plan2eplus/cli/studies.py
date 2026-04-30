@@ -5,21 +5,22 @@ from omegaconf import OmegaConf
 from plan2eplus.cli.pretest.surfaces import test_surface_types
 from plan2eplus.ex.make import make_test_case
 from plan2eplus.ex.afn import AFNEdgeGroups as AFNEdgeGroups
-from plan2eplus.paths import BASE_PATH
+from plan2eplus.io.edges import get_edges_from_yaml
+from plan2eplus.paths import BASE_PATH, ProjectPaths
 from plan2eplus.ep_paths import EpConfig
 from utils4plans.logconfig import logset
 
-studies_app = App(name="studies")
+app = App(name="studies")
 
 
-@studies_app.command()
+@app.command()
 def study_case():
     case = make_test_case(AFNEdgeGroups.A_ew)
     zone_names = [i.zone_name for i in case.objects.zones]
     logger.info(zone_names)
 
 
-@studies_app.command()
+@app.command()
 def try_config():
     schema = OmegaConf.structured(EpConfig)
     config_path = BASE_PATH / "config/test.yaml"
@@ -32,14 +33,22 @@ def try_config():
     return res
 
 
-@studies_app.command()
+@app.command()
 def curr():
     test_surface_types()
 
 
+@app.command()
+def ty():
+    path = ProjectPaths.input_config.edges
+    return get_edges_from_yaml(path)
+
+    # test omega conf..
+
+
 def main():
     logset(to_stderr=True)
-    studies_app()
+    app()
 
 
 if __name__ == "__main__":

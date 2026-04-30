@@ -1,9 +1,12 @@
 import pyprojroot
-from utils4plans.paths import StaticPaths
+from utils4plans.paths import StaticPaths as SP
+from pathlib import Path
 
 
 BASE_PATH = pyprojroot.find_root(pyprojroot.has_dir(".git"))
-static_paths = StaticPaths("", base_path=BASE_PATH)
+static_paths = SP(
+    "", base_path=BASE_PATH
+)  # TODO: remove completely, nothing should depend on this
 
 CONFIG_PATH = BASE_PATH / "epconfig"
 
@@ -18,3 +21,20 @@ class Constants:
 
 # TODO: put this in config..
 SEED = 1234
+
+
+class StaticPaths:
+    base = Path(BASE_PATH) / "static"
+    inputs = base / "_01_inputs"
+    temp = base / "_04_temp"
+    figures = base / "_05_figures"
+
+
+class InputConfigPaths:
+    base = StaticPaths.inputs / "test_configs"
+    edges = base / "edges.yaml"
+
+
+class ProjectPaths:
+    input_config = InputConfigPaths
+    pass

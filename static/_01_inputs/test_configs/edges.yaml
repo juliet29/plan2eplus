@@ -1,0 +1,16 @@
+"zone_zone":
+  "x":
+    - [room_1, room_2, 0]
+    - [room_2, room_3, 0]
+    - [room_4, room_5, 1]
+  "y":
+    - [room_2, room_4, 1]
+    - [room_4, room_1, 1]
+"zone_direction":
+  "x":
+    - [room_1, west, 2]
+    - [room_2, west, 2]
+    - [room_4, east, 2]
+  "y":
+    - [room_2, south, 2]
+    - [room_4, north, 2]
