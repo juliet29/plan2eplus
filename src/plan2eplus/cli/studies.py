@@ -5,7 +5,7 @@ from omegaconf import OmegaConf
 from plan2eplus.cli.pretest.surfaces import test_surface_types
 from plan2eplus.ex.make import make_test_case
 from plan2eplus.ex.afn import AFNEdgeGroups as AFNEdgeGroups
-from plan2eplus.io.edges import get_edges_from_yaml
+from plan2eplus.io.edges import create_edge_inputs
 from plan2eplus.paths import BASE_PATH, ProjectPaths
 from plan2eplus.ep_paths import EpConfig
 from utils4plans.logconfig import logset
@@ -41,7 +41,7 @@ def curr():
 @app.command()
 def ty():
     path = ProjectPaths.input_config.edges
-    return get_edges_from_yaml(path)
+    return create_edge_inputs(path)
 
     # test omega conf..
 
