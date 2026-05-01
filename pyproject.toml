@@ -6,7 +6,7 @@ readme = "README.md"
 authors = [
   { name = "Juliet Nwagwu Ume-Ezeoke", email = "jnwagwu@stanford.edu" },
 ]
-requires-python = ">=3.13"
+requires-python = ">=3.13, <3.14"
 dependencies = [
   "cyclopts>=4.4.6",
   "eppy>=0.5.63",
@@ -42,11 +42,14 @@ requires = ["uv_build>=0.8.3,<0.9.0"]
 build-backend = "uv_build"
 
 [dependency-groups]
-dev = [
-    "zensical>=0.0.2",
-]
+dev = ["zensical>=0.0.38"]
 # utils4plans = { path = "../utils4plans" }
 # geomeppy = { path = "../geomeppy" }
+
+[tool.uv]
+override-dependencies = [
+    "click>=8.1.7",
+]
 
 [project.scripts]
 p2ep = "plan2eplus.cli.main:main"

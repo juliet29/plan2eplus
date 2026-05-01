@@ -99,7 +99,7 @@ bp.show()
 
 ```
 
-#TODO: add image of base plot.
+(TODO: add image of base plot.)
 
 We can see the edges we have added and the paths that flow would theoretically follow. However, the doors and windows are greyed out. This is because they are not yet part of the Airflow Network. Our model will not consider flow passing through them.
 
