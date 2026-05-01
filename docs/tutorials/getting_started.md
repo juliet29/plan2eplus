@@ -12,7 +12,7 @@ uv add plan2eplus
 pip install plan2eplus
 ```
 
-`plan2eplus` provides an interface to EnergyPlus, making it easy to author EnergyPlus models. In order to _run_ energy models on your device, you will need a local installation on EnergyPlus. You can download EnergyPlus [here](https://energyplus.net/downloads). Note: currently, `plan2eplus` has only been tested using EnergyPlus 22.1.
+`plan2eplus` provides an interface to EnergyPlus, making it easy to author EnergyPlus models. In order to _run_ energy models on your device, you will need a local installation of EnergyPlus. You can download EnergyPlus [here](https://energyplus.net/downloads). Note: currently, `plan2eplus` has only been tested using EnergyPlus 22.1.
 
 ## Configure
 

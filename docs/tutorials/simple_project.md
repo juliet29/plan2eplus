@@ -1,6 +1,6 @@
 # Creating a Simple Project
 
-This tutorial walks you through creating a simple, two-bedroom project using `plan2eplus`. This tutorial assumes you have completed the steps for [installation and configuration](). We begin by adding the needed imports.
+This tutorial walks you through creating a simple, two-bedroom project using `plan2eplus`. This tutorial assumes you have completed the steps for [installation and configuration](getting_started.md). We begin by adding the needed imports.
 
 ```python
 from plan2eplus.ezcase.ez import EZ
@@ -44,7 +44,7 @@ case.add_zones([r1, r2])
 
 ## Adding windows and doors
 
-To add windows and doors (subsurfaces) to the model, we first have to define their geometry. `plan2eplus` enables us to define where on the wall we want to place the subsurface using the `Location` object. This `Location` aligns the bottom middle of a theoretical door with the bottom middle of the wall it will be placed on. See [placing subsurfaces]('docs/guides') for more details. We also define the `Dimension`. Finally, we let the program know that this detail is for a door by creating a `Detail` object with the location, dimension, and `type_` of "door".
+To add windows and doors (subsurfaces) to the model, we first have to define their geometry. `plan2eplus` enables us to define where on the wall we want to place the subsurface using the `Location` object. This `Location` aligns the bottom middle of a theoretical door with the bottom middle of the wall it will be placed on. See [placing subsurfaces](../guides/subsurfaces.md) for more details. We also define the `Dimension`. Finally, we let the program know that this detail is for a door by creating a `Detail` object with the location, dimension, and `type_` of "door".
 
 We repeat a similar process for windows. We then create a simple dictionary that maps the name of the detail to the `Detail` objects we have created.
 
@@ -84,7 +84,7 @@ case.add_subsurfaces(
 
 ## Adding constructions
 
-We can add default construction materials by simply calling the `add_constructions()` method. To learn more about creating custom construction sets, see [construction sets]().
+We can add default construction materials by simply calling the `add_constructions()` method. To learn more about creating custom construction sets, see [construction sets](../guides/constructions.md).
 
 ```python
 
@@ -105,7 +105,7 @@ We can see the edges we have added and the paths that flow would theoretically f
 
 ## Adding the airflow network
 
-We can fix this by activating the Airflow Network in our case. Here, we rely on the default configuration, but you can explore further configuration options in [Airflow Network]().
+We can fix this by activating the Airflow Network in our case. Here, we rely on the default configuration, but you can explore further configuration options in [Airflow Network](../guides/airflownetwork.md).
 
 ```python
 case.add_airflow_network()
@@ -129,7 +129,7 @@ We can see the results by looking at a plot of the pressure and flow in each roo
 
 dp = make_pressure_plot(
     idf_path=save_path / "out.idf",
-    sql_path=save_path / "results/eplusout.sql"),
+    sql_path=save_path / "results/eplusout.sql",
 )
 dp.show()
 ```
