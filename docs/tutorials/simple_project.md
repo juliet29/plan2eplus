@@ -44,7 +44,7 @@ case.add_zones([r1, r2])
 
 ## Adding windows and doors
 
-To add windows and doors (subsurfaces) to the model, we first have to define their geometry. `plan2eplus` enables us to define where on the wall we want to place the subsurface using the `Location` object. This `Location` aligns the bottom middle of a theoretical door with the bottom middle of the wall it will be placed on. See [placing subsurfaces]() for more details. We also define the `Dimension`. Finally, we let the program know that this detail is for a door by creating a `Detail` object with the location, dimension, and `type_` of "door".
+To add windows and doors (subsurfaces) to the model, we first have to define their geometry. `plan2eplus` enables us to define where on the wall we want to place the subsurface using the `Location` object. This `Location` aligns the bottom middle of a theoretical door with the bottom middle of the wall it will be placed on. See [placing subsurfaces]('docs/guides') for more details. We also define the `Dimension`. Finally, we let the program know that this detail is for a door by creating a `Detail` object with the location, dimension, and `type_` of "door".
 
 We repeat a similar process for windows. We then create a simple dictionary that maps the name of the detail to the `Detail` objects we have created.
 
