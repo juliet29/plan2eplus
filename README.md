@@ -2,6 +2,8 @@
 
 ## plan2eplus makes it easy to translate floor plan geometry into building energy models
 
+[_Read the documentation_](https://juliet29.github.io/plan2eplus/)
+
 plan2eplus is a Python library designed for authoring building energy models, with the aim of helping designers better understand the energy consumption and thermal performance of proposed building during the early stages of design. plan2eplus is designed for [EnergyPlus](https://energyplus.net/), a popular software for creating building energy models.
 
 plan2eplus provides support for:
